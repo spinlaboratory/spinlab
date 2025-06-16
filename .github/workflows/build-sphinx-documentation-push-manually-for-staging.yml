@@ -31,4 +31,4 @@ jobs:
         aws-region: us-east-1
 
     - name: Upload to staging website
-      run: aws s3 sync --delete --acl public-read ./docs/build/html/ s3://dnplab-docu-staging
+      run: aws s3 sync --delete --acl public-read ./docs/build/html/ s3://spinlab-docu-staging

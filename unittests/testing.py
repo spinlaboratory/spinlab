@@ -1,5 +1,5 @@
 import numpy as np
-import dnplab as dnp
+import spinlab as sl
 
 
 def get_gauss_3d(std_noise=0.0):
@@ -18,5 +18,5 @@ def get_gauss_3d(std_noise=0.0):
 
 def test3d(std_noise=0.0):
     x, y, z, gauss_3d = get_gauss_3d(std_noise)
-    test_data = dnp.DNPData(gauss_3d, ["x", "y", "z"], [x, y, z])
+    test_data = sl.SpinData(gauss_3d, ["x", "y", "z"], [x, y, z])
     return test_data

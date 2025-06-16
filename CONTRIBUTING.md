@@ -1,4 +1,4 @@
-# Contributing to DNPLab 
+# Contributing to SpinLab 
 We love your input! We want to make contributing to this project as easy
 and transparent as possible. The following contributions equally counts:
 
@@ -11,7 +11,7 @@ and transparent as possible. The following contributions equally counts:
 
 ## Bug reports and enhancement requests
 We use GitHub issues to track public bugs and enhancement requests:
-[opening a new issue](https://github.com/DNPLab/DNPLab/issues/new).
+[opening a new issue](https://github.com/SpinLab/SpinLab/issues/new).
 
 To report a bug, please:
 
@@ -25,7 +25,7 @@ To report a bug, please:
 
 ### Git and Github
 
-We will use git for version control, and github to host the DNPLab code
+We will use git for version control, and github to host the SpinLab code
 base.
 
 Some resources for learning Git:
@@ -38,7 +38,7 @@ Some resources for learning GitHub:
 ### Forking and cloning
 
 After [creating your free github account](https://github.com/join), you
-can go to the [DNPLab project page](https://github.com/DNPLab/DNPLab)
+can go to the [SpinLab project page](https://github.com/SpinLab/SpinLab)
 and click the **Fork** button to creating a copy of the project to your
 own Github account.
 
@@ -49,9 +49,9 @@ sure you change to a directory with write permission).
 After forking, you want to copy the project from Github to your local
 machine by
 ```
-git clone https://github.com/<your-github-user-name>/dnplab dnplab-yourname
-cd dnplab-yourname
-git remote add upstream https://github.com/dnplab/dnplab.git
+git clone https://github.com/<your-github-user-name>/spinlab spinlab-yourname
+cd spinlab-yourname
+git remote add upstream https://github.com/spinlab/spinlab.git
 ```
 
 The `master` branch only hosts the latest release, so you want to be on
@@ -90,7 +90,7 @@ following
 
 ### Branching, commiting and pushing
 When creating new branch, you want to make sure the `develop` is up to
-date with DNPLab project. You can do so by
+date with SpinLab project. You can do so by
 ```
 git checkout develop
 git pull upstream develop
@@ -102,7 +102,7 @@ git branch yourname-gh-##
 git checkout yourname-gh-##
 ```
 We strongly recommend using `yourname-gh-##` as the branch name, where
-`##` is the corresponding issue or pull request number in the DNPLab
+`##` is the corresponding issue or pull request number in the SpinLab
 project that you are addressing.
 
 Now you are free to make any change to address corresponding issue. We
@@ -131,14 +131,14 @@ git push -u origin yourname-gh-##
 
 ### Pull requests
 After reviewing your changes, you can file a pull request for the
-maintainer of DNPLab to review and approve. See
+maintainer of SpinLab to review and approve. See
 [Github creating-a-pull-request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
-Make sure you are requesting to merge to `DNPLab/develop` from
+Make sure you are requesting to merge to `SpinLab/develop` from
 `your-github-username/yourname-gh-##`.
 
 Your changes will trigger multiple automatic checkings to ensure it
-won't break the package. Then a maintainer from the DNPLab team will
+won't break the package. Then a maintainer from the SpinLab team will
 accept or provide revising comments.
 
 ## Contributing to documentation
@@ -151,5 +151,5 @@ By contributing, you agree that your contributions will be licensed under its MI
 ## Becoming a maintainer
 
 We strongly welcome and encourage committed individuals to help maintain
-DNPLab. You don't have to be a python expert or a DNP expert. Please
-contact any of the [current maintainers](http://dnplab.net/) if you are interested.
+SpinLab. You don't have to be a python expert or a Spin expert. Please
+contact any of the [current maintainers](http://spinlab.net/) if you are interested.

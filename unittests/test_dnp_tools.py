@@ -1,6 +1,6 @@
 import unittest
 import os
-import dnplab as dnp
+import spinlab as sl
 from numpy.testing import assert_array_equal
 import numpy as np
 
@@ -11,14 +11,14 @@ import pathlib
 logger = logging.getLogger(__name__)
 
 
-class dnpTools_tester(unittest.TestCase):
+class slTools_tester(unittest.TestCase):
     def setUp(self):
         x = np.r_[0:10]
         y = x**2.0
-        self.data = dnp.DNPData(y, ["t2"], [x])
+        self.data = sl.SpinData(y, ["t2"], [x])
         self.testdata = os.path.join(".", "data", "csv")
         p = pathlib.Path(self.testdata)
-        self.data = dnp.io.load_csv.load_csv(
+        self.data = sl.io.load_csv.load_csv(
             p.joinpath("csv_example.csv"),
             skiprows=1,
             maxrows=1000,
@@ -30,23 +30,23 @@ class dnpTools_tester(unittest.TestCase):
         self.data.attrs["nmr_frequency"] = 14.86e6
 
     def test_integrate(self):
-        dnp.integrate(self.data, dim="t2")
+        sl.integrate(self.data, dim="t2")
 
     def test_cumulative_integrate(self):
-        dnp.cumulative_integrate(self.data, dim="t2")
+        sl.cumulative_integrate(self.data, dim="t2")
 
     def test_mr_properties(self):
-        info_1H = dnp.mr_properties("1H")
+        info_1H = sl.mr_properties("1H")
         self.assertEqual(info_1H, 42577469.05766274)
 
-        info_1H = dnp.mr_properties("1H", 0.35)
+        info_1H = sl.mr_properties("1H", 0.35)
         self.assertEqual(info_1H, 14902114.170181958)
 
-        info_2H = dnp.mr_properties("2H", "qmom")
+        info_2H = sl.mr_properties("2H", "qmom")
         self.assertEqual(info_2H, 0.286)
 
-        info_6Li = dnp.mr_properties("6Li", "natAbundance")
+        info_6Li = sl.mr_properties("6Li", "natAbundance")
         self.assertEqual(info_6Li, 7.59)
 
-        info_6Li = dnp.mr_properties("6Li", "relSensitivity")
+        info_6Li = sl.mr_properties("6Li", "relSensitivity")
         self.assertEqual(info_6Li, 0.000645)

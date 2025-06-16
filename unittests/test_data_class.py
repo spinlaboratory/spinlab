@@ -2,13 +2,13 @@ import unittest
 import numpy as np
 from numpy.testing import assert_array_equal as assertArrayEqual
 from .testing import get_gauss_3d
-import dnplab as dnp
+import spinlab as sl
 
 
-class dnpDataTester(unittest.TestCase):
+class slDataTester(unittest.TestCase):
     def setUp(self):
         self.x, self.y, self.z, self.gauss_3d = get_gauss_3d(0.1)
-        self.data = dnp.DNPData(
+        self.data = sl.SpinData(
             self.gauss_3d, ["x", "y", "z"], [self.x, self.y, self.z]
         )
 
@@ -16,9 +16,9 @@ class dnpDataTester(unittest.TestCase):
         self.d = np.random.random((self.size, self.size))
 
         self.ax = np.arange(self.size)
-        self.Ddata = dnp.DNPData(self.d, dims=["1", "2"], coords=[self.ax, self.ax])
+        self.Ddata = sl.SpinData(self.d, dims=["1", "2"], coords=[self.ax, self.ax])
 
-    def test_DNPData(self):
+    def test_SpinData(self):
         assertArrayEqual(self.data.coords["x"], self.x)
         assertArrayEqual(self.data.dims, ["x", "y", "z"])
 
@@ -64,10 +64,10 @@ class dnpDataTester(unittest.TestCase):
             self.fail("tdata2 is not something like a float: {0}".format(tdata2))
 
     def test_001_checkkwargsConfig(self):
-        data1 = dnp.DNPData(self.gauss_3d, ["x", "y", "z"], [self.x, self.y, self.z])
+        data1 = sl.SpinData(self.gauss_3d, ["x", "y", "z"], [self.x, self.y, self.z])
         self.assertEqual(5, data1.max_print_attrs)
         self.assertEqual(False, data1.print_values)
-        data2 = dnp.DNPData(
+        data2 = sl.SpinData(
             self.gauss_3d,
             ["x", "y", "z"],
             [self.x, self.y, self.z],

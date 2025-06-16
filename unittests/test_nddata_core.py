@@ -2,8 +2,8 @@ import pytest
 import operator
 import unittest
 from numpy.testing import assert_array_equal
-from dnplab.core.base import ABCData
-from dnplab.core.coord import Coords
+from spinlab.core.base import ABCData
+from spinlab.core.coord import Coords
 import numpy as np
 import random
 
@@ -78,7 +78,7 @@ def test_ABCData_core_math_div_by_zero():
         ) / 0
 
 
-class dnplab_ABCData_core_tester(unittest.TestCase):
+class spinlab_ABCData_core_tester(unittest.TestCase):
     def setUp(self):
         self.dims = test_dims
         random.sample(test_dims, random.randint(1, len(test_dims)))
@@ -123,8 +123,8 @@ class dnplab_ABCData_core_tester(unittest.TestCase):
     def test_000_checkDimdeepcopy(self):
         # test for issue 295
         # this test doesn't really test anything but it checks that the functionality is as is, so this test fails if an error is raised
-        # uses dnplab
-        import dnplab as dnp
+        # uses spinlab
+        import spinlab as sl
 
         dims = ["Average", "t2"]
         coords1 = [np.arange(0, 100), np.arange(0, 1024)]
@@ -132,19 +132,19 @@ class dnplab_ABCData_core_tester(unittest.TestCase):
         data1 = np.random.random((100, 1024))
         data2 = np.random.random((100, 1024))
 
-        DNPObj1 = dnp.DNPData(data1, dims, coords1)
-        DNPObj2 = dnp.DNPData(data2, dims, coords2)
+        SpinObj1 = sl.SpinData(data1, dims, coords1)
+        SpinObj2 = sl.SpinData(data2, dims, coords2)
 
-        DNPObj1 = dnp.fourier_transform(DNPObj1, convert_to_ppm=False)
+        SpinObj1 = sl.fourier_transform(SpinObj1, convert_to_ppm=False)
         # this should not raise an error
         try:
-            DNPObj2 = dnp.fourier_transform(DNPObj2, convert_to_ppm=False)
+            SpinObj2 = sl.fourier_transform(SpinObj2, convert_to_ppm=False)
         except ValueError as e:
             self.fail("Deepcopy of dims most likely failed! Error {0}".format(e))
 
     def test_001_checkUnfoldDim(self):
         # test for fold/unfold functionality, and make sure that unfold is 2d
-        import dnplab as dnp
+        import spinlab as sl
 
         dims = ["Average", "t2"]
         coords1 = [np.arange(0, 100), np.arange(0, 1024)]
@@ -152,21 +152,21 @@ class dnplab_ABCData_core_tester(unittest.TestCase):
         data1 = np.random.random((100, 1024))
         data2 = np.random.random(100)
 
-        DNPObj1 = dnp.DNPData(data1, dims, coords1)
-        DNPObj2 = dnp.DNPData(data2, ["Average"], [coords2[0]])
+        SpinObj1 = sl.SpinData(data1, dims, coords1)
+        SpinObj2 = sl.SpinData(data2, ["Average"], [coords2[0]])
 
         # even only 1D objects become atleast 2d
-        DNPObj2.unfold("Average")
-        self.assertTrue(len(DNPObj2.values.shape) == 2)
-        self.assertEqual(DNPObj2.values.shape, (100, 1))
+        SpinObj2.unfold("Average")
+        self.assertTrue(len(SpinObj2.values.shape) == 2)
+        self.assertEqual(SpinObj2.values.shape, (100, 1))
 
-        DNPObj1.unfold("Average")
-        self.assertTrue(len(DNPObj1.values.shape) == 2)
-        self.assertEqual(DNPObj1.values.shape, (100, 1024))
+        SpinObj1.unfold("Average")
+        self.assertTrue(len(SpinObj1.values.shape) == 2)
+        self.assertEqual(SpinObj1.values.shape, (100, 1024))
 
     def test_002_unfoldGetitem(self):
         # test for fold/unfold functionality, and make sure that unfold is 2d
-        import dnplab as dnp
+        import spinlab as sl
 
         dims = ["Average", "t2"]
         coords1 = [np.arange(0, 100), np.arange(0, 1024)]
@@ -176,42 +176,42 @@ class dnplab_ABCData_core_tester(unittest.TestCase):
         data2 = np.random.random(100)
         data3 = np.random.random((100, 20, 40))
 
-        DNPObj1 = dnp.DNPData(data1, dims, coords1)
-        DNPObj2 = dnp.DNPData(data2, ["Average"], [coords2[0]])
-        DNPObj3 = dnp.DNPData(data3, ["t2", "t3", "t4"], coords3)
+        SpinObj1 = sl.SpinData(data1, dims, coords1)
+        SpinObj2 = sl.SpinData(data2, ["Average"], [coords2[0]])
+        SpinObj3 = sl.SpinData(data3, ["t2", "t3", "t4"], coords3)
 
-        orig_shape = DNPObj3.shape
+        orig_shape = SpinObj3.shape
 
-        DNPObj2.unfold("Average")
-        DNPObj1.unfold("Average")
-        DNPObj3.unfold("t3")
-        b = DNPObj3["fold_index", 2000]
-        c = DNPObj3["fold_index", 100:500]
+        SpinObj2.unfold("Average")
+        SpinObj1.unfold("Average")
+        SpinObj3.unfold("t3")
+        b = SpinObj3["fold_index", 2000]
+        c = SpinObj3["fold_index", 100:500]
         self.assertEqual(b.shape, (20, 1))
         self.assertEqual(c.shape, (20, 400))
         self.assertEqual(c.dims, ["t3", "fi"])
         self.assertTrue(np.all(np.isclose(c.coords["fi"] - np.arange(0, 400), 0)))
-        DNPObj3.fold()
-        self.assertEqual(DNPObj3.shape, orig_shape)
-        self.assertTrue(np.all(np.isclose(DNPObj3.values - data3, 0)))
+        SpinObj3.fold()
+        self.assertEqual(SpinObj3.shape, orig_shape)
+        self.assertTrue(np.all(np.isclose(SpinObj3.values - data3, 0)))
 
     def test_003_powOperator(self):
-        import dnplab as dnp
+        import spinlab as sl
 
         coords3 = [np.arange(0, 100), np.arange(0, 20), np.arange(0, 40)]
         data3 = np.random.random((100, 20, 40))
-        DNPObj3 = dnp.DNPData(data3, ["t2", "t3", "t4"], coords3)
+        SpinObj3 = sl.SpinData(data3, ["t2", "t3", "t4"], coords3)
 
         # test if it works
-        b = DNPObj3**2
-        self.assertTrue(np.all(np.isclose(np.power(DNPObj3.values, 2) - b, 0)))
+        b = SpinObj3**2
+        self.assertTrue(np.all(np.isclose(np.power(SpinObj3.values, 2) - b, 0)))
 
     def test_004_defaultCoordDim(self):
-        import dnplab as dnp
+        import spinlab as sl
         a = np.empty((10,0,5))
         b = np.empty((100,10,2))
-        d0 = dnp.DNPData(a)
-        d1 = dnp.DNPData(b)
+        d0 = sl.SpinData(a)
+        d1 = sl.SpinData(b)
 
         self.assertEqual( d1.dims, ["x0","x1","x2"])
         self.assertEqual( d0.dims, [])
@@ -219,7 +219,7 @@ class dnplab_ABCData_core_tester(unittest.TestCase):
 
 
 
-class dnplab_ABCData_coord_tester(unittest.TestCase):
+class spinlab_ABCData_coord_tester(unittest.TestCase):
     def setUp(self):
         self.coord_inst_a = np.r_[0:10:1]
         self.coord_inst_b = np.r_[0:1:0.005]
@@ -279,7 +279,7 @@ class ABCData_numpy_implementation_test(unittest.TestCase):
         self.Ddata = ABCData(self.d, dims=["1", "2"], coords=[self.ax, self.ax])
 
     def test_000_replaceAttr(self):
-        from dnplab.core.base import _replaceClassWithAttribute
+        from spinlab.core.base import _replaceClassWithAttribute
 
         test_tuple = (self.Adata, 1, self.a)
         test_dict = {"1": self.Bdata, "2": 5, "3": self.c}

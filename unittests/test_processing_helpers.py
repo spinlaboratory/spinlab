@@ -1,6 +1,6 @@
 import unittest
 import os
-import dnplab as dnp
+import spinlab as sl
 from numpy.testing import assert_array_equal
 import numpy as np
 
@@ -12,14 +12,14 @@ import warnings
 logger = logging.getLogger(__name__)
 
 
-class dnpTools_tester(unittest.TestCase):
+class slTools_tester(unittest.TestCase):
     def setUp(self):
         x = np.r_[0:10]
         y = x**2.0
-        self.data = dnp.DNPData(y, ["t2"], [x])
+        self.data = sl.SpinData(y, ["t2"], [x])
         self.testdata = os.path.join(".", "data", "csv")
         p = pathlib.Path(self.testdata)
-        self.data = dnp.io.load_csv.load_csv(
+        self.data = sl.io.load_csv.load_csv(
             p.joinpath("csv_example.csv"),
             skiprows=1,
             maxrows=1000,
@@ -41,49 +41,49 @@ class dnpTools_tester(unittest.TestCase):
         y = np.array([x**2.0, x**3.0]).T
 
         # leads to warning
-        rnd_data = dnp.DNPData(y, ["t2", "bla"], [x,x])
+        rnd_data = sl.SpinData(y, ["t2", "bla"], [x,x])
 
-        dnp.processing.create_complex(rnd_data, data_r, data_c)
+        sl.processing.create_complex(rnd_data, data_r, data_c)
 
         # needs integrals:
         x = np.r_[0:100]
         y = np.array([x**2.0, x**3.0]).T
-        data = dnp.DNPData(y, ["t2", "Power"], [x, np.array([0, 1])])
+        data = sl.SpinData(y, ["t2", "Power"], [x, np.array([0, 1])])
 
-        ft_data = dnp.fourier_transform(data)
-        integrals = dnp.integrate(ft_data)
-        dnp.processing.calculate_enhancement(integrals)
+        ft_data = sl.fourier_transform(data)
+        integrals = sl.integrate(ft_data)
+        sl.processing.calculate_enhancement(integrals)
 
         # makes data not consistent!
         # smooth
-        dnp.processing.smooth(data, window_length=3, polyorder=2)
+        sl.processing.smooth(data, window_length=3, polyorder=2)
 
         # left_shift
-        dnp.processing.left_shift(self.data, shift_points=5)
+        sl.processing.left_shift(self.data, shift_points=5)
 
         # normalize
-        dnp.processing.normalize(self.data, dim="t2")
+        sl.processing.normalize(self.data, dim="t2")
 
         # reference
-        dnp.processing.reference(self.data, dim="t2")
+        sl.processing.reference(self.data, dim="t2")
 
         # pseudo_modulation
-        dnp.processing.pseudo_modulation(self.data, 0.1, dim="t2")
+        sl.processing.pseudo_modulation(self.data, 0.1, dim="t2")
 
     def test_000_functionality_signal_to_noise(self):
         """
-        check only whether the function raises no error with DNPData input, not whether rsults are useful
+        check only whether the function raises no error with SpinData input, not whether rsults are useful
         alot of simple tests lumped together
 
         Missing: check whether signal and noise are scalar values
 
         note that these tests are not really unittests but more integration tests
         """
-        f = dnp.processing.signal_to_noise
+        f = sl.processing.signal_to_noise
 
         self.assertRaises(ValueError, f, self.data, (300, 400), (500, 600))
 
-        data = dnp.fourier_transform(self.data)
+        data = sl.fourier_transform(self.data)
 
         try:
             snr = f(data, (300, 400), (500, 600))
@@ -96,12 +96,12 @@ class dnpTools_tester(unittest.TestCase):
             (300, 400),
             (500, 600),
         )
-        # dnpdata object as output
+        # sldata object as output
         self.assertTrue(type(snr), type(self.data))
 
     def test_001_using_different_dimensions(self):
-        f = dnp.processing.signal_to_noise
-        data = dnp.fourier_transform(self.data)
+        f = sl.processing.signal_to_noise
+        data = sl.fourier_transform(self.data)
 
         # some input checks, just to check that no errors are thrown:
         snr = f(data, [(300, 400)], [(500, 600)])
@@ -148,16 +148,16 @@ class dnpTools_tester(unittest.TestCase):
     def test_002_SNR_on_higherDimensionalData(self):
         coords3 = [np.arange(0, 100), np.arange(0, 20), np.arange(0, 40)]
         data3 = np.random.random((100, 20, 40))
-        DNPObj3 = dnp.DNPData(data3, ["t2", "t3", "t4"], coords3)
-        f = dnp.processing.signal_to_noise
+        SpinObj3 = sl.SpinData(data3, ["t2", "t3", "t4"], coords3)
+        f = sl.processing.signal_to_noise
 
         # single snr region
-        snr0 = f(DNPObj3, (10, 20), [(80, 90)], dim="t2")
+        snr0 = f(SpinObj3, (10, 20), [(80, 90)], dim="t2")
         logger.info("snr0 (single regions) value shape is {0}".format(snr0.shape))
         self.assertEqual(len(snr0.shape), 3)
         self.assertEqual(snr0.shape, (1, 20, 40))
 
-        snr = f(DNPObj3, [(10, 20), (30, 40), (50, 60)], [(80, 90)], dim="t2")
+        snr = f(SpinObj3, [(10, 20), (30, 40), (50, 60)], [(80, 90)], dim="t2")
         self.assertEqual(snr.shape[0], 3)
         self.assertEqual(len(snr.shape), 3)
         self.assertEqual(snr.shape[1], 20)
@@ -178,9 +178,9 @@ class dnpTools_tester(unittest.TestCase):
                         data[u, k, l] = 0
         dims = ["f2", "a1", "a2"]
         coords = [np.arange(100), np.arange(5), np.arange(8)]
-        DNPObj = dnp.DNPData(data, dims, coords)
+        SpinObj = sl.SpinData(data, dims, coords)
 
-        snr = dnp.processing.signal_to_noise(DNPObj, (45, 55), (0, 5), dim="f2")
+        snr = sl.processing.signal_to_noise(SpinObj, (45, 55), (0, 5), dim="f2")
 
         noise = np.std(np.arange(5))
         signal_10_2_5 = 5 * 10 + 2 + 100 * 10
@@ -192,7 +192,7 @@ class dnpTools_tester(unittest.TestCase):
     def test_004_abs_signal_test(self):
         pts = 100
         x = np.r_[0.0 : 99.0 : 1j * pts]
-        y = dnp.lineshape.gaussian(x, 50, 5, integral=1.0)
+        y = sl.lineshape.gaussian(x, 50, 5, integral=1.0)
 
         y /= np.max(y)
         np.random.seed(100)
@@ -201,13 +201,13 @@ class dnpTools_tester(unittest.TestCase):
         signal = np.max(y)
         noise = np.std(y[70:100])
 
-        data = dnp.DNPData(y, ["x"], [x])
-        snr = dnp.signal_to_noise(data, [(0, 100)], dim="x", noise_region=[(70, 100)])
+        data = sl.SpinData(y, ["x"], [x])
+        snr = sl.signal_to_noise(data, [(0, 100)], dim="x", noise_region=[(70, 100)])
 
         self.assertTrue(np.isclose(snr["signal_region", 0].values, signal / noise))
         # negative peak:
         data = -1 * data
-        snr2 = dnp.signal_to_noise(data, [(0, 100)], dim="x", noise_region=[(70, 100)])
+        snr2 = sl.signal_to_noise(data, [(0, 100)], dim="x", noise_region=[(70, 100)])
 
         self.assertTrue(np.isclose(snr2["signal_region", 0].values, signal / noise))
 
@@ -218,7 +218,7 @@ class dnpTools_tester(unittest.TestCase):
 
         pts = 100
         x = np.r_[0.0 : 99.0 : 1j * pts]
-        y = dnp.lineshape.gaussian(x, 50, 5, integral=1.0)
+        y = sl.lineshape.gaussian(x, 50, 5, integral=1.0)
         y = y.astype(complex) + 1j * np.random.randn(pts) * 0.1
 
         y /= np.max(y)
@@ -229,14 +229,14 @@ class dnpTools_tester(unittest.TestCase):
         signal = np.max(np.abs(y))
         noise = np.std(y[70:100])
 
-        data = dnp.DNPData(y, ["x"], [x])
-        snr = dnp.signal_to_noise(
+        data = sl.SpinData(y, ["x"], [x])
+        snr = sl.signal_to_noise(
             data, [(0, 100)], dim="x", noise_region=[(70, 100)], complex_noise=True
         )
         self.assertTrue(np.isclose(snr["signal_region", 0].values, signal / noise))
 
         # real SNR
-        snr = dnp.signal_to_noise(
+        snr = sl.signal_to_noise(
             data, [(0, 100)], dim="x", noise_region=[(70, 100)], complex_noise=False
         )
         self.assertTrue(
@@ -253,14 +253,14 @@ class dnpTools_tester(unittest.TestCase):
         npCoords = [np.arange(k) + np.random.randint(10) for k in npDat.shape]
         npDims = ["1", "2", "3", "4", "5"]
 
-        data=dnp.DNPData(npDat,npDims,npCoords)
+        data=sl.SpinData(npDat,npDims,npCoords)
 
-        complex_2 = dnp.create_complex(data, "2")
+        complex_2 = sl.create_complex(data, "2")
         #this  operation will make data inconsistent and issue a warning, also complex_1 will be inconsistent, this is due to the old implementation of create_complex, therefore use catch_warnings context manager
         complex_1=None
         with warnings.catch_warnings() as w:
             warnings.simplefilter("ignore")
-            complex_1 = dnp.create_complex(data,data._values[:,0,...],data._values[:,1,...])
+            complex_1 = sl.create_complex(data,data._values[:,0,...],data._values[:,1,...])
 
 
         self.assertEqual(complex_1.shape, complex_2.shape)
@@ -284,9 +284,9 @@ class dnpTools_tester(unittest.TestCase):
         npCoords = [np.arange(k) + np.random.randint(10) for k in npDat.shape]
         npDims = ["1", "2", "3", "4", "5", "6", "7", "8"]
 
-        data = dnp.DNPData(npDat, npDims, npCoords)
+        data = sl.SpinData(npDat, npDims, npCoords)
 
-        complex_2 = dnp.create_complex(data, "3")
+        complex_2 = sl.create_complex(data, "3")
         self.assertEqual((1, 1, 100, 25, 1, 10, 1), complex_2.shape)
         self.assertTrue(complex_2._self_consistent())
 
@@ -296,12 +296,12 @@ class dnpTools_tester(unittest.TestCase):
         npCoords = [np.arange(k) + np.random.randint(10) for k in npDat.shape]
         npDims = ["1", "2", "3", "4", "5"]
 
-        data = dnp.DNPData(npDat, npDims, npCoords)
+        data = sl.SpinData(npDat, npDims, npCoords)
         # warning
-        self.assertWarns(UserWarning, dnp.create_complex, data, "2")
+        self.assertWarns(UserWarning, sl.create_complex, data, "2")
         # warnings off from now
         warnings.filterwarnings("ignore")
-        complex_3 = dnp.create_complex(data, "2", real_index=1, imag_index=3)
+        complex_3 = sl.create_complex(data, "2", real_index=1, imag_index=3)
         self.assertTrue(complex_3.shape == (100, 25, 1, 10))
         self.assertTrue(
             np.all(
@@ -324,7 +324,7 @@ class dnpTools_tester(unittest.TestCase):
             )
         )
 
-        complex_3 = dnp.create_complex(data, "2")
+        complex_3 = sl.create_complex(data, "2")
         self.assertTrue(
             np.all(
                 np.isclose(
@@ -362,17 +362,17 @@ class dnpTools_tester(unittest.TestCase):
             )
             npDat[0, :, k] = k + 1
 
-        data = dnp.DNPData(
+        data = sl.SpinData(
             npDat, ["t2", "prm1", "prm2"], [t2, np.arange(npDat.shape[1]), np.arange(3)]
         )
-        data_1d = dnp.DNPData(npDat[:, 0, 0], ["t2"], [t2])
+        data_1d = sl.SpinData(npDat[:, 0, 0], ["t2"], [t2])
 
-        self.assertRaises(ValueError, dnp.normalize, data, dim="f2")
+        self.assertRaises(ValueError, sl.normalize, data, dim="f2")
         self.assertTrue(data["t2", (1, 80)].shape == (394, npDat.shape[1], 3))
 
         # no region &  no dim
-        data_t = dnp.normalize(data)
-        data_t2 = dnp.normalize(data_1d)
+        data_t = sl.normalize(data)
+        data_t2 = sl.normalize(data_1d)
         self.assertTrue(
             np.all(
                 np.isclose(data_t._values[0, :, 0], 0.333333, rtol=1e-04, atol=1e-07)
@@ -390,8 +390,8 @@ class dnpTools_tester(unittest.TestCase):
         self.assertTrue(np.all(np.isclose(data_t2._values[0], 1)))
 
         # no region & dim
-        data_t = dnp.normalize(data, dim="t2")
-        data_t2 = dnp.normalize(data_1d, dim="t2")
+        data_t = sl.normalize(data, dim="t2")
+        data_t2 = sl.normalize(data_1d, dim="t2")
         self.assertTrue(
             np.all(np.isclose(data_t._values[0, :, :], 1, rtol=1e-04, atol=1e-07))
         )
@@ -402,12 +402,12 @@ class dnpTools_tester(unittest.TestCase):
 
         # with region & dim
         data._values[55, :, :] = np.max(data._values[55, :, :]) * 1.5
-        data_t = dnp.normalize(data, dim="t2", regions=(10, 50))
+        data_t = sl.normalize(data, dim="t2", regions=(10, 50))
         maxvalues = np.max(data["t2", (10, 50)]._values, axis=0)
         refvalues = data["t2", 0]._values / maxvalues
 
         data_1d._values[55] = np.max(data_1d._values) * 1.5
-        data_t2 = dnp.normalize(data_1d, dim="t2", regions=(10, 50))
+        data_t2 = sl.normalize(data_1d, dim="t2", regions=(10, 50))
         maxvalues_1d = np.max(data_1d["t2", (10, 50)]._values, axis=0)
         refvalues_1d = data_1d["t2", 0]._values / maxvalues_1d
 
@@ -445,8 +445,8 @@ class dnpTools_tester(unittest.TestCase):
         )
 
         # with region and no dim
-        data_t = dnp.normalize(data, regions=(10, 50))
-        data_t2 = dnp.normalize(data_1d, regions=(10, 50))
+        data_t = sl.normalize(data, regions=(10, 50))
+        data_t2 = sl.normalize(data_1d, regions=(10, 50))
 
         maxvalues = np.max(data["t2", (10, 50)]._values)
         refvalues = data["t2", 0]._values / maxvalues

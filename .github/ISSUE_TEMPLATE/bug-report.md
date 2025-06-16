@@ -31,9 +31,9 @@ Bug reports that follow these guidelines are easier to diagnose, and so are ofte
 
 **Environment**:
 
-<details><summary>Output of <tt>pip show dnplab</tt></summary>
+<details><summary>Output of <tt>pip show spinlab</tt></summary>
 
-<!-- Paste the output of pip show dnplab here -->
+<!-- Paste the output of pip show spinlab here -->
 
 
 </details>

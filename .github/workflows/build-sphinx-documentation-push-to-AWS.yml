@@ -36,8 +36,8 @@ jobs:
 
     - name: Upload to staging website
       if: github.ref == 'refs/heads/develop'
-      run: aws s3 sync --delete --acl public-read ./docs/build/html/ s3://dnplab-docu-staging
+      run: aws s3 sync --delete --acl public-read ./docs/build/html/ s3://spinlab-docu-staging
 
     - name: Upload to staging website
       if: github.ref == 'refs/heads/master'
-      run: aws s3 sync --delete --acl public-read ./docs/build/html/ s3://dnplab.net
+      run: aws s3 sync --delete --acl public-read ./docs/build/html/ s3://spinlab.net
