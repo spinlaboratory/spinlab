@@ -35,7 +35,7 @@ Computation times
    * - :ref:`sphx_glr_auto_examples_03_Advanced_plot_01_align_nmr_spectra.py` (``..\..\examples\03_Advanced\plot_01_align_nmr_spectra.py``)
      - 00:25.114
      - 0.0
-   * - :ref:`sphx_glr_auto_examples_01_ImportingData_plot_04_create_dnpdata_object_from_individual_files.py` (``..\..\examples\01_ImportingData\plot_04_create_dnpdata_object_from_individual_files.py``)
+   * - :ref:`sphx_glr_auto_examples_01_ImportingData_plot_04_create_sldata_object_from_individual_files.py` (``..\..\examples\01_ImportingData\plot_04_create_sldata_object_from_individual_files.py``)
      - 00:01.082
      - 0.0
    * - :ref:`sphx_glr_auto_examples_02_Analysis_plot_04_reference_spectra.py` (``..\..\examples\02_Analysis\plot_04_reference_spectra.py``)
@@ -71,10 +71,10 @@ Computation times
    * - :ref:`sphx_glr_auto_examples_02_Analysis_plot_03_peak_linewidth.py` (``..\..\examples\02_Analysis\plot_03_peak_linewidth.py``)
      - 00:00.149
      - 0.0
-   * - :ref:`sphx_glr_auto_examples_02_Analysis_plot_01_load_2D_calculate_DNP_enhancements.py` (``..\..\examples\02_Analysis\plot_01_load_2D_calculate_DNP_enhancements.py``)
+   * - :ref:`sphx_glr_auto_examples_02_Analysis_plot_01_load_2D_calculate_Spin_enhancements.py` (``..\..\examples\02_Analysis\plot_01_load_2D_calculate_Spin_enhancements.py``)
      - 00:00.134
      - 0.0
-   * - :ref:`sphx_glr_auto_examples_01_ImportingData_plot_05_indexing_dnpdata_objects.py` (``..\..\examples\01_ImportingData\plot_05_indexing_dnpdata_objects.py``)
+   * - :ref:`sphx_glr_auto_examples_01_ImportingData_plot_05_indexing_sldata_objects.py` (``..\..\examples\01_ImportingData\plot_05_indexing_sldata_objects.py``)
      - 00:00.072
      - 0.0
    * - :ref:`sphx_glr_auto_examples_04_Tools_plot_01_larmor_frequency.py` (``..\..\examples\04_Tools\plot_01_larmor_frequency.py``)

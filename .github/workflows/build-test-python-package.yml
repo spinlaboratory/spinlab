@@ -50,7 +50,7 @@ jobs:
 
     - name: Check PEP-8 format for code consistency
       run: |
-        black dnplab --check 
+        black spinlab --check 
 
     - name: Test with pytest 
       # pytest is compatible with unittest

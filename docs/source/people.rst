@@ -1,7 +1,7 @@
 ======
 People
 ======
-DNPLab is a collaborative project created by:
+SpinLab is a collaborative project created by:
 
 * |B12TLink|
 * The |HanLabLink| at Northwestern University

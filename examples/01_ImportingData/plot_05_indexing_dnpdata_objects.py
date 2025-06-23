@@ -1,31 +1,31 @@
 # %%
 """
-.. _plot_05_indexing_dnpdata_objects:
+.. _plot_05_indexing_sldata_objects:
 
 ==============================================
-How to select a slice from a 2D dnpdata object
+How to select a slice from a 2D sldata object
 ==============================================
 
-This example demonstrates how to select a slice of a DNPData object.
+This example demonstrates how to select a slice of a SpinData object.
 
-You can index a DNPData object by specifying the name of the dimension and the index of the slice.
+You can index a SpinData object by specifying the name of the dimension and the index of the slice.
 """
 # %%
-# Import DNPLab and create a set of data
+# Import SpinLab and create a set of data
 # --------------------------------------
 # Use the lorentzian function to generate a 2d set of lorentzian distributions.
 
 import numpy as np
 from matplotlib.pylab import *
 
-import dnplab as dnp
+import spinlab as sl
 
 x = np.r_[-50:50:1024j]
 y = np.r_[-10:10:1]
 
-values = dnp.math.lineshape.lorentzian(x.reshape(-1, 1), y.reshape(1, -1), 0.5)
+values = sl.math.lineshape.lorentzian(x.reshape(-1, 1), y.reshape(1, -1), 0.5)
 
-data = dnp.DNPData(values, ["f2", "sample"], [x, y])
+data = sl.SpinData(values, ["f2", "sample"], [x, y])
 
 # %%
 # To specify a slice based on the index, we use an integer. This will select the slice at index 3.
@@ -49,8 +49,8 @@ data_slice_float.squeeze()  # again, we remove the "sample" dimension.
 # Let's plot the 1d slices:
 
 figure()
-dnp.plot(data_slice_integer)
-dnp.plot(data_slice_float)
+sl.plot(data_slice_integer)
+sl.plot(data_slice_float)
 xlabel("Frequency (Hz)")
 ylabel("Signal (a.u.)")
 tight_layout()
@@ -61,4 +61,4 @@ tight_layout()
 data_slice_range = data["sample", (-3, 3)]
 
 # %%
-# For an advanced tutorial how indexing works and how to extract individual data slice from a multi-dimensional dnpData object see the :ref:`plot_02_extract_data` tutorial.
+# For an advanced tutorial how indexing works and how to extract individual data slice from a multi-dimensional slData object see the :ref:`plot_02_extract_data` tutorial.

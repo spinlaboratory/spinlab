@@ -24,16 +24,16 @@ print(sys.path)
 
 # -- Project information -----------------------------------------------------
 
-project = "DNPLab"
-copyright = "2024, DNPLab"
-author = "DNPLab Team"
+project = "SpinLab"
+copyright = "2024, SpinLab"
+author = "SpinLab Team"
 
 from datetime import datetime
 
 date = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
 # The short X.Y version
-version_file = "../../dnplab/version.py"
+version_file = "../../spinlab/version.py"
 with open(version_file, "r") as f:
     version_code = f.read()
 exec(version_code)
@@ -47,7 +47,7 @@ print("Release: " + release)
 
 rst_epilog_list = [
     ("date", date),
-    ("author", "The DNPLab Team"),
+    ("author", "The SpinLab Team"),
 ]
 
 
@@ -186,13 +186,13 @@ def setup(app):
 #
 # html_sidebars = {}
 
-html_logo = "_static/images/dnpLabLogo.png"
+html_logo = "_static/images/SpinlabLogo.png"
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "dnpLabdoc"
+htmlhelp_basename = "Spinlabdoc"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -216,7 +216,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "dnpLab.tex", "DNPLab Documentation", "Timothy Keller", "manual"),
+    (master_doc, "Spinlab.tex", "SpinLab Documentation", "Timothy Keller", "manual"),
 ]
 
 
@@ -224,7 +224,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "DNPlab", "DNPLab Documentation", [author], 1)]
+man_pages = [(master_doc, "Spinlab", "SpinLab Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -235,11 +235,11 @@ man_pages = [(master_doc, "DNPlab", "DNPLab Documentation", [author], 1)]
 texinfo_documents = [
     (
         master_doc,
-        "DNPLab",
-        "DNPLab Documentation",
+        "SpinLab",
+        "SpinLab Documentation",
         author,
-        "DNPLab",
-        "Bringing the Power of Python to DNP-NMR Spectroscopy",
+        "SpinLab",
+        "Bringing the Power of Python to Spin-NMR Spectroscopy",
         "Miscellaneous",
     ),
 ]

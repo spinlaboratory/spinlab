@@ -1,11 +1,11 @@
-[![http://dnplab.net](https://img.shields.io/pypi/v/dnplab)](https://pypi.org/project/dnplab/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dnplab)](https://www.python.org/downloads/)
-[![Downloads](https://pepy.tech/badge/dnplab/month)](https://pepy.tech/project/dnplab)
+[![http://spinlab.net](https://img.shields.io/pypi/v/spinlab)](https://pypi.org/project/spinlab/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/spinlab)](https://www.python.org/downloads/)
+[![Downloads](https://pepy.tech/badge/spinlab/month)](https://pepy.tech/project/spinlab)
 
-[![DNPLab Logo](http://dnplab.net/_static/dnpLabLogo.png)](http://dnplab.net)
-# DNPLab - Bringing the Power of Python to DNP-NMR Spectroscopy
+[![SpinLab Logo](http://spinlab.net/_static/SpinlabLogo.png)](http://spinlab.net)
+# SpinLab - Bringing the Power of Python to Spin-NMR Spectroscopy
 
-DNPLab is a collaborative project created by:
+SpinLab is a collaborative project created by:
 - [Bridge12 Technologies, Inc.](http://www.bridge12.com/)
 - [Han Lab NWU](https://hanlab.northwestern.edu/)
 - [Franck Lab Syracuse University](https://jmfrancklab.github.io/)
@@ -16,7 +16,7 @@ Timothy Keller, Yen-Chun Huang, Karl Rieger, John Franck, Thorsten Maly, Songi H
 Alumnis:
 Thomas Casey, Yanxian Lin
 
-DNPLab is an object-oriented Open Source Python-based package for importing, processing, and analyzing data determined in a [Dynamic Nuclear Polarization (DNP)](https://www.bridge12.com/learn/dnp-spectroscopy/) or Electron Paramagnetic Resonance (EPR) experiment.
+SpinLab is an object-oriented Open Source Python-based package for importing, processing, and analyzing data determined in a [Dynamic Nuclear Polarization (Spin)](https://www.bridge12.com/learn/spinlab-spectroscopy/) or Electron Paramagnetic Resonance (EPR) experiment.
 
 # Features
 
@@ -27,16 +27,16 @@ DNPLab is an object-oriented Open Source Python-based package for importing, pro
 
 # Installation
 
-DNPLab can be easily installed via pip:
+SpinLab can be easily installed via pip:
 
 ```console
-pip install dnplab
+pip install spinlab
 ```
 
 # Documenation
 
-Find the online documentation at: http://docs.dnplab.net
+Find the online documentation at: http://docs.spinlab.net
 
 # Developement 
 
-  - Clone the git repository from https://github.com/DNPLab/dnplab
+  - Clone the git repository from https://github.com/SpinLab/spinlab

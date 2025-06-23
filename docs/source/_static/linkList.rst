@@ -42,24 +42,24 @@
    <a href="http://www.bridge12.com" target="_blank"> Bridge12 Technologies, Inc.</a>
 
 
-.. |dnpLabGitIssueTrackerLink| raw:: html
+.. |SpinlabGitIssueTrackerLink| raw:: html
 
-   <a href="https://github.com/DNPLab/dnpLab/issues" target="_blank"> DNPLab GitHub Issue Tracker</a>
-
-
-.. |dnpLabGitLink| raw:: html
-
-   <a href="https://github.com/DNPLab/dnpLab" target="_blank"> DNPLab on GitHub</a>
+   <a href="https://github.com/SpinLab/Spinlab/issues" target="_blank"> SpinLab GitHub Issue Tracker</a>
 
 
-.. |DNPNMR| raw:: html
+.. |SpinlabGitLink| raw:: html
 
-   <a href="https://www.bridge12.com/learn/dnp-spectroscopy/" target="_blank">DNP-NMR</a>
+   <a href="https://github.com/SpinLab/Spinlab" target="_blank"> SpinLab on GitHub</a>
 
 
-.. |DNPSpectroscopy| raw:: html
+.. |SpinNMR| raw:: html
 
-   <a href="https://www.bridge12.com/learn/dnp-spectroscopy/" target="_blank">DNP</a>
+   <a href="https://www.bridge12.com/learn/spinlab-spectroscopy/" target="_blank">Spin-NMR</a>
+
+
+.. |SpinSpectroscopy| raw:: html
+
+   <a href="https://www.bridge12.com/learn/spinlab-spectroscopy/" target="_blank">Spin</a>
 
 
 .. |FranckLabLink| raw:: html
