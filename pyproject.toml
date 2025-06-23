@@ -1,6 +1,6 @@
 [project]
 name = "spinlab"
-version = "0.0.0"
+version = "0.0.1"
 description = "SpinLab - Bringing the Power of Python to NMR-EPR Spectroscopy"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -19,3 +19,6 @@ include = ["spinlab*"]
 [build-system]
 requires = ["setuptools", "numpy >= 2.0.0", "scipy>=1.14.0", "matplotlib>=3.9.0", "h5py>=3.11.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+mypackage = ["config/*.cfg"]

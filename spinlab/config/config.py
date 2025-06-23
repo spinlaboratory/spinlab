@@ -72,6 +72,7 @@ def _get_sl_config(configname="spinlab.cfg"):
         spinlab_home_config,
         spinlab_current_config,
     ]
+    print(config_read_list)
 
     # user defined takes precedence
     config.read(config_read_list)
