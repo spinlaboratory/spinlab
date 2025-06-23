@@ -81,7 +81,7 @@ class ABCData(object):
         attrs={},
         sl_attrs={},
         error=None,
-        **kwargs
+        **kwargs,
     ):
         self.version = version
 
@@ -107,9 +107,7 @@ class ABCData(object):
         if isinstance(sl_attrs, dict):
             self._attrs = attrs
         else:
-            raise TypeError(
-                'sl_attrs must be type "dict" not %s' % str(type(sl_attrs))
-            )
+            raise TypeError('sl_attrs must be type "dict" not %s' % str(type(sl_attrs)))
 
         if isinstance(error, _np.ndarray) or (error == None):
             self._error = error

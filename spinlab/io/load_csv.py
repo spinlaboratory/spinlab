@@ -25,7 +25,7 @@ def load_csv(
     maxrows=-1,
     convert_time=lambda x: float(x.replace(",", ".")),
     convert_data=lambda x: float(x.replace(",", ".")),
-    **kwargs
+    **kwargs,
 ):
     """function that loads load_csv files
 

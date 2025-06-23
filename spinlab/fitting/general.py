@@ -15,7 +15,7 @@ def fit(
     bounds=(-1 * _np.inf, _np.inf),
     method=None,
     jac=None,
-    **kwargs
+    **kwargs,
 ):
     """Fitting function for SpinData
 
@@ -69,7 +69,7 @@ def fit(
             bounds=bounds,
             method=method,
             jac=jac,
-            **kwargs
+            **kwargs,
         )
         fit_values = f(new_coord, *out[0])
         fit_out.values[:, ix] = fit_values

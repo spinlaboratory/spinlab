@@ -215,7 +215,7 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
             coord,
             data.values.real * get_float_key("value_scaling"),
             *args,
-            **plt_config_kwargs
+            **plt_config_kwargs,
         )
 
         if xlim != []:

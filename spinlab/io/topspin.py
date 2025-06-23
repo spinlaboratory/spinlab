@@ -149,7 +149,7 @@ def import_topspin(
     remove_digital_filter=False,
     read_offset=False,
     verbose=False,
-    **kwargs
+    **kwargs,
 ):
     """Import topspin data and return sldata object
 

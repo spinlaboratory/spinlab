@@ -57,7 +57,7 @@ def waterfall(data, dx, dy, *args, **kwargs):
             data[data.dims[1], ix].values.ravel() + (ix * dy),
             *args,
             **kwargs,
-            zorder=-1 * ix
+            zorder=-1 * ix,
         )
         _plt.fill_between(
             coord + (ix * dx),

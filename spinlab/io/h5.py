@@ -168,7 +168,9 @@ def write_sldata(slDataGroup, slDataObject):
 
     # Save SpinLab Attributes
     if hasattr(slDataObject, "spinlab_attrs"):
-        spinlab_attrs_group = slDataGroup.create_group("spinlab_attrs", track_order=True)
+        spinlab_attrs_group = slDataGroup.create_group(
+            "spinlab_attrs", track_order=True
+        )
 
         for key in slDataObject.spinlab_attrs:
             value = slDataObject.spinlab_attrs[key]

@@ -67,7 +67,11 @@ def _get_sl_config(configname="spinlab.cfg"):
     )  # / configname #.with_name("config"))
     spinlab_global_config = Path(spinlab_cfg_folder) / configname
 
-    config_read_list = [spinlab_global_config, spinlab_home_config, spinlab_current_config]
+    config_read_list = [
+        spinlab_global_config,
+        spinlab_home_config,
+        spinlab_current_config,
+    ]
 
     # user defined takes precedence
     config.read(config_read_list)

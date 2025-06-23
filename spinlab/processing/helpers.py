@@ -212,7 +212,7 @@ def signal_to_noise(
     dim: str = "f2",
     remove_background: list = None,
     complex_noise=False,
-    **kwargs
+    **kwargs,
 ):
     """Find signal-to-noise ratio
 
