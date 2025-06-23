@@ -1,20 +1,20 @@
 =======
 Modules
 =======
-DNPLab is structured into several different modules, which all contain different functions. The functions are grouped into modules depending on their specific tasks. The following modules are currently part of DNPLab:
+SpinLab is structured into several different modules, which all contain different functions. The functions are grouped into modules depending on their specific tasks. The following modules are currently part of SpinLab:
 
 .. autosummary::
 
-    dnplab.analysis
-    dnplab.constants
-    dnplab.core
-    dnplab.fitting
-    dnplab.io
-    dnplab.math
-    dnplab.plotting
-    dnplab.processing
-    dnplab.reporting
-    dnplab.widgets
+    spinlab.analysis
+    spinlab.constants
+    spinlab.core
+    spinlab.fitting
+    spinlab.io
+    spinlab.math
+    spinlab.plotting
+    spinlab.processing
+    spinlab.reporting
+    spinlab.widgets
 
 
 
@@ -22,13 +22,13 @@ DNPLab is structured into several different modules, which all contain different
 
 
 
-.. .. automodule:: dnplab.io.bes3t
+.. .. automodule:: spinlab.io.bes3t
 ..     :show-inheritance:
 ..     :member-order: bysource
 
-.. .. autosummary:: dnplab.io
+.. .. autosummary:: spinlab.io
 
-.. .. autosummary:: dnplab.io.bes3t
+.. .. autosummary:: spinlab.io.bes3t
 
 
-.. Use dnpImport.load and the correct IO module will be automatically selected.
+.. Use slImport.load and the correct IO module will be automatically selected.

@@ -1,7 +1,7 @@
 =======
 License
 =======
-DNPLab is distributed under the |MITLicense|.
+SpinLab is distributed under the |MITLicense|.
 
 Copyright (c) 2020 - 2022 Timothy Keller, Thorsten Maly, Tom Casey, and others
 

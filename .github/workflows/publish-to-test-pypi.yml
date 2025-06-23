@@ -37,7 +37,7 @@ jobs:
 
       - name: Check PEP-8 format for code consistency
         run: |
-          black dnplab --check
+          black spinlab --check
 
       - name: Build a binary wheel and a source tarball
         # Following https://packaging.python.org/tutorials/packaging-projects/#generating-distribution-archives
