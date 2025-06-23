@@ -1,5 +1,5 @@
 [project]
-name = "SpinLab"
+name = "spinlab"
 version = "0.0.0"
 description = "SpinLab - Bringing the Power of Python to NMR-EPR Spectroscopy"
 readme = "README.md"
