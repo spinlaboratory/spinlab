@@ -233,7 +233,6 @@ def analyze_attrs(attrs):
             unit = None
             if len(val_list) > 1:
                 unit = val_list[-1]  # get unit
-
             val = val_list[0].strip(",")
             val_unit = val_list[1] if len(val_list) == 5 else None
             temp[new_key] = int(val) if "." not in val else float(val)
@@ -338,9 +337,23 @@ def calculate_specman_coords(attrs, old_coords, dims=None):
             coord = _np.linspace(start, stop, length)
         elif dim in attrs and dim + "_step" not in attrs and dim + "_stop" not in attrs:
             val_string = attrs["params_" + dim].split(";")[0]
+            val_string = val_string.replace(", ", ",").split(",")
             coord = _np.array(
-                [float(f) for f in val_string.split() if f.replace(".", "").isdigit()]
+                [
+                    float(val.split()[0])
+                    for val in val_string
+                    if val.split()[0].replace(".", "").isdigit()
+                ]
             )
+            units = []
+            try:
+                units = [x.split()[1] for x in val_string if not x.split()[1].isdigit()]
+            except IndexError:
+                pass
+
+            if units:
+                for i in range(len(coord)):
+                    coord[i] *= _convert_unit(units[i])
         else:
             coord = _np.arange(0.0, length)
         coords.append(_np.array(coord))
