@@ -75,9 +75,9 @@ def import_specman(
     attrs["experiment_type"] = "epr_spectrum"
 
     specman_data = _sl.SpinData(data, dims, coords, attrs)
-    # if make_complex:
-    #     if complex_dim in dims and len(specman_data.coords[complex_dim]) == 2:
-    #         specman_data = _sl.create_complex(specman_data, complex_dim)
+    if make_complex:
+        if complex_dim in dims and len(specman_data.coords[complex_dim]) == 2:
+            specman_data = _sl.create_complex(specman_data, complex_dim)
     return specman_data
 
 
