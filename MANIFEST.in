@@ -1,1 +1,1 @@
-include config/spinlab.cfg
+include spinlab/config/spinlab.cfg
