@@ -75,9 +75,9 @@ def import_specman(
     attrs["experiment_type"] = "epr_spectrum"
 
     specman_data = _sl.SpinData(data, dims, coords, attrs)
-    if make_complex:
-        if complex_dim in dims and len(specman_data.coords[complex_dim]) == 2:
-            specman_data = _sl.create_complex(specman_data, complex_dim)
+    # if make_complex:
+    #     if complex_dim in dims and len(specman_data.coords[complex_dim]) == 2:
+    #         specman_data = _sl.create_complex(specman_data, complex_dim)
     return specman_data
 
 
@@ -270,6 +270,12 @@ def analyze_attrs(attrs):
                 stop = float(val_list[stop_index]) * _convert_unit(stop_unit)
                 temp[new_key + "_stop"] = stop
 
+            if "logto" in val_list:
+                logto_index = val_list.index("logto") + 1
+                logto_unit = val_list[logto_index + 1] if len(val_list) == 5 else None
+                logto = float(val_list[logto_index]) * _convert_unit(logto_unit)
+                temp[new_key + "_logto"] = logto
+
         if "sweep_" in key:
             val_list = val.split(",")
             val = val_list[1]  # get value
@@ -344,6 +350,12 @@ def calculate_specman_coords(attrs, old_coords, dims=None):
             start = attrs[dim]
             stop = attrs[dim + "_stop"]
             coord = _np.linspace(start, stop, length)
+        elif dim in attrs and dim + "_logto" in attrs:
+            start = attrs[dim]
+            logto = attrs[dim + "_logto"]
+            coord = _np.logspace(
+                _np.log10(start), _np.log10(logto), length, endpoint=True
+            )
         elif dim in attrs and dim + "_step" not in attrs and dim + "_stop" not in attrs:
             val_string = attrs["params_" + dim].split(";")[0]
             val_string = val_string.replace(", ", ",").split(",")
