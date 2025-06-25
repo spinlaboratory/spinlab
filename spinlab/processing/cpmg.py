@@ -2,7 +2,7 @@
 
 import numpy as _np
 import matplotlib.pyplot as _plt
-import dnplab as _dnp
+import spinlab as _sl
 from scipy.signal import savgol_filter as _savgol_filter
 from numpy import random as _random
 
@@ -80,17 +80,17 @@ def cpmg_detect_first_echo(
         _plt.rcParams["font.size"] = plot_font_size
 
         _plt.subplot(2, 1, 1)
-        _plt.plot(t, signal, color=_dnp.colors.secondary2, label="Transient")
+        _plt.plot(t, signal, color=_sl.colors.secondary2, label="Transient")
         _plt.plot(
             t[region_start_index:region_stop_index],
             signal[region_start_index:region_stop_index],
-            color=_dnp.colors.primary1,
+            color=_sl.colors.primary1,
             label="Search Region",
         )
         _plt.plot(
             [t_echo, t_echo],
             [_np.min(signal), _np.max(signal)],
-            color=_dnp.colors.accent,
+            color=_sl.colors.accent,
             linestyle="--",
         )
         _plt.title(plot_title_pre_text + ". 1st Echo at: " + str(t_echo) + " ns", fontsize = plot_font_size)
@@ -103,7 +103,7 @@ def cpmg_detect_first_echo(
         _plt.plot(
             t[region_start_index:region_stop_index],
             signal[region_start_index:region_stop_index],
-            color=_dnp.colors.primary1,
+            color=_sl.colors.primary1,
         )
         _plt.plot(
             [t_echo, t_echo],
@@ -111,7 +111,7 @@ def cpmg_detect_first_echo(
                 _np.min(signal[region_start_index:region_stop_index]),
                 _np.max(signal[region_start_index:region_stop_index]),
             ],
-            color=_dnp.colors.accent,
+            color=_sl.colors.accent,
             linestyle="--",
         )
         _plt.grid(True)
@@ -272,7 +272,7 @@ def cpmg_show_integration_region(
         _plt.rcParams["font.size"] = plot_font_size
 
         _plt.subplot(2, 1, 1)
-        _plt.plot(data.coords["t2"].real, data.values.real, color=_dnp.colors.primary1)
+        _plt.plot(data.coords["t2"].real, data.values.real, color=_sl.colors.primary1)
         _plt.title(plot_title_pre_text, fontsize = plot_font_size)
         _plt.xlabel("Time (ns)")
         _plt.ylabel("Signal (a.u.)")
@@ -286,44 +286,44 @@ def cpmg_show_integration_region(
             _plt.plot(
                 [value, value],
                 [min_signal, max_signal],
-                color=_dnp.colors.accent,
+                color=_sl.colors.accent,
                 linestyle="--",
             )
             _plt.plot(
                 [t_int_start[index], t_int_start[index]],
                 [min_signal, max_signal],
-                color=_dnp.colors.secondary2,
+                color=_sl.colors.secondary2,
                 linestyle="--",
             )
             _plt.plot(
                 [t_int_end[index], t_int_end[index]],
                 [min_signal, max_signal],
-                color=_dnp.colors.secondary2,
+                color=_sl.colors.secondary2,
                 linestyle="--",
             )
 
         _plt.plot(
             [data.coords["t2"][noise_region[0]], data.coords["t2"][noise_region[0]]],
             [0.1 * min_signal, 0.1 * max_signal],
-            color=_dnp.colors.primary2,
+            color=_sl.colors.primary2,
             linestyle="--",
         )
         _plt.plot(
             [data.coords["t2"][noise_region[0]], data.coords["t2"][noise_region[1]]],
             [0.1 * max_signal, 0.1 * max_signal],
-            color=_dnp.colors.primary2,
+            color=_sl.colors.primary2,
             linestyle="--",
         )
         _plt.plot(
             [data.coords["t2"][noise_region[1]], data.coords["t2"][noise_region[1]]],
             [0.1 * min_signal, 0.1 * max_signal],
-            color=_dnp.colors.primary2,
+            color=_sl.colors.primary2,
             linestyle="--",
         )
         _plt.plot(
             [data.coords["t2"][noise_region[0]], data.coords["t2"][noise_region[1]]],
             [0.1 * min_signal, 0.1 * min_signal],
-            color=_dnp.colors.primary2,
+            color=_sl.colors.primary2,
             linestyle="--",
         )
 
