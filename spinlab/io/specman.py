@@ -17,7 +17,11 @@ scale_dict = {
 
 
 def import_specman(
-    path, autodetect_coords: bool = False, autodetect_dims: bool = False
+    path,
+    autodetect_coords: bool = True,
+    autodetect_dims: bool = True,
+    make_complex: bool = True,
+    complex_dim: str = "x",
 ):
     """Import SpecMan data and return SpinData object
 
@@ -30,6 +34,9 @@ def import_specman(
         path (str):                 Path to either .exp file
         autodetect_coords(bool):    Autodetect coords based on attrs
         autodetect_dims(bool):      Autodetect dims based on attrs
+        make_complex (bool):        If True, will create a complex SpinData object if the data is complex
+        complex_dim (str):          The dimension to use for complex data (default: 'x')
+
     Returns:
         data (SpinData):         SpinData object containing SpecMan EPR data
     """
@@ -68,7 +75,9 @@ def import_specman(
     attrs["experiment_type"] = "epr_spectrum"
 
     specman_data = _sl.SpinData(data, dims, coords, attrs)
-
+    if make_complex:
+        if complex_dim in dims and len(specman_data.coords[complex_dim]) == 2:
+            specman_data = _sl.create_complex(specman_data, complex_dim)
     return specman_data
 
 
@@ -233,7 +242,6 @@ def analyze_attrs(attrs):
             unit = None
             if len(val_list) > 1:
                 unit = val_list[-1]  # get unit
-
             val = val_list[0].strip(",")
             val_unit = val_list[1] if len(val_list) == 5 else None
             temp[new_key] = int(val) if "." not in val else float(val)
@@ -338,9 +346,23 @@ def calculate_specman_coords(attrs, old_coords, dims=None):
             coord = _np.linspace(start, stop, length)
         elif dim in attrs and dim + "_step" not in attrs and dim + "_stop" not in attrs:
             val_string = attrs["params_" + dim].split(";")[0]
+            val_string = val_string.replace(", ", ",").split(",")
             coord = _np.array(
-                [float(f) for f in val_string.split() if f.replace(".", "").isdigit()]
+                [
+                    float(val.split()[0])
+                    for val in val_string
+                    if val.split()[0].replace(".", "").isdigit()
+                ]
             )
+            units = []
+            try:
+                units = [x.split()[1] for x in val_string if not x.split()[1].isdigit()]
+            except IndexError:
+                pass
+
+            if units:
+                for i in range(len(coord)):
+                    coord[i] *= _convert_unit(units[i])
         else:
             coord = _np.arange(0.0, length)
         coords.append(_np.array(coord))
