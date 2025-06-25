@@ -17,7 +17,11 @@ scale_dict = {
 
 
 def import_specman(
-    path, autodetect_coords: bool = False, autodetect_dims: bool = False
+    path,
+    autodetect_coords: bool = True,
+    autodetect_dims: bool = True,
+    make_complex: bool = True,
+    complex_dim: str = "x",
 ):
     """Import SpecMan data and return SpinData object
 
@@ -30,6 +34,9 @@ def import_specman(
         path (str):                 Path to either .exp file
         autodetect_coords(bool):    Autodetect coords based on attrs
         autodetect_dims(bool):      Autodetect dims based on attrs
+        make_complex (bool):        If True, will create a complex SpinData object if the data is complex
+        complex_dim (str):          The dimension to use for complex data (default: 'x')
+
     Returns:
         data (SpinData):         SpinData object containing SpecMan EPR data
     """
@@ -68,7 +75,9 @@ def import_specman(
     attrs["experiment_type"] = "epr_spectrum"
 
     specman_data = _sl.SpinData(data, dims, coords, attrs)
-
+    if make_complex:
+        if complex_dim in dims and len(specman_data.coords[complex_dim]) == 2:
+            specman_data = _sl.create_complex(specman_data, complex_dim)
     return specman_data
 
 
