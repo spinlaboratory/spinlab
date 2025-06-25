@@ -3,17 +3,17 @@
 .. _plot_06_fitting:
 
 =============================
-Using the DNPLab Fit function
+Using the SpinLab Fit function
 =============================
 
-This example demonstrates how to use the DNPLab fit function on a dnpdata object.
+This example demonstrates how to use the SpinLab fit function on a sldata object.
 
 """
 # %%
 # The following example shows how the autophase function can be conveniently used.
 # To get started, first, setup the python environment:
 
-import dnplab as dnp
+import spinlab as sl
 import numpy as np
 
 # %%
@@ -25,10 +25,10 @@ x = np.r_[-50:50:1j*pts]
 
 np.random.seed(101)
 
-values = dnp.math.lineshape.lorentzian(x, 0, 0.5, 1.5)
+values = sl.math.lineshape.lorentzian(x, 0, 0.5, 1.5)
 values += np.random.randn(pts)*0.05
 
-data = dnp.DNPData(values, ['f2'], [x])
+data = sl.SpinData(values, ['f2'], [x])
 
 
 # %%
@@ -37,15 +37,15 @@ data = dnp.DNPData(values, ['f2'], [x])
 
 init_guess = [0, 0.5, 1.0]
 
-guess_values = dnp.math.lineshape.lorentzian(x, *init_guess)
+guess_values = sl.math.lineshape.lorentzian(x, *init_guess)
 
-guess = dnp.DNPData(guess_values, ['f2'], [x])
+guess = sl.SpinData(guess_values, ['f2'], [x])
 
 # %%
 # now we perform the fit
-# the output is a dictionary of DNPData objects containting the "fit" and optimal parameters "popt"
+# the output is a dictionary of SpinData objects containting the "fit" and optimal parameters "popt"
 
-out = dnp.fit(dnp.math.lineshape.lorentzian, data, 'f2', init_guess)
+out = sl.fit(sl.math.lineshape.lorentzian, data, 'f2', init_guess)
 fit = out['fit']
 popt = out['popt']
 
@@ -56,9 +56,9 @@ print(popt.values) # print optimal fitting values
 # %%
 # Now we plot the data, initial guess and fit
 
-dnp.plt.figure('data')
-dnp.plot(data, label = 'data')
-dnp.plot(guess, label = 'guess')
-dnp.plot(fit, label = 'fit')
-dnp.plt.legend()
-dnp.plt.show()
+sl.plt.figure('data')
+sl.plot(data, label = 'data')
+sl.plot(guess, label = 'guess')
+sl.plot(fit, label = 'fit')
+sl.plt.legend()
+sl.plt.show()

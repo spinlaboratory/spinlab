@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-import dnplab as dnp
+import spinlab as sl
 
 
 TESTSET = {
@@ -103,7 +103,7 @@ class TestHydration(unittest.TestCase):
         }
 
     def test_hydration(self):
-        result = dnp.hydration(self.data, self.constants)
+        result = sl.hydration(self.data, self.constants)
 
         self.assertEqual(len(self.data["E_powers"]), 21)
         self.assertEqual(len(self.data["E_array"]), 21)

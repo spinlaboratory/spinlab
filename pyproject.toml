@@ -1,0 +1,21 @@
+[project]
+name = "spinlab"
+version = "0.0.0"
+description = "SpinLab - Bringing the Power of Python to NMR-EPR Spectroscopy"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+license = "MIT"
+license-files = ["LICENSE.txt"]
+keywords = ["ODNP", "DNP", "Spin", "NMR", "EPR"]
+
+[tool.setuptools.packages.find]
+include = ["spinlab*"]
+
+[build-system]
+requires = ["setuptools", "numpy >= 2.0.0", "scipy>=1.14.0", "matplotlib>=3.9.0", "h5py>=3.11.0"]
+build-backend = "setuptools.build_meta"

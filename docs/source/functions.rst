@@ -2,14 +2,14 @@
 Functions
 =========
 
-Reference for all functions used in DNPLab.
+Reference for all functions used in SpinLab.
 
 
 Analysis
 ==============================
 Hydration
 ------------------------------
-.. automodule:: dnplab.analysis.hydration
+.. automodule:: spinlab.analysis.hydration
    :members:
    :show-inheritance:
 
@@ -17,19 +17,19 @@ Constants
 ==============================
 Constants
 ------------------------------
-.. automodule:: dnplab.constants.constants
+.. automodule:: spinlab.constants.constants
    :members:
    :show-inheritance:
 
 mrProperties
 ------------------------------
-.. automodule:: dnplab.constants.mrProperties
+.. automodule:: spinlab.constants.mrProperties
    :members:
    :show-inheritance:
 
 radicalProperties
 ------------------------------
-.. automodule:: dnplab.constants.radicalProperties
+.. automodule:: spinlab.constants.radicalProperties
    :members:
    :show-inheritance:
 
@@ -37,31 +37,31 @@ Core
 ==============================
 Base
 ------------------------------
-.. automodule:: dnplab.core.base
+.. automodule:: spinlab.core.base
    :members:
    :show-inheritance:
 
 Coord
 ------------------------------
-.. automodule:: dnplab.core.coord
+.. automodule:: spinlab.core.coord
    :members:
    :show-inheritance:
 
 Data
 ------------------------------
-.. automodule:: dnplab.core.data
+.. automodule:: spinlab.core.data
    :members:
    :show-inheritance:
 
 UFunc
 ------------------------------
-.. automodule:: dnplab.core.ufunc
+.. automodule:: spinlab.core.ufunc
    :members:
    :show-inheritance:
 
 Util
 ------------------------------
-.. automodule:: dnplab.core.util
+.. automodule:: spinlab.core.util
    :members:
    :show-inheritance:
 
@@ -69,7 +69,7 @@ Fitting
 ==============================
 General
 ------------------------------
-.. automodule:: dnplab.fitting.general
+.. automodule:: spinlab.fitting.general
    :members:
    :show-inheritance:
 
@@ -77,85 +77,85 @@ IO
 ==============================
 Bes3t
 ------------------------------
-.. automodule:: dnplab.io.bes3t
+.. automodule:: spinlab.io.bes3t
    :members:
    :show-inheritance:
 
 CNSI
 ------------------------------
-.. automodule:: dnplab.io.cnsi
+.. automodule:: spinlab.io.cnsi
    :members:
    :show-inheritance:
 
 Delta
 ------------------------------
-.. automodule:: dnplab.io.delta
+.. automodule:: spinlab.io.delta
    :members:
    :show-inheritance:
 
 H5
 ------------------------------
-.. automodule:: dnplab.io.h5
+.. automodule:: spinlab.io.h5
    :members:
    :show-inheritance:
 
 Load
 ------------------------------
-.. automodule:: dnplab.io.load
+.. automodule:: spinlab.io.load
    :members:
    :show-inheritance:
 
 Power
 ------------------------------
-.. automodule:: dnplab.io.power
+.. automodule:: spinlab.io.power
    :members:
    :show-inheritance:
 
 Prospa
 ------------------------------
-.. automodule:: dnplab.io.prospa
+.. automodule:: spinlab.io.prospa
    :members:
    :show-inheritance:
 
 Save
 ------------------------------
-.. automodule:: dnplab.io.save
+.. automodule:: spinlab.io.save
    :members:
    :show-inheritance:
 
 SpecMan
 ------------------------------
-.. automodule:: dnplab.io.specman
+.. automodule:: spinlab.io.specman
    :members:
    :show-inheritance:
 
 TNMR
 ------------------------------
-.. automodule:: dnplab.io.tnmr
+.. automodule:: spinlab.io.tnmr
    :members:
    :show-inheritance:
 
 TopSpin
 ------------------------------
-.. automodule:: dnplab.io.topspin
+.. automodule:: spinlab.io.topspin
    :members:
    :show-inheritance:
 
 VNA
 ------------------------------
-.. .. automodule:: dnplab.io.vna
+.. .. automodule:: spinlab.io.vna
 ..    :members:
 ..    :show-inheritance:
 
 VnmrJ
 ------------------------------
-.. automodule:: dnplab.io.vnmrj
+.. automodule:: spinlab.io.vnmrj
    :members:
    :show-inheritance:
 
 WinEPR
 ------------------------------
-.. automodule:: dnplab.io.winepr
+.. automodule:: spinlab.io.winepr
    :members:
    :show-inheritance:
 
@@ -165,19 +165,19 @@ Math
 
 Lineshape
 ------------------------------
-.. automodule:: dnplab.math.lineshape
+.. automodule:: spinlab.math.lineshape
    :members:
    :show-inheritance:
 
 Relaxation
 ------------------------------
-.. automodule:: dnplab.math.relaxation
+.. automodule:: spinlab.math.relaxation
    :members:
    :show-inheritance:
 
 Window
 ------------------------------
-.. automodule:: dnplab.math.window
+.. automodule:: spinlab.math.window
    :members:
    :show-inheritance:
 
@@ -187,19 +187,19 @@ Plotting
 
 General
 ------------------------------
-.. automodule:: dnplab.plotting.general
+.. automodule:: spinlab.plotting.general
    :members:
    :show-inheritance:
 
 Image
 ------------------------------
-.. automodule:: dnplab.plotting.image
+.. automodule:: spinlab.plotting.image
    :members:
    :show-inheritance:
 
 Stack Plot
 ------------------------------
-.. automodule:: dnplab.plotting.stack_plot
+.. automodule:: spinlab.plotting.stack_plot
    :members:
    :show-inheritance:
 
@@ -209,43 +209,43 @@ Processing
 
 Align
 ------------------------------
-.. automodule:: dnplab.processing.align
+.. automodule:: spinlab.processing.align
    :members:
    :show-inheritance:
 
 Apodization
 ------------------------------
-.. automodule:: dnplab.processing.apodization
+.. automodule:: spinlab.processing.apodization
    :members:
    :show-inheritance:
 
 FFT
 ------------------------------
-.. automodule:: dnplab.processing.fft
+.. automodule:: spinlab.processing.fft
    :members:
    :show-inheritance:
 
 Helpers
 ------------------------------
-.. automodule:: dnplab.processing.helpers
+.. automodule:: spinlab.processing.helpers
    :members:
    :show-inheritance:
 
 Integration
 ------------------------------
-.. automodule:: dnplab.processing.integration
+.. automodule:: spinlab.processing.integration
    :members:
    :show-inheritance:
 
 Offset
 ------------------------------
-.. automodule:: dnplab.processing.offset
+.. automodule:: spinlab.processing.offset
    :members:
    :show-inheritance:
 
 Phase
 ------------------------------
-.. automodule:: dnplab.processing.phase
+.. automodule:: spinlab.processing.phase
    :members:
    :show-inheritance:
 
