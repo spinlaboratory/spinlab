@@ -104,27 +104,27 @@ class specman_import_tester(unittest.TestCase):
         self.test_data_field_monitor = os.path.join(".", "data", "specman", "test_specman_field_monitor.exp")
 
     def test_import_specman_2D(self):
-        data = sl.load(self.test_data_2D, data_format="specman")
+        data = sl.load(self.test_data_2D, data_format="specman", autodetect_dims = False, autodetect_coords = False, make_complex = False)
         self.assertEqual(data.dims, ["x0", "x1", "x2"])
         self.assertEqual(data.values.shape, (4500, 252, 2))
 
     def test_import_specman_4D(self):
-        data = sl.load(self.test_data_4D, data_format="specman")
+        data = sl.load(self.test_data_4D, data_format="specman", autodetect_dims = False, autodetect_coords = False, make_complex = False)
         self.assertEqual(data.dims, ["x0", "x1", "x2", "x3", "x4"])
         self.assertEqual(data.values.shape, (1500, 40, 5, 3, 2))
 
     def test_import_specman_2D_with_autodetect(self):
-        data = sl.load(self.test_data_2D, data_format="specman", autodetect_dims = True, autodetect_coords = True)
+        data = sl.load(self.test_data_2D, data_format="specman", autodetect_dims = True, autodetect_coords = True, make_complex = False)
         self.assertEqual(data.dims, ["t2", "t", "x"])
         self.assertEqual(data.values.shape, (4500, 252, 2))
         
     def test_import_specman_4D_with_autodetect(self):
-        data = sl.load(self.test_data_4D, data_format="specman", autodetect_dims = True, autodetect_coords = True)
+        data = sl.load(self.test_data_4D, data_format="specman", autodetect_dims = True, autodetect_coords = True, make_complex = False)
         self.assertEqual(data.dims, ["t2", "Fr_pump", "offset1", "tsquare", "x"])
         self.assertEqual(data.values.shape, (1500, 40, 5, 3, 2))
 
     def test_import_specman_field_monitor(self):
-        data = sl.load(self.test_data_field_monitor, data_format="specman", autodetect_dims = True, autodetect_coords = True)
+        data = sl.load(self.test_data_field_monitor, data_format="specman", autodetect_dims = True, autodetect_coords = True, make_complex = False)
         self.assertEqual(data.dims, ["tau", "Field", "x"])
         self.assertEqual(data.values.shape, (101, 101, 2))
         self.assertEqual(data.coords['tau'][0], 3.0000000000000004e-07)
