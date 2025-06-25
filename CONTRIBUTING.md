@@ -54,7 +54,7 @@ cd spinlab-yourname
 git remote add upstream https://github.com/spinlab/spinlab.git
 ```
 
-The `master` branch only hosts the latest release, so you want to be on
+The `main` branch only hosts the latest release, so you want to be on
 the `develop` branch for the latest production-ready development. Type
 ```
 git checkout develop
@@ -152,4 +152,4 @@ By contributing, you agree that your contributions will be licensed under its MI
 
 We strongly welcome and encourage committed individuals to help maintain
 SpinLab. You don't have to be a python expert or a Spin expert. Please
-contact any of the [current maintainers](http://spinlab.net/) if you are interested.
+contact any of the [current maintainers](https://spinlaboratory.com/) if you are interested.
