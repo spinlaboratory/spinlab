@@ -1,7 +1,7 @@
 [project]
 name = "spinlab"
 dynamic = ["version"]
-description = "SpinLab - Bringing the Power of Python to NMR-EPR Spectroscopy"
+description = "SpinLab - Bringing the Power of Python to MR Spectroscopy"
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
@@ -12,7 +12,7 @@ classifiers = [
 ]
 license = "MIT"
 license-files = ["LICENSE.txt"]
-keywords = ["ODNP", "DNP", "Spin", "NMR", "EPR"]
+keywords = ["ODNP", "DNP", "Spin", "NMR", "EPR", "ESR"]
 
 [tool.setuptools.packages.find]
 include = ["spinlab*", "spinlab"]

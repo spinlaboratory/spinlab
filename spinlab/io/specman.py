@@ -244,8 +244,11 @@ def analyze_attrs(attrs):
                 unit = val_list[-1]  # get unit
             val = val_list[0].strip(",")
             val_unit = val_list[1] if len(val_list) == 5 else None
-            temp[new_key] = int(val) if "." not in val else float(val)
-            temp[new_key] *= _convert_unit(val_unit)
+            if "*" in val:
+                temp[new_key] = val
+            else:
+                temp[new_key] = int(val) if "." not in val else float(val)
+                temp[new_key] *= _convert_unit(val_unit)
 
             if unit is not None:
                 temp[new_key + "_unit"] = unit
@@ -357,24 +360,35 @@ def calculate_specman_coords(attrs, old_coords, dims=None):
                 _np.log10(start), _np.log10(logto), length, endpoint=True
             )
         elif dim in attrs and dim + "_step" not in attrs and dim + "_stop" not in attrs:
-            val_string = attrs["params_" + dim].split(";")[0]
+            val_string = attrs["params_" + dim]
+            if "*" in val_string:
+                i = 0
+                while "params_" + dim + f"_{i}" in attrs:
+                    val_string += attrs["params_" + dim + f"_{i}"]
+                    i += 1
+                val_string = val_string.replace("*", "")
+
+            val_string = val_string.split(";")[0]
             val_string = val_string.replace(", ", ",").split(",")
             coord = _np.array(
                 [
                     float(val.split()[0])
                     for val in val_string
-                    if val.split()[0].replace(".", "").isdigit()
-                ]
+                    if val.split()[0].replace(".", "").replace("-", "").isdigit()
+                ][:length]
             )
             units = []
             try:
-                units = [x.split()[1] for x in val_string if not x.split()[1].isdigit()]
+                units = [
+                    x.split()[1] for x in val_string if not x.split()[1].isdigit()
+                ][:length]
             except IndexError:
                 pass
 
             if units:
                 for i in range(len(coord)):
                     coord[i] *= _convert_unit(units[i])
+
         else:
             coord = _np.arange(0.0, length)
         coords.append(_np.array(coord))
