@@ -59,9 +59,9 @@ def make_rst_epilog(rst_epilog_list):
 
 rst_epilog = make_rst_epilog(rst_epilog_list)
 
-# # Add links from linkList.rst
-# with open("_static/linkList.rst") as f:
-#     rst_epilog += f.read()
+# Add links from linkList.rst
+with open("_static/linkList.rst") as f:
+    rst_epilog += f.read()
 
 
 # -- General configuration ---------------------------------------------------
@@ -122,17 +122,6 @@ sphinx_gallery_conf = {
     "run_stale_examples": True,  # Force sphinx to rebuild example. Set to False to only run examples that have changed
 }
 
-
-
-
-
-
-
-
-
-
-
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
@@ -145,22 +134,25 @@ html_theme = "sphinx_rtd_theme"
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
 html_theme_options = {
     # "analytics_id": "G-917JV2CKD7",  #  Provided by Google in your dashboard
-    #     'analytics_anonymize_ip': False,
-    #     'prev_next_buttons_location': 'bottom',
-    #     'style_external_links': False,
-    #     'vcs_pageview_mode': '',
-    #     'style_nav_header_background': 'white',
+    # 'analytics_anonymize_ip': False,
+    # 'prev_next_buttons_location': 'bottom',
+    # 'style_external_links': False,
+    # 'vcs_pageview_mode': '',
+    # 'style_nav_header_background': 'white',
     "logo_only": False,
     # "display_version": False,
     # TOC options
     "sticky_navigation": False,
     "collapse_navigation": True,
-    "navigation_depth": 4
-    #     'includehidden': True,
-    #     'titles_only': False
+    "navigation_depth": 4,
+    # 'includehidden': True,
+    # 'titles_only': False
+    # 'style_nav_header_background': 'white',
+    'flyout_display': 'hidden',
+    'version_selector': True,
+    'language_selector': True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

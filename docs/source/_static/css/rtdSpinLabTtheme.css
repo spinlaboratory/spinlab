@@ -1,4 +1,4 @@
-/* :root {
+:root {
     --B12T-dark-green:          #46812b;
     --B12T-dark-green-note:     #e3ebde;
     --B12T-light-green:         #67ae3e;
@@ -8,15 +8,15 @@
     --B12T-orange:              #f37021;
     --B12T-orange-warn:         #ffede0;
     --B12T-code-background:     #eaeaea;
-} */
+}
 
-/* General Settings
+/* General Settings */
 a{color: var(--B12T-dark-green);}
 a:visited{color: var(--B12T-dark-green);}
 a:hover{color: var(--B12T-orange);}
-a:active{color: var(--B12T-orange);} */
+a:active{color: var(--B12T-orange);}
 
-/* Side Panel 
+/* Side Panel  */
 .wy-side-nav-search{background-color:var(--B12T-dark-green);}
 .wy-side-nav-search a{color: white;}
 
@@ -28,26 +28,26 @@ a:active{color: var(--B12T-orange);} */
     font-weight: bold;
 }
 .wy-menu-vertical a{color: white;}
-.wy-menu-vertical  a:active{background: var(--B12T-orange);} */
+.wy-menu-vertical  a:active{background: var(--B12T-orange);}
 
-/* Note and warning top and backround
+/* Note and warning top and backround */
 .rst-content .note .admonition-title{background: var(--B12T-dark-green);}
 .rst-content .note {background: var(--B12T-dark-green-note);}
 .rst-content .warning .admonition-title{background: var(--B12T-orange);}
-.rst-content .warning{background: var(--B12T-orange-warn);} */
+.rst-content .warning{background: var(--B12T-orange-warn);}
 
-/* Background for code snippets
-.highlight{background: #eaeaea;} */
+/* Background for code snippets */
+.highlight{background: #eaeaea;}
 
-/* Border and background for functions
+/* Border and background for functions */
 .rst-content dl:not(.docutils) dt{
     border-top-color: var(--B12T-dark-green);
     background-color: var(--B12T-loght-green-fnct);
     color: var(--B12T-dark-grey);
-} */
+}
 
 /* override table width restrictions */
-/* @media screen and (min-width: 767px) {
+@media screen and (min-width: 767px) {
 
     .wy-table-responsive table td {
        /* !important prevents the common CSS stylesheets from overriding
@@ -58,4 +58,4 @@ a:active{color: var(--B12T-orange);} */
     .wy-table-responsive {
        overflow: visible !important;
     }
- } */
+ }
