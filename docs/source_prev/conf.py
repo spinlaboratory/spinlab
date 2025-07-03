@@ -1,9 +1,18 @@
+#!/usr/local/bin/python3
+# -*- coding: utf-8 -*-
+#
 # Configuration file for the Sphinx documentation builder.
 #
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+# This file does only contain a selection of the most common options. For a
+# full list see the documentation:
+# http://www.sphinx-doc.org/en/master/config
 
+# -- Path setup --------------------------------------------------------------
 
+# If extensions (or modules to document with autodoc) are in another directory,
+# add these directories to sys.path here. If the directory is relative to the
+# documentation root, use os.path.abspath to make it absolute, like shown here.
+#
 import os
 import sys
 
@@ -14,12 +23,10 @@ print(sys.path)
 
 
 # -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'SpinLab'
-copyright = '2025, SpinLab'
-author = 'SpinLab Team'
-release = '0.1'
+project = "SpinLab"
+copyright = "2024, SpinLab"
+author = "SpinLab Team"
 
 from datetime import datetime
 
@@ -59,30 +66,35 @@ def make_rst_epilog(rst_epilog_list):
 
 rst_epilog = make_rst_epilog(rst_epilog_list)
 
-# # Add links from linkList.rst
-# with open("_static/linkList.rst") as f:
-#     rst_epilog += f.read()
+# Add links from linkList.rst
+with open("_static/linkList.rst") as f:
+    rst_epilog += f.read()
 
+# rst_epilog = """
+# .. |psf| replace:: Python Software Foundation
+# """
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+# If your documentation needs a minimal Sphinx version, state it here.
+#
+# needs_sphinx = '1.0'
+
+# Add any Sphinx extension module names here, as strings. They can be
+# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+# ones.
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
     "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
+    "sphinx_gallery.gen_gallery",
 ]
-#     "sphinx_gallery.gen_gallery",
-# ]
-
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
 
 autodoc_member_order = "alphabetical"
-
-exclude_patterns = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -123,22 +135,12 @@ sphinx_gallery_conf = {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 # -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+# html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -147,14 +149,14 @@ html_theme = "sphinx_rtd_theme"
 #
 # html_theme_options = {}
 html_theme_options = {
-    # "analytics_id": "G-917JV2CKD7",  #  Provided by Google in your dashboard
+    "analytics_id": "G-917JV2CKD7",  #  Provided by Google in your dashboard
     #     'analytics_anonymize_ip': False,
     #     'prev_next_buttons_location': 'bottom',
     #     'style_external_links': False,
     #     'vcs_pageview_mode': '',
     #     'style_nav_header_background': 'white',
-    "logo_only": False,
-    # "display_version": False,
+    "logo_only": True,
+    "display_version": False,
     # TOC options
     "sticky_navigation": False,
     "collapse_navigation": True,
@@ -169,8 +171,9 @@ html_theme_options = {
 html_static_path = ["_static"]
 # html_static_path = []
 
+
 def setup(app):
-    app.add_css_file("css/rtdSpinLabTtheme.css")
+    app.add_css_file("css/rtdB12Ttheme.css")
 
 
 # Custom sidebar templates, must be a dictionary that maps document names
@@ -183,7 +186,7 @@ def setup(app):
 #
 # html_sidebars = {}
 
-html_logo = "_static/images/SpinLabLogo_300x224.png"
+html_logo = "_static/images/SpinlabLogo.png"
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -192,72 +195,72 @@ html_logo = "_static/images/SpinLabLogo_300x224.png"
 htmlhelp_basename = "Spinlabdoc"
 
 
-# # -- Options for LaTeX output ------------------------------------------------
+# -- Options for LaTeX output ------------------------------------------------
 
-# latex_elements = {
-#     # The paper size ('letterpaper' or 'a4paper').
-#     #
-#     # 'papersize': 'letterpaper',
-#     # The font size ('10pt', '11pt' or '12pt').
-#     #
-#     # 'pointsize': '10pt',
-#     # Additional stuff for the LaTeX preamble.
-#     #
-#     # 'preamble': '',
-#     # Latex figure (float) alignment
-#     #
-#     # 'figure_align': 'htbp',
-# }
+latex_elements = {
+    # The paper size ('letterpaper' or 'a4paper').
+    #
+    # 'papersize': 'letterpaper',
+    # The font size ('10pt', '11pt' or '12pt').
+    #
+    # 'pointsize': '10pt',
+    # Additional stuff for the LaTeX preamble.
+    #
+    # 'preamble': '',
+    # Latex figure (float) alignment
+    #
+    # 'figure_align': 'htbp',
+}
 
-# # Grouping the document tree into LaTeX files. List of tuples
-# # (source start file, target name, title,
-# #  author, documentclass [howto, manual, or own class]).
-# latex_documents = [
-#     (master_doc, "Spinlab.tex", "SpinLab Documentation", "Timothy Keller", "manual"),
-# ]
-
-
-# # -- Options for manual page output ------------------------------------------
-
-# # One entry per manual page. List of tuples
-# # (source start file, name, description, authors, manual section).
-# man_pages = [(master_doc, "Spinlab", "SpinLab Documentation", [author], 1)]
+# Grouping the document tree into LaTeX files. List of tuples
+# (source start file, target name, title,
+#  author, documentclass [howto, manual, or own class]).
+latex_documents = [
+    (master_doc, "Spinlab.tex", "SpinLab Documentation", "Timothy Keller", "manual"),
+]
 
 
-# # -- Options for Texinfo output ----------------------------------------------
+# -- Options for manual page output ------------------------------------------
 
-# # Grouping the document tree into Texinfo files. List of tuples
-# # (source start file, target name, title, author,
-# #  dir menu entry, description, category)
-# texinfo_documents = [
-#     (
-#         master_doc,
-#         "SpinLab",
-#         "SpinLab Documentation",
-#         author,
-#         "SpinLab",
-#         "Bringing the Power of Python to Spin-NMR Spectroscopy",
-#         "Miscellaneous",
-#     ),
-# ]
+# One entry per manual page. List of tuples
+# (source start file, name, description, authors, manual section).
+man_pages = [(master_doc, "Spinlab", "SpinLab Documentation", [author], 1)]
 
 
-# # -- Options for Epub output -------------------------------------------------
+# -- Options for Texinfo output ----------------------------------------------
 
-# # Bibliographic Dublin Core info.
-# epub_title = project
+# Grouping the document tree into Texinfo files. List of tuples
+# (source start file, target name, title, author,
+#  dir menu entry, description, category)
+texinfo_documents = [
+    (
+        master_doc,
+        "SpinLab",
+        "SpinLab Documentation",
+        author,
+        "SpinLab",
+        "Bringing the Power of Python to Spin-NMR Spectroscopy",
+        "Miscellaneous",
+    ),
+]
 
-# # The unique identifier of the text. This can be a ISBN number
-# # or the project homepage.
-# #
-# # epub_identifier = ''
 
-# # A unique identification for the text.
-# #
-# # epub_uid = ''
+# -- Options for Epub output -------------------------------------------------
 
-# # A list of files that should not be packed into the epub file.
-# epub_exclude_files = ["search.html"]
+# Bibliographic Dublin Core info.
+epub_title = project
+
+# The unique identifier of the text. This can be a ISBN number
+# or the project homepage.
+#
+# epub_identifier = ''
+
+# A unique identification for the text.
+#
+# epub_uid = ''
+
+# A list of files that should not be packed into the epub file.
+epub_exclude_files = ["search.html"]
 
 
-# # -- Extension configuration -------------------------------------------------
+# -- Extension configuration -------------------------------------------------

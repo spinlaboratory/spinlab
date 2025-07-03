@@ -1,0 +1,289 @@
+{
+ "data": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "data.attrs": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.attrs"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.attrs"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.attrs"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.attrs"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.attrs"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.attrs"
+  }
+ ],
+ "data.coords": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.coords"
+  }
+ ],
+ "data.values": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.values"
+  }
+ ],
+ "nmr_frequency": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "float"
+  }
+ ],
+ "sampleTag": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "str"
+  }
+ ],
+ "sl.apodize": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "apodize"
+  }
+ ],
+ "sl.fancy_plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "fancy_plot"
+  }
+ ],
+ "sl.fourier_transform": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "fourier_transform"
+  }
+ ],
+ "sl.load": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "load"
+  }
+ ],
+ "sl.phase": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "phase"
+  }
+ ],
+ "sl.plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "show"
+  }
+ ],
+ "spectrum": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "x_axis": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ]
+}

@@ -1,0 +1,400 @@
+{
+ "data": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "data.coords": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.coords"
+  }
+ ],
+ "data.values.real": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.values"
+  }
+ ],
+ "data_proc": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "data_proc.coords": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.coords"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.coords"
+  }
+ ],
+ "data_proc.values.real": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.values"
+  }
+ ],
+ "sl.fancy_plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "fancy_plot"
+  }
+ ],
+ "sl.load": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "load"
+  }
+ ],
+ "sl.plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "figure"
+  }
+ ],
+ "sl.plt.grid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "grid"
+  }
+ ],
+ "sl.plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "legend"
+  }
+ ],
+ "sl.plt.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "plot"
+  }
+ ],
+ "sl.plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "show"
+  }
+ ],
+ "sl.plt.tight_layout": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "tight_layout"
+  }
+ ],
+ "sl.plt.xlabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "xlabel"
+  }
+ ],
+ "sl.plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "ylabel"
+  }
+ ],
+ "sl.remove_background": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "remove_background"
+  }
+ ]
+}
