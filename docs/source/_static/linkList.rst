@@ -82,9 +82,6 @@
    <a href="https://github.com/SpinLab/Spinlab" target="_blank"> SpinLab on GitHub</a>
 
 
-.. |SpinNMR| raw:: html
-
-   <a href="https://www.bridge12.com/learn/spinlab-spectroscopy/" target="_blank">Spin-NMR</a>
 
 
 .. |SpinSpectroscopy| raw:: html
