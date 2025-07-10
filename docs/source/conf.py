@@ -149,7 +149,7 @@ html_theme_options = {
     "navigation_depth": 4,
     # 'includehidden': True,
     # 'titles_only': False
-    'style_nav_header_background': 'white',
+    # 'style_nav_header_background': 'white',
     'flyout_display': 'hidden',
     'version_selector': True,
     'language_selector': True,

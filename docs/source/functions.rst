@@ -5,8 +5,8 @@ Functions
 Reference to all SpinLab functions.
 
 
-Analysis
-==============================
+.. Analysis
+.. ==============================
 
 
 Constants
