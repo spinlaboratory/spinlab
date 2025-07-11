@@ -38,6 +38,7 @@ Features
 
 Please report all issues on the |SpinlabGitIssueTrackerLink|.
 
+
 Citing SpinLab
 ==============
 
@@ -64,20 +65,12 @@ SpinLab can be easily installed via pip:
    installation
    currentRelease
 
-
 .. toctree::
    :caption: User Guide
    :maxdepth: 1
    :hidden:
 
 ..    gettingStarted
-
-
-
-
-
-
-
 
 .. toctree::
    :caption: Examples
@@ -86,14 +79,12 @@ SpinLab can be easily installed via pip:
 
 ..    auto_examples/index
 
-
 .. toctree::
    :caption: Reference
    :hidden:
 
    modules
    functions
-
 
 .. toctree::
    :caption: About
