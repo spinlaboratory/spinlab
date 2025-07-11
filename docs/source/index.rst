@@ -14,13 +14,20 @@ Welcome to SpinLab
    :target: https://pepy.tech/project/spinlab
    :alt: Downloads
 
+   
 Welcome to the SpinLab documentation. SpinLab is an object-oriented |OpenSource| Python-based package for importing, processing, and analyzing data determined in an Electron Paramagnetic Resonance (EPR), Nuclear Magnetic Resonance (NMR), or Dynamic Nuclear Polarization (DNP) experiment. The aim of the project is to provide a free, turn-key python-based processing package for Magnetic Resonance (MR) data.
+
+
+.. note::
+   DNPLab was recently renamed to SpinLab and with that we are also updating the documentation. Please make sure to check back as this document is growing.
+
 
 To install SpinLab:
 
 .. code-block:: bash
 
     $ pip install spinlab
+
 
 Features
 ========
@@ -105,18 +112,9 @@ SpinLab can be easily installed via pip:
    :caption: About
    :hidden:
 
-..    people
-..    license
-..    getInvolved
-..    funding
-
-
-
-
+   people
+   license
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`
 .. * :ref:`search`
-
-
-

@@ -39,6 +39,28 @@
    <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank">Open Source</a>
 
 
+.. |tmalyLinkedIn| raw:: html
+
+   <a href="https://www.linkedin.com/in/tmaly/" target="_blank">LinkedIn</a>
+
+
+.. |tkellerLinkedIn| raw:: html
+
+   <a href="https://www.linkedin.com/in/timothy-keller-3822a183/" target="_blank">LinkedIn</a>
+
+
+.. |yhuangLinkedIn| raw:: html
+
+   <a href="https://www.linkedin.com/in/eugene-yelo/" target="_blank">LinkedIn</a>
+
+
+.. |thmalyTwitter| raw:: html
+
+   <a href="https://twitter.com/thmaly" target="_blank">@thmaly</a>
+
+
+
+
 
 .. -------------------------- Old Links - Move up when using, will be deleted in the future --------------------------
 
@@ -64,9 +86,6 @@
    <a href="https://pip.pypa.io/en/stable/" target="_blank">pip</a>
 
 
-.. |thmalyTwitter| raw:: html
-
-   <a href="https://twitter.com/thmaly" target="_blank">@thmaly</a>
 
 .. -------------------------- Sorted Links --------------------------
 
