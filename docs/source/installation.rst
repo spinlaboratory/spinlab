@@ -2,6 +2,12 @@
 Installation
 ============
 
+SpinLab can be easily installed via pip:
+
+.. code-block:: bash
+
+    $ pip install spinlab
+
 Required Packages
 =================
 All required Python packages will be automatically installed during the installation. Currently, the following packages and their respective minimal versions are required:

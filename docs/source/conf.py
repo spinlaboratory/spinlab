@@ -3,7 +3,6 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-
 import os
 import sys
 
@@ -37,12 +36,10 @@ print("Build Time: " + date)
 print("Version: " + version)
 print("Release: " + release)
 
-
 rst_epilog_list = [
     ("date", date),
     ("author", "The SpinLab Team"),
 ]
-
 
 def make_rst_epilog(rst_epilog_list):
     rst_epilog = ""
@@ -56,8 +53,8 @@ def make_rst_epilog(rst_epilog_list):
 
     return rst_epilog
 
-
 rst_epilog = make_rst_epilog(rst_epilog_list)
+
 
 # Add links from linkList.rst
 with open("_static/linkList.rst") as f:
@@ -73,15 +70,11 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
+    "sphinx_gallery.gen_gallery",
 ]
-#     "sphinx_gallery.gen_gallery",
-# ]
-
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
-
 autodoc_member_order = "alphabetical"
-
 exclude_patterns = []
 
 # Add any paths that contain templates here, relative to this directory.
@@ -115,11 +108,11 @@ pygments_style = None
 from sphinx_gallery.sorting import FileNameSortKey
 
 sphinx_gallery_conf = {
-    "examples_dirs": "../../examples",  # path to your example scripts
-    "gallery_dirs": "auto_examples",  # path to where to save gallery generated output
-    "remove_config_comments": True,
-    "within_subsection_order": FileNameSortKey,  # Sort by file name
-    "run_stale_examples": True,  # Force sphinx to rebuild example. Set to False to only run examples that have changed
+    "examples_dirs":            "../../docs/examples",      # path to your example scripts
+    "gallery_dirs":             "sl_examples",            # path to where to save gallery generated output
+    "remove_config_comments":   True,
+    # "within_subsection_order":  FileNameSortKey,            # Sort by file name
+    # "run_stale_examples":       True,                       # Force sphinx to rebuild example. Set to False to only run examples that have changed
 }
 
 # -- Options for HTML output -------------------------------------------------
@@ -135,31 +128,28 @@ html_theme = "sphinx_rtd_theme"
 # documentation.
 #
 html_theme_options = {
-    # "analytics_id": "G-917JV2CKD7",  #  Provided by Google in your dashboard
-    # 'analytics_anonymize_ip': False,
-    # 'prev_next_buttons_location': 'bottom',
-    # 'style_external_links': False,
-    # 'vcs_pageview_mode': '',
-    # 'style_nav_header_background': 'white',
-    "logo_only": False,
-    # "display_version": False,
+    # "analytics_id":                     "G-917JV2CKD7",  #  Provided by Google in your dashboard
+    # 'analytics_anonymize_ip':           False,
+    'prev_next_buttons_location':       'bottom',
+    # 'style_external_links':             False,
+    # 'vcs_pageview_mode':                '',
+    # 'style_nav_header_background':      'white',
+    "logo_only":                        False,
     # TOC options
-    "sticky_navigation": False,
-    "collapse_navigation": True,
-    "navigation_depth": 4,
-    # 'includehidden': True,
-    # 'titles_only': False
-    # 'style_nav_header_background': 'white',
-    'flyout_display': 'hidden',
-    'version_selector': True,
-    'language_selector': True,
+    "sticky_navigation":                False,
+    "collapse_navigation":              True,
+    "navigation_depth":                 4,
+    # 'includehidden':                    True,
+    # 'titles_only':                      False
+    'flyout_display':                   'hidden',
+    'version_selector':                 True,
+    'language_selector':                True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-# html_static_path = []
 
 def setup(app):
     app.add_css_file("css/rtdSpinLabTtheme.css")
@@ -209,11 +199,11 @@ htmlhelp_basename = "Spinlabdoc"
 # ]
 
 
-# # -- Options for manual page output ------------------------------------------
+# -- Options for manual page output ------------------------------------------
 
-# # One entry per manual page. List of tuples
-# # (source start file, name, description, authors, manual section).
-# man_pages = [(master_doc, "Spinlab", "SpinLab Documentation", [author], 1)]
+# One entry per manual page. List of tuples
+# (source start file, name, description, authors, manual section).
+man_pages = [(master_doc, "Spinlab", "SpinLab Documentation", [author], 1)]
 
 
 # # -- Options for Texinfo output ----------------------------------------------
