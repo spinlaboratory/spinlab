@@ -36,14 +36,6 @@ Features
 * Create N-dimensional data objects
 * Easy data processing (e.g. apodization, zero-filling, Fourier transformations, alignment, ...)
 
-SpinLab originally started as |DNPLab|. It was initially createdby:
-
-* Bridge12 Technologies, Inc.
-* The |HanLab|
-* The |FranckLabLink|
-
-SpinLab is distributed free of charge under the |MITLicense|. 
-
 Please report all issues on the |SpinlabGitIssueTrackerLink|.
 
 Citing SpinLab
@@ -51,11 +43,6 @@ Citing SpinLab
 
 If you are using SpinLab to process your MR data please add a link to the |SpinlabDocu| to your Materials and Methods section.
 
-The current authors of SpinLab are:
-
-* Timothy Keller
-* Yen-Chun Huang
-* Thorsten Maly
 
 Installation
 ============

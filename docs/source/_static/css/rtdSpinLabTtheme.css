@@ -32,7 +32,7 @@ a:active{color: var(--accent);}
 .wy-nav-side{background:var(--secondary1);}
 
 .wy-menu-vertical p.caption {
-    color:          white;
+    color:          var(--secondary2);
     font-weight:    bold;
     /* font-size:      1.1em; */
 }
