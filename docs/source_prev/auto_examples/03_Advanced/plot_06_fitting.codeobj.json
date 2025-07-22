@@ -1,0 +1,401 @@
+{
+ "data": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "fit": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "guess": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "guess_values": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "init_guess": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "np.r_": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.lib._index_tricks_impl",
+   "module_short": "numpy.lib._index_tricks_impl",
+   "name": "RClass"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.lib",
+   "module_short": "numpy.lib",
+   "name": "RClass"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "RClass"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "r_"
+  }
+ ],
+ "np.random.randn": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "module.randn"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "randn"
+  }
+ ],
+ "np.random.seed": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "_cython_3_0_11",
+   "module_short": "_cython_3_0_11",
+   "name": "cython_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy.random",
+   "module_short": "numpy.random",
+   "name": "seed"
+  }
+ ],
+ "out": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "dict"
+  }
+ ],
+ "popt": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "popt.values": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.values"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.values"
+  }
+ ],
+ "pts": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "sl.SpinData": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "sl.fit": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "fit"
+  }
+ ],
+ "sl.math.lineshape.lorentzian": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.math.lineshape",
+   "module_short": "spinlab.math.lineshape",
+   "name": "lorentzian"
+  }
+ ],
+ "sl.plot": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "plot"
+  }
+ ],
+ "sl.plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "figure"
+  }
+ ],
+ "sl.plt.legend": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "legend"
+  }
+ ],
+ "sl.plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.plt",
+   "module_short": "spinlab.plt",
+   "name": "show"
+  }
+ ],
+ "values": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "x": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ]
+}

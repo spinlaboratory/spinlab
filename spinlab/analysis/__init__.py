@@ -1,6 +1,6 @@
-"""Modules which provide a workflow for analyzing slData objects"""
+"""Modules which provide functions to analyze spindata objects"""
 
-from . import hydration
+# from . import hydration
 from . import relaxation_fit
 from . import simulate_enhancement_profiles
 from . import peaks

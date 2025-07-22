@@ -1,4 +1,4 @@
-"""Modules to constructs numpy arrays from input arguments"""
+"""Supporting modules"""
 
 from . import lineshape
 from . import window

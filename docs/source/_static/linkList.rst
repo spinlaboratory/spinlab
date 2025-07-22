@@ -2,9 +2,20 @@
 
 .. -------------------------- Unsorted Links --------------------------
 
-.. |GMRFunctionMatlab| raw:: html
 
-   <a href="https://www.mathworks.com/matlabcentral/fileexchange/12078-gmr-m-nmr-mri-properties" target="_blank">Mirko Hovrat</a>
+
+.. |DNPLab| raw:: html
+
+   <a href="http://dnplab.net/" target="_blank">DNPLab</a>
+
+
+.. |FranckLabLink| raw:: html
+
+   <a href="https://jmfrancklab.github.io/" target="_blank"> Franck Lab</a>
+
+.. |HanLab| raw:: html
+
+   <a href="https://hanlab.northwestern.edu/" target="_blank">Han Lab</a>
 
 
 .. |MITLicense| raw:: html
@@ -12,18 +23,62 @@
    <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a>
 
 
+.. |SpinlabDocu| raw:: html
+
+   <a href="https://github.com/spinlaboratory/spinlab/issues" target="_blank"> SpinLab Documenation</a>
+
+
+.. |SpinlabGitIssueTrackerLink| raw:: html
+
+   <a href="https://github.com/spinlaboratory/spinlab/issues" target="_blank"> SpinLab GitHub Issue Tracker</a>
+
+
+
 .. |OpenSource| raw:: html
 
    <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank">Open Source</a>
+
+
+.. |tmalyLinkedIn| raw:: html
+
+   <a href="https://www.linkedin.com/in/tmaly/" target="_blank">LinkedIn</a>
+
+
+.. |tkellerLinkedIn| raw:: html
+
+   <a href="https://www.linkedin.com/in/timothy-keller-3822a183/" target="_blank">LinkedIn</a>
+
+
+.. |yhuangLinkedIn| raw:: html
+
+   <a href="https://www.linkedin.com/in/eugene-yelo/" target="_blank">LinkedIn</a>
+
+
+.. |thmalyTwitter| raw:: html
+
+   <a href="https://twitter.com/thmaly" target="_blank">@thmaly</a>
+
+
+
+
+
+.. -------------------------- Old Links - Move up when using, will be deleted in the future --------------------------
+
+
+
+.. |GMRFunctionMatlab| raw:: html
+
+   <a href="https://www.mathworks.com/matlabcentral/fileexchange/12078-gmr-m-nmr-mri-properties" target="_blank">Mirko Hovrat</a>
+
+
+
+
 
 
 .. |Git| raw:: html
 
    <a href="https://en.wikipedia.org/wiki/Git" target="_blank">Git</a>
 
-.. |HanLab| raw:: html
-
-   <a href="https://github.com/thcasey3/hanlab" target="_blank">Han Lab</a>
 
 
 .. |pip| raw:: html
@@ -31,9 +86,6 @@
    <a href="https://pip.pypa.io/en/stable/" target="_blank">pip</a>
 
 
-.. |thmalyTwitter| raw:: html
-
-   <a href="https://twitter.com/thmaly" target="_blank">@thmaly</a>
 
 .. -------------------------- Sorted Links --------------------------
 
@@ -42,9 +94,6 @@
    <a href="http://www.bridge12.com" target="_blank"> Bridge12 Technologies, Inc.</a>
 
 
-.. |SpinlabGitIssueTrackerLink| raw:: html
-
-   <a href="https://github.com/SpinLab/Spinlab/issues" target="_blank"> SpinLab GitHub Issue Tracker</a>
 
 
 .. |SpinlabGitLink| raw:: html
@@ -52,9 +101,6 @@
    <a href="https://github.com/SpinLab/Spinlab" target="_blank"> SpinLab on GitHub</a>
 
 
-.. |SpinNMR| raw:: html
-
-   <a href="https://www.bridge12.com/learn/spinlab-spectroscopy/" target="_blank">Spin-NMR</a>
 
 
 .. |SpinSpectroscopy| raw:: html
@@ -62,9 +108,6 @@
    <a href="https://www.bridge12.com/learn/spinlab-spectroscopy/" target="_blank">Spin</a>
 
 
-.. |FranckLabLink| raw:: html
-
-   <a href="https://jmfrancklab.github.io/" target="_blank"> Franck Lab</a>
 
 
 .. |GM116612| raw:: html

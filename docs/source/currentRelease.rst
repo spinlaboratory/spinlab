@@ -12,9 +12,9 @@ Current Release
    * - Author(s)
      - |author|
 
-The source code for the project is published here: |SpinlabGitLink|
+The source code for the project is maintained here: |SpinlabGitLink|
 
-To check the SpinLab version that is currently installed on your computer type in a terminal
+To check the SpinLab version that is currently installed on your computer execute this command in a terminal
 
 .. code-block:: bash
 

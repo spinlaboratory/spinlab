@@ -2,19 +2,16 @@
 Functions
 =========
 
-Reference for all functions used in SpinLab.
+Reference to all SpinLab functions.
 
 
-Analysis
-==============================
-Hydration
-------------------------------
-.. automodule:: spinlab.analysis.hydration
-   :members:
-   :show-inheritance:
+.. Analysis
+.. ==============================
+
 
 Constants
 ==============================
+
 Constants
 ------------------------------
 .. automodule:: spinlab.constants.constants

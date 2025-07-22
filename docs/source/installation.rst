@@ -2,9 +2,15 @@
 Installation
 ============
 
+SpinLab can be easily installed via pip:
+
+.. code-block:: bash
+
+    $ pip install spinlab
+
 Required Packages
 =================
-The following packages are required to run SpinLab:
+All required Python packages will be automatically installed during the installation. Currently, the following packages and their respective minimal versions are required:
 
 .. list-table::
    :widths: 40 60
@@ -21,35 +27,30 @@ The following packages are required to run SpinLab:
      - 3.11.0 or higher
 
 
-Hydration GUI
--------------
-Due to cross-platfrom issues of PyQt5, the Hydration GUI is no longer part of SpinLab and needs to be installed separately. The GUI is part of the |HanLab| python package. Instructions on how to install and use the GUI can be found on the website of the |HanLab| python package.
+Ways to Install SpinLab
+=======================
 
-Installing SpinLab 
-=================
-
-Installing using pip
+Installing Using Pip
 --------------------
 The easiest and most convenient way to install SpinLab is by using |pip|. In a terminal simply type the following command:
 
 .. code-block:: bash
 
-   $ pip install spinlab
+   $ python -m pip install spinlab
 
-or simply just:
+or just:
 
 .. code-block:: bash
 
    $ pip install spinlab
 
+If you prefer to install SpinLab from the source code, check out our GitHub repository |SpinlabGitLink|. The newest developments are always merged into the *Development* branch.
 
-If you prefer to install SpinLab from the source code, check out our GitHub repository: |SpinlabGitLink|. The newest developments are merged into the *Development* branch.
 
-Installing with a virtual enviroment
-------------------------------------
-Starting from Ubuntu 23.10 pip3 will issue a warning when trying to install spinlab from pypy.
-It is recommended to not do a global install but use a virtual enviroment (venv).
-If you do not have already have a virtual enviroment you can create a folder at a convenient location where the enviroment will be located.
+Installing SpinLab Using a Virtual Enviroment
+---------------------------------------------
+
+Starting from Ubuntu 23.10 ``pip3`` will issue a warning when trying to install spinlab from PyPi. It is recommended to not perform a global install but instead use a virtual enviroment (venv). If you do not have already created a virtual enviroment you can create a folder at a convenient location where the enviroment will be located (see example below).
 
 In this example this will be in our home folder and the folder will be named SpinLab.
 To create this enviroment use the command
@@ -58,30 +59,29 @@ To create this enviroment use the command
 
    $ python3 -m venv ~/SpinLab
 
-Note that you need to activate the venv when you want to use it and install packages via pip3.
-You can activate the venv by sourcing the activate script that should now be created under ~/SpinLab/bin
+Note that you need to activate the venv to use it and install packages via pip3. You can activate the virtula environment by sourcing the activate script that should be located in ~/SpinLab/bin
 
 .. code-block:: bash
 
   $ source ~/SpinLab/bin/activate
 
-you have to do this everytime you start this enviroment, to ease this you can create an alias "spinlab" and add it to your .bash_aliases file
+This needs to be done, everytime you start this particular enviroment. To simplify this process, you can create an alias "spinlab" and add it to your .bash_aliases file
 
 .. code-block:: bash
 
   $ echo "spinlab = 'source ~/SpinLab/bin/activate'" >> ~/.bash_aliases
 
-to deactivate the enviroment just enter
+To deactivate the virtual enviroment enter the following command in a terminal.
 
 .. code-block:: bash
 
   $ deactivate
 
-into your terminal.
 
 Confirm Successful Installation
 -------------------------------
-To confirm that your installation of SpinLab was successful type the following command:
+
+To confirm a successful installation execute the following command in a terminal:
 
 .. code-block:: bash
 
@@ -92,38 +92,50 @@ The output will look similar to this (note, the actual version and path to locat
 .. code-block:: bash
 
     Name: spinlab
-    Version: 2.1.25
-    Summary: Spinlab - Bringing the Power of Python to Spin-NMR Spectroscopy
-    Home-page: http://Spinlab.net
-    Author: SpinLab Team
-    Author-email: None
-    License: MIT
-    Location: /Path/to/Package
-    Requires: numpy, scipy, matplotlib, h5py
-    Required-by: 
+    Version: 1.0.0
+    Summary: SpinLab - Bringing the Power of Python to MR Spectroscopy
+    Home-page:
+    Author:
+    Author-email:
+    License-Expression: MIT
+    Location: Path/to/Package
+    Editable project location: Path/to/editable/location
+    Requires:
+    Required-by:
 
 
-Specify SpinLab Version to install
----------------------------------
-If you wish to install a specific version of SpinLab typ the following command in a terminal window:
+Specify SpinLab Version to Install
+----------------------------------
+
+If you wish to install a specific version of SpinLab exectute the following command in a terminal window:
 
 .. code-block:: bash
     
-    $ pip install spinlab==2.1.25
+    $ pip install spinlab==1.0.0
+
 
 Install Preliminary Release
 ---------------------------
-If you wish to use a pre-release version of SpinLab (downloaded from the GitHub repository) we recommend first uninstalling the current SpinLab version. Clone (or download or fork ...) the desired branch from the GitHub website. In a terminal window navigate into the directory that contains the spinlab folder and type the following command into the terminal window:
+
+If you wish to use a pre-release version of SpinLab (downloaded from the GitHub repository) we recommend first uninstalling the current SpinLab version. Clone (or download or fork ...) the desired branch from the GitHub repository. In a terminal window navigate into the directory that contains the spinlab folder (important, do not navigate into the folder). Execute the following in a terminal window:
 
 .. code-block:: bash
     
     $ pip install -e spinlab
 
-Once you ran the above command, check the path and version of the package by running :code:`pip show spinlab`. If the version does not match the version of the checked-out branch, you may have to first uninstall SpinLab (:code:`pip uninstall spinlab`), then re-install the version you would like to use (:code:`pip install spinlab`) and then running (:code:`pip install -e spinlab`) if you would like to make your own changes to the code.
+Once you ran this command check the path and version of the package by executing the following command in a terminal window:
+
+.. code-block:: bash
+    
+    $ pip show spinlab
+
+.. If the version does not match the version of the checked-out branch, you may have to first uninstall SpinLab (:code:`pip uninstall spinlab`), then re-install the version you would like to use (:code:`pip install spinlab`) and then running (:code:`pip install -e spinlab`) if you would like to make your own changes to the code.
+
 
 Upgrading SpinLab
-================
-To upgrade your currently installed version of SpinLab type the following command:
+=================
+
+To upgrade the currently installed version of SpinLab execute the following command in a terminal:
 
 .. code-block:: bash
 
@@ -131,8 +143,9 @@ To upgrade your currently installed version of SpinLab type the following comman
 
 
 Uninstalling SpinLab
-===================
-The safest method to uninstall SpinLab is to use pip. Type the following command in a terminal window:
+====================
+
+Don't like SpinLab? Please let us know how to improve the package. The safest method to uninstall SpinLab is to use pip by executing the following command in a terminal window:
     
 .. code-block:: bash
     

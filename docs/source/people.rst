@@ -1,22 +1,17 @@
 ======
 People
 ======
-SpinLab is a collaborative project created by:
+SpinLab was developed and is currently maintaned by:
 
-* |B12TLink|
-* The |HanLabLink| at Northwestern University
-* The |FranckLabLink| at Syracuse University
+* Timothy Keller (|tkellerLinkedIn|)
+* Yen-Chun Huang (|yhuangLinkedIn|)
+* Thorsten Maly (|tmalyLinkedIn|, |thmalyTwitter|)
 
-Currently active authors and contributors:
+If you like to get involved reach out to any of the current SpinLab team members.
 
-* Timothy Keller (|B12TLink|)
-* Thorsten Maly (|B12TLink|, |thmalyTwitter|)
-* Karl Rieger (|B12TLink|)
-* John Franck (|FranckLabLink|)
-* Yen-Chun Huang (|B12TLink|)
 
-Past authors and contributors:
+SpinLab originally started as |DNPLab|. It was initially createdby:
 
-* Yanxian Lin
-* Thomas Casey (|tcaseyLink|)
-* Thomas Webber (|HanLabLink|)
+* Bridge12 Technologies, Inc.
+* The |HanLab|
+* The |FranckLabLink|
