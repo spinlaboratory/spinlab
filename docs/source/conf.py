@@ -70,7 +70,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
-    "sphinx_gallery.gen_gallery",
+    # "sphinx_gallery.gen_gallery",
 ]
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
@@ -105,15 +105,15 @@ exclude_patterns = ["_build", "links.rst"]
 pygments_style = None
 
 # -- Options for Sphinx Gallery output -------------------------------------------------
-from sphinx_gallery.sorting import FileNameSortKey
+# from sphinx_gallery.sorting import FileNameSortKey
 
-sphinx_gallery_conf = {
-    "examples_dirs":            "../../docs/examples",      # path to your example scripts
-    "gallery_dirs":             "sl_examples",            # path to where to save gallery generated output
-    "remove_config_comments":   True,
-    # "within_subsection_order":  FileNameSortKey,            # Sort by file name
-    # "run_stale_examples":       True,                       # Force sphinx to rebuild example. Set to False to only run examples that have changed
-}
+# sphinx_gallery_conf = {
+#     "examples_dirs":            "../../docs/examples",      # path to your example scripts
+#     "gallery_dirs":             "sl_examples",            # path to where to save gallery generated output
+#     "remove_config_comments":   True,
+#     # "within_subsection_order":  FileNameSortKey,            # Sort by file name
+#     # "run_stale_examples":       True,                       # Force sphinx to rebuild example. Set to False to only run examples that have changed
+# }
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
