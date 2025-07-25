@@ -7,7 +7,8 @@ import os
 import sys
 
 
-sys.path.insert(0, os.path.abspath("../../"))
+# sys.path.insert(0, os.path.abspath("../../"))
+sys.path.insert(0, os.path.abspath("../"))
 print("path:")
 print(sys.path)
 
@@ -25,7 +26,8 @@ from datetime import datetime
 date = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
 # The short X.Y version
-version_file = "../../spinlab/version.py"
+# version_file = "../../spinlab/version.py"
+version_file = "../spinlab/version.py"
 with open(version_file, "r") as f:
     version_code = f.read()
 exec(version_code)
