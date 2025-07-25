@@ -108,7 +108,7 @@ def t1(t, T1, M_0, M_inf):
         ndarray: T1 curve
 
     .. math::
-        f(t) = M_{\infty} - (M_{\infty} - M_0) e^{-t/T_1}
+        f(t) = M_{\\infty} - (M_{\\infty} - M_0) e^{-t/T_1}
     """
 
     return M_inf - (M_inf - M_0) * _np.exp(-1.0 * t / T1)
