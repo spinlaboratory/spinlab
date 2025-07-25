@@ -133,7 +133,7 @@ def wurst(tp, N, resolution=resolution):
     """Real value WURST envelope pulse shape
 
     .. math::
-        1 - \\text{abs} \\left( \\cos \\left( \\frac{\\pi}{t_p} (t - \\frac{t_p}{2}) + \\frac{\pi}{2} \\right) \\right) ^N
+        1 - \\text{abs} \\left( \\cos \\left( \\frac{\\pi}{t_p} (t - \\frac{t_p}{2}) + \\frac{\\pi}{2} \\right) \\right) ^N
 
     Args:
         tp (float): Pulse length
