@@ -6,7 +6,7 @@ permissions:
   contents: write
 
 
-# "pip install sphinx-gallery==0.15 && pip install matplotlib==3.7 && pip install numpy==1.24 && pip install scipy==1.10.0 && pip install h5py==3.10.0 && pip install scikit-rf==0.30.0 && h5py==3.10.0"
+# h5py==3.10.0 sphinx-gallery==0.19 scikit-rf==0.30
 
 
 jobs:
@@ -15,12 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+
       - name: Install dependencies
         run: |
-          pip install sphinx sphinx_rtd_theme myst_parser numpy==2.2
+          pip install sphinx==8.2 sphinx_rtd_theme==3.0 myst_parser==4.0 numpy==2.2 scipy==1.16 matplotlib==3.10
+
       - name: Sphinx build
         run: |
           sphinx-build doc _build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
