@@ -1,2 +1,0 @@
-Advanced Processing and Analysis
-================================
