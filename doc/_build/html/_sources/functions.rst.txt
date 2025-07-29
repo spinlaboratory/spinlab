@@ -78,11 +78,11 @@ Bes3t (Bruker)
    :members:
    :show-inheritance:
 
-CNSI
-------------------------------
-.. automodule:: spinlab.io.cnsi
-   :members:
-   :show-inheritance:
+.. CNSI
+.. ------------------------------
+.. .. automodule:: spinlab.io.cnsi
+..    :members:
+..    :show-inheritance:
 
 Delta (JEOL)
 ------------------------------
@@ -90,23 +90,23 @@ Delta (JEOL)
    :members:
    :show-inheritance:
 
-H5
-------------------------------
-.. automodule:: spinlab.io.h5
-   :members:
-   :show-inheritance:
+.. H5
+.. ------------------------------
+.. .. automodule:: spinlab.io.h5
+..    :members:
+..    :show-inheritance:
 
-Load
-------------------------------
-.. automodule:: spinlab.io.load
-   :members:
-   :show-inheritance:
+.. Load
+.. ------------------------------
+.. .. automodule:: spinlab.io.load
+..    :members:
+..    :show-inheritance:
 
-Power
-------------------------------
-.. automodule:: spinlab.io.power
-   :members:
-   :show-inheritance:
+.. Power
+.. ------------------------------
+.. .. automodule:: spinlab.io.power
+..    :members:
+..    :show-inheritance:
 
 Prospa (Magritek)
 ------------------------------
@@ -114,11 +114,11 @@ Prospa (Magritek)
    :members:
    :show-inheritance:
 
-Save
-------------------------------
-.. automodule:: spinlab.io.save
-   :members:
-   :show-inheritance:
+.. Save
+.. ------------------------------
+.. .. automodule:: spinlab.io.save
+..    :members:
+..    :show-inheritance:
 
 SpecMan (FeMi)
 ------------------------------
@@ -126,11 +126,11 @@ SpecMan (FeMi)
    :members:
    :show-inheritance:
 
-TNMR
-------------------------------
-.. automodule:: spinlab.io.tnmr
-   :members:
-   :show-inheritance:
+.. TNMR
+.. ------------------------------
+.. .. automodule:: spinlab.io.tnmr
+..    :members:
+..    :show-inheritance:
 
 TopSpin (Bruker)
 ------------------------------
@@ -138,8 +138,8 @@ TopSpin (Bruker)
    :members:
    :show-inheritance:
 
-VNA
-------------------------------
+.. VNA
+.. ------------------------------
 .. .. automodule:: spinlab.io.vna
 ..    :members:
 ..    :show-inheritance:
@@ -182,17 +182,17 @@ Window
 Plotting
 ==============================
 
-General
-------------------------------
-.. automodule:: spinlab.plotting.general
-   :members:
-   :show-inheritance:
+.. General
+.. ------------------------------
+.. .. automodule:: spinlab.plotting.general
+..    :members:
+..    :show-inheritance:
 
-Image
-------------------------------
-.. automodule:: spinlab.plotting.image
-   :members:
-   :show-inheritance:
+.. Image
+.. ------------------------------
+.. .. automodule:: spinlab.plotting.image
+..    :members:
+..    :show-inheritance:
 
 .. Stack Plot
 .. ------------------------------
