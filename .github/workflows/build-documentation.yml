@@ -5,18 +5,25 @@ on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: write
 
+
+#  sphinx-gallery==0.19 scikit-rf==0.30
+
+
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+
       - name: Install dependencies
         run: |
-          pip install sphinx sphinx_rtd_theme myst_parser
+          pip install sphinx==8.2 sphinx_rtd_theme==3.0 myst_parser==4.0 numpy==2.2 scipy==1.16 matplotlib==3.10 h5py==3.10.0
+
       - name: Sphinx build
         run: |
           sphinx-build doc _build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}

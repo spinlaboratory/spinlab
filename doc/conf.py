@@ -19,7 +19,7 @@ print(sys.path)
 project = 'SpinLab'
 copyright = '2025, SpinLab'
 author = 'SpinLab Team'
-release = '0.1'
+# release = '0.1'
 
 from datetime import datetime
 

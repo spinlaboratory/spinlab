@@ -30,7 +30,7 @@ def exponential(x, lw):
         array: exponential window function
 
     .. math::
-        \mathrm{exponential} =  e^{-\pi * x * lw}
+        \\mathrm{exponential} =  e^{-\\pi * x * lw}
     """
     return _np.exp(-_const.pi * (x - x[0]) * lw)
 
