@@ -8,8 +8,8 @@ The following modules are currently part of SpinLab:
 
     .. autosummary::
         spinlab.analysis
+        spinlab.config
 
-..     spinlab.config
 ..     spinlab.constants
 ..     spinlab.core
 ..     spinlab.fitting
