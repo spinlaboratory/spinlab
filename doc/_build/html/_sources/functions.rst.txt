@@ -204,47 +204,47 @@ Plotting
 Processing
 ==============================
 
-Align
-------------------------------
-.. automodule:: spinlab.processing.align
-   :members:
-   :show-inheritance:
+.. Align
+.. ------------------------------
+.. .. automodule:: spinlab.processing.align
+..    :members:
+..    :show-inheritance:
 
-Apodization
-------------------------------
-.. automodule:: spinlab.processing.apodization
-   :members:
-   :show-inheritance:
+.. Apodization
+.. ------------------------------
+.. .. automodule:: spinlab.processing.apodization
+..    :members:
+..    :show-inheritance:
 
-FFT
-------------------------------
-.. automodule:: spinlab.processing.fft
-   :members:
-   :show-inheritance:
+.. FFT
+.. ------------------------------
+.. .. automodule:: spinlab.processing.fft
+..    :members:
+..    :show-inheritance:
 
-Helpers
-------------------------------
-.. automodule:: spinlab.processing.helpers
-   :members:
-   :show-inheritance:
+.. Helpers
+.. ------------------------------
+.. .. automodule:: spinlab.processing.helpers
+..    :members:
+..    :show-inheritance:
 
-Integration
-------------------------------
-.. automodule:: spinlab.processing.integration
-   :members:
-   :show-inheritance:
+.. Integration
+.. ------------------------------
+.. .. automodule:: spinlab.processing.integration
+..    :members:
+..    :show-inheritance:
 
-Offset
-------------------------------
-.. automodule:: spinlab.processing.offset
-   :members:
-   :show-inheritance:
+.. Offset
+.. ------------------------------
+.. .. automodule:: spinlab.processing.offset
+..    :members:
+..    :show-inheritance:
 
-Phase
-------------------------------
-.. automodule:: spinlab.processing.phase
-   :members:
-   :show-inheritance:
+.. Phase
+.. ------------------------------
+.. .. automodule:: spinlab.processing.phase
+..    :members:
+..    :show-inheritance:
 
 
 .. Reporting

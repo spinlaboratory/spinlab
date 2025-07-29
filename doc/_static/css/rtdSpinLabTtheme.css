@@ -25,7 +25,7 @@ a:active{color: var(--accent);}
 
 
 /* Side Panel  */
-.wy-side-nav-search{background-color:var(--secondary1);}
+.wy-side-nav-search{background-color: var(--secondary1);}
 .wy-side-nav-search a{color: white;}
 
 .wy-nav-top{background: var(--primary2);}
