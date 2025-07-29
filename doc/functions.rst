@@ -18,11 +18,11 @@ Reference to all SpinLab functions.
 ..    :members:
 ..    :show-inheritance:
 
-.. mrProperties
-.. ------------------------------
-.. .. automodule:: spinlab.constants.mrProperties
-..    :members:
-..    :show-inheritance:
+mrProperties
+------------------------------
+.. automodule:: spinlab.constants.mrProperties
+   :members:
+   :show-inheritance:
 
 .. radicalProperties
 .. ------------------------------
