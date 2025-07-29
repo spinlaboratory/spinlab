@@ -1,0 +1,1468 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Functions &mdash; SpinLab 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8eae9801"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="People" href="people.html" />
+    <link rel="prev" title="Modules" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SpinLab
+              <img src="_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Why SpinLab?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="currentRelease.html">Current Release</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.constants.mrProperties">mrProperties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.constants.mrProperties.mr_properties"><code class="docutils literal notranslate"><span class="pre">mr_properties()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.constants.radicalProperties">radicalProperties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.constants.radicalProperties.radical_properties"><code class="docutils literal notranslate"><span class="pre">radical_properties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.constants.radicalProperties.show_sl_properties"><code class="docutils literal notranslate"><span class="pre">show_sl_properties()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#io">IO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.bes3t">Bes3t (Bruker)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.import_bes3t"><code class="docutils literal notranslate"><span class="pre">import_bes3t()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.load_dsc"><code class="docutils literal notranslate"><span class="pre">load_dsc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.load_dta"><code class="docutils literal notranslate"><span class="pre">load_dta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.load_gf_files"><code class="docutils literal notranslate"><span class="pre">load_gf_files()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.delta">Delta (JEOL)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.delta.import_delta"><code class="docutils literal notranslate"><span class="pre">import_delta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.delta.import_delta_data"><code class="docutils literal notranslate"><span class="pre">import_delta_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.delta.import_delta_pars"><code class="docutils literal notranslate"><span class="pre">import_delta_pars()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.prospa">Prospa (Magritek)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_csv"><code class="docutils literal notranslate"><span class="pre">import_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_nd"><code class="docutils literal notranslate"><span class="pre">import_nd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_par"><code class="docutils literal notranslate"><span class="pre">import_par()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_prospa"><code class="docutils literal notranslate"><span class="pre">import_prospa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.prospa_coords"><code class="docutils literal notranslate"><span class="pre">prospa_coords()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.specman">SpecMan (FeMi)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.analyze_attrs"><code class="docutils literal notranslate"><span class="pre">analyze_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.calculate_specman_coords"><code class="docutils literal notranslate"><span class="pre">calculate_specman_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.generate_dims"><code class="docutils literal notranslate"><span class="pre">generate_dims()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.import_specman"><code class="docutils literal notranslate"><span class="pre">import_specman()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.load_specman_d01"><code class="docutils literal notranslate"><span class="pre">load_specman_d01()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.load_specman_exp"><code class="docutils literal notranslate"><span class="pre">load_specman_exp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.topspin">TopSpin (Bruker)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.find_group_delay"><code class="docutils literal notranslate"><span class="pre">find_group_delay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.import_topspin"><code class="docutils literal notranslate"><span class="pre">import_topspin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_acqu"><code class="docutils literal notranslate"><span class="pre">load_acqu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_bin"><code class="docutils literal notranslate"><span class="pre">load_bin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_pdata"><code class="docutils literal notranslate"><span class="pre">load_pdata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_ser"><code class="docutils literal notranslate"><span class="pre">load_ser()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_title"><code class="docutils literal notranslate"><span class="pre">load_title()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_topspin_jcamp_dx"><code class="docutils literal notranslate"><span class="pre">load_topspin_jcamp_dx()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.topspin_vdlist"><code class="docutils literal notranslate"><span class="pre">topspin_vdlist()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.vnmrj">VnmrJ (Varian/Agilent)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.array_coords"><code class="docutils literal notranslate"><span class="pre">array_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.import_fid"><code class="docutils literal notranslate"><span class="pre">import_fid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.import_procpar"><code class="docutils literal notranslate"><span class="pre">import_procpar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.import_vnmrj"><code class="docutils literal notranslate"><span class="pre">import_vnmrj()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.winepr">WinEPR (Bruker)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.winepr.import_winepr"><code class="docutils literal notranslate"><span class="pre">import_winepr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.winepr.load_par"><code class="docutils literal notranslate"><span class="pre">load_par()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.winepr.load_spc"><code class="docutils literal notranslate"><span class="pre">load_spc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#math">Math</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.math.lineshape">Lineshape</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.lineshape.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.lineshape.lorentzian"><code class="docutils literal notranslate"><span class="pre">lorentzian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.lineshape.voigtian"><code class="docutils literal notranslate"><span class="pre">voigtian()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.math.relaxation">Relaxation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.relaxation.buildup_function"><code class="docutils literal notranslate"><span class="pre">buildup_function()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.relaxation.general_biexp"><code class="docutils literal notranslate"><span class="pre">general_biexp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.relaxation.general_exp"><code class="docutils literal notranslate"><span class="pre">general_exp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.relaxation.ksigma_smax"><code class="docutils literal notranslate"><span class="pre">ksigma_smax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.relaxation.logistic"><code class="docutils literal notranslate"><span class="pre">logistic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.relaxation.t1"><code class="docutils literal notranslate"><span class="pre">t1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.relaxation.t2"><code class="docutils literal notranslate"><span class="pre">t2()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.math.window">Window</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.window.exponential"><code class="docutils literal notranslate"><span class="pre">exponential()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.window.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.window.hamming"><code class="docutils literal notranslate"><span class="pre">hamming()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.window.hann"><code class="docutils literal notranslate"><span class="pre">hann()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.window.lorentz_gauss"><code class="docutils literal notranslate"><span class="pre">lorentz_gauss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.window.sin2"><code class="docutils literal notranslate"><span class="pre">sin2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.math.window.traf"><code class="docutils literal notranslate"><span class="pre">traf()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processing">Processing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h1>
+<p>Reference to all SpinLab functions.</p>
+<section id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Link to this heading"></a></h2>
+<section id="module-spinlab.constants.mrProperties">
+<span id="mrproperties"></span><h3>mrProperties<a class="headerlink" href="#module-spinlab.constants.mrProperties" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.constants.mrProperties.mr_properties">
+<span class="sig-prename descclassname"><span class="pre">spinlab.constants.mrProperties.</span></span><span class="sig-name descname"><span class="pre">mr_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nucleus</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.constants.mrProperties.mr_properties" title="Link to this definition"></a></dt>
+<dd><p>Return magnetic resonance property of specified isotope.</p>
+<p>This function is modeled after the Matlab function gmr written by Mirko Hrovat: <a class="reference external" href="https://www.mathworks.com/matlabcentral/fileexchange/12078-gmr-m-nmr-mri-properties">https://www.mathworks.com/matlabcentral/fileexchange/12078-gmr-m-nmr-mri-properties</a></p>
+<p>Also see: R.K.Harris et. al., Pure and Applied Chemistry, 2001, 73:1795-1818. Electron value comes from 1998 CODATA values, <a class="reference external" href="http://physics.nist.gov/cuu/Constants">http://physics.nist.gov/cuu/Constants</a>, or <a class="reference external" href="https://physics.nist.gov/cuu/Constants/index.html">https://physics.nist.gov/cuu/Constants/index.html</a>. Xenon gyromagnetic ratio was calculated from 27.661 MHz value from Bruker's web site.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nucleus</strong> (<em>str</em>) -- '0e', '1H', '2H', '6Li', '13C', 14N', etc.</p></li>
+<li><p><strong>B0</strong> (<em>float</em>) -- (optional) B0 field in (mT)</p></li>
+<li><p><strong>flags</strong> (<em>Additional</em>) -- gamma:              Return Gyromagnetic Ratio (Hz/T)
+spin:               Return spin number of selected nucleus
+qmom:               Return quadrupole moment [fm^2] (100 barns)
+natAbundance:       Return natural abundance (%)
+relSensitivity:     Return relative sensitivity with respect to 1H at constant B0
+moment:             Return magnetic dipole moment, abs(u)/uN = abs(gamma)*hbar[I(I + 1)]^1/2/uN
+qlw:                Return quadrupolar line-width factor, Qlw = Q^2(2I + 3)/[I^2(2I + 1)]</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">slTools</span><span class="o">.</span><span class="n">mr_Properties</span><span class="p">(</span><span class="s1">&#39;1H&#39;</span><span class="p">)</span> <span class="o">=</span> <span class="mf">26.7522128</span> <span class="c1"># 1H Gyromagnetic Ratio (10^7r/Ts)</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">slTools</span><span class="o">.</span><span class="n">mr_Properties</span><span class="p">(</span><span class="s1">&#39;1H&#39;</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">)</span> <span class="o">=</span> <span class="mf">14902114.17018196</span> <span class="c1"># 1H Larmor Freq at .35 T (Hz)</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">slTools</span><span class="o">.</span><span class="n">mr_Properties</span><span class="p">(</span><span class="s1">&#39;2H&#39;</span><span class="p">,</span> <span class="s1">&#39;qmom&#39;</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.286</span> <span class="c1"># Nuclear Quadrupole Moment (fm^2)</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">slTools</span><span class="o">.</span><span class="n">mr_Properties</span><span class="p">(</span><span class="s1">&#39;6Li&#39;</span><span class="p">,</span> <span class="s1">&#39;natAbundance&#39;</span><span class="p">)</span> <span class="o">=</span> <span class="mf">7.59</span> <span class="c1"># % Natural Abundance</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">slTools</span><span class="o">.</span><span class="n">mr_Properties</span><span class="p">(</span><span class="s1">&#39;6Li&#39;</span><span class="p">,</span> <span class="s1">&#39;relSensitivity&#39;</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.000645</span> <span class="c1"># Relative sensitivity</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.constants.radicalProperties">
+<span id="radicalproperties"></span><h3>radicalProperties<a class="headerlink" href="#module-spinlab.constants.radicalProperties" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.constants.radicalProperties.radical_properties">
+<span class="sig-prename descclassname"><span class="pre">spinlab.constants.radicalProperties.</span></span><span class="sig-name descname"><span class="pre">radical_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.constants.radicalProperties.radical_properties" title="Link to this definition"></a></dt>
+<dd><p>Return properties of different radicals. At the minimum the g value is returned. If available, large hyperfine couplings to a nucleus are returned. Add new properties or new radicals to radicalProperties.py</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>arg</p></th>
+<th class="head"><p>returns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&quot;gfree&quot;</p></td>
+<td><p>2.00231930436153</p></td>
+</tr>
+<tr class="row-odd"><td><p>&quot;tempo1&quot;</p></td>
+<td><p>[[2.00980, 2.00622, 2.00220], &quot;14N&quot;, [16.8, 20.5, 95.9]]</p></td>
+</tr>
+<tr class="row-even"><td><p>&quot;tempo2&quot;</p></td>
+<td><p>[[2.00909, 2.00621, 2.00222], &quot;14N&quot;, [20.2, 20.2, 102.1]]</p></td>
+</tr>
+<tr class="row-odd"><td><p>&quot;bdpa&quot;</p></td>
+<td><p>[[2.00263, 2.00260, 2.00257], &quot;1H&quot;, [50.2, 34.5, 13.0]]</p></td>
+</tr>
+<tr class="row-even"><td><p>&quot;ddph_neat&quot;</p></td>
+<td><p>2.0036</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) -- Name of the radical</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Principle g values and hyperfine coupling tensor</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>radicalProperties (dict)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Return g value of a free electron</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">radical_properties</span><span class="p">(</span><span class="s2">&quot;gfree&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.constants.radicalProperties.show_sl_properties">
+<span class="sig-prename descclassname"><span class="pre">spinlab.constants.radicalProperties.</span></span><span class="sig-name descname"><span class="pre">show_sl_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radical</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mwFrequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slNucleus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.constants.radicalProperties.show_sl_properties" title="Link to this definition"></a></dt>
+<dd><p>Calculate Spin Properties for a given radical</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radical</strong> (<em>str</em>) -- Radical name, see mrProperties.py for radicals that are currently implemented</p></li>
+<li><p><strong>mwFrequency</strong> (<em>float</em>) -- Microwave frequency in (Hz)</p></li>
+<li><p><strong>slNucleus</strong> (<em>str</em>) -- Nucleus for Spin-NMR experiments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Function returns a table of Spin parameters to the screen</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">show_sl_poperties</span><span class="p">(</span><span class="s1">&#39;gfree&#39;</span><span class="p">,</span> <span class="mf">9.45e9</span><span class="p">,</span> <span class="s1">&#39;1H&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="io">
+<h2>IO<a class="headerlink" href="#io" title="Link to this heading"></a></h2>
+<section id="module-spinlab.io.bes3t">
+<span id="bes3t-bruker"></span><h3>Bes3t (Bruker)<a class="headerlink" href="#module-spinlab.io.bes3t" title="Link to this heading"></a></h3>
+<p>Functions to import Bruker EPR data</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.import_bes3t">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">import_bes3t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.import_bes3t" title="Link to this definition"></a></dt>
+<dd><p>Import Bruker BES3T data and return sldata object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .DSC or .DTA file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing Bruker BES3T data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bes3t_data (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.load_dsc">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">load_dsc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.load_dsc" title="Link to this definition"></a></dt>
+<dd><p>Import contents of .DSC file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .DSC file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>attrs (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.load_dta">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">load_dta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_dta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_xgf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_ygf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_zgf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.load_dta" title="Link to this definition"></a></dt>
+<dd><p>Import data from .DTA file. Uses .DSC and .XGF, .YGF, or .ZGF files if they exists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_dta</strong> (<em>str</em>) -- Path to .DTA file</p></li>
+<li><p><strong>path_xgf</strong> (<em>str</em>) -- path to .XGF file for 1D data with nonlinear axis, &quot;none&quot; otherwise</p></li>
+<li><p><strong>path_ygf</strong> (<em>str</em>) -- path to .YGF file for 2D data, &quot;none&quot; if 1D or linear y axis</p></li>
+<li><p><strong>path_zgf</strong> (<em>str</em>) -- path to .ZGF file for 3D data, &quot;none&quot; if 1D/2D or linear z axis</p></li>
+<li><p><strong>attrs</strong> (<em>dict</em>) -- dictionary of parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Spectrum for 1D or spectra for 2D
+dims (list) : dimensions
+coords (ndarray) : coordinates for spectrum or spectra
+attrs (dict) : updated dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>values (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.load_gf_files">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">load_gf_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.load_gf_files" title="Link to this definition"></a></dt>
+<dd><p>Import data from .XGF, .YGF, or .ZGF files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to ._GF file</p></li>
+<li><p><strong>axis_type</strong> (<em>str</em>) -- linear or nonlinear</p></li>
+<li><p><strong>axis_format</strong> (<em>str</em>) -- format of file data</p></li>
+<li><p><strong>axis_points</strong> (<em>int</em>) -- number of points in axis</p></li>
+<li><p><strong>axis_min</strong> (<em>float</em>) -- minimum value of axis</p></li>
+<li><p><strong>axis_width</strong> (<em>float</em>) -- total width of axis</p></li>
+<li><p><strong>endian</strong> (<em>float</em>) -- endian of data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis coordinates</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>coords (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.delta">
+<span id="delta-jeol"></span><h3>Delta (JEOL)<a class="headerlink" href="#module-spinlab.io.delta" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.delta.import_delta">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.delta.</span></span><span class="sig-name descname"><span class="pre">import_delta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.delta.import_delta" title="Link to this definition"></a></dt>
+<dd><p>Import Delta data and return SpinData object</p>
+<p>Currently only 1D and 2D data sets are supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .jdf file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing Delta data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sldata (SpinData)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.delta.import_delta_data">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.delta.</span></span><span class="sig-name descname"><span class="pre">import_delta_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.delta.import_delta_data" title="Link to this definition"></a></dt>
+<dd><p>Import spectrum or spectra of Delta data</p>
+<p>Currently only 1D and 2D data sets are supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to .jdf file</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) -- dictionary of parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>spectrum or spectra if &gt;1D
+abscissa (list) : coordinates of axes
+dims (list) : axes names
+params (dict) : updated dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>y_data (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.delta.import_delta_pars">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.delta.</span></span><span class="sig-name descname"><span class="pre">import_delta_pars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.delta.import_delta_pars" title="Link to this definition"></a></dt>
+<dd><p>Import parameter fields of Delta data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to .jdf file</p></li>
+<li><p><strong>context_start</strong> (<em>int</em>) -- the index where the context starts</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of parameter fields and values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>params (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.prospa">
+<span id="prospa-magritek"></span><h3>Prospa (Magritek)<a class="headerlink" href="#module-spinlab.io.prospa" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_csv">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_complex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_csv" title="Link to this definition"></a></dt>
+<dd><p>Import Kea csv file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to csv file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x(numpy.array): axes if return_raw = False
+data(numpy.array): Data in csv file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_nd">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_nd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_nd" title="Link to this definition"></a></dt>
+<dd><p>Import Kea binary 1d, 2d, 3d, 4d files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x (None, numpy.array): Axes if included in binary file, None otherwise
+data (numpy.array): Numpy array of data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_par">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_par</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_par" title="Link to this definition"></a></dt>
+<dd><p>Import Kea parameters .par file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to parameters file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of Kea Parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_prospa">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_prospa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_prospa" title="Link to this definition"></a></dt>
+<dd><p>Import Kea data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to data</p></li>
+<li><p><strong>parameters_filename</strong> (<em>str</em>)</p></li>
+<li><p><strong>experiment</strong> (<em>str</em>) -- Prospa experiment, used when calculating coords from parameters</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, prints additional information for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>sldata object with Kea data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.prospa_coords">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">prospa_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.prospa_coords" title="Link to this definition"></a></dt>
+<dd><p>Generate coords from prospa acquisition parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of prospa acqusition parameters</p></li>
+<li><p><strong>data_shape</strong> (<em>tuple</em>) -- Shape of data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dims and coords</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.specman">
+<span id="specman-femi"></span><h3>SpecMan (FeMi)<a class="headerlink" href="#module-spinlab.io.specman" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.analyze_attrs">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">analyze_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.analyze_attrs" title="Link to this definition"></a></dt>
+<dd><p>Analyze the attrs and add some important attrs to existing dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of specman acqusition parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dictionary of specman acqusition parameters and added parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>attrs (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.calculate_specman_coords">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">calculate_specman_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.calculate_specman_coords" title="Link to this definition"></a></dt>
+<dd><p>Generate coords from specman acquisition parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of specman acqusition parameters</p></li>
+<li><p><strong>dims</strong> (<em>list</em>) -- (Optional) a list of dims</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a calculated coords</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>coords (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.generate_dims">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">generate_dims</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.generate_dims" title="Link to this definition"></a></dt>
+<dd><p>Generate dims from specman acquisition parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of specman acqusition parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a new dims</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dims (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.import_specman">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">import_specman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autodetect_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autodetect_dims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_complex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complex_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.import_specman" title="Link to this definition"></a></dt>
+<dd><p>Import SpecMan data and return SpinData object</p>
+<p>SpinLab function to import SpecMan4EPR data (<a class="reference external" href="https://specman4epr.com/">https://specman4epr.com/</a>). The function returns a Spindata object with the spectral data.</p>
+<p>The structure of the Spindata object can be complex and the variables saved by SpecMan depend on the individual spectrometer configuration. Therefore, the import function returns a numpy array with the dimension &quot;x0&quot;, &quot;x1&quot;, &quot;x2&quot;, &quot;x3&quot;, &quot;x4&quot;. In any case, the dimension &quot;x0&quot; corresponds to the variables stored in the data file. The spectroscopic data is stored in &quot;x1&quot; to &quot;x4&quot;, depending on how many dimensions were recorded.
+The import function will require a parser script to properly assign the spectroscopic data and proper coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to either .exp file</p></li>
+<li><p><strong>autodetect_coords</strong> (<em>bool</em>) -- Autodetect coords based on attrs</p></li>
+<li><p><strong>autodetect_dims</strong> (<em>bool</em>) -- Autodetect dims based on attrs</p></li>
+<li><p><strong>make_complex</strong> (<em>bool</em>) -- If True, will create a complex SpinData object if the data is complex</p></li>
+<li><p><strong>complex_dim</strong> (<em>str</em>) -- The dimension to use for complex data (default: 'x')</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing SpecMan EPR data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (SpinData)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.load_specman_d01">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">load_specman_d01</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.load_specman_d01" title="Link to this definition"></a></dt>
+<dd><p>Import SpecMan d01 data file</p>
+<p>SpinLab function to import the SpecMan d01 data file. The format of the SpecMan data file is described here:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .d01 or .exp file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpecMan data as numpy array
+params (dict):      Dictionary with import updated parameters dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.load_specman_exp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">load_specman_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.load_specman_exp" title="Link to this definition"></a></dt>
+<dd><p>Import SpecMan parameters</p>
+<p>SpinLab function to read and import the SpecMan exp file. The .exp file is a text file that stores the experimental data, the pulse program, and other spectrometer configuration files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .d01 or .exp file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of parameter fields and values (SpinLab attributes)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>attrs (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.topspin">
+<span id="topspin-bruker"></span><h3>TopSpin (Bruker)<a class="headerlink" href="#module-spinlab.io.topspin" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.find_group_delay">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">find_group_delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.find_group_delay" title="Link to this definition"></a></dt>
+<dd><p>Determine group delay from tables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs_dict</strong> (<em>dict</em>) -- dictionary of topspin acquisition parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Group delay. Number of points FID is shifted by DSP. The ceiling of this number (group delay rounded up) is the number of points should be removed from the start of the FID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.import_topspin">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">import_topspin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign_vdlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_digital_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.import_topspin" title="Link to this definition"></a></dt>
+<dd><p>Import topspin data and return sldata object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of data</p></li>
+<li><p><strong>assign_vdlist</strong> -- False, or the name of dimension to assign topspin vdlist</p></li>
+<li><p><strong>remove_digital_filter</strong> (<em>bool</em>) -- Option to remove group delay (see note below)</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- Print additional output for troubleshooting</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The group delay is a consequence of the oversampling and digital filtering in Bruker spectrometers. For more details see these blog posts <a class="reference external" href="https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html">https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html</a> and <a class="reference external" href="https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html">https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html</a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>topspin data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>sldata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_acqu">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_acqu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_acqu" title="Link to this definition"></a></dt>
+<dd><p>Import topspin acqu or proc files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- directory of acqu or proc file</p></li>
+<li><p><strong>required_params</strong> (<em>list</em>) -- Only return parameters given</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print output for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of acqusition parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_bin">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;i4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_bin" title="Link to this definition"></a></dt>
+<dd><p>Import Topspin Ser file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of data</p></li>
+<li><p><strong>dtype</strong> (<em>str</em>) -- data format for import</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data from ser file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>raw (np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_pdata">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_pdata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_pdata" title="Link to this definition"></a></dt>
+<dd><p>Import prospa processed data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of pdata</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print output for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Topspin processed data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SpinData</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_ser">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_ser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;i4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_ser" title="Link to this definition"></a></dt>
+<dd><p>Depreciated. Use load bin. Import Topspin Ser file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of data</p></li>
+<li><p><strong>dtype</strong> (<em>str</em>) -- data format for import</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data from ser file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>raw (np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_title">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pdata\\1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'title'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_title" title="Link to this definition"></a></dt>
+<dd><p>Import Topspin Experiment Title File</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of title</p></li>
+<li><p><strong>title_path</strong> (<em>str</em>) -- Path within experiment of title</p></li>
+<li><p><strong>title_filename</strong> (<em>str</em>) -- filename of title</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Contents of experiment title file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_topspin_jcamp_dx">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_topspin_jcamp_dx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_topspin_jcamp_dx" title="Link to this definition"></a></dt>
+<dd><p>Return the contents of topspin JCAMP-DX file as dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to file</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print output for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of JCAMP-DX file parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.topspin_vdlist">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">topspin_vdlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.topspin_vdlist" title="Link to this definition"></a></dt>
+<dd><p>Return topspin vdlist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Directory of data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>vdlist as numpy array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.vnmrj">
+<span id="vnmrj-varian-agilent"></span><h3>VnmrJ (Varian/Agilent)<a class="headerlink" href="#module-spinlab.io.vnmrj" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.array_coords">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">array_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.array_coords" title="Link to this definition"></a></dt>
+<dd><p>Return array dimension coords from parameters dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of procpar parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dim and coord for array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.import_fid">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">import_fid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fid'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.import_fid" title="Link to this definition"></a></dt>
+<dd><p>Import VnmrJ fid file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of fid file</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) -- Name of fid file. &quot;fid&quot; by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.import_procpar">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">import_procpar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'procpar'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.import_procpar" title="Link to this definition"></a></dt>
+<dd><p>Import VnmrJ procpar parameters file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Directory of file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of procpar parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.import_vnmrj">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">import_vnmrj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fidFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paramFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'procpar'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.import_vnmrj" title="Link to this definition"></a></dt>
+<dd><p>Import VnmrJ Data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- path to experiment folder</p></li>
+<li><p><strong>fidFilename</strong> (<em>str</em>) -- FID file name</p></li>
+<li><p><strong>paramFilename</strong> (<em>str</em>) -- process parameter filename</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data in sldata object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sldata</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.winepr">
+<span id="winepr-bruker"></span><h3>WinEPR (Bruker)<a class="headerlink" href="#module-spinlab.io.winepr" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.winepr.import_winepr">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.winepr.</span></span><span class="sig-name descname"><span class="pre">import_winepr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.winepr.import_winepr" title="Link to this definition"></a></dt>
+<dd><p>Import Bruker par/spc data and return SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .par or .spc file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing Bruker par/spc data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>parspc_data (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.winepr.load_par">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.winepr.</span></span><span class="sig-name descname"><span class="pre">load_par</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.winepr.load_par" title="Link to this definition"></a></dt>
+<dd><p>Import contents of .par file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .par file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>attrs (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.winepr.load_spc">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.winepr.</span></span><span class="sig-name descname"><span class="pre">load_spc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.winepr.load_spc" title="Link to this definition"></a></dt>
+<dd><p>Import data and axes of .spc file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .spc file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>coordinates for spectrum or spectra
+values (ndarray) : data values
+attrs (dict) : updated dictionary of parameters
+dims (list) : dimension labels</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>coords (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="math">
+<h2>Math<a class="headerlink" href="#math" title="Link to this heading"></a></h2>
+<section id="module-spinlab.math.lineshape">
+<span id="lineshape"></span><h3>Lineshape<a class="headerlink" href="#module-spinlab.math.lineshape" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.lineshape.gaussian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.lineshape.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.lineshape.gaussian" title="Link to this definition"></a></dt>
+<dd><p>Gaussian distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- input x</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- Center of distribution</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) -- Standard deviation of Gaussian distribution</p></li>
+<li><p><strong>integral</strong> (<em>float</em>) -- Integral of distribution</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Gaussian distribution</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p>The Gaussian distribution is defined as:</p>
+<div class="math notranslate nohighlight">
+\[f(x; x_0, \sigma) = \frac{1}{\sigma \sqrt{2 \pi}} \exp{\left(\frac{(x-x_0)^2}{2 \sigma^2}\right)}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.lineshape.lorentzian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.lineshape.</span></span><span class="sig-name descname"><span class="pre">lorentzian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deriv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.lineshape.lorentzian" title="Link to this definition"></a></dt>
+<dd><p>Lorentzian Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- input x</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- Center of distribution</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) -- Lorentzian width. 2*gamma is full width at half maximum (FWHM)</p></li>
+<li><p><strong>integral</strong> (<em>float</em>) -- Integral of distribution</p></li>
+<li><p><strong>deriv</strong> (<em>boolean</em>) -- Derivative of a Lorentzian Distribution (Imaginary part of a phased spectrum)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lorentzian distribution</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p>The Lorentzian distribution is defined as:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1}{\pi \gamma} \left[\frac{\gamma^2}{(x-x_0)^2 + \gamma^2}\right]\]</div>
+<p>Derivative:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1}{\pi \gamma} \left[\frac{- 2\gamma^2 (x-x_0)}{\left( (x-x_0)^2 + \gamma^2 \right)^2}\right]\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.lineshape.voigtian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.lineshape.</span></span><span class="sig-name descname"><span class="pre">voigtian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deriv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.lineshape.voigtian" title="Link to this definition"></a></dt>
+<dd><p>Voigtian distribution. Lineshape given by a convolution of Gaussian and Lorentzian distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- input x</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- center of distribution</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) -- Gaussian Linewidth. Standard deviation of Gaussian distribution.</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) -- Lorentzian linewidth. 2*gamma is the full width at half maximum (FWHM)</p></li>
+<li><p><strong>integral</strong> (<em>float</em>) -- Integral of distribution</p></li>
+<li><p><strong>deriv</strong> (<em>boolean</em>) -- Derivative of a Voigtian distribution (Gaussian broadened imaginary part of a phased spectrum).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Voigtian distribution</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p>The Voigtian distribution is defined as:</p>
+<div class="math notranslate nohighlight">
+\[f(x; x_0, \sigma, \gamma) = \frac{\operatorname{Re}[w(z)]}{\sigma \sqrt{2 \pi}}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{x + i\gamma}{\sigma \sqrt{2}}\]</div>
+<p>Derivative:
+.. math:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="mi">1</span><span class="p">}{</span>\<span class="n">sigma</span><span class="o">^</span><span class="mi">3</span> \<span class="n">sqrt</span><span class="p">{</span><span class="mi">2</span> \<span class="n">pi</span><span class="p">}}</span> \<span class="n">left</span><span class="p">[</span> \<span class="n">gamma</span> \<span class="n">operatorname</span><span class="p">{</span><span class="n">Im</span><span class="p">}[</span><span class="n">w</span><span class="p">(</span><span class="n">z</span><span class="p">)]</span> <span class="o">-</span> \<span class="n">left</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span>\<span class="n">right</span><span class="p">)</span> \<span class="n">operatorname</span><span class="p">{</span><span class="n">Re</span><span class="p">}[</span><span class="n">w</span><span class="p">(</span><span class="n">z</span><span class="p">)]</span> \<span class="n">right</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{\left( \left( x - x0 \right)  + 1j \gamma \right)}{\sigma \sqrt{2}}\]</div>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.math.relaxation">
+<span id="relaxation"></span><h3>Relaxation<a class="headerlink" href="#module-spinlab.math.relaxation" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.buildup_function">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">buildup_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_half</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.buildup_function" title="Link to this definition"></a></dt>
+<dd><p>Calculate asymptotic buildup curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>array</em>) -- power series</p></li>
+<li><p><strong>E_max</strong> (<em>float</em>) -- maximum enhancement</p></li>
+<li><p><strong>p_half</strong> (<em>float</em>) -- power at half saturation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>buildup curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(p) = 1 + E_{max} * p / (p_{1/2} + p)\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.general_biexp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">general_biexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.general_biexp" title="Link to this definition"></a></dt>
+<dd><p>Calculate bi-exponential curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>C1</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>C2</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>C3</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>tau1</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>tau2</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>bi-exponential curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = C1 + C2 e^{-t/tau1} + C3 e^{-t/tau2}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.general_exp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">general_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.general_exp" title="Link to this definition"></a></dt>
+<dd><p>Calculate mono-exponential curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>C1</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>C2</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>tau</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>mono-exponential curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = C1 + C2 e^{-t/tau}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.ksigma_smax">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">ksigma_smax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_half</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.ksigma_smax" title="Link to this definition"></a></dt>
+<dd><p>Calculate asymptotic buildup curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>array</em>) -- power series</p></li>
+<li><p><strong>E_max</strong> (<em>float</em>) -- maximum enhancement</p></li>
+<li><p><strong>p_half</strong> (<em>float</em>) -- power at half saturation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>buildup curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(p) = E_{max} * p / (p_{1/2} + p)\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.logistic">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.logistic" title="Link to this definition"></a></dt>
+<dd><p>Not Implemented. Placeholder for calculating asymptotic buildup curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array</em>) -- x values</p></li>
+<li><p><strong>c</strong> (<em>float</em>) -- offset</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- x-value of sigmoid's midpoint</p></li>
+<li><p><strong>L</strong> (<em>float</em>) -- maximum value</p></li>
+<li><p><strong>k</strong> (<em>float</em>) -- logistic growth steepness</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>buildup curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.t1">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">t1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M_inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.t1" title="Link to this definition"></a></dt>
+<dd><p>Exponential recovery for inversion recovery and saturation recovery T1 Measurements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>T_1</strong> (<em>float</em>) -- T1 value</p></li>
+<li><p><strong>M_0</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>M_inf</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>T1 curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = M_{\infty} - (M_{\infty} - M_0) e^{-t/T_1}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.t2">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">t2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.t2" title="Link to this definition"></a></dt>
+<dd><p>Calculate stretched or un-stretched (p=1) exponential T2 curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>M_0</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>T_2</strong> (<em>float</em>) -- T2 value</p></li>
+<li><p><strong>p</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>T2 curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = M_{0} e^{(-(t/T_{2})^{p}}\]</div>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.math.window">
+<span id="window"></span><h3>Window<a class="headerlink" href="#module-spinlab.math.window" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.exponential">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.exponential" title="Link to this definition"></a></dt>
+<dd><p>Calculate exponential window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- Vector of points</p></li>
+<li><p><strong>lw</strong> (<em>int</em><em> or </em><em>float</em>) -- linewidth</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>exponential window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\mathrm{exponential} =  e^{-\pi * x * lw}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.gaussian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.gaussian" title="Link to this definition"></a></dt>
+<dd><p>Calculate gaussian window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>lw</strong> (<em>float</em>) -- Standard deviation of gaussian window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>gaussian window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\mathrm{gaussian} = e^{(\sigma * x^{2})}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.hamming">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">hamming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.hamming" title="Link to this definition"></a></dt>
+<dd><p>Calculate hamming window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>N</strong> (<em>int</em>) -- number of points to return in window function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>hamming window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\mathrm{hamming} = 0.53836 + 0.46164\cos(\pi * n / (N-1))\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.hann">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">hann</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.hann" title="Link to this definition"></a></dt>
+<dd><p>Calculate hann window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>N</strong> (<em>int</em>) -- number of points to return in window function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>hann window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\mathrm{hann} = 0.5 + 0.5\cos(\pi * n / (N-1))\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.lorentz_gauss">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">lorentz_gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauss_lw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussian_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.lorentz_gauss" title="Link to this definition"></a></dt>
+<dd><p>Calculate lorentz-gauss window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>N</strong> (<em>int</em>) -- number of points to return in window function</p></li>
+<li><p><strong>lw</strong> (<em>int</em><em> or </em><em>float</em>) -- exponential linewidth</p></li>
+<li><p><strong>gauss_lw</strong> (<em>int</em><em> or </em><em>float</em>) -- gaussian linewidth</p></li>
+<li><p><strong>gaussian_max</strong> (<em>int</em>) -- location of maximum in gaussian window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>gauss_lorentz window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathrm{lorentz\_gauss} &amp;=  \exp(L -  G^{2}) &amp;\\   L(t)    &amp;=  \pi * \mathrm{linewidth[0]} * t &amp;\\   G(t)    &amp;=  0.6\pi * \mathrm{linewidth[1]} * (\mathrm{gaussian\_max} * (N - 1) - t) &amp;\end{aligned}\end{align} \]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.sin2">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">sin2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.sin2" title="Link to this definition"></a></dt>
+<dd><p>Calculate sin-squared window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>N</strong> (<em>int</em>) -- number of points to return in window function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>sin-squared window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\sin^{2}  =  \cos((-0.5\pi * n / (N - 1)) + \pi)^{2}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.traf">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">traf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.traf" title="Link to this definition"></a></dt>
+<dd><p>Calculate traf window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>lw</strong> (<em>str</em>) -- linewidth of traficant window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>traf window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathrm{traf}  &amp;=  (f1 * (f1 + f2)) / (f1^{2} + f2^{2}) &amp;\\       f1(t)   &amp;=  \exp(-t * \pi * \mathrm{linewidth[0]}) &amp;\\       f2(t)   &amp;=  \exp((t - T) * \pi * \mathrm{linewidth[1]}) &amp;\end{aligned}\end{align} \]</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Link to this heading"></a></h2>
+</section>
+<section id="processing">
+<h2>Processing<a class="headerlink" href="#processing" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="people.html" class="btn btn-neutral float-right" title="People" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
