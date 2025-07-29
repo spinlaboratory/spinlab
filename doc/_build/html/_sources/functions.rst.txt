@@ -9,8 +9,8 @@ Reference to all SpinLab functions.
 .. ==============================
 
 
-.. Constants
-.. ==============================
+Constants
+==============================
 
 .. Constants
 .. ------------------------------
@@ -24,11 +24,11 @@ mrProperties
    :members:
    :show-inheritance:
 
-.. radicalProperties
-.. ------------------------------
-.. .. automodule:: spinlab.constants.radicalProperties
-..    :members:
-..    :show-inheritance:
+radicalProperties
+------------------------------
+.. automodule:: spinlab.constants.radicalProperties
+   :members:
+   :show-inheritance:
 
 .. Core
 .. ==============================
@@ -70,129 +70,129 @@ mrProperties
 ..    :members:
 ..    :show-inheritance:
 
-.. IO
-.. ==============================
-.. Bes3t
-.. ------------------------------
-.. .. automodule:: spinlab.io.bes3t
+IO
+==============================
+Bes3t (Bruker)
+------------------------------
+.. automodule:: spinlab.io.bes3t
+   :members:
+   :show-inheritance:
+
+CNSI
+------------------------------
+.. automodule:: spinlab.io.cnsi
+   :members:
+   :show-inheritance:
+
+Delta (JEOL)
+------------------------------
+.. automodule:: spinlab.io.delta
+   :members:
+   :show-inheritance:
+
+H5
+------------------------------
+.. automodule:: spinlab.io.h5
+   :members:
+   :show-inheritance:
+
+Load
+------------------------------
+.. automodule:: spinlab.io.load
+   :members:
+   :show-inheritance:
+
+Power
+------------------------------
+.. automodule:: spinlab.io.power
+   :members:
+   :show-inheritance:
+
+Prospa (Magritek)
+------------------------------
+.. automodule:: spinlab.io.prospa
+   :members:
+   :show-inheritance:
+
+Save
+------------------------------
+.. automodule:: spinlab.io.save
+   :members:
+   :show-inheritance:
+
+SpecMan (FeMi)
+------------------------------
+.. automodule:: spinlab.io.specman
+   :members:
+   :show-inheritance:
+
+TNMR
+------------------------------
+.. automodule:: spinlab.io.tnmr
+   :members:
+   :show-inheritance:
+
+TopSpin (Bruker)
+------------------------------
+.. automodule:: spinlab.io.topspin
+   :members:
+   :show-inheritance:
+
+VNA
+------------------------------
+.. .. automodule:: spinlab.io.vna
 ..    :members:
 ..    :show-inheritance:
 
-.. CNSI
-.. ------------------------------
-.. .. automodule:: spinlab.io.cnsi
-..    :members:
-..    :show-inheritance:
+VnmrJ (Varian/Agilent)
+------------------------------
+.. automodule:: spinlab.io.vnmrj
+   :members:
+   :show-inheritance:
 
-.. Delta
-.. ------------------------------
-.. .. automodule:: spinlab.io.delta
-..    :members:
-..    :show-inheritance:
-
-.. H5
-.. ------------------------------
-.. .. automodule:: spinlab.io.h5
-..    :members:
-..    :show-inheritance:
-
-.. Load
-.. ------------------------------
-.. .. automodule:: spinlab.io.load
-..    :members:
-..    :show-inheritance:
-
-.. Power
-.. ------------------------------
-.. .. automodule:: spinlab.io.power
-..    :members:
-..    :show-inheritance:
-
-.. Prospa
-.. ------------------------------
-.. .. automodule:: spinlab.io.prospa
-..    :members:
-..    :show-inheritance:
-
-.. Save
-.. ------------------------------
-.. .. automodule:: spinlab.io.save
-..    :members:
-..    :show-inheritance:
-
-.. SpecMan
-.. ------------------------------
-.. .. automodule:: spinlab.io.specman
-..    :members:
-..    :show-inheritance:
-
-.. TNMR
-.. ------------------------------
-.. .. automodule:: spinlab.io.tnmr
-..    :members:
-..    :show-inheritance:
-
-.. TopSpin
-.. ------------------------------
-.. .. automodule:: spinlab.io.topspin
-..    :members:
-..    :show-inheritance:
-
-.. VNA
-.. ------------------------------
-.. .. .. automodule:: spinlab.io.vna
-.. ..    :members:
-.. ..    :show-inheritance:
-
-.. VnmrJ
-.. ------------------------------
-.. .. automodule:: spinlab.io.vnmrj
-..    :members:
-..    :show-inheritance:
-
-.. WinEPR
-.. ------------------------------
-.. .. automodule:: spinlab.io.winepr
-..    :members:
-..    :show-inheritance:
+WinEPR (Bruker)
+------------------------------
+.. automodule:: spinlab.io.winepr
+   :members:
+   :show-inheritance:
 
 
-.. Math
-.. ==============================
+Math
+==============================
 
-.. Lineshape
-.. ------------------------------
-.. .. automodule:: spinlab.math.lineshape
-..    :members:
-..    :show-inheritance:
+Lineshape
+------------------------------
+.. automodule:: spinlab.math.lineshape
+   :members:
+   :show-inheritance:
 
-.. Relaxation
-.. ------------------------------
-.. .. automodule:: spinlab.math.relaxation
-..    :members:
-..    :show-inheritance:
+Relaxation
+------------------------------
+.. automodule:: spinlab.math.relaxation
+   :members:
+   :show-inheritance:
 
-.. Window
-.. ------------------------------
-.. .. automodule:: spinlab.math.window
-..    :members:
-..    :show-inheritance:
+Window
+------------------------------
+.. automodule:: spinlab.math.window
+   :members:
+   :show-inheritance:
 
 
-.. Plotting
-.. ==============================
+Plotting
+==============================
 
-.. General
-.. ------------------------------
-.. .. automodule:: spinlab.plotting.general
-..    :members:
-..    :show-inheritance:
+General
+------------------------------
+.. automodule:: spinlab.plotting.general
+   :members:
+   :show-inheritance:
 
-.. Image
-.. ------------------------------
-.. .. automodule:: spinlab.plotting.image
-..    :members:
-..    :show-inheritance:
+Image
+------------------------------
+.. automodule:: spinlab.plotting.image
+   :members:
+   :show-inheritance:
 
 .. Stack Plot
 .. ------------------------------
