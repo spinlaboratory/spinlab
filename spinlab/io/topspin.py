@@ -545,7 +545,7 @@ def load_topspin_jcamp_dx(path, verbose=False):
 
                 # Test for array
                 if value[0] == "(":
-                    x = re.findall("\([0-9]+\.\.[0-9]+\)", value)
+                    x = re.findall("\\([0-9]+\.\.[0-9]+\)", value)
 
                     start, end = tuple(x[0][1:-1].split("..", 1))
 

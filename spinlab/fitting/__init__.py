@@ -1,3 +1,3 @@
-"""Modules to fit slData objects to a function"""
+"""Modules to facility fitting of data"""
 
 from .general import *

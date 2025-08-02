@@ -1,4 +1,4 @@
-"""Modules operating on a slData object to return a new slData object"""
+"""Modules operating on a spindata object to return a new spindata object"""
 
 from .align import *
 from .apodization import *
