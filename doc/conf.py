@@ -27,7 +27,6 @@ from datetime import datetime
 date = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
 # The short X.Y version
-# version_file = "../../spinlab/version.py"
 version_file = "../spinlab/version.py"
 with open(version_file, "r") as f:
     version_code = f.read()
@@ -73,7 +72,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
-    # "sphinx_gallery.gen_gallery",
+    "sphinx_gallery.gen_gallery",
 ]
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
@@ -108,15 +107,15 @@ exclude_patterns = ["_build", "links.rst"]
 pygments_style = None
 
 # -- Options for Sphinx Gallery output -------------------------------------------------
-# from sphinx_gallery.sorting import FileNameSortKey
+from sphinx_gallery.sorting import FileNameSortKey
 
-# sphinx_gallery_conf = {
-#     "examples_dirs":            "../../docs/examples",      # path to your example scripts
-#     "gallery_dirs":             "sl_examples",            # path to where to save gallery generated output
-#     "remove_config_comments":   True,
-#     # "within_subsection_order":  FileNameSortKey,            # Sort by file name
-#     # "run_stale_examples":       True,                       # Force sphinx to rebuild example. Set to False to only run examples that have changed
-# }
+sphinx_gallery_conf = {
+    "examples_dirs":            ["../tutorials","../examples"],             # path to your example scripts
+    "gallery_dirs":             ["sl_tutorials","sl_examples"],             # path to where to save gallery generated output
+    "remove_config_comments":   True,
+    # "within_subsection_order":  FileNameSortKey,            # Sort by file name
+    "run_stale_examples":       True,                       # Force sphinx to rebuild example. Set to False to only run examples that have changed
+}
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -174,32 +173,32 @@ html_logo = "_static/images/SpinLabLogo_300x224.png"
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "Spinlabdoc"
+htmlhelp_basename = "SpinLabdoc"
 
 
 # # -- Options for LaTeX output ------------------------------------------------
 
-# latex_elements = {
-#     # The paper size ('letterpaper' or 'a4paper').
-#     #
-#     # 'papersize': 'letterpaper',
-#     # The font size ('10pt', '11pt' or '12pt').
-#     #
-#     # 'pointsize': '10pt',
-#     # Additional stuff for the LaTeX preamble.
-#     #
-#     # 'preamble': '',
-#     # Latex figure (float) alignment
-#     #
-#     # 'figure_align': 'htbp',
-# }
+latex_elements = {
+    # The paper size ('letterpaper' or 'a4paper').
+    #
+    # 'papersize': 'letterpaper',
+    # The font size ('10pt', '11pt' or '12pt').
+    #
+    # 'pointsize': '10pt',
+    # Additional stuff for the LaTeX preamble.
+    #
+    # 'preamble': '',
+    # Latex figure (float) alignment
+    #
+    # 'figure_align': 'htbp',
+}
 
-# # Grouping the document tree into LaTeX files. List of tuples
-# # (source start file, target name, title,
-# #  author, documentclass [howto, manual, or own class]).
-# latex_documents = [
-#     (master_doc, "Spinlab.tex", "SpinLab Documentation", "Timothy Keller", "manual"),
-# ]
+# Grouping the document tree into LaTeX files. List of tuples
+# (source start file, target name, title,
+#  author, documentclass [howto, manual, or own class]).
+latex_documents = [
+    (master_doc, "Spinlab.tex", "SpinLab Documentation", "SpinLab Team", "manual"),
+]
 
 
 # -- Options for manual page output ------------------------------------------
@@ -209,40 +208,40 @@ htmlhelp_basename = "Spinlabdoc"
 man_pages = [(master_doc, "Spinlab", "SpinLab Documentation", [author], 1)]
 
 
-# # -- Options for Texinfo output ----------------------------------------------
+# -- Options for Texinfo output ----------------------------------------------
 
-# # Grouping the document tree into Texinfo files. List of tuples
-# # (source start file, target name, title, author,
-# #  dir menu entry, description, category)
-# texinfo_documents = [
-#     (
-#         master_doc,
-#         "SpinLab",
-#         "SpinLab Documentation",
-#         author,
-#         "SpinLab",
-#         "Bringing the Power of Python to Spin-NMR Spectroscopy",
-#         "Miscellaneous",
-#     ),
-# ]
+# Grouping the document tree into Texinfo files. List of tuples
+# (source start file, target name, title, author,
+#  dir menu entry, description, category)
+texinfo_documents = [
+    (
+        master_doc,
+        "SpinLab",
+        "SpinLab Documentation",
+        author,
+        "SpinLab",
+        "Bringing the Power of Python to MR Spectroscopy",
+        "Miscellaneous",
+    ),
+]
 
 
-# # -- Options for Epub output -------------------------------------------------
+# -- Options for Epub output -------------------------------------------------
 
-# # Bibliographic Dublin Core info.
-# epub_title = project
+# Bibliographic Dublin Core info.
+epub_title = project
 
-# # The unique identifier of the text. This can be a ISBN number
-# # or the project homepage.
-# #
-# # epub_identifier = ''
+# The unique identifier of the text. This can be a ISBN number
+# or the project homepage.
+#
+# epub_identifier = ''
 
-# # A unique identification for the text.
-# #
-# # epub_uid = ''
+# A unique identification for the text.
+#
+# epub_uid = ''
 
-# # A list of files that should not be packed into the epub file.
-# epub_exclude_files = ["search.html"]
+# A list of files that should not be packed into the epub file.
+epub_exclude_files = ["search.html"]
 
 
 # # -- Extension configuration -------------------------------------------------

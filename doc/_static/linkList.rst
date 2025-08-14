@@ -62,6 +62,20 @@
 
 
 
+
+
+
+.. |MentinkCPMG| raw:: html
+
+   <a href="https://linkinghub.elsevier.com/retrieve/pii/S1090780713002085" target="_blank">Mentink-Virgier et al.</a>
+
+
+.. |CompactQDEER| raw:: html
+
+   <a href="https://linkinghub.elsevier.com/retrieve/pii/S1090780713002085" target="_blank">Compact-Q DEER</a>
+
+
+
 .. -------------------------- Old Links - Move up when using, will be deleted in the future --------------------------
 
 

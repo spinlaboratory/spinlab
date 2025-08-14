@@ -63,6 +63,7 @@ SpinLab can be easily installed via pip:
 
    introduction
    installation
+   gettingStarted
    currentRelease
 
 .. toctree::
@@ -70,7 +71,6 @@ SpinLab can be easily installed via pip:
    :maxdepth: 1
    :hidden:
 
-..    gettingStarted
 
 .. .. toctree::
 ..    :caption: Examples
@@ -78,6 +78,14 @@ SpinLab can be easily installed via pip:
 ..    :hidden:
 
 ..    sl_examples/index
+
+.. toctree::
+   :caption: Examples/Tutorials
+   :maxdepth: 1
+   :hidden:
+
+   sl_examples/index
+   sl_tutorials/index
 
 .. toctree::
    :caption: Reference
