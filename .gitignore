@@ -63,6 +63,9 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+_build/
+.doctrees
+.DS_Store
 
 # OSX and Windows related
 .DS_Store
