@@ -41,7 +41,7 @@ class slTools_tester(unittest.TestCase):
         y = np.array([x**2.0, x**3.0]).T
 
         # leads to warning
-        rnd_data = sl.SpinData(y, ["t2", "bla"], [x,x])
+        rnd_data = sl.SpinData(y, ["t2", "bla"], [x, x])
 
         sl.processing.create_complex(rnd_data, data_r, data_c)
 
@@ -126,18 +126,20 @@ class slTools_tester(unittest.TestCase):
         self.assertEqual(snr.shape, (1,))
 
         # with defaults
-        snr = f(data, noise_region = [(0,1)])
+        snr = f(data, noise_region=[(0, 1)])
         # with slices
-        snr = f(data, slice(0, None), noise_region = [(0,1)], remove_background=[(100, 200)])
+        snr = f(
+            data, slice(0, None), noise_region=[(0, 1)], remove_background=[(100, 200)]
+        )
 
         # with more than one signal region:
-        snr = f(data, [slice(0, None), (100, 300)], noise_region = [(0,1)])
+        snr = f(data, [slice(0, None), (100, 300)], noise_region=[(0, 1)])
         self.assertEqual(snr.shape[0], 2)
 
         self.assertEqual(snr.shape, (2,))
 
         # multiple noise regions
-        snr2 = f(data, (0, 1000), noise_region = [(0,1)], remove_background=[(100, 200)])
+        snr2 = f(data, (0, 1000), noise_region=[(0, 1)], remove_background=[(100, 200)])
         snr = f(
             data,
             slice(0, None),
@@ -249,19 +251,20 @@ class slTools_tester(unittest.TestCase):
     def test_006_create_complex_tests(self):
 
         npDat = np.ones((100, 2, 25, 1, 10)) * 1.0123987
-        npDat[:,1,...] = 0.51
+        npDat[:, 1, ...] = 0.51
         npCoords = [np.arange(k) + np.random.randint(10) for k in npDat.shape]
         npDims = ["1", "2", "3", "4", "5"]
 
-        data=sl.SpinData(npDat,npDims,npCoords)
+        data = sl.SpinData(npDat, npDims, npCoords)
 
         complex_2 = sl.create_complex(data, "2")
-        #this  operation will make data inconsistent and issue a warning, also complex_1 will be inconsistent, this is due to the old implementation of create_complex, therefore use catch_warnings context manager
-        complex_1=None
+        # this  operation will make data inconsistent and issue a warning, also complex_1 will be inconsistent, this is due to the old implementation of create_complex, therefore use catch_warnings context manager
+        complex_1 = None
         with warnings.catch_warnings() as w:
             warnings.simplefilter("ignore")
-            complex_1 = sl.create_complex(data,data._values[:,0,...],data._values[:,1,...])
-
+            complex_1 = sl.create_complex(
+                data, data._values[:, 0, ...], data._values[:, 1, ...]
+            )
 
         self.assertEqual(complex_1.shape, complex_2.shape)
         self.assertEqual((100, 25, 1, 10), complex_2.shape)
@@ -280,7 +283,7 @@ class slTools_tester(unittest.TestCase):
         self.assertTrue(trueVal)
 
         npDat = np.ones((1, 1, 2, 100, 25, 1, 10, 1)) * 1.0123456789
-        npDat[:,:,1,...] = 0.587
+        npDat[:, :, 1, ...] = 0.587
         npCoords = [np.arange(k) + np.random.randint(10) for k in npDat.shape]
         npDims = ["1", "2", "3", "4", "5", "6", "7", "8"]
 
@@ -292,7 +295,7 @@ class slTools_tester(unittest.TestCase):
 
         # test with 5 dimensions in complex dimension
         npDat = np.ones((100, 5, 25, 1, 10)) * 1.0547891
-        npDat[:,1,...] = 0.587
+        npDat[:, 1, ...] = 0.587
         npCoords = [np.arange(k) + np.random.randint(10) for k in npDat.shape]
         npDims = ["1", "2", "3", "4", "5"]
 
@@ -345,7 +348,6 @@ class slTools_tester(unittest.TestCase):
                 )
             )
         )
-        
 
     def test_007_normalize_tests(self):
 

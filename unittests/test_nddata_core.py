@@ -208,15 +208,15 @@ class spinlab_ABCData_core_tester(unittest.TestCase):
 
     def test_004_defaultCoordDim(self):
         import spinlab as sl
-        a = np.empty((10,0,5))
-        b = np.empty((100,10,2))
+
+        a = np.empty((10, 0, 5))
+        b = np.empty((100, 10, 2))
         d0 = sl.SpinData(a)
         d1 = sl.SpinData(b)
 
-        self.assertEqual( d1.dims, ["x0","x1","x2"])
-        self.assertEqual( d0.dims, [])
-        self.assertEqual( d0.coords._coords, [])
-
+        self.assertEqual(d1.dims, ["x0", "x1", "x2"])
+        self.assertEqual(d0.dims, [])
+        self.assertEqual(d0.coords._coords, [])
 
 
 class spinlab_ABCData_coord_tester(unittest.TestCase):
