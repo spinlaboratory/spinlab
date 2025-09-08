@@ -1,7 +1,8 @@
 import matplotlib.pyplot as _plt
 import numpy as _np
-from warnings import warn as _warn
+import spinlab as _sl
 
+from warnings import warn as _warn
 from ..core.data import SpinData
 from ..config.config import SpinLAB_CONFIG
 
@@ -9,26 +10,16 @@ from ..config.config import SpinLAB_CONFIG
 # hand curated list of plotting arguments that are forwarded, from config file
 _forwarded_pyplot_plots = SpinLAB_CONFIG.getlist("PLOTTING", "forwarded_pyplot_plots")
 
-
 _plt.rcParams["lines.linewidth"] = 1.5
 
-# _cycler_list_colors = [
-#     SpinLAB_CONFIG.get("COLORS", color_key)
-#     for color_key in SpinLAB_CONFIG["COLORS"].keys()
-# ]
-
 # Manually giving a list for the color cycler to add more contrast
-
 _cycler_list_colors = [
-    "#054169",
-    "#0071bc",
-    "#313331", 
-    "#737373",
-    "#FF9300"
-    ]
-
-print(_cycler_list_colors)
-
+    _sl.plotting.colors.BrukerIce,
+    _sl.plotting.colors.BrukerOcean,
+    _sl.plotting.colors.BrukerOrange,
+    _sl.plotting.colors.BrukerObsidian,
+    _sl.plotting.colors.BrukerGranite,
+]
 
 _cycler_list_styles = ["-", ":", "-."]
 _customColorLinesyleCycler = _plt.cycler(linestyle=_cycler_list_styles) * _plt.cycler(
