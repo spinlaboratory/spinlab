@@ -31,7 +31,7 @@ jobs:
       - name: Install package
         run: |
             python -m pip install --upgrade pip
-            pip install .
+            pip install -e .
       # Determine package version
       - name: Determine version
         id: version
