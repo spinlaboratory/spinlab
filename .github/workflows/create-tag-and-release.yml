@@ -1,6 +1,6 @@
 # This workflow will create a tag for the release and create a release on the github page
 
-name: Release SpinLab
+name: Tag and Release SpinLab
 
 on:
   workflow_dispatch:  # Manual trigger for release
