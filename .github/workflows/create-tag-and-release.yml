@@ -1,0 +1,64 @@
+# This workflow will create a tag for the release and create a release on the github page
+
+name: Release SpinLab
+
+on:
+  workflow_dispatch:  # Manual trigger for release
+  release:
+    types: [published]  # Optional: trigger when a GitHub release is published
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Set up Git
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # 3️⃣ Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 4️⃣ Determine package version
+      - name: Determine version
+        id: version
+        run: |
+          VERSION=$(python -c "from spinlab.version import __version__; print(__version__)")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # 5️⃣ Create Git tag
+      - name: Create Git tag
+        run: |
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+
+      # 6️⃣ Extract changelog for this version
+      - name: Extract changelog
+        id: changelog
+        run: |
+          # Extract the section for this version from CHANGELOG.md
+          CHLOG=$(awk '/^## \[v'"${VERSION}"'\]/,/^## \[v/' CHANGELOG.md | sed '$d')
+          echo "CHANGELOG<<EOF" >> $GITHUB_ENV
+          echo "$CHLOG" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      # 7️⃣ Create GitHub release
+      - name: Create GitHub release
+        uses: actions/create-release@v1
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          release_name: "SpinLab v${{ env.VERSION }}"
+          body: "${{ env.CHANGELOG }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
