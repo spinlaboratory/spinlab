@@ -1,6 +1,7 @@
 import matplotlib.pyplot as _plt
 import numpy as _np
-import spinlab as _sl
+
+from ..plotting import colors
 
 from warnings import warn as _warn
 from ..core.data import SpinData
@@ -14,11 +15,11 @@ _plt.rcParams["lines.linewidth"] = 1.5
 
 # Manually giving a list for the color cycler to add more contrast
 _cycler_list_colors = [
-    _sl.plotting.colors.BrukerIce,
-    _sl.plotting.colors.BrukerOcean,
-    _sl.plotting.colors.BrukerOrange,
-    _sl.plotting.colors.BrukerObsidian,
-    _sl.plotting.colors.BrukerGranite,
+    colors.BrukerIce,
+    colors.BrukerOcean,
+    colors.BrukerOrange,
+    colors.BrukerObsidian,
+    colors.BrukerGranite,
 ]
 
 _cycler_list_styles = ["-", ":", "-."]
