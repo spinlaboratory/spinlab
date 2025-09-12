@@ -1,0 +1,62 @@
+# This workflow will create a tag for the release and create a release on the GitHub page
+name: Tag and Release SpinLab
+
+on:
+  workflow_dispatch:  # Manual trigger for release
+  release:
+    types: [published]  # Optional: trigger when a GitHub release is published
+
+permissions:
+  contents: write  # <-- needed to push tags and create releases
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Set up Git
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Install package
+      - name: Install package
+        run: |
+            python -m pip install --upgrade pip
+            pip install -e .
+
+      # Determine package version
+      - name: Determine version
+        id: version
+        run: |
+          VERSION=$(python -c "from spinlab.version import __version__; print(__version__)")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Create Git tag
+      - name: Create Git tag
+        run: |
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+
+      # Create GitHub release with automatic release notes
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          name: "SpinLab v${{ env.VERSION }}"
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
