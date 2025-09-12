@@ -1,5 +1,4 @@
-# This workflow will create a tag for the release and create a release on the github page
-
+# This workflow will create a tag for the release and create a release on the GitHub page
 name: Tag and Release SpinLab
 
 on:
@@ -8,7 +7,7 @@ on:
     types: [published]  # Optional: trigger when a GitHub release is published
 
 permissions:
-  contents: write  # <-- needed to push tags
+  contents: write  # <-- needed to push tags and create releases
 
 jobs:
   release:
@@ -18,6 +17,8 @@ jobs:
       # Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # Set up Git
       - name: Set up Git
@@ -31,10 +32,12 @@ jobs:
         with:
           python-version: "3.11"
 
+      # Install package
       - name: Install package
         run: |
             python -m pip install --upgrade pip
             pip install -e .
+
       # Determine package version
       - name: Determine version
         id: version
@@ -48,24 +51,12 @@ jobs:
           git tag "v${VERSION}"
           git push origin "v${VERSION}"
 
-      # Extract changelog for this version
-      - name: Extract changelog
-        id: changelog
-        run: |
-          # Extract the section for this version from CHANGELOG.md
-          CHLOG=$(awk '/^## \[v'"${VERSION}"'\]/,/^## \[v/' CHANGELOG.md | sed '$d')
-          echo "CHANGELOG<<EOF" >> $GITHUB_ENV
-          echo "$CHLOG" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      # Create GitHub release
+      # Create GitHub release with automatic release notes
       - name: Create GitHub release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: "v${{ env.VERSION }}"
-          release_name: "SpinLab v${{ env.VERSION }}"
-          body: "${{ env.CHANGELOG }}"
-          draft: false
-          prerelease: false
+          name: "SpinLab v${{ env.VERSION }}"
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
