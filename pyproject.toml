@@ -13,12 +13,18 @@ classifiers = [
 license = "MIT"
 license-files = ["LICENSE.txt"]
 keywords = ["ODNP", "DNP", "Spin", "NMR", "EPR", "ESR"]
+dependencies = [
+    "numpy >= 2.0.0",
+    "scipy >= 1.14.0",
+    "matplotlib >= 3.9.0",
+    "h5py >= 3.11.0",
+]
 
 [tool.setuptools.packages.find]
 include = ["spinlab*", "spinlab"]
 
 [build-system]
-requires = ["setuptools", "numpy >= 2.0.0", "scipy>=1.14.0", "matplotlib>=3.9.0", "h5py>=3.11.0"]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
