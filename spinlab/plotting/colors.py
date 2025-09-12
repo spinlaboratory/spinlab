@@ -9,8 +9,8 @@ secondary2 = SpinLAB_CONFIG.get("COLORS", "secondary2")
 accent = SpinLAB_CONFIG.get("COLORS", "accent")
 
 
-BrukerIce       = SpinLAB_CONFIG("COLORS", "BrukerIce")
-BrukerPacific   = SpinLAB_CONFIG("COLORS", "BrukerPacific")
+BrukerIce       = SpinLAB_CONFIG.get("COLORS", "BrukerIce")
+BrukerPacific   = SpinLAB_CONFIG.get("COLORS", "BrukerPacific")
 BrukerOcean     = SpinLAB_CONFIG.get("COLORS", "BrukerOcean")
 BrukerGlacier   = SpinLAB_CONFIG.get("COLORS", "BrukerGlacier")
 BrukerDolomite  = SpinLAB_CONFIG.get("COLORS", "BrukerDolomite")
