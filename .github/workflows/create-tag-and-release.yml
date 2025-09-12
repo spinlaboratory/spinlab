@@ -7,6 +7,9 @@ on:
   release:
     types: [published]  # Optional: trigger when a GitHub release is published
 
+permissions:
+  contents: write  # <-- needed to push tags
+
 jobs:
   release:
     runs-on: ubuntu-latest
