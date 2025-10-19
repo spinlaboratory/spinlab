@@ -15,8 +15,9 @@ _plt.rcParams["lines.linewidth"] = 1.5
 
 # Manually giving a list for the color cycler to add more contrast
 _cycler_list_colors = [
-    colors.BrukerIce,
+    colors.BrukerPacific,
     colors.BrukerOcean,
+    colors.BrukerIce,
     colors.BrukerOrange,
     colors.BrukerObsidian,
     colors.BrukerGranite,
