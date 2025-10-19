@@ -154,7 +154,7 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
         plot(data, *args, **kwargs)
         return
 
-    _plt.grid(True)
+    _plt.grid(True, ls = ":")
     _plt.title(title)
 
     fancyplot_possiblesections = list(SpinLAB_CONFIG.sections())
