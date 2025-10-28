@@ -33,9 +33,7 @@ class load_wrapper_tester(unittest.TestCase):
         self.assertAlmostEqual(data.attrs["nmr_frequency"], 14831413.270000001)
 
     def test_prospa(self):
-        sl.load(
-            os.path.join(self.prospa_dir, str(1), "data.csv"), data_format="prospa"
-        )
+        sl.load(os.path.join(self.prospa_dir, str(1), "data.csv"), data_format="prospa")
 
     def test_vnmrj(self):
         sl.load(self.vnmrj_dir, data_format="vnmrj")
