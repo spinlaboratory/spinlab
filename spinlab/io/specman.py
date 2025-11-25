@@ -72,7 +72,9 @@ def import_specman(
     attrs["import_path"] = path
 
     # Assign data/spectrum type
-    attrs["experiment_type"] = "epr_spectrum"
+    attrs["experiment_type"] = (
+        "epr_spectrum" if "sweep_T" not in attrs["axis_order"] else "epr_transient"
+    )
 
     specman_data = _sl.SpinData(data, dims, coords, attrs)
     if make_complex:
