@@ -15,8 +15,9 @@ _plt.rcParams["lines.linewidth"] = 1.5
 
 # Manually giving a list for the color cycler to add more contrast
 _cycler_list_colors = [
-    colors.BrukerIce,
+    colors.BrukerPacific,
     colors.BrukerOcean,
+    colors.BrukerIce,
     colors.BrukerOrange,
     colors.BrukerObsidian,
     colors.BrukerGranite,
@@ -154,7 +155,7 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
         plot(data, *args, **kwargs)
         return
 
-    _plt.grid(True)
+    _plt.grid(True, ls=":")
     _plt.title(title)
 
     fancyplot_possiblesections = list(SpinLAB_CONFIG.sections())
