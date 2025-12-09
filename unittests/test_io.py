@@ -174,7 +174,7 @@ class bes3t_import_tester(unittest.TestCase):
         data = sl.load(self.test_data_HYSCORE, data_format="xepr")
         self.assertEqual(data.dims, ["t2", "t1"])
         self.assertEqual(data.values.shape, (175, 175))
-        self.assertEqual(max(data.coords["t2"]), 3520.0)
+        self.assertEqual(max(data.coords["t2"]), 3520e-9)
         self.assertEqual(max(data.coords["t1"]), 3520.0)
 
     def test_import_bes3t_DEER(self):

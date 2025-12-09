@@ -2,9 +2,8 @@ import os
 from . import *
 import re
 import warnings
-
-from ..core.util import concat
 from ..config.config import SpinLAB_CONFIG
+from ..core.util import concat, get_si_factor
 
 
 def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwargs):
@@ -265,7 +264,7 @@ def _convert_spinlab_attrs(data, exp_key):
     """
     if "," in exp_key:
         [params, unit] = exp_key.split(",")
-        scaling_factor = _scale_spinlab_attrs(unit)
+        scaling_factor = get_si_factor(unit)
     else:
         params = exp_key
         scaling_factor = 1
@@ -289,46 +288,3 @@ def _convert_spinlab_attrs(data, exp_key):
         else:
             new_params *= params
     return new_params * scaling_factor
-
-
-def _scale_spinlab_attrs(unit):
-    """Scale all spinlab attributes value to SI unit
-
-    Args:
-        unit (str): an unit
-
-    Returns:
-        scaling_factor (float): scaling factor
-    """
-    unit = unit.strip()
-    # check for unit and return 1 if no prefix
-    units = [k.strip() for k in SpinLAB_CONFIG.getlist("UNITS", "units", fallback=[])]
-
-    for u in units:
-        if u in unit:
-            if u == unit:
-                return 1
-            else:
-                scaling_letter = unit[0]
-                if scaling_letter == "m":
-                    scaling_letter = "mm"  # for configuration purpose
-                scaling_letter = scaling_letter.lower()
-                scaling_list = list(SpinLAB_CONFIG["SI_SCALING"].keys())
-                if scaling_letter not in scaling_list:
-                    warnings.warn(
-                        "Unit scaling letter {0} is not in scaling list {1}, force scaling factor to 1".format(
-                            scaling_letter, scaling_list
-                        )
-                    )
-                    scaling_factor = 1
-                else:
-                    scaling_factor = SpinLAB_CONFIG.get(
-                        "SI_SCALING", scaling_letter, fallback=None
-                    )
-                return float(scaling_factor)
-    warnings.warn(
-        "no valid unit and prefix found ({0}), will return 1 as scaling factor".format(
-            unit
-        )
-    )
-    return 1

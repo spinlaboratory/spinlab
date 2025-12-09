@@ -4,6 +4,7 @@ import numpy as _np
 import os
 from .. import SpinData
 import warnings
+from ..core.util import get_si_factor
 
 
 def import_bes3t(path):
@@ -63,12 +64,17 @@ def import_bes3t(path):
         raise TypeError("data file must be .DTA, .DSC, .YGF, or .ZGF")
 
     attrs = load_dsc(path_dsc)
+    print(attrs)
 
     values, dims, coords, attrs = load_dta(
         path_dta, path_xgf, path_ygf, path_zgf, attrs
     )
     attrs["spectrometer_format"] = "xepr"
-    attrs["experiment_type"] = "epr_spectrum"
+    if "sweep_domain" in attrs and attrs["sweep_domain"].lower() == "time":
+        attrs["experiment_type"] = "epr_transient"
+    else:
+        attrs["experiment_type"] = "epr_spectrum"
+    # attrs["experiment_type"] = "epr_spectrum"
     attrs["nrScans"] = attrs["nscans"]
 
     bes3t_data = SpinData(values, dims, coords, attrs)
@@ -138,6 +144,7 @@ def load_dsc(path):
                 )
             elif "XNAM" in par:
                 sweep_domain = par.replace("XNAM", "").replace("'", "").strip()
+                attrs["sweep_domain"] = sweep_domain
             elif "XUNI" in par:
                 attrs["x_unit"] = par.replace("XUNI", "").replace("'", "").strip()
             elif "XPTS" in par:
@@ -296,6 +303,9 @@ def load_dta(path_dta, path_xgf=None, path_ygf=None, path_zgf=None, attrs={}):
         dims = ["B0"]
     else:
         dims = ["t2"]
+        if "x_unit" in attrs:
+            factor = get_si_factor(attrs["x_unit"])
+            coords = [x * factor for x in coords]
 
     if attrs["data_type"] == "CPLX":
         values = values.astype(dtype=attrs["imag_format"]).view(

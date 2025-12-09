@@ -1,6 +1,8 @@
 from .data import SpinData
 import numpy as _np
 from .base import _SPECIAL_NP_HANDLED
+from ..config.config import SpinLAB_CONFIG
+import warnings
 
 
 def implements_np(np_function):
@@ -157,3 +159,46 @@ def get_slice(data, dim, slice_index):
     out = out[dim, slice_index]
 
     return out
+
+
+def get_si_factor(unit):
+    """Scale all spinlab attributes value to SI unit
+
+    Args:
+        unit (str): an unit
+
+    Returns:
+        scaling_factor (float): scaling factor
+    """
+    unit = unit.strip()
+    # check for unit and return 1 if no prefix
+    units = [k.strip() for k in SpinLAB_CONFIG.getlist("UNITS", "units", fallback=[])]
+
+    for u in units:
+        if u in unit:
+            if u == unit:
+                return 1
+            else:
+                scaling_letter = unit[0]
+                if scaling_letter == "m":
+                    scaling_letter = "mm"  # for configuration purpose
+                scaling_letter = scaling_letter.lower()
+                scaling_list = list(SpinLAB_CONFIG["SI_SCALING"].keys())
+                if scaling_letter not in scaling_list:
+                    warnings.warn(
+                        "Unit scaling letter {0} is not in scaling list {1}, force scaling factor to 1".format(
+                            scaling_letter, scaling_list
+                        )
+                    )
+                    scaling_factor = 1
+                else:
+                    scaling_factor = SpinLAB_CONFIG.get(
+                        "SI_SCALING", scaling_letter, fallback=None
+                    )
+                return float(scaling_factor)
+    warnings.warn(
+        "no valid unit and prefix found ({0}), will return 1 as scaling factor".format(
+            unit
+        )
+    )
+    return 1
