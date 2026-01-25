@@ -18,7 +18,7 @@ print(sys.path)
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "SpinLab"
-copyright = "2025, SpinLab"
+copyright = "2026, SpinLab"
 author = "SpinLab Team"
 # release = '0.1'
 
