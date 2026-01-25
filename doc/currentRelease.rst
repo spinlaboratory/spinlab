@@ -14,7 +14,7 @@ Current Release
 
 The source code for the project is maintained here: |SpinlabGitLink|
 
-To check the SpinLab version that is currently installed on your computer execute this command in a terminal
+To check the SpinLab version that is currently installed on your computer execute this command in a terminal window:
 
 .. code-block:: bash
 
