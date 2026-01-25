@@ -73,6 +73,10 @@ def import_specman(
 
     # Assign data/spectrum type
     attrs["experiment_type"] = "epr_spectrum"
+    if "axis_order" in attrs and "sweep_T" in attrs["axis_order"]:
+        attrs["experiment_type"] = (
+            "epr_transient"  # overwrite to epr_transient if transient axis is present
+        )
 
     specman_data = _sl.SpinData(data, dims, coords, attrs)
     if make_complex:
@@ -196,7 +200,7 @@ def load_specman_d01(path, attrs, verbose=False):
     elif attrs["dims"] == 4:
         data = _np.reshape(
             data,
-            (uint_read[0], uint_read[4], uint_read[5], uint_read[6], uint_read[3]),
+            (uint_read[0], uint_read[6], uint_read[5], uint_read[4], uint_read[3]),
             order="C",
         )
 
@@ -204,8 +208,8 @@ def load_specman_d01(path, attrs, verbose=False):
         print("Maximum dimensionality for SpecMan data is 4D")
         return None
 
-    # Swap first axis with last
-    data = _np.swapaxes(data, 0, -1)
+    # Reverse axis
+    data = data.transpose(_np.arange(data.ndim)[::-1])
 
     dims_full = ["x0", "x1", "x2", "x3", "x4"]
     dims = dims_full[0 : dataShape[0] + 1]
@@ -294,6 +298,22 @@ def analyze_attrs(attrs):
                 if (len(val_list) == 5 and val_list[3] + "M" == val_list[-1])
                 else False
             )  # check monitoring axis
+
+            if new_key == "sweep_T":  # transient axis
+                transient_str = attrs.get("streams_dwelltime", None)
+                if transient_str:
+                    transient_list = transient_str.split(",")[0].split(" ")
+                    transient_value = transient_list[0]
+                    transient_unit = (
+                        transient_list[1] if len(transient_list) > 1 else None
+                    )
+                else:
+                    transient_value = "1"
+                    transient_unit = None
+                temp[new_key + "_transient_factor"] = float(
+                    transient_value
+                ) * _convert_unit(transient_unit)
+
             # new_key += '_dim' # last item is the key to the parameters, such as t, p...
             temp[new_key + "_dim"] = val_list[3]
 
@@ -312,13 +332,13 @@ def generate_dims(attrs):
         dims (list): a new dims
 
     """
-    kw = attrs["axis_order"]
+    axis = attrs["axis_order"]
     dims = [
-        attrs[key + "_dim"] if key != "sweep_T" else "t2"
-        for key in kw
+        attrs[key + "_dim"] if key != "sweep_T" else "t2"  # sweep_T is transient axis
+        for key in axis
         if key + "_dim" in attrs
     ]
-    dims.append("x")
+    dims.append("x")  # force to add x in dims
     return dims
 
 
@@ -333,9 +353,9 @@ def calculate_specman_coords(attrs, old_coords, dims=None):
         coords (list): a calculated coords
     """
 
-    kw = attrs["axis_order"]
+    axis = attrs["axis_order"]
     coords = []
-    lengths = [attrs[key + "_length"] for key in kw if key + "_length" in attrs]
+    lengths = [attrs[key + "_length"] for key in axis if key + "_length" in attrs]
     lengths.append(len(old_coords[-1]))
 
     if not dims:
@@ -344,6 +364,7 @@ def calculate_specman_coords(attrs, old_coords, dims=None):
 
     for index, dim in enumerate(dims):
         length = lengths[index]
+
         if dim in attrs and dim + "_step" in attrs:
             start = attrs[dim]
             step = attrs[dim + "_step"]
@@ -391,6 +412,12 @@ def calculate_specman_coords(attrs, old_coords, dims=None):
 
         else:
             coord = _np.arange(0.0, length)
+
+        # transient axis special handling
+        if index < len(axis):  # skip x axis
+            if axis[index] == "sweep_T" and "sweep_T_transient_factor" in attrs:
+                coord = coord * attrs["sweep_T_transient_factor"]
+
         coords.append(_np.array(coord))
     return coords
 
