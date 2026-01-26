@@ -70,7 +70,7 @@ SpinLab can be easily installed via pip:
    :maxdepth: 1
    :hidden:
 
-..    gettingStarted
+   gettingStarted
 
 .. .. toctree::
 ..    :caption: Examples
