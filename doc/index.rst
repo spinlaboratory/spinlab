@@ -93,6 +93,7 @@ SpinLab can be easily installed via pip:
 
    people
    license
+   
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`
