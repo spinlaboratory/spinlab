@@ -69,7 +69,7 @@ def import_bes3t(path):
     )
     attrs["spectrometer_format"] = "xepr"
     attrs["experiment_type"] = "epr_spectrum"
-    attrs["nrScans"] = attrs["nscans"]
+    attrs["nrScans"] = attrs["nscans"] if "nscans" in attrs.keys() else 1
 
     bes3t_data = SpinData(values, dims, coords, attrs)
 
@@ -304,7 +304,7 @@ def load_dta(path_dta, path_xgf=None, path_ygf=None, path_zgf=None, attrs={}):
     elif attrs["data_type"] == "REAL":
         values = values.astype(dtype=attrs["real_format"]).view()
 
-    if attrs["x_dim"] >= 2:
+    if "x_dim" in attrs and attrs["x_dim"] >= 2:
         values = _np.reshape(values, (attrs["x_points"], attrs["data_dim"]), order="C")
         coords.append(_np.arange(attrs["data_dim"]))
         dims.append("X")
