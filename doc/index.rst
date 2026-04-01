@@ -71,6 +71,7 @@ SpinLab can be easily installed via pip:
    :hidden:
 
    gettingStarted
+   indexing
    
 
 .. .. toctree::
