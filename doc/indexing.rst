@@ -2,14 +2,12 @@
 Indexing
 ========
 
-Here we will give a short overview how to index a SpinLab data object.
+In this section we will give a short overview how to index a SpinLab data object.
 
 Generate an Example Data Set
 ============================
-First, start by generating an example data set. To do this, we Use the Lorentzian function to generate a 2D data set of Lorentzian distributions and create a sldata object.
+First, we start by generating an example data set. To do this, we will first Use the built-in function ``math.lineshape.lorentzian`` to generate a 2D data set of Lorentzian distributions followed by creating the SpinLab data object using the function ``sl.SpinData``.
 
-
-First create a data set of 2D Lorentzian line shapes, using the built-in function ``math.lineshape.lorentzian`` as follows:
 
 .. code-block:: python
 
@@ -22,7 +20,7 @@ First create a data set of 2D Lorentzian line shapes, using the built-in functio
     >>> values = sl.math.lineshape.lorentzian(x.reshape(-1, 1), y.reshape(1, -1), 0.5)
 
 
-Next, can create the SpinLab data object
+Next, create the SpinLab data object
 
 .. code-block:: python
 
@@ -39,12 +37,9 @@ This ``SpinData`` object can be easily ploted using the built-in plotting functi
     >>> sl.plt.tight_layout()
     >>> sl.plt.show()
 
+The
 
 
-
-
-
-print(data)
 
 
 
