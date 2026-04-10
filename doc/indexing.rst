@@ -24,9 +24,12 @@ Next, create the SpinLab data object
 
 .. code-block:: python
 
-    >>> data = data = sl.SpinData(values, ["x (a.u.)", "x0"], [x, y])
+    >>> data = data = sl.SpinData(values, ["x", "x0"], [x, y])
 
-This ``SpinData`` object can be easily ploted using the built-in plotting function
+For this example the two dimensions are labeled **x** and **x0**.
+
+
+The ``SpinData`` object can be easily ploted using the built-in plotting function:
 
 .. code-block:: python
 
@@ -37,237 +40,87 @@ This ``SpinData`` object can be easily ploted using the built-in plotting functi
     >>> sl.plt.tight_layout()
     >>> sl.plt.show()
 
-The
 
+.. figure:: _static/images/indexing/indexing_Figure_1.png
+    :width: 400
+    :alt: Two-dimensional SpinLab data object
+    :align: center
 
+    Plot of the two-dimensional SpinLab data object.
 
 
+Indexing a SpinLab Data object
+==============================
+A SpinLab data object has typically 4 different attributes:
 
+    1. **values** (Numpy array): Numpy Array containing data
+    2. **coords** (Python list): List of numpy arrays containing axes of data
+    3. **dims** (Python list): List of axes labels for data
+    4. **attrs** (Python dictionary): Dictionary of parameters for data
 
+The content of the sldata object can be easily viewed using the Pyhton ``print`` function:
 
+.. code-block:: python
 
+    >>> print(data)
 
+    values:
+            1024 x 6 ndarray (float64)
+    dims:
+            ['x', 'x0']
+    coords:
+            array([-10.        ,  -9.98044966,  -9.96089932, ...,   9.96089932,
+            9.98044966,  10.        ], shape=(1024,))
+            array([-3. , -1.8, -0.6,  0.6,  1.8,  3. ])
+    attrs:
 
 
-..  data = dnp.DNPData(values, ["f2", "sample"], [x, y])
+Indexing using Integers
+-----------------------
+Let's start with the simplest way to extract (index) a single spectrum from a 2D data set. The data set that was created earlier has two dimensions: One dimension contains the Lorentz distribution (``dim = 'x'``) and the other dimension referes to different locations (``dim = 'x0'``).
 
+The user has to specify the name of the dimension from which a slice has to be extraced. This index has to be an integer and follows the Python convention for indexing (0 is the first index, -1 is the last index).
 
+To index a sldata object, specify the name of the dimension and the index of the slice. To specify a slice based on the index, an **integer** is used. For example, to select the slice with index 3 use:
 
+.. code-block:: python
 
-.. from matplotlib.pylab import *
+    >>> data_slice_integer = data["x0", 3]
+    >>> data_slice_integer.squeeze()
 
 
+This will select the a slice 3, and a new sldata object is created. However, taking the slice does not remove the ``x0`` dimension. We can remove dimensions of length 1 with the ``squeeze()`` method to remove the ``x0`` dimension.
 
+It is also possible to select a subset of the original data by specifying a range of values. To do this, we use a tuple specify the minimum and maximum values for the index. For example:
 
+.. code-block:: python
 
+    >>> data_slice_range = data["x0", (-3, 3)]
 
 
+The last slice can extraced by using:
 
-You can index a DNPData object by specifying the name of the dimension and the index of the slice.
+.. code-block:: python
 
-.. # %%
-.. # Import DNPLab and create a set of data
-.. # --------------------------------------
-.. # Use the lorentzian function to generate a 2d set of lorentzian distributions.
+    >>> last_slice = data["x0", -1]
 
-.. import numpy as np
-.. from matplotlib.pylab import *
 
-.. import dnplab as dnp
+Indexing using Float
+--------------------
+In the previous example, a single slice or a sub-set of spectra was selected using an integer number to index the data set. This is convenient if this dimension has only a small number of indexes. However, when this dimension is large it is less convenient to use an integer and a specific region can be extracted using a float. In this case, the nearest float will be picked.
 
-.. x = np.r_[-50:50:1024j]
-.. y = np.r_[-10:10:1]
+To do this, we use a float to specify the location. In Python, by adding a period after the number, the number is interpreted as a float instead of integer (for example 3. or 3.0 indictate a float).
 
-.. values = dnp.math.lineshape.lorentzian(x.reshape(-1, 1), y.reshape(1, -1), 0.5)
+To extract a slice at a specific value of the x axis use:
 
-.. data = dnp.DNPData(values, ["f2", "sample"], [x, y])
+.. code-block:: python
 
-.. # %%
-.. # To specify a slice based on the index, we use an integer. This will select the slice at index 3.
+    >>> data_slice_float = data["x", 0.5]
+    >>> data_slice_float.squeeze()
 
-.. data_slice_integer = data["sample", 3]  # get slice by index
+As in the previous example, we can remove the ``x0`` dimension using the ``squeeze()`` method.
 
-.. # Taking the slice does not remove the sample dimension. We can remove dimensions of length 1 with the squeeze method
-.. data_slice_integer.squeeze()  # remove "sample" dimension
 
-.. # %%
-.. # In many cases, we want the slice at a specific value of the coordinates. To do this, we use a float to specify the slice location. In python, by adding a period after the number, python interprets the number as a float instead of integer.
-
-.. data_slice_float = data[
-..     "sample", 3.0
-.. ]  # get slice at index closest to coordinates value of 3.
-.. data_slice_float.squeeze()  # again, we remove the "sample" dimension.
-
-.. # %%
-.. # Plot the result
-.. # ---------------
-.. # Let's plot the 1d slices:
-
-.. figure()
-.. dnp.plot(data_slice_integer)
-.. dnp.plot(data_slice_float)
-.. xlabel("Frequency (Hz)")
-.. ylabel("Signal (a.u.)")
-.. tight_layout()
-
-.. # %%
-.. # Similarly, we can also slice by specifying a range of values. To do this, we use a tuple specify the minimum and maximum values for the index.
-
-.. data_slice_range = data["sample", (-3, 3)]
-
-.. # %%
-.. # For an advanced tutorial how indexing works and how to extract individual data slice from a multi-dimensional dnpData object see the :ref:`plot_02_extract_data` tutorial.
-
-
-
-.. .. SpinLab can be easily installed via pip:
-
-.. .. .. code-block:: bash
-
-.. ..     $ pip install spinlab
-
-.. .. Required Packages
-.. .. =================
-.. .. SpinLab uses a few well-know Python pacakges, which will ba automatically installed during the installation. Currently, the following packages and their respective minimal versions are required:
-
-.. .. .. list-table::
-.. ..    :widths: 40 60
-
-.. ..    * - **Package**
-.. ..      - **Version**
-.. ..    * - NumPy
-.. ..      - 2.0.0 or higher
-.. ..    * - SciPy
-.. ..      - 1.14.0 or higher
-.. ..    * - Matplotlib
-.. ..      - 3.9.1 or higher
-.. ..    * - h5py
-.. ..      - 3.11.0 or higher
-
-
-.. .. Ways to Install SpinLab
-.. .. =======================
-
-.. .. Installing Using Pip
-.. .. --------------------
-.. .. The easiest and most convenient way to install SpinLab is by using |pip|. In a terminal simply type the following command:
-
-.. .. .. code-block:: bash
-
-.. ..    $ python -m pip install spinlab
-
-.. .. or just:
-
-.. .. .. code-block:: bash
-
-.. ..    $ pip install spinlab
-
-.. .. If you prefer to install SpinLab from the source code, check out our GitHub repository |SpinlabGitLink|. The newest developments are always merged into the *Development* branch.
-
-
-.. .. Confirm Successful Installation
-.. .. -------------------------------
-
-.. .. To confirm a successful SpinLab installation execute the following command in a terminal window:
-
-.. .. .. code-block:: bash
-
-.. ..     $ pip show spinlab
-
-.. .. The output will look similar to this (note, the actual version and path to location depends on your local installation):
-
-.. .. .. code-block:: bash
-
-.. ..     Name: spinlab
-.. ..     Version: 1.0.0
-.. ..     Summary: SpinLab - Bringing the Power of Python to MR Spectroscopy
-.. ..     Home-page:
-.. ..     Author:
-.. ..     Author-email:
-.. ..     License-Expression: MIT
-.. ..     Location: Path/to/Package
-.. ..     Editable project location: Path/to/editable/location
-.. ..     Requires:
-.. ..     Required-by:
-
-
-.. .. Specify a SpinLab Version to Install
-.. .. ------------------------------------
-
-.. .. If you wish to install a specific SpinLab version exectute the following command in a terminal window:
-
-.. .. .. code-block:: bash
-    
-.. ..     $ pip install spinlab==1.0.0
-
-
-.. .. Install Preliminary Release
-.. .. ---------------------------
-
-.. .. If you wish to use a pre-release version of SpinLab (downloaded from the GitHub repository) we recommend first uninstalling the current SpinLab version. Clone (or download or fork ...) the desired branch from the GitHub repository. In a terminal window navigate into the directory that contains the spinlab folder (important, **DO NOT** navigate **into** the folder) and execute the following command:
-
-.. .. .. code-block:: bash
-    
-.. ..     $ pip install -e spinlab
-
-.. .. Once the installation is finished verify the path and version of the package by executing the following command in a terminal window:
-
-.. .. .. code-block:: bash
-    
-.. ..     $ pip show spinlab
-
-.. .. If the version does not match the version of the checked-out branch, you may have to first uninstall SpinLab (:code:`pip uninstall spinlab`), then re-install the version you would like to use (:code:`pip install spinlab`), and then run (:code:`pip install -e spinlab`) if you would like to make your own changes to the code.
-
-
-.. .. Upgrading SpinLab
-.. .. =================
-
-.. .. To upgrade the currently installed version of SpinLab execute the following command in a terminal window:
-
-.. .. .. code-block:: bash
-
-.. ..     $ pip install --upgrade spinlab
-
-
-.. .. Uninstalling SpinLab
-.. .. ====================
-
-.. .. Don't like SpinLab? Please let us know how to improve the package.
-
-.. .. The safest method to uninstall SpinLab is to use pip by executing the following command in a terminal window:
-    
-.. .. .. code-block:: bash
-    
-.. ..     $ pip uninstall spinlab
-
-
-.. .. Installing SpinLab Using a Virtual Enviroment (Ubuntu)
-.. .. ------------------------------------------------------
-
-.. .. Starting from Ubuntu 23.10 ``pip3`` will issue a warning when trying to install SpinLab from PyPi. It is recommended to not perform a global install but instead use a virtual enviroment (venv). If you do not have already created a virtual enviroment you can create a folder at a convenient location where the enviroment will be located (see example below).
-
-.. .. In this example this will be in our home folder and the folder will be named SpinLab.
-.. .. To create this enviroment use the command
-
-.. .. .. code-block:: bash
-
-.. ..    $ python3 -m venv ~/SpinLab
-
-.. .. Note that you need to activate the enviroment to use it and install packages via pip3. You can activate the virtual environment by sourcing the activate script that should be located in ~/SpinLab/bin
-
-.. .. .. code-block:: bash
-
-.. ..   $ source ~/SpinLab/bin/activate
-
-.. .. This needs to be done, everytime you start this particular enviroment. To simplify this process, you can create an alias "spinlab" and add it to your .bash_aliases file
-
-.. .. .. code-block:: bash
-
-.. ..   $ echo "spinlab = 'source ~/SpinLab/bin/activate'" >> ~/.bash_aliases
-
-.. .. To deactivate the virtual enviroment enter the following command in a terminal.
-
-.. .. .. code-block:: bash
-
-.. ..   $ deactivate
-
+Indexing Multiple Dimensions
+----------------------------
+#For multi-dimensional data sets, the user can specify multiple dimensions at once. For example ``data['x', 1:10, 'y', :, 'z', (3.5, 7.5)]``.
