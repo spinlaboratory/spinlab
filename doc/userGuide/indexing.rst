@@ -41,7 +41,7 @@ The ``SpinData`` object can be easily ploted using the built-in plotting functio
     >>> sl.plt.show()
 
 
-.. figure:: _static/images/indexing/indexing_Figure_1.png
+.. figure:: indexing_Figure_1.png
     :width: 400
     :alt: Two-dimensional SpinLab data object
     :align: center

@@ -70,8 +70,8 @@ SpinLab can be easily installed via pip:
    :maxdepth: 1
    :hidden:
 
-   gettingStarted
-   indexing
+   userGuide/gettingStarted
+   userGuide/indexing
    
 
 .. .. toctree::
@@ -87,6 +87,7 @@ SpinLab can be easily installed via pip:
 
    modules
    functions
+   sampleData
 
 .. toctree::
    :caption: About
