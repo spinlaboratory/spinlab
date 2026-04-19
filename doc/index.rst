@@ -82,12 +82,17 @@ SpinLab can be easily installed via pip:
 ..    sl_examples/index
 
 .. toctree::
+   :caption: Sample Data
+   :hidden:
+
+   sampleData
+
+.. toctree::
    :caption: Reference
    :hidden:
 
    modules
    functions
-   sampleData
 
 .. toctree::
    :caption: About
