@@ -120,7 +120,8 @@ sphinx_gallery_conf = {
     "remove_config_comments":   True,
     "within_subsection_order":  FileNameSortKey,                        # Sort by file name
     "run_stale_examples":       True,                                   # Force sphinx to rebuild example. Set to False to only run examples that have changed
-    'image_scrapers':           'matplotlib'                            # Define output scraper
+    'image_scrapers':           'matplotlib',                           # Define output scraper
+    'download_all_examples':    False,
 }
 
 # -- Options for HTML output -------------------------------------------------

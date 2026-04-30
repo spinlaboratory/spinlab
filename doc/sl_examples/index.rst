@@ -96,18 +96,6 @@ This section contains short examples how to load experimental data files and pro
    /sl_examples/plot_08_3PE
 
 
-.. only:: html
-
-  .. container:: sphx-glr-footer sphx-glr-footer-gallery
-
-    .. container:: sphx-glr-download sphx-glr-download-python
-
-      :download:`Download all examples in Python source code: sl_examples_python.zip </sl_examples/sl_examples_python.zip>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download all examples in Jupyter notebooks: sl_examples_jupyter.zip </sl_examples/sl_examples_jupyter.zip>`
-
 
 .. only:: html
 
