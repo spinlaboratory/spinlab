@@ -13,6 +13,7 @@ import numpy as np
 # Once the Python environment is properly set up the data files can be loaded.
 
 data_E580 = sl.load("../data/EPR/Echo-Transient-Phase-Cycling/33726-ETPC.DTA")
+data_E580.attrs["experiment_type"] = "epr_transient_E580"
 
 # %%
 # E580: BDPA/PS

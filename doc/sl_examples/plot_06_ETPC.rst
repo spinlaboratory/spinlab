@@ -44,12 +44,13 @@ This example demonstrates how to load and plot an echo transient (time trace) of
 
 Once the Python environment is properly set up the data files can be loaded.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-17
+.. GENERATED FROM PYTHON SOURCE LINES 14-18
 
 .. code-block:: Python
 
 
     data_E580 = sl.load("../data/EPR/Echo-Transient-Phase-Cycling/33726-ETPC.DTA")
+    data_E580.attrs["experiment_type"] = "epr_transient_E580"
 
 
 
@@ -58,12 +59,12 @@ Once the Python environment is properly set up the data files can be loaded.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-20
+.. GENERATED FROM PYTHON SOURCE LINES 19-21
 
 E580: BDPA/PS
 -------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-26
+.. GENERATED FROM PYTHON SOURCE LINES 21-27
 
 .. code-block:: Python
 
@@ -85,14 +86,14 @@ E580: BDPA/PS
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-28
+.. GENERATED FROM PYTHON SOURCE LINES 28-29
 
 The data set can be downloaded from the  :ref:`SampleData` page.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.130 seconds)
+   **Total running time of the script:** (0 minutes 0.180 seconds)
 
 
 .. _sphx_glr_download_sl_examples_plot_06_ETPC.py:

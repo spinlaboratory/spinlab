@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.670** total execution time for 4 files **from sl_examples**:
+**00:01.328** total execution time for 4 files **from sl_examples**:
 
 .. container::
 
@@ -33,14 +33,14 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_sl_examples_plot_01_EDFS.py` (``plot_01_EDFS.py``)
-     - 00:00.253
+     - 00:00.591
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_08_3PE.py` (``plot_08_3PE.py``)
-     - 00:00.185
-     - 0.0
-   * - :ref:`sphx_glr_sl_examples_plot_06_ETPC.py` (``plot_06_ETPC.py``)
-     - 00:00.130
+     - 00:00.376
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_07_2PE.py` (``plot_07_2PE.py``)
-     - 00:00.102
+     - 00:00.181
+     - 0.0
+   * - :ref:`sphx_glr_sl_examples_plot_06_ETPC.py` (``plot_06_ETPC.py``)
+     - 00:00.180
      - 0.0

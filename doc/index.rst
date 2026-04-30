@@ -72,6 +72,7 @@ SpinLab can be easily installed via pip:
 
    userGuide/gettingStarted
    userGuide/indexing
+   userGuide/plotting
    
 
 .. toctree::
