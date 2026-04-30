@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.387** total execution time for 2 files **from sl_examples**:
+**00:00.553** total execution time for 2 files **from sl_examples**:
 
 .. container::
 
@@ -33,8 +33,8 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_sl_examples_plot_01_EDFS.py` (``plot_01_EDFS.py``)
-     - 00:00.296
+     - 00:00.483
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_07_2PE.py` (``plot_07_2PE.py``)
-     - 00:00.091
+     - 00:00.070
      - 0.0
