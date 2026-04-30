@@ -1,10 +1,10 @@
 
 """
-Two-Pulse ESEEM (#7)
-====================
+Echo Transient with Phase Cycle(#6)
+===================================
 """
 # %%
-# This example demonstrates how to load and plot a Two-Pulse Electron Spin Echo Envelop Modulation (ESEEM) spectrum.
+# This example demonstrates how to load and plot an echo transient (time trace) of a stimulated echo using a 64-step phase cycle to remove all unwanted echoes.
 
 import spinlab as sl
 import numpy as np
@@ -12,7 +12,7 @@ import numpy as np
 # %%
 # Once the Python environment is properly set up the data files can be loaded.
 
-data_E580 = sl.load("../data/EPR/Two-Pulse ESEEM/33727-2PE.DTA")
+data_E580 = sl.load("../data/EPR/Echo-Transient-Phase-Cycling/33726-ETPC.DTA")
 
 # %%
 # E580: BDPA/PS

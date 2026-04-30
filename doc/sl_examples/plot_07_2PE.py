@@ -4,13 +4,13 @@ Two-Pulse ESEEM (#7)
 ====================
 """
 # %%
-# This example demonstrates how to load and plot a Two-Pulse Electron Spin Echo Envelop Modulation (ESEEM) spectrum. First the Python environment needs to be prepared by importing the SpinLab Python package.
+# This example demonstrates how to load and plot a Two-Pulse Electron Spin Echo Envelop Modulation (ESEEM) spectrum.
 
 import spinlab as sl
 import numpy as np
 
 # %%
-# One the Python environment is properly set up the data files can be loaded.
+# Once the Python environment is properly set up the data files can be loaded.
 
 data_E580 = sl.load("../data/EPR/Two-Pulse ESEEM/33727-2PE.DTA")
 
@@ -20,7 +20,7 @@ data_E580 = sl.load("../data/EPR/Two-Pulse ESEEM/33727-2PE.DTA")
 
 sl.plt.figure()
 sl.fancy_plot(data_E580)
-sl.plt.title("Two-Pulse ESEEM, BDPA/PS, E580")
+sl.plt.title("Two-Pulse ESEEM, BDPA/PS, E580, X-Band")
 sl.plt.show()
 
 # %%

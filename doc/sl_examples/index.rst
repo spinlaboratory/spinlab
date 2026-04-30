@@ -31,6 +31,23 @@ This section contains short examples how to load experimental data files and pro
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Echo Transient with Phase Cycle(#6)">
+
+.. only:: html
+
+  .. image:: /sl_examples/images/thumb/sphx_glr_plot_06_ETPC_thumb.png
+    :alt:
+
+  :doc:`/sl_examples/plot_06_ETPC`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Echo Transient with Phase Cycle(#6)</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Two-Pulse ESEEM (#7)">
 
 .. only:: html
@@ -46,6 +63,23 @@ This section contains short examples how to load experimental data files and pro
     </div>
 
 
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Three-Pulse ESEEM (#8)">
+
+.. only:: html
+
+  .. image:: /sl_examples/images/thumb/sphx_glr_plot_08_3PE_thumb.png
+    :alt:
+
+  :doc:`/sl_examples/plot_08_3PE`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Three-Pulse ESEEM (#8)</div>
+    </div>
+
+
 .. thumbnail-parent-div-close
 
 .. raw:: html
@@ -57,7 +91,9 @@ This section contains short examples how to load experimental data files and pro
    :hidden:
 
    /sl_examples/plot_01_EDFS
+   /sl_examples/plot_06_ETPC
    /sl_examples/plot_07_2PE
+   /sl_examples/plot_08_3PE
 
 
 .. only:: html

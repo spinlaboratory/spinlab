@@ -1,12 +1,10 @@
 
 """
-.. _EDFS_Example:
-
-EDFS Spectrum (#1)
-==================
+Three-Pulse ESEEM (#8)
+======================
 """
 # %%
-# This example demonstrates how to load and plot an Echo-Detected Field-Sweep (EDFS) spectrum.
+# This example demonstrates how to load and plot a Three-Pulse Electron Spin Echo Envelop Modulation (ESEEM) spectrum.
 
 import spinlab as sl
 import numpy as np
@@ -14,8 +12,8 @@ import numpy as np
 # %%
 # Once the Python environment is properly set up the data files can be loaded.
 
-data_CQ = sl.load("../data/EPR/Echo-Detected Field-Sweep/17478-EDFS.exp")
-data_E580 = sl.load("../data/EPR/Echo-Detected Field-Sweep/33725-EDFS.DTA")
+data_CQ = sl.load("../data/EPR/Three-Pulse ESEEM/17524-3PE.exp")
+data_E580 = sl.load("../data/EPR/Three-Pulse ESEEM/33731-3PE.DTA")
 
 # %%
 # Compact-Q: Nitroxide in D2O
@@ -23,7 +21,7 @@ data_E580 = sl.load("../data/EPR/Echo-Detected Field-Sweep/33725-EDFS.DTA")
 
 sl.plt.figure()
 sl.fancy_plot(data_CQ)
-sl.plt.title("EDFS, Nitroxide in D2O, Compact-Q, Q-Band")
+sl.plt.title("3P-ESEEM, Nitroxide in D2O, Compact-Q, Q-Band")
 sl.plt.show()
 
 # %%
@@ -35,7 +33,7 @@ sl.plt.show()
 
 sl.plt.figure()
 sl.fancy_plot(data_E580)
-sl.plt.title("EDFS, BDPA/PS, E580, X-Band")
+sl.plt.title("3P-ESEEM, BDPA/PS, E580, X-Band")
 sl.plt.show()
 
 # %%

@@ -25,7 +25,7 @@ EDFS Spectrum (#1)
 
 .. GENERATED FROM PYTHON SOURCE LINES 9-10
 
-This example demonstrates how to load and plot an Echo-Detected Field-Sweep (EDFS) spectrum. First the Python environment needs to be prepared by importing the SpinLab Python package.
+This example demonstrates how to load and plot an Echo-Detected Field-Sweep (EDFS) spectrum.
 
 .. GENERATED FROM PYTHON SOURCE LINES 10-14
 
@@ -44,7 +44,7 @@ This example demonstrates how to load and plot an Echo-Detected Field-Sweep (EDF
 
 .. GENERATED FROM PYTHON SOURCE LINES 15-16
 
-One the Python environment is properly set up the data files can be loaded.
+Once the Python environment is properly set up the data files can be loaded.
 
 .. GENERATED FROM PYTHON SOURCE LINES 16-20
 
@@ -73,14 +73,14 @@ Compact-Q: Nitroxide in D2O
 
     sl.plt.figure()
     sl.fancy_plot(data_CQ)
-    sl.plt.title("EDFS, Nitroxide in D2O, Compact-Q")
+    sl.plt.title("EDFS, Nitroxide in D2O, Compact-Q, Q-Band")
     sl.plt.show()
 
 
 
 
 .. image-sg:: /sl_examples/images/sphx_glr_plot_01_EDFS_001.png
-   :alt: EDFS, Nitroxide in D2O, Compact-Q
+   :alt: EDFS, Nitroxide in D2O, Compact-Q, Q-Band
    :srcset: /sl_examples/images/sphx_glr_plot_01_EDFS_001.png
    :class: sphx-glr-single-img
 
@@ -104,14 +104,14 @@ E580: BDPA/PS
 
     sl.plt.figure()
     sl.fancy_plot(data_E580)
-    sl.plt.title("EDFS, BDPA/PS, E580")
+    sl.plt.title("EDFS, BDPA/PS, E580, X-Band")
     sl.plt.show()
 
 
 
 
 .. image-sg:: /sl_examples/images/sphx_glr_plot_01_EDFS_002.png
-   :alt: EDFS, BDPA/PS, E580
+   :alt: EDFS, BDPA/PS, E580, X-Band
    :srcset: /sl_examples/images/sphx_glr_plot_01_EDFS_002.png
    :class: sphx-glr-single-img
 
@@ -126,7 +126,7 @@ The data set can be downloaded from the  :ref:`SampleData` page.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.483 seconds)
+   **Total running time of the script:** (0 minutes 0.266 seconds)
 
 
 .. _sphx_glr_download_sl_examples_plot_01_EDFS.py:
