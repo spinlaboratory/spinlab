@@ -1,0 +1,288 @@
+[general]
+version = 1.1
+demon = 3.6.7
+name = 4-Pulse DEER Amplitude
+dconfig = CNIGM0114rev1.cfg
+pconfig = CNIGM0114rev1.cfp
+specmode = 
+normalized = false
+starttime = Tue Dec  9 15:00:49 2025
+finishtime = Tue Dec  9 16:42:13 2025
+totaltime = 1h 41min 24s
+tformat = 1
+stream_axis = 256
+no_auto_save = 0
+
+[text]
+
+[sweep]
+transient = I,400,100,a,b
+sweep0 = S,16,1,idx
+sweep1 = X,126,1,t
+sweep2 = P,1,10,RepTime,Sampling,tdelay,f,ModulationFrequency,ModulationBandwidth,t_eldor,f_eldor,tau2,amp_eldor,tau1,t_obs,amp90,amp180
+
+[aquisition]
+a = ;a;A@DG
+b = ;a;B@DG
+
+[params]
+idx = 1 step 1;p;PPL variable
+t = -100 ns step 8 ns;p;PPL variable
+RepTime = 3 ms;p;PPL variable
+Sampling = 400 ps;p;Sampling@DG
+tdelay = -0 s;p;PPL variable
+f = 500 MHz;p;PPL variable
+ModulationFrequency = 500 MHz;p;ModulationFrequency@DG
+ModulationBandwidth = 10 MHz;p;ModulationBandwidth@DG
+t_eldor = 12 ns;p;PPL variable
+f_eldor = 410 MHz;p;PPL variable
+tau2 = 1 us;p;PPL variable
+amp_eldor = 0.14;p;PPL variable
+tau1 = 280 ns;p;PPL variable
+t_obs = 12 ns;p;PPL variable
+amp90 = 0.0646;p;PPL variable
+amp180 = 0.1102;p;PPL variable
+
+[decision]
+
+[streams]
+names = Re, Im
+units = V, V
+dwelltime = 400 ps, 400 ps
+triggers = 1
+scans = 10, 10
+
+[program]
+time tdelay, t, tau1, tau2, t_obs, t_eldor
+frequency f, f_eldor
+%%phase ph90,ph180
+real amp90, amp180, amp_eldor
+signal a,b
+int idx
+
+%%ph90 = [0, 0]
+%%ph180 = [0, 180]
+
+%%det1 = [a, a]
+%%det2 = [b, b]
+
+%%ph90 = [0, 90, 180, 270, 0, 90, 180, 270, 0, 90, 180, 270, 0, 90, 180, 270]
+%%ph180 = [0, 0, 0, 0, 90, 90, 90, 90, 180, 180, 180, 180, 270, 270, 270, 270]
+
+%%det1 = [a, a, -a, -a, -a, -a, a, a, b, b, -b, -b, -b, -b, b, b]
+%%det2 = [b, b, -b, -b, -b, -b, b, b, -a, -a, a, a, a, a, -a, -a]
+
+
+%% 2-step phase cycle %% pp(p)
+%%ph90 = [0, 0]
+%%ph180_1 = [0, 0]
+%%ph180_2 = [0, 180]
+%%det1 = [a, a]
+%%det2 = [b, b]
+
+%% 4-step phase cycle %% <p>pp
+%%ph90 = [0, 90, 180, 270]
+%%ph180_1 = [0, 0, 0, 0]
+%%ph180_2 = [0, 0, 0, 0]
+%%det1 = [a, b, -a, -b]
+%%det2 = [b, -a, -b, a]
+
+%% 8-step phase cycle %% <p>(p)
+%%ph90 = [0, 90, 180, 270, 0, 90, 180, 270]
+%%ph180_1 = [0, 0, 0, 0, 0, 0, 0, 0]
+%%ph180_2 = [0, 0, 0, 0, 180, 180, 180, 180]
+%%det1 = [a, b, -a, -b, a, b, -a, -b]
+%%det2 = [b, -a, -b, a, b, -a, -b, a]
+
+%% 16-step phase cycle %% <p>(p)(p)
+%%ph90 = [0, 90, 180, 270, 0, 90, 180, 270, 0, 90, 180, 270, 0, 90, 180, 270]
+%%ph180_1 = [0, 0, 0, 0, 180, 180, 180, 180, 0, 0, 0, 0, 180, 180, 180, 180]
+%%ph180_2 = [0, 0, 0, 0, 0, 0, 0, 0, 180, 180, 180, 180, 180, 180, 180, 180]
+%%ph_eldor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+%%det1 = [a, b, -a, -b, a, b, -a, -b, a, b, -a, -b, a, b, -a, -b]
+%%det2 = [b, -a, -b, a, b, -a, -b, a, b, -a, -b, a, b, -a, -b, a]
+
+%% 16-step phase cycle, Tait, et al. 2016 %% 1[2][p]3
+ph90 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+ph180_1 = [0, 90, 180, 270, 0, 90, 180, 270, 0, 90, 180, 270, 0, 90, 180, 270]
+ph180_2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+ph_eldor = [0, 0, 0, 0, 90, 90, 90, 90, 180, 180, 180, 180, 270, 270, 270, 270]
+%%det1 = [a, -a, a, -a, a, -a, a, -a, a, -a, a, -a, a, -a, a, -a]
+%%det2 = [b, -b, b, -b, b, -b, b, -b, b, -b, b, -b, b, -b, b, -b]
+det1 = [-a, a, -a, a, -a, a, -a, a, -a, a, -a, a, -a, a, -a, a]
+det2 = [-b, b, -b, b, -b, b, -b, b, -b, b, -b, b, -b, b, -b, b]
+
+
+set90 = [amp90, f, ph90(idx)]
+set180_1 = [amp180, f, ph180_1(idx)]
+set180_2 = [amp180, f, ph180_2(idx)]
+set_eldor = [amp_eldor, f_eldor, ph_eldor(idx)]
+
+reference f
+trig 100ns
+wait 100ns
+
+timezero
+
+awg t_obs, set90  %%90-pulse
+wait tau1 - (t_obs+t_obs)/2
+awg t_obs, set180_1 %%180-pulse
+wait tau1 + t - t_obs
+awg t_eldor, set_eldor %%pulse pulse
+wait tau2 - t - t_obs
+awg t_obs, set180_2 %% 180-pulse
+wait tau2 - t_obs/2 + tdelay
+
+
+%%detect a, b
+detect det1(idx), det2(idx)
+
+[presetup]
+
+[postsetup]
+
+[eachpoint]
+
+[scope]
+dfScopeIntWindowPos = 95
+dfScopeIntWindowWidth = 163
+dfScopeBaselinePos1 = 750
+dfScopeBaselineWidth1 = 200
+dfScopeBaselinePos2 = 750
+dfScopeBaselineWidth2 = 200
+dfScopeBaselineOpt = 0
+dfScopeLPFilterCutOff = 100 MHz
+dfScopeHPFilterCutOff = 100 MHz
+
+[pack]
+PackAxis = 2
+MaxSeqPerShot = 0
+
+
+[warmup]
+WarmUp = 0
+WarmUpScans = 0
+WarmUpTime = 0 s
+
+
+[processing]
+ProcessingAlgorithm = 
+
+[scripts]
+ScriptStart = *****
+ScriptStart_0 = *****
+ScriptStop = *****
+ScriptStop_0 = *****
+
+
+[System]
+Shots = 0
+XReps = 0
+YReps = 0
+ZReps = 0
+Sum1Reps = 0
+Sum2Reps = 0
+i = 0
+j = 0
+k = 0
+ArmDelay = 10 ms
+MTDelay = 10 ms
+Wait = 10 ms
+Time = 10 ms
+FirstPointDelay = 5 s
+
+[SRC]
+FrequencyA = 9.1 GHz
+EnableA = On
+PowerA = 10 dBm
+FrequencyB = 12.407 GHz
+EnableB = On
+PowerB = 15 dBm
+TuneDwTime = 1 ms
+Sweep = 10 MHz
+Phase = 0 deg
+
+[BRIDGE]
+Configuration = On
+Frequency = 33.914 GHz
+LO1 = 9.1 GHz
+LO2 = 12.407 GHz
+FrequencyIF = 0 Hz
+AWGLO = LO1
+RecvLOAtten = 0 dB
+VideoGain = 33 dB
+RecvAmp = Enable
+VideoAmp = Enable
+VCA = 5 V
+DAC1 = 0 V
+Ext1 = Off
+Ext2 = Off
+Ext3 = Off
+Ext4 = Off
+Ext5 = Off
+Ext6 = Off
+Ext7 = Off
+Ext8 = Off
+IO1 = Off
+IO2 = Off
+IO3 = Off
+
+[AWG]
+Mode = AWG
+Clock = 8 GHz
+Output1 = On
+Output2 = On
+Frequency = 500 MHz
+Span = 500 MHz
+RampDuty = 20 %
+RampTime = 9 us
+Trigger = Internal
+TriggerEdge = Rising
+
+[DG]
+Scale = ± 500 mV
+Offset = 0 %
+Coupling = DC
+Bandwidth = No filter
+Sampling = 400 ps
+TraceLength = 100 us
+Delay = 0 s
+Trigger = External0
+T_Coupling = DC-50
+T_Slope = __/^^
+T_Level = 1 V
+AcquisitionMode = Averager
+ModulationFrequency = 500 MHz
+ModulationBandwidth = 10 MHz
+ModulationPhase = -20 deg
+
+[FLD]
+Control = Remote
+AutoControl = Run&Tune
+Monitoring = Always
+Field = 1.21508 T
+FieldOffset = 0 T
+FieldAUX = 1.21508 T
+SweepRate = 300 uT/s
+SetFieldRate = Normal
+SetDelay = 5 s
+SetMode = Set
+RampComp = 1
+
+[PROBE]
+X = 0 m
+Y = 0 m
+Z = 5 mm
+Xoff = 0 m
+Yoff = 0 m
+Zoff = 0 m
+Rate = 4 m/min
+SettlingTime = 20 ms
+Stepper = Enabled steppers
+
+[sample_info]
+sample_info = **T**
+sample_info_0 = *****
+
+[exp_info]
+template = 

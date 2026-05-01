@@ -70,14 +70,18 @@ SpinLab can be easily installed via pip:
    :maxdepth: 1
    :hidden:
 
-..    gettingStarted
+   userGuide/gettingStarted
+   userGuide/indexing
+   userGuide/plotting
+   
 
-.. .. toctree::
-..    :caption: Examples
-..    :maxdepth: 1
-..    :hidden:
+.. toctree::
+   :caption: Tutorials and Examples
+   :maxdepth: 1
+   :hidden:
 
-..    sl_examples/index
+   sl_examples/index
+   sampleData
 
 .. toctree::
    :caption: Reference
@@ -92,6 +96,7 @@ SpinLab can be easily installed via pip:
 
    people
    license
+   
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`

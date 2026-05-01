@@ -200,7 +200,7 @@ def load_specman_d01(path, attrs, verbose=False):
     elif attrs["dims"] == 4:
         data = _np.reshape(
             data,
-            (uint_read[0], uint_read[4], uint_read[5], uint_read[6], uint_read[3]),
+            (uint_read[0], uint_read[6], uint_read[5], uint_read[4], uint_read[3]),
             order="C",
         )
 
@@ -208,8 +208,8 @@ def load_specman_d01(path, attrs, verbose=False):
         print("Maximum dimensionality for SpecMan data is 4D")
         return None
 
-    # Swap first axis with last
-    data = _np.swapaxes(data, 0, -1)
+    # Reverse axis
+    data = data.transpose(_np.arange(data.ndim)[::-1])
 
     dims_full = ["x0", "x1", "x2", "x3", "x4"]
     dims = dims_full[0 : dataShape[0] + 1]

@@ -21,6 +21,11 @@ __pycache__/
 docs/html/
 docs/build/
 docs/source/auto_examples/
+
+doc/html/
+doc/build/
+doc/source/auto_examples/
+
 bin/
 build/
 develop-eggs/
