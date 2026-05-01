@@ -13,14 +13,14 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Install dependencies
         run: |
-          pip install sphinx==8.2 sphinx_rtd_theme==3.0 myst_parser==4.0 numpy==2.2 scipy==1.16 matplotlib==3.10 h5py==3.10.0
+          pip install sphinx==9.0.4 sphinx_rtd_theme==3.1.0 sphinx-gallery==0.20.0 numpy==2.4.0 scipy==1.16 matplotlib==3.10 h5py==3.12.1
 
       - name: Sphinx build
         run: |

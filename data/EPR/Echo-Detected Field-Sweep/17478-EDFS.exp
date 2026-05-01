@@ -1,0 +1,196 @@
+[general]
+version = 1.1
+demon = 3.5.8602
+name = Field Sweep Echo in Sweep Mode
+dconfig = CNIGM0114rev1.cfg
+pconfig = CNIGM0114rev1.cfp
+specmode = 
+normalized = false
+starttime = Fri Sep 15 10:59:27 2023
+finishtime = Fri Sep 15 11:26:18 2023
+totaltime = 0h 26min 51s
+tformat = 1
+stream_axis = 256
+no_auto_save = 0
+
+[text]
+
+[sweep]
+transient = I,1000,1000,a,b
+sweep0 = Xf,128,1,Field,FieldM
+sweep1 = P,1,1,RepTime,Sampling,tdelay,f,t90,t180,tau,SetMode,SweepRate,SetDelay,ph,ModulationFrequency,ModulationBandwidth,amp,RampComp
+
+[aquisition]
+a = ;a;A@DG
+b = ;a;B@DG
+FieldM = ;a;Field@FLD
+
+[params]
+Field = 1.2 T to 1.23 T;p;Field@FLD
+RepTime = 3 ms;p;PPL variable
+Sampling = 400 ps;p;Sampling@DG
+tdelay = -200 ns;p;PPL variable
+f = -500 MHz;p;PPL variable
+t90 = 8 ns;p;PPL variable
+t180 = 16 ns;p;PPL variable
+tau = 400 ns;p;PPL variable
+SetMode = 2;p;SetMode@FLD
+SweepRate = 200 uT/s;p;SweepRate@FLD
+SetDelay = 5 s;p;SetDelay@FLD
+ph = 0 deg;p;PPL variable
+ModulationFrequency = 500 MHz;p;ModulationFrequency@DG
+ModulationBandwidth = 100 MHz;p;ModulationBandwidth@DG
+amp = 0.25;p;PPL variable
+RampComp = 1;p;RampComp@FLD
+
+[decision]
+
+[streams]
+names = Re, Im, FieldM
+units = V, V, T
+dwelltime = 400 ps, 400 ps, 1 s
+triggers = 1
+scans = 1, 1, 1
+
+[program]
+time tdelay, tau, t90, t180
+frequency f
+phase ph
+signal a,b
+real amp
+
+set = [amp, f, ph]
+
+trig 100ns
+wait 100ns
+
+awg t90, set
+wait tau - (t90+t180)/2
+awg t180, set
+wait tau - t180/2 + tdelay
+detect a,b
+
+[presetup]
+
+[postsetup]
+
+[eachpoint]
+
+[scope]
+dfScopeIntWindowPos = 604
+dfScopeIntWindowWidth = 160
+dfScopeBaselinePos1 = 750
+dfScopeBaselineWidth1 = 200
+dfScopeBaselinePos2 = 750
+dfScopeBaselineWidth2 = 200
+dfScopeBaselineOpt = -1
+
+[pack]
+PackAxis = 1
+MaxSeqPerShot = 0
+
+
+[warmup]
+WarmUp = 0
+WarmUpScans = 0
+WarmUpTime = 0 s
+
+
+[processing]
+ProcessingAlgorithm = 
+
+[System]
+Shots = 0
+XReps = 1
+YReps = 0
+ZReps = 0
+Sum1Reps = 0
+Sum2Reps = 0
+i = 0
+j = 0
+k = 0
+ArmDelay = 10 ms
+MTDelay = 10 ms
+Wait = 10 ms
+Time = 10 ms
+
+[BRIDGE]
+Configuration = Standby
+Frequency = 1 GHz
+LO2 = 8 GHz
+RecvAmp = On
+AWGLO = External
+ATT1 = 15 dB
+ATT2 = 15 dB
+PHASE2 = 0 deg
+VCA = 100 %
+Ext1 = Off
+Ext2 = Off
+Ext3 = Off
+Ext4 = Off
+Ext5 = Off
+Ext6 = Off
+Ext7 = Off
+Ext8 = Off
+IO1 = 0
+IO2 = 0
+IO3 = 0
+
+[AWG]
+Mode = AWG
+Clock = 10 GHz
+Output1 = On
+Output2 = On
+Frequency = 100 MHz
+Span = 0 Hz
+RampTime = 100 us
+Trigger = Internal
+TriggerEdge = Rising
+
+[DG]
+Scale = ± 100 mV
+Offset = 0 %
+Coupling = DC
+Bandwidth = No filter
+Sampling = 400 ps
+TraceLength = 0 s
+Delay = 0 s
+Trigger = External1
+T_Coupling = DC
+T_Slope = __/^^
+T_Level = 800 mV
+AcquisitionMode = Digitizer
+ModulationFrequency = 500 MHz
+ModulationBandwidth = 100 MHz
+ModulationPhase = 110 deg
+
+[SRC]
+FrequencyA = 9.05 GHz
+EnableA = On
+PowerA = 10 dBm
+FrequencyB = 12.4 GHz
+EnableB = On
+PowerB = 15 dBm
+TuneDwTime = 1 ms
+Sweep = 10 MHz
+Phase = 0 deg
+
+[FLD]
+Control = Remote
+AutoControl = Run&Tune
+Monitoring = Always
+Field = 1.20149 T
+FieldOffset = 0 T
+FieldAUX = 1.20149 T
+SweepRate = 200 uT/s
+SetFieldRate = Normal
+SetDelay = 5 s
+SetMode = SetAndWait
+RampComp = 1
+
+[sample_info]
+sample_info = **T**
+sample_info_0 = *****
+
+[exp_info]
+template = 

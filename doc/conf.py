@@ -18,7 +18,7 @@ print(sys.path)
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "SpinLab"
-copyright = "2025, SpinLab"
+copyright = "2026, SpinLab"
 author = "SpinLab Team"
 # release = '0.1'
 
@@ -75,7 +75,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
-    # "sphinx_gallery.gen_gallery",
+    "sphinx_gallery.gen_gallery",
 ]
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
@@ -110,15 +110,19 @@ exclude_patterns = ["_build", "links.rst"]
 pygments_style = None
 
 # -- Options for Sphinx Gallery output -------------------------------------------------
-# from sphinx_gallery.sorting import FileNameSortKey
+from sphinx_gallery.sorting import FileNameSortKey
 
-# sphinx_gallery_conf = {
-#     "examples_dirs":            "../../docs/examples",      # path to your example scripts
-#     "gallery_dirs":             "sl_examples",            # path to where to save gallery generated output
-#     "remove_config_comments":   True,
-#     # "within_subsection_order":  FileNameSortKey,            # Sort by file name
-#     # "run_stale_examples":       True,                       # Force sphinx to rebuild example. Set to False to only run examples that have changed
-# }
+sphinx_gallery_conf = {
+    "examples_dirs":            ["../examples"],                        # path to your example scripts
+    "gallery_dirs":             ["sl_examples"],                        # path to where to save gallery generated output
+    # "examples_dirs":            ["../examples", "../tutorials"],        # path to your example scripts
+    # "gallery_dirs":             ["sl_examples", "sl_tutorials"],        # path to where to save gallery generated output
+    "remove_config_comments":   True,
+    "within_subsection_order":  FileNameSortKey,                        # Sort by file name
+    "run_stale_examples":       True,                                   # Force sphinx to rebuild example. Set to False to only run examples that have changed
+    'image_scrapers':           'matplotlib',                           # Define output scraper
+    'download_all_examples':    False,
+}
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -182,7 +186,7 @@ htmlhelp_basename = "Spinlabdoc"
 
 # # -- Options for LaTeX output ------------------------------------------------
 
-# latex_elements = {
+latex_elements = {
 #     # The paper size ('letterpaper' or 'a4paper').
 #     #
 #     # 'papersize': 'letterpaper',
@@ -195,14 +199,14 @@ htmlhelp_basename = "Spinlabdoc"
 #     # Latex figure (float) alignment
 #     #
 #     # 'figure_align': 'htbp',
-# }
+}
 
 # # Grouping the document tree into LaTeX files. List of tuples
 # # (source start file, target name, title,
 # #  author, documentclass [howto, manual, or own class]).
-# latex_documents = [
-#     (master_doc, "Spinlab.tex", "SpinLab Documentation", "Timothy Keller", "manual"),
-# ]
+latex_documents = [
+    (master_doc, "Spinlab.tex", "SpinLab Documentation", "Timothy Keller", "manual"),
+]
 
 
 # -- Options for manual page output ------------------------------------------
@@ -217,23 +221,23 @@ man_pages = [(master_doc, "Spinlab", "SpinLab Documentation", [author], 1)]
 # # Grouping the document tree into Texinfo files. List of tuples
 # # (source start file, target name, title, author,
 # #  dir menu entry, description, category)
-# texinfo_documents = [
-#     (
-#         master_doc,
-#         "SpinLab",
-#         "SpinLab Documentation",
-#         author,
-#         "SpinLab",
-#         "Bringing the Power of Python to Spin-NMR Spectroscopy",
-#         "Miscellaneous",
-#     ),
-# ]
+texinfo_documents = [
+    (
+        master_doc,
+        "SpinLab",
+        "SpinLab Documentation",
+        author,
+        "SpinLab",
+        "Bringing the Power of Python to Spin-NMR Spectroscopy",
+        "Miscellaneous",
+    ),
+]
 
 
 # # -- Options for Epub output -------------------------------------------------
 
 # # Bibliographic Dublin Core info.
-# epub_title = project
+epub_title = project
 
 # # The unique identifier of the text. This can be a ISBN number
 # # or the project homepage.
