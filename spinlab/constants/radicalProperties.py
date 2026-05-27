@@ -1,7 +1,6 @@
 import numpy as _np
 from . import mr_properties
 
-
 #######################################
 # EPR Properties of Selected Radicals #
 #######################################
