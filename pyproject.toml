@@ -3,21 +3,22 @@ name = "spinlab"
 dynamic = ["version"]
 description = "SpinLab - Bringing the Power of Python to MR Spectroscopy"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 license = "MIT"
 license-files = ["LICENSE.txt"]
 keywords = ["ODNP", "DNP", "Spin", "NMR", "EPR", "ESR"]
 dependencies = [
-    "numpy >= 2.0.0",
-    "scipy >= 1.14.0",
-    "matplotlib >= 3.9.0",
-    "h5py >= 3.11.0",
+    "numpy >= 2.4.0",
+    "scipy >= 1.17.1",
+    "matplotlib >= 3.10.9",
+    "h5py >= 3.16.0",
 ]
 
 [tool.setuptools.packages.find]
