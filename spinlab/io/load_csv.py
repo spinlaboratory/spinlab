@@ -27,7 +27,7 @@ def load_csv(
     convert_data=lambda x: float(x.replace(",", ".")),
     **kwargs,
 ):
-    """function that loads load_csv files
+    """Load data from a CSV file
 
     Args:
         filename (str): String or path like file that is read
@@ -78,7 +78,7 @@ def load_csv(
                 i = convert_data(_checknone(imag, row))
             except IndexError:
                 raise IndexError(
-                    "Index Error while accesing csv rows, one of tcol/real/imag ({0}/{1}/{2}) is out of range or is invalid".format(
+                    "Index Error while accessing csv rows, one of tcol/real/imag ({0}/{1}/{2}) is out of range or is invalid".format(
                         tcol, real, imag
                     )
                 )

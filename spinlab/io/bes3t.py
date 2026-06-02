@@ -246,7 +246,7 @@ def load_dsc(path):
 
 def load_dta(path_dta, path_xgf=None, path_ygf=None, path_zgf=None, attrs={}):
     """
-    Import data from .DTA file. Uses .DSC and .XGF, .YGF, or .ZGF files if they exists
+    Import data from .DTA file. Uses .DSC and .XGF, .YGF, or .ZGF files if they exist
 
     Args:
         path_dta (str) : Path to .DTA file

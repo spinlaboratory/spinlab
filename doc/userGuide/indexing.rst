@@ -58,7 +58,7 @@ A SpinLab data object has typically 4 different attributes:
     3. **dims** (Python list): List of axes labels for data
     4. **attrs** (Python dictionary): Dictionary of parameters for data
 
-The content of the sldata object can be easily viewed using the Pyhton ``print`` function:
+The content of the sldata object can be easily viewed using the Python ``print`` function:
 
 .. code-block:: python
 
@@ -79,7 +79,7 @@ Indexing using Integers
 -----------------------
 Let's start with the simplest way to extract (index) a single spectrum from a 2D data set. The data set that was created earlier has two dimensions: One dimension contains the Lorentz distribution (``dim = 'x'``) and the other dimension referes to different locations (``dim = 'x0'``).
 
-The user has to specify the name of the dimension from which a slice has to be extraced. This index has to be an integer and follows the Python convention for indexing (0 is the first index, -1 is the last index).
+The user has to specify the name of the dimension from which a slice has to be extracted. This index has to be an integer and follows the Python convention for indexing (0 is the first index, -1 is the last index).
 
 To index a sldata object, specify the name of the dimension and the index of the slice. To specify a slice based on the index, an **integer** is used. For example, to select the slice with index 3 use:
 
@@ -89,7 +89,7 @@ To index a sldata object, specify the name of the dimension and the index of the
     >>> data_slice_integer.squeeze()
 
 
-This will select the a slice 3, and a new sldata object is created. However, taking the slice does not remove the ``x0`` dimension. We can remove dimensions of length 1 with the ``squeeze()`` method to remove the ``x0`` dimension.
+This will select slice 3, and a new sldata object is created. However, taking the slice does not remove the ``x0`` dimension. We can remove dimensions of length 1 with the ``squeeze()`` method to remove the ``x0`` dimension.
 
 It is also possible to select a subset of the original data by specifying a range of values. To do this, we use a tuple specify the minimum and maximum values for the index. For example:
 
@@ -98,7 +98,7 @@ It is also possible to select a subset of the original data by specifying a rang
     >>> data_slice_range = data["x0", (-3, 3)]
 
 
-The last slice can extraced by using:
+The last slice can be extracted by using:
 
 .. code-block:: python
 
@@ -109,7 +109,7 @@ Indexing using Float
 --------------------
 In the previous example, a single slice or a sub-set of spectra was selected using an integer number to index the data set. This is convenient if this dimension has only a small number of indexes. However, when this dimension is large it is less convenient to use an integer and a specific region can be extracted using a float. In this case, the nearest float will be picked.
 
-To do this, we use a float to specify the location. In Python, by adding a period after the number, the number is interpreted as a float instead of integer (for example 3. or 3.0 indictate a float).
+To do this, we use a float to specify the location. In Python, by adding a period after the number, the number is interpreted as a float instead of integer (for example 3. or 3.0 indicate a float).
 
 To extract a slice at a specific value of the x axis use:
 

@@ -161,7 +161,7 @@ def create_complex(data, real, imag=None, real_index=0, imag_index=1):
     """Create complex array from input
 
     This function can be used to concatenate a two dimensions of a SpinData object into a complex array. The unused dims and coords will be removed from the input SpinData object.
-    When a String is provided as the second argument the index in that dimension given by real_index is assumed to be the real part of the dataset and the one by imag_index is the iamginary part.
+    When a String is provided as the second argument the index in that dimension given by real_index is assumed to be the real part of the dataset and the one by imag_index is the imaginary part.
     The dataset is then combined to form one complex dataset, imag is ignored. Note that dimension with size 1 are retained but will be placed at the end of the retuned SpinData object.
 
     Args:

@@ -260,7 +260,7 @@ def phase(data, dim="f2", p0=0.0, p1=0.0, pivot=None):
         dim (str): Dimension to phase, default is "f2"
         p0 (float, array): Zero order phase correction (degree, 0 - 360)
         p1 (float, array): First order phase correction (degree, 0 - 360)
-        picot (float): Pivot point for first order phase correction
+        pivot (float): Pivot point for first order phase correction
 
     Returns:
         data (SpinData):         Phased data, including new attributes "p0", "p1", and "pivot"
@@ -348,7 +348,7 @@ def autophase_dep(
 ):
     """Automatically phase correct data, or apply manual phase correction
 
-    This function is deprecated and will be removed from SpinLab on 10/01/2023ß
+    This function is deprecated and will be removed from SpinLab on 10/01/2023
 
     Args:
         data (SpinData): Data object to autophase

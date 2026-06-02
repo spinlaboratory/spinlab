@@ -57,7 +57,7 @@ EPR Specific Plots
     - EPR
     - EPR transient from the transient recorder. The signal intensity is plotted as a function of the time. This attribute is specific to when data from the Bruker E580 is imported.
   * - 6
-    - `inversion_revovyery`
+    - `inversion_recovery`
     - EPR
     - Inversion recovery experiment. The echo (or FID) amplitude is plotted as a function of the time separating the inversion pulse from the detection sequence.
   * - 7
@@ -89,7 +89,7 @@ NMR/DNP Specific Plots
     - DNP
     - Plotting the DNP enhancement factor as a function of the applied microwave power in Watt (W).
   * - 4
-    - `inversion_revovyer`
+    - `inversion_recovery`
     - NMR
     - Inversion recovery experiment. The signal amplitude is plotted as a function of the time separating the inversion pulse from the detection sequence.
   * - 5
@@ -104,7 +104,7 @@ NMR/DNP Specific Plots
 
 Generic Plotting Function
 =========================
-If no experimnent type is specified, SpinLab has a generic plotting function to plot a SpinLab data object (here data). Simply use the ``sl.plot()`` command:
+If no experiment type is specified, SpinLab has a generic plotting function to plot a SpinLab data object (here data). Simply use the ``sl.plot()`` command:
 
 .. code-block:: python
 

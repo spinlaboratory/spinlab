@@ -10,7 +10,7 @@ SpinLab can be easily installed via pip:
 
 Required Packages
 =================
-SpinLab uses a few well-know Python pacakges, which will ba automatically installed during the installation. Currently, the following packages and their respective minimal versions are required:
+SpinLab uses a few well-known Python packages, which will be automatically installed during the installation. Currently, the following packages and their respective minimal versions are required:
 
 .. list-table::
    :widths: 40 60
@@ -76,7 +76,7 @@ The output will look similar to this (note, the actual version and path to locat
 Specify a SpinLab Version to Install
 ------------------------------------
 
-If you wish to install a specific SpinLab version exectute the following command in a terminal window:
+If you wish to install a specific SpinLab version execute the following command in a terminal window:
 
 .. code-block:: bash
     
@@ -126,28 +126,28 @@ The safest method to uninstall SpinLab is to use pip by executing the following 
 Installing SpinLab Using a Virtual Enviroment (Ubuntu)
 ------------------------------------------------------
 
-Starting from Ubuntu 23.10 ``pip3`` will issue a warning when trying to install SpinLab from PyPi. It is recommended to not perform a global install but instead use a virtual enviroment (venv). If you do not have already created a virtual enviroment you can create a folder at a convenient location where the enviroment will be located (see example below).
+Starting from Ubuntu 23.10 ``pip3`` will issue a warning when trying to install SpinLab from PyPi. It is recommended to not perform a global install but instead use a virtual environment (venv). If you do not have already created a virtual environment you can create a folder at a convenient location where the environment will be located (see example below).
 
 In this example this will be in our home folder and the folder will be named SpinLab.
-To create this enviroment use the command
+To create this environment use the command
 
 .. code-block:: bash
 
    $ python3 -m venv ~/SpinLab
 
-Note that you need to activate the enviroment to use it and install packages via pip3. You can activate the virtual environment by sourcing the activate script that should be located in ~/SpinLab/bin
+Note that you need to activate the environment to use it and install packages via pip3. You can activate the virtual environment by sourcing the activate script that should be located in ~/SpinLab/bin
 
 .. code-block:: bash
 
   $ source ~/SpinLab/bin/activate
 
-This needs to be done, everytime you start this particular enviroment. To simplify this process, you can create an alias "spinlab" and add it to your .bash_aliases file
+This needs to be done, everytime you start this particular environment. To simplify this process, you can create an alias "spinlab" and add it to your .bash_aliases file
 
 .. code-block:: bash
 
   $ echo "spinlab = 'source ~/SpinLab/bin/activate'" >> ~/.bash_aliases
 
-To deactivate the virtual enviroment enter the following command in a terminal.
+To deactivate the virtual environment enter the following command in a terminal.
 
 .. code-block:: bash
 

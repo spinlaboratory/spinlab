@@ -37,7 +37,7 @@ In a terminal window (e.g. Windows PowerShell) start Python and execute the foll
     >>> sl.plt.show()
     >>>
 
-DNPLab can import many different file formats created by different spectrometers (e.g. Bruker ElexSys, SpecMan4EPR, ...). In most cases SpinLab will be able to detect the file format based on the file extension.
+SpinLab can import many different file formats created by different spectrometers (e.g. Bruker ElexSys, SpecMan4EPR, ...). In most cases SpinLab will be able to detect the file format based on the file extension.
 
 When importing the experimental data SpinLab will automatically create a SpinLab data object (sldata object) called `data`. When printing the content of the sldata object in a terminal window, you will get an idea of the structure of the object. The object typically contains:
 
@@ -46,4 +46,4 @@ When importing the experimental data SpinLab will automatically create a SpinLab
     * **coords**: These are the values of the detected coordinates. Here, the magnetic field values.
     * **attrs**: Imported attributes.
 
-The SpinLab command ``plot()`` is a built-in command to easily plot the values of the sldata object and is not part of Matlplotlib. SpinLab uses Matplotlib to plot data and the Python package is a requirement when installing SpinLab. For convience, SpinLab imports Matplotlib and all commands of the pyplot module are accessible in SpinLab using the ``sl.plt.`` command prefix (e.g. ``sl.plt.figure()``, ``sl.plt.show()``).
+The SpinLab command ``plot()`` is a built-in command to easily plot the values of the sldata object and is not part of Matplotlib. SpinLab uses Matplotlib to plot data and the Python package is a requirement when installing SpinLab. For convience, SpinLab imports Matplotlib and all commands of the pyplot module are accessible in SpinLab using the ``sl.plt.`` command prefix (e.g. ``sl.plt.figure()``, ``sl.plt.show()``).

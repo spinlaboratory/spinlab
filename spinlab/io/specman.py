@@ -164,7 +164,7 @@ def load_specman_d01(path, attrs, verbose=False):
     attrs["dataStartIndex"] = 2 + attrs["numberOfVariables"] * 6
 
     if verbose == True:
-        print("** Data paramters **")
+        print("** Data parameters **")
         print("numberOfVariables : ", attrs["numberOfVariables"])
         print("dataFormat        : ", attrs["dataFormat"])
         print("dims              : ", attrs["dims"])
