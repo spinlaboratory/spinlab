@@ -15,44 +15,35 @@ Welcome to SpinLab
    :alt: Downloads
 
    
-Welcome to the SpinLab documentation. SpinLab is an object-oriented |OpenSource| Python-based package for importing, processing, and analyzing data determined in an Electron Paramagnetic Resonance (EPR), Nuclear Magnetic Resonance (NMR), or Dynamic Nuclear Polarization (DNP) experiment. The aim of the project is to provide a free, turn-key python-based processing package for Magnetic Resonance (MR) data.
-
-
-.. note::
-   DNPLab was recently renamed to SpinLab and with that we are also updating the documentation. Please make sure to check back as this document is growing.
-
-
-To install SpinLab:
-
-.. code-block:: bash
-
-    $ pip install spinlab
+Welcome to the SpinLab documentation. SpinLab is an object-oriented |OpenSource| Python-based package for importing, processing, and analyzing data determined in an Electron Paramagnetic Resonance (EPR), Nuclear Magnetic Resonance (NMR), or Dynamic Nuclear Polarization (DNP) experiment. The aim of the project is to provide a free, turn-key Python-based processing package for Magnetic Resonance (MR) data.
 
 
 Features
 ========
 
-* Import many different NMR and EPR data formats (Topspin, VnmrJ, Prospa, Xepr, ESR5000...)
-* Create N-dimensional data objects
-* Easy data processing (e.g. apodization, zero-filling, Fourier transformations, alignment, ...)
+* Import many different NMR and EPR data formats (TopSpin, VnmrJ, Prospa, Xepr, ESR5000, SpecMan, ...)
+* Create N-dimensional data objects with named axes
+* Process and analyze data with a comprehensive function library
+* Automatically maintain an audit log of all processing steps
+* Create publication-quality figures
 
 Please report all issues on the |SpinlabGitIssueTrackerLink|.
+
+
+Quick Install
+=============
+
+.. code-block:: bash
+
+    $ pip install spinlab
+
+See :doc:`installation` for full installation instructions, virtual environment setup, and version management.
 
 
 Citing SpinLab
 ==============
 
 If you are using SpinLab to process your MR data please add a link to the |SpinlabDocu| to your Materials and Methods section.
-
-
-Installation
-============
-
-SpinLab can be easily installed via pip:
-
-.. code-block:: bash
-
-    $ pip install spinlab
 
 .. Table of Contents Structure
 
@@ -63,7 +54,6 @@ SpinLab can be easily installed via pip:
 
    introduction
    installation
-   currentRelease
 
 .. toctree::
    :caption: User Guide
@@ -84,6 +74,12 @@ SpinLab can be easily installed via pip:
    :hidden:
 
    sl_examples/index
+
+.. toctree::
+   :caption: Sample Data
+   :maxdepth: 1
+   :hidden:
+
    sampleData
 
 .. toctree::

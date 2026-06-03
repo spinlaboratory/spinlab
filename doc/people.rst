@@ -10,7 +10,7 @@ SpinLab was developed and is currently maintaned by:
 If you like to get involved reach out to any of the current SpinLab team members.
 
 
-SpinLab originally started as |DNPLab|. It was initially createdby:
+SpinLab originally started as |DNPLab|. It was initially created by:
 
 * Bridge12 Technologies, Inc.
 * The |HanLab|

@@ -2,6 +2,26 @@
 Installation
 ============
 
+.. list-table::
+   :widths: 60 40
+
+   * - Current Release
+     - |release|
+   * - Documentation Build Date
+     - |date|
+   * - Author(s)
+     - |author|
+
+The source code is maintained on GitHub: |SpinlabGitLink|
+
+To check the SpinLab version currently installed on your computer:
+
+.. code-block:: bash
+
+    $ pip show spinlab
+
+----
+
 SpinLab can be easily installed via pip:
 
 .. code-block:: bash
