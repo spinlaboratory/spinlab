@@ -272,6 +272,9 @@ nitpick_ignore = [
 
 # Suppress warnings for cross-references that cannot be resolved because the
 # target appears in both SpinData and ABCData (ref.python ambiguity).
-suppress_warnings = ["ref.python"]
+suppress_warnings = [
+    "ref.python",       # ambiguous cross-refs from SpinData/ABCData shared attrs
+    "config.cache",     # sphinx_gallery_conf contains FileNameSortKey (unpicklable)
+]
 
 # # -- Extension configuration -------------------------------------------------
