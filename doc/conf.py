@@ -252,4 +252,26 @@ epub_title = project
 # epub_exclude_files = ["search.html"]
 
 
+# -- Nitpick / cross-reference configuration ------------------------------------
+# Suppress ambiguous cross-reference warnings that arise because SpinData
+# inherits from ABCData and both classes document the same attributes
+# (values, dims, coords, attrs, error, proc_attrs).  Sphinx cannot resolve
+# which target to link to, but the ambiguity is harmless.
+nitpick_ignore = [
+    ("py:obj", "spinlab.core.data.SpinData.values"),
+    ("py:obj", "spinlab.core.data.SpinData.dims"),
+    ("py:obj", "spinlab.core.data.SpinData.coords"),
+    ("py:obj", "spinlab.core.data.SpinData.attrs"),
+    ("py:obj", "spinlab.core.base.ABCData.values"),
+    ("py:obj", "spinlab.core.base.ABCData.dims"),
+    ("py:obj", "spinlab.core.base.ABCData.coords"),
+    ("py:obj", "spinlab.core.base.ABCData.attrs"),
+    ("py:obj", "spinlab.core.base.ABCData.error"),
+    ("py:obj", "spinlab.core.base.ABCData.proc_attrs"),
+]
+
+# Suppress warnings for cross-references that cannot be resolved because the
+# target appears in both SpinData and ABCData (ref.python ambiguity).
+suppress_warnings = ["ref.python"]
+
 # # -- Extension configuration -------------------------------------------------

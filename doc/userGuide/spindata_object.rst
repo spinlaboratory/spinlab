@@ -1,6 +1,6 @@
-================
+===================
 The SpinData Object
-================
+===================
 
 The ``SpinData`` object is the central data structure in SpinLab. Every time data is loaded from a file — or created manually — SpinLab returns a ``SpinData`` object. All processing, analysis, and plotting functions operate on ``SpinData`` objects.
 
