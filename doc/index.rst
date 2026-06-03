@@ -71,6 +71,7 @@ SpinLab can be easily installed via pip:
    :hidden:
 
    userGuide/gettingStarted
+   userGuide/spindata_object
    userGuide/indexing
    userGuide/plotting
    
