@@ -42,7 +42,7 @@ SpinLab uses a few well-known Python packages, which will be automatically insta
    * - SciPy
      - 1.14.0 or higher
    * - Matplotlib
-     - 3.9.1 or higher
+     - 3.9.0 or higher
    * - h5py
      - 3.11.0 or higher
 
