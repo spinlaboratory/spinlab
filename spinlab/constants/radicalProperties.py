@@ -7,7 +7,7 @@ from . import mr_properties
 #
 radicalProperties = {}
 
-# When adding new radicals, make sure to add a literature reference for each entry. Keys in dictonary should all be lower case.
+# When adding new radicals, make sure to add a literature reference for each entry. Keys in dictionary should all be lower case.
 
 # Free electron
 # http://physics.nist.gov/constants
@@ -45,7 +45,7 @@ def radical_properties(name):
     +-------------+---------------------------------------------------------------+
     | "bdpa"      | [[2.00263, 2.00260, 2.00257], "1H", [50.2, 34.5, 13.0]]       |
     +-------------+---------------------------------------------------------------+
-    | "ddph_neat" | 2.0036                                                        |
+    | "dpph_neat" | 2.0036                                                        |
     +-------------+---------------------------------------------------------------+
 
     Args:
@@ -67,7 +67,7 @@ def radical_properties(name):
         if name in radicalProperties:
             giso = radicalProperties.get(name)[0]
         else:
-            print("Radical doesn't exist in dictonary")
+            print("Radical doesn't exist in dictionary")
             return
     else:
         print("ERROR: String expected")
@@ -88,7 +88,7 @@ def show_sl_properties(radical, mwFrequency, slNucleus):
 
     Examples:
 
-        >>> sl.show_sl_poperties('gfree', 9.45e9, '1H')
+        >>> sl.show_sl_properties('gfree', 9.45e9, '1H')
 
     .. Note:
         This function is currently only implemented for liquid state experiments

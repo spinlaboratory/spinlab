@@ -128,7 +128,7 @@ def w2dBm(power_in_W):
         power_in_W (array, list, float or int):   Power in (W)
 
     Returns:
-        float (array, list, float or int): Power in (W)
+        float (array, list, float or int): Power in (dBm)
 
     """
     if isinstance(power_in_W, (_np.ndarray, list)):

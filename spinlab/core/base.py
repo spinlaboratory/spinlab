@@ -33,7 +33,7 @@ def _replaceClassWithAttribute(replace_class, args, kwargs, target_attr="_values
     return tuple(r_args), r_kwargs
 
 
-# utility funtion to return integer index of string or int if input is integer
+# utility function to return integer index of string or int if input is integer
 _str_to_int_index = lambda possible_dim, sldat: (
     int(sldat.index(possible_dim)) if isinstance(possible_dim, str) else possible_dim
 )
@@ -1157,7 +1157,7 @@ class ABCData(object):
 
     def __array_ufunc__(self, ufunc, method, *arrInput, **kwargs):
         """
-        started implementation of numpy comapilibity according to
+        started implementation of numpy compatibility according to
         https://numpy.org/doc/stable/user/basics.dispatch.html
 
         - still need to implement universal function handling:
@@ -1184,7 +1184,7 @@ class ABCData(object):
 
     def __array_function__(self, func, types, args, kwargs):
         """
-        Basic numpy compability according to
+        Basic numpy compatibility according to
         https://numpy.org/doc/stable/user/basics.dispatch.html
 
         - special handling is done for function that return no array, be aware that this is currently not optimal and possibly slow

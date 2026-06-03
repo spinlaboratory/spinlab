@@ -348,7 +348,7 @@ def import_topspin(
 
 # Load topspin should also handle this
 def load_pdata(path, verbose=False):
-    """Import prospa processed data
+    """Import TopSpin processed data
 
     Args:
         path (str): Directory of pdata
@@ -411,7 +411,7 @@ def load_acqu(path, required_params=None, verbose=False):
         verbose (bool): If true, print output for troubleshooting
 
     Returns:
-        dict: Dictionary of acqusition parameters
+        dict: Dictionary of acquisition parameters
     """
 
     raw_params = load_topspin_jcamp_dx(path, verbose=False)
@@ -464,7 +464,7 @@ def topspin_vdlist(path):
 
 # Legacy import ser
 def load_ser(path, dtype=">i4"):
-    """Depreciated. Use load bin. Import Topspin Ser file
+    """Deprecated. Use load_bin. Import Topspin Ser file
 
     Args:
         path (str): Directory of data

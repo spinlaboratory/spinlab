@@ -17,7 +17,7 @@ def sim_sl_profile(
     normalize=True,
     integrate=True,
 ):
-    """Simulate Spin enhancment profile
+    """Simulate Spin enhancement profile
 
     Simulate Spin enhancement profile based on the EPR spectrum. For more details:
 
@@ -72,7 +72,7 @@ def sim_sl_profile(
     deltaB0_G = (out.coords["B0"][1] - out.coords["B0"][0]) * 10
     points_to_shift = round(slLarmorFrequency_G / deltaB0_G)
 
-    ## Shift EPR spectra using mumpy's roll function
+    ## Shift EPR spectra using numpy's roll function
     EPRdataPos = out.copy()
     EPRdataPos.values = _np.roll(EPRdataPos.values, points_to_shift)
 

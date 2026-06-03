@@ -4,7 +4,7 @@ from .base import _SPECIAL_NP_HANDLED
 
 
 def implements_np(np_function):
-    "register an numpy function for special handling in SPECIAL_NO_HANDLED"
+    "register a numpy function for special handling in SPECIAL_NP_HANDLED"
 
     def decorator(someFunction):
         _SPECIAL_NP_HANDLED[np_function] = someFunction
@@ -16,8 +16,8 @@ def implements_np(np_function):
 def concat(data_list, dim, coord=None, casting="same_kind"):
     """Concatenates list of data objects down another dimension
 
-    args:
-        data_list (list): List of SpinData objects to concatentate
+    Args:
+        data_list (list): List of SpinData objects to concatenate
         dim (str): new dimension name
         coord: coords for new dimension
 
@@ -96,7 +96,7 @@ def concat(data_list, dim, coord=None, casting="same_kind"):
 def update_axis(data, start_stop, dim=0, new_dims=0, spacing="lin", verbose=False):
     """Update axis
 
-    Update dimensions (dims) and axis (coords) of a slDate object. The name of the dims will be replaced with the name giving in new_dims. The variable start_stop defines the values of the new coords. This can be either a tuple (start values, stop value) or a vector with values. If the start and stop value is provided, either a linear axis (spacing = "lin", default) or a logarithmically space (spacing = "log") will be created. The new axis will replace the coords in the sldata object.
+    Update dimensions (dims) and axis (coords) of a slData object. The name of the dims will be replaced with the name giving in new_dims. The variable start_stop defines the values of the new coords. This can be either a tuple (start values, stop value) or a vector with values. If the start and stop value is provided, either a linear axis (spacing = "lin", default) or a logarithmically space (spacing = "log") will be created. The new axis will replace the coords in the sldata object.
 
     The function is currently implemented for 1D objects only.
 
