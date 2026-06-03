@@ -99,9 +99,3 @@ If you are using SpinLab to process your MR data, please add a link to the |Spin
    license
    
 
-.. toctree::
-   :caption: Index
-   :hidden:
-
-   genindex
-   py-modindex
