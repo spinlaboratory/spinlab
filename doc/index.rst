@@ -54,6 +54,7 @@ If you are using SpinLab to process your MR data, please add a link to the |Spin
 
    introduction
    installation
+   changelog
 
 .. toctree::
    :caption: User Guide
@@ -94,9 +95,13 @@ If you are using SpinLab to process your MR data, please add a link to the |Spin
    :hidden:
 
    people
+   contributing
    license
    
 
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
+.. toctree::
+   :caption: Index
+   :hidden:
+
+   genindex
+   py-modindex

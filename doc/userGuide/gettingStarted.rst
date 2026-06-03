@@ -1,49 +1,180 @@
-=================
+===============
 Getting Started
-=================
+===============
 
-The following is a simple example to show how to import, process, and plot data using SpinLab. For this, we will be using some sample data that is distributed with the SpinLab package. For this example all commands are executed in a terminal window.
+This page walks you through the first steps with SpinLab: loading a real data file, inspecting the result, processing the data, and plotting the spectrum. The entire workflow takes less than 10 minutes.
 
-In a terminal window (e.g. Windows PowerShell) start Python and execute the following commands:
+.. note::
+   Before starting, make sure SpinLab is installed. See :doc:`../installation` for instructions. SpinLab requires **Python 3.10 or higher**.
 
-.. code-block:: bash
 
-    $ Python
-    Python 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)] on win32
-    Type "help", "copyright", "credits" or "license" for more information.
+Step 1 — Import SpinLab
+========================
 
-    >>> import spinlab as sl
-    >>>
+Open a terminal (e.g. Windows PowerShell, macOS Terminal, or a Jupyter notebook) and import SpinLab:
 
-.. code-block:: bash
+.. code-block:: python
 
-    >>> data = sl.load("data/bes3t/1D_CW.DTA")
-    >>>
+    import spinlab as sl
 
-.. code-block:: bash
+SpinLab is imported under the alias ``sl`` by convention. All SpinLab functions are accessible via this alias (e.g. ``sl.load()``, ``sl.plot()``).
 
-    >>> data
-    nddata(values = array([-0.56268479, -0.56062199, -0.54530182, ..., -0.53001783,
-       -0.53928231, -0.54952391], shape=(2250,)), coords = Coords([array([342.055     , 342.06166667, 342.06833333, ..., 357.03499997,
-       357.04166663, 357.0483333 ], shape=(2250,))]), dims = ['B0'], attrs = {'data_dim': 1, 'x_unit': 'G', 'frequency': 9.804448, 'center_field': 3495.55, 'power': 1.002, 'attenuation': 23, 'nscans': 2, 'conversion_time': 20.0, 'modulation_amplitude': 1.0, 'modulation_frequency': 100.0, 'time_constant': 10.24, 'temperature': 295.0, 'x_dim': 1, 'spectrometer_format': 'xepr', 'experiment_type': 'epr_spectrum', 'nrScans': 2})
-    >>>
 
-.. code-block:: bash
+Step 2 — Load a Data File
+==========================
 
-    >>> sl.plt.figure()
-    <Figure size 640x480 with 0 Axes>
-    >>> sl.plot(data)
-    [<matplotlib.lines.Line2D object at 0x000002283662B1D0>]
-    >>> sl.plt.show()
-    >>>
+SpinLab can load many different spectrometer formats. In most cases the file format is detected automatically from the file extension:
 
-SpinLab can import many different file formats created by different spectrometers (e.g. Bruker ElexSys, SpecMan4EPR, ...). In most cases SpinLab will be able to detect the file format based on the file extension.
+.. code-block:: python
 
-When importing the experimental data SpinLab will automatically create a SpinLab data object (sldata object) called `data`. When printing the content of the sldata object in a terminal window, you will get an idea of the structure of the object. The object typically contains:
+    data = sl.load("data/bes3t/1D_CW.DTA")
 
-    * **values**: These are the data values (e.g. the spectrum) typically stored in a numpy array.
-    * **dims**: This describes the dimensions. In this example a field axis called B0.
-    * **coords**: These are the values of the detected coordinates. Here, the magnetic field values.
-    * **attrs**: Imported attributes.
+The result is a :doc:`spindata_object` — SpinLab's central data container. It holds the spectral values together with the axis coordinates and experimental parameters.
 
-The SpinLab command ``plot()`` is a built-in command to easily plot the values of the sldata object and is not part of Matplotlib. SpinLab uses Matplotlib to plot data and the Python package is a requirement when installing SpinLab. For convience, SpinLab imports Matplotlib and all commands of the pyplot module are accessible in SpinLab using the ``sl.plt.`` command prefix (e.g. ``sl.plt.figure()``, ``sl.plt.show()``).
+To see a summary of what was loaded:
+
+.. code-block:: python
+
+    print(data)
+
+Example output:
+
+.. code-block:: text
+
+    values:
+        2250 ndarray (float64)
+    dims:
+        ['B0']
+    coords:
+        array([342.055, 342.062, ..., 357.048], shape=(2250,))
+    attrs:
+        'experiment_type': 'epr_spectrum'
+        'mw_frequency': 9.804448
+        'center_field': 3495.55
+        'power': 1.002
+        +12 attrs
+
+The object contains:
+
+* **values** — the spectral data as a NumPy array (2250 points)
+* **dims** — the dimension label (``'B0'``, the magnetic field axis)
+* **coords** — the field values in mT
+* **attrs** — experimental parameters read directly from the file
+
+See :doc:`loading_data` for examples of every supported file format.
+
+
+Step 3 — Inspect the Data
+==========================
+
+You can access any part of the object directly:
+
+.. code-block:: python
+
+    print(data.values.shape)          # (2250,)
+    print(data.dims)                  # ['B0']
+    print(data.coords["B0"])          # field axis array in mT
+    print(data.attrs["mw_frequency"]) # 9.804448 GHz
+
+To see all experimental parameters in a formatted table:
+
+.. code-block:: python
+
+    data.exp_info()
+
+
+Step 4 — Plot the Spectrum
+===========================
+
+Use ``sl.plot()`` to quickly visualize the data:
+
+.. code-block:: python
+
+    sl.plt.figure()
+    sl.plot(data)
+    sl.plt.tight_layout()
+    sl.plt.show()
+
+SpinLab imports Matplotlib internally and exposes the full ``pyplot`` module as ``sl.plt``. Any Matplotlib command works:
+
+.. code-block:: python
+
+    sl.plt.figure()
+    sl.plot(data)
+    sl.plt.xlabel("Magnetic Field (mT)")
+    sl.plt.ylabel("Intensity (a.u.)")
+    sl.plt.title("CW EPR Spectrum")
+    sl.plt.tight_layout()
+    sl.plt.show()
+
+For publication-ready figures with automatic axis labels and formatting based on the experiment type, use ``sl.fancy_plot()``:
+
+.. code-block:: python
+
+    sl.plt.figure()
+    sl.fancy_plot(data)
+    sl.plt.show()
+
+See :doc:`plotting` for the full list of supported experiment types and plot options.
+
+
+Step 5 — Process the Data
+==========================
+
+SpinLab processing functions always take a ``SpinData`` object as input and return a new one — the original is never modified.
+
+A typical NMR processing sequence (load → apodize → Fourier transform → phase):
+
+.. code-block:: python
+
+    # Load a raw NMR FID from TopSpin
+    data = sl.load("experiment/1/")
+
+    # Apply exponential line broadening (5 Hz)
+    data = sl.apodize(data, dim="t2", kind="exponential", lw=5)
+
+    # Fourier transform with 2x zero-filling
+    data = sl.fourier_transform(data, zero_fill_factor=2)
+
+    # Phase correction
+    data = sl.phase(data, p0=12.5)
+
+    # Plot the spectrum
+    sl.plt.figure()
+    sl.plot(data)
+    sl.plt.show()
+
+Every processing step is automatically recorded in the audit log. To inspect it:
+
+.. code-block:: python
+
+    data.proc_info()
+
+See :doc:`processing` for the complete processing reference.
+
+
+Step 6 — Save the Result
+=========================
+
+Save the processed data to SpinLab's HDF5 format, which preserves the full object including axes and the processing audit log:
+
+.. code-block:: python
+
+    sl.save(data, "processed_spectrum.h5")
+
+Reload it at any time with:
+
+.. code-block:: python
+
+    data = sl.load("processed_spectrum.h5")
+
+
+Next Steps
+==========
+
+* :doc:`spindata_object` — understand the ``SpinData`` object in depth
+* :doc:`loading_data` — load data from every supported file format
+* :doc:`processing` — full processing reference with examples
+* :doc:`indexing` — slice and select subsets of your data
+* :doc:`plotting` — create publication-quality figures
+* :ref:`api-reference` — complete API reference

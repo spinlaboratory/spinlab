@@ -28,8 +28,11 @@ SpinLab can be easily installed via pip:
 
     $ pip install spinlab
 
-Required Packages
-=================
+Requirements
+============
+
+SpinLab requires **Python 3.10 or higher**.
+
 SpinLab uses a few well-known Python packages, which will be automatically installed during the installation. Currently, the following packages and their respective minimal versions are required:
 
 .. list-table::
