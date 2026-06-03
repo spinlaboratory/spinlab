@@ -71,7 +71,7 @@ def _load_rs2d_header(path):
 
 def _load_rs2d_data(path, attrs, **kwargs):
     #
-    # currently redas whole file in one chunk, you better have enough ram
+    # currently reads whole file in one chunk, you better have enough ram
     #
     endianess = kwargs.get("endianess", ">")
     fmt = kwargs.get("fmt", "f")  # 32bit float

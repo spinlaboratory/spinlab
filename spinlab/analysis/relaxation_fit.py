@@ -1,4 +1,4 @@
-"""Modules which provide function to analyse relaxation measurements]"""
+"""Module which provides functions to analyze relaxation measurements"""
 
 import numpy as _np
 from ..fitting import fit

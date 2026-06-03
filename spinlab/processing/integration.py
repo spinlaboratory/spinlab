@@ -43,7 +43,7 @@ def cumulative_integrate(data, dim="f2", regions=None):
             out.values, out.coords[dim], axis=index, initial=0
         )
 
-        proc_attr_name = "cumlative_integrate"
+        proc_attr_name = "cumulative_integrate"
         proc_parameters = {
             "dim": dim,
             "regions": regions,
@@ -54,7 +54,7 @@ def cumulative_integrate(data, dim="f2", regions=None):
     else:
         data_list = []
         for region in regions:
-            proc_attr_name = "cumlative_integrate"
+            proc_attr_name = "cumulative_integrate"
             proc_parameters = {
                 "dim": dim,
                 "regions": regions,

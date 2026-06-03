@@ -145,7 +145,7 @@ def mr_properties(nucleus, *args):
 
     Args:
 
-        nucleus (str):          '0e', '1H', '2H', '6Li', '13C', 14N', etc.
+        nucleus (str):          '0e', '1H', '2H', '6Li', '13C', '14N', etc.
         B0 (float):             (optional) B0 field in (mT)
 
         Additional flags (see examples below):
@@ -208,11 +208,11 @@ def mr_properties(nucleus, *args):
                 return gmrProperties.get(nucleus)[6]
 
             elif args[0] == "hzt":
-                # return gyromagnetic ration in Hz/T
+                # return gyromagnetic ratio in Hz/T
                 return gmrProperties.get(nucleus)[1] * 1e7 / 2 / _const.pi
 
             else:
-                print("Keyword not recognize")
+                print("Keyword not recognized")
 
         else:
             vLarmor = args[0] * gmr

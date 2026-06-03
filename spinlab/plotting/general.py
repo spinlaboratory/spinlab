@@ -7,7 +7,6 @@ from warnings import warn as _warn
 from ..core.data import SpinData
 from ..config.config import SpinLAB_CONFIG
 
-
 # hand curated list of plotting arguments that are forwarded, from config file
 _forwarded_pyplot_plots = SpinLAB_CONFIG.getlist("PLOTTING", "forwarded_pyplot_plots")
 

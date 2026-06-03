@@ -5,7 +5,7 @@
 <!-- [![SpinLab Logo](http://spinlab.net/_static/SpinlabLogo.png)](http://spinlab.net) -->
 # SpinLab - Bringing the Power of Python to MR Spectroscopy
 
-SpinLab originally started as [DNPLab](https://github.com/DNPLab/DNPLab). It was initially createdby:
+SpinLab originally started as [DNPLab](https://github.com/DNPLab/DNPLab). It was initially created by:
 - [Bridge12 Technologies, Inc.](http://www.bridge12.com/)
 - [Han Lab NWU](https://hanlab.northwestern.edu/)
 - [Franck Lab Syracuse University](https://jmfrancklab.github.io/)
@@ -37,6 +37,6 @@ pip install spinlab
 
 Find the online documentation at: http://docs.spinlab.net -->
 
-# Developement 
+# Development
 
   - Clone the git repository from https://github.com/SpinLab/spinlab
