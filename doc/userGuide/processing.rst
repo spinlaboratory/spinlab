@@ -182,7 +182,7 @@ Integration
     # Integrate over a specific region
     result = sl.integrate(data, dim="f2", regions=[(-10, 10)])
 
-``sl.cumulative_integrate()`` returns the running integral (cumulative sum), useful for visualising EPR lineshapes or calculating enhancement profiles:
+``sl.cumulative_integrate()`` returns the running integral (cumulative sum), useful for visualizing EPR lineshapes or calculating enhancement profiles:
 
 .. code-block:: python
 
@@ -241,7 +241,7 @@ Example output:
 .. code-block:: text
 
      1 | window           | kind: exponential, lw: 5
-     2 | fourier_transform| dim: t2, zero_fill_factor: 2, shift: True
+     2 | fourier_transform | dim: t2, zero_fill_factor: 2, shift: True
      3 | phase            | p0: 45.0, p1: 0.0, pivot: None
      4 | remove_background| dim: f2, deg: 0, regions: None
 

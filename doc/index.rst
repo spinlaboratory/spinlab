@@ -43,7 +43,7 @@ See :doc:`installation` for full installation instructions, virtual environment 
 Citing SpinLab
 ==============
 
-If you are using SpinLab to process your MR data please add a link to the |SpinlabDocu| to your Materials and Methods section.
+If you are using SpinLab to process your MR data, please add a link to the |SpinlabDocu| to your Materials and Methods section.
 
 .. Table of Contents Structure
 

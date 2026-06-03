@@ -143,7 +143,7 @@ The safest method to uninstall SpinLab is to use pip by executing the following 
     $ pip uninstall spinlab
 
 
-Installing SpinLab Using a Virtual Enviroment (Ubuntu)
+Installing SpinLab Using a Virtual Environment (Ubuntu)
 ------------------------------------------------------
 
 Starting from Ubuntu 23.10 ``pip3`` will issue a warning when trying to install SpinLab from PyPi. It is recommended to not perform a global install but instead use a virtual environment (venv). If you do not have already created a virtual environment you can create a folder at a convenient location where the environment will be located (see example below).
@@ -161,7 +161,7 @@ Note that you need to activate the environment to use it and install packages vi
 
   $ source ~/SpinLab/bin/activate
 
-This needs to be done, everytime you start this particular environment. To simplify this process, you can create an alias "spinlab" and add it to your .bash_aliases file
+This needs to be done every time you start this particular environment. To simplify this process, you can create an alias "spinlab" and add it to your .bash_aliases file
 
 .. code-block:: bash
 

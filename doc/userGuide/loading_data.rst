@@ -77,7 +77,7 @@ Format-by-Format Examples
 Bruker Xepr / Elexsys (BES3T)
 ------------------------------
 
-Point ``sl.load()`` at the ``.DTA`` or ``.DSC`` file. The ``.XGF`` axis file is loaded automatically if present:
+Point ``sl.load()`` at the ``.DTA`` or ``.DSC`` file. Axis files (``.XGF``, ``.YGF``, ``.ZGF``) are loaded automatically if present:
 
 .. code-block:: python
 
