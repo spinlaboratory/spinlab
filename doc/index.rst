@@ -65,6 +65,7 @@ If you are using SpinLab to process your MR data, please add a link to the |Spin
    userGuide/spindata_object
    userGuide/loading_data
    userGuide/processing
+   userGuide/attributes
    userGuide/indexing
    userGuide/plotting
    
