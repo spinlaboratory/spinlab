@@ -5,8 +5,9 @@ import numpy as _np
 __all__ = ["fourier_transform", "inverse_fourier_transform"]
 
 
-def convert_to_ppm(freq_coord):
-    return NotImplemented
+def _convert_to_ppm(freq_coord, nmr_frequency):
+    freq_coord /= nmr_frequency / 1.0e6
+    return freq_coord
 
 
 def rename_ft_dim(dim, old_string, new_string):
@@ -21,7 +22,7 @@ def fourier_transform(
     dim="t2",
     zero_fill_factor=1,
     shift=True,
-    convert_to_ppm=True,
+    convert_to_ppm=None,
 ):
     """Perform Fourier Transform along the dimension (dim) given in proc_parameters
 
@@ -72,6 +73,16 @@ def fourier_transform(
     if shift == True:
         f -= 1.0 / (2 * dt)
 
+    if convert_to_ppm is None:
+        if out.spinlab_attrs.get("data_type", False) == "NMR":
+            convert_to_ppm = True
+        else:
+            convert_to_ppm = False
+
+    proc_parameters["convert_to_ppm"] = (
+        convert_to_ppm  # update proc_parameters with the final value of convert_to_ppm
+    )
+
     if convert_to_ppm:
         if ("frequency" not in out.spinlab_attrs.keys()) and (
             "topspin" not in out.attrs.keys()
@@ -92,7 +103,7 @@ def fourier_transform(
             )
         else:
             nmr_frequency = out.spinlab_attrs["frequency"]
-            f /= nmr_frequency / 1.0e6  # updated
+            f = _convert_to_ppm(f, nmr_frequency)
 
     out.values = _np.fft.fft(out.values, n=n_pts, axis=index)
 
