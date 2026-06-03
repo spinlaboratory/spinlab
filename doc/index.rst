@@ -72,6 +72,8 @@ SpinLab can be easily installed via pip:
 
    userGuide/gettingStarted
    userGuide/spindata_object
+   userGuide/loading_data
+   userGuide/processing
    userGuide/indexing
    userGuide/plotting
    
@@ -89,7 +91,7 @@ SpinLab can be easily installed via pip:
    :hidden:
 
    modules
-   functions
+   api/index
 
 .. toctree::
    :caption: About
