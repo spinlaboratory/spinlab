@@ -163,6 +163,7 @@ html_static_path = ["_static"]
 
 def setup(app):
     app.add_css_file("css/rtdSpinLabTtheme.css")
+    app.add_js_file("js/external_links.js")
 
 
 # Custom sidebar templates, must be a dictionary that maps document names
