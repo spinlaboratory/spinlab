@@ -7,13 +7,13 @@ def imshow(data, *args, **kwargs):  # TODO: drop unused args and kwargs
 
     Args:
         data (SpinData): SpinData object for image plot
-        args: args for matplotlib imshow function
-        kwargs: kwargs for matplotlib imshow function
+        *args: Additional positional arguments passed to the Matplotlib imshow function.
+        **kwargs: Additional keyword arguments passed to the Matplotlib imshow function.
 
     Returns:
-        Returns formated matplotlib plot.
+        AxesImage: Matplotlib image object returned by ``imshow``.
 
-    Example:
+    Examples:
 
        Plotting a sldata object
 

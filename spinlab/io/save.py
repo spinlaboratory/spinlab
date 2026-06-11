@@ -39,6 +39,17 @@ def save(data_object, filename, save_type=None, *args, **kwargs):
 
 
 def autodetect(test_name):
+    """Detect the save format from the file extension.
+
+    Args:
+        test_name (str): File path or name including extension.
+
+    Returns:
+        str: Detected format string — ``"h5"`` for HDF5 or ``"mat"`` for MATLAB.
+
+    Raises:
+        TypeError: If the extension is not recognized.
+    """
     if test_name[-1] == os.sep:
         test_name = test_name[:-1]
 

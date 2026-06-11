@@ -22,7 +22,7 @@ def interp(data, dim, new_coord, left=None, right=None):
     Returns:
         data (SpinData): interpolated data object
 
-    Example:
+    Examples:
         data = sl.interp(data, 'f2', new_coords = np.r_[-10:10:1000j])
 
     """

@@ -20,6 +20,22 @@ def import_vna(path, *args, **kwargs):
 
 
 def get_sldata(values, coords, attrs, concat_dim=None):
+    """Construct a SpinData object from VNA data arrays.
+
+    For 1D data (single S-parameter trace) a single SpinData is returned.
+    For 2D data (multiple traces, e.g. all four S-parameters of an s2p file)
+    the traces are concatenated along ``concat_dim``.
+
+    Args:
+        values (numpy.ndarray): S-parameter data, 1D or 2D.
+        coords (numpy.ndarray): Frequency axis array.
+        attrs (dict): Acquisition attributes (format, center frequency, span).
+        concat_dim (str, optional): Name of the new dimension when concatenating
+            multiple traces. Default is ``None``.
+
+    Returns:
+        SpinData: Data object containing the VNA measurement.
+    """
     if len(_np.shape(values)) == 1:
         return SpinData(
             values, coords=[coords], dims=["f"], attrs=attrs, spinlab_attrs=attrs

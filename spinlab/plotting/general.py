@@ -44,16 +44,18 @@ def plot(data, *args, **kwargs):
 
     Args:
         data (SpinData): SpinData object for matplotlib plot function
-        args: args for matplotlib plot function
-        kwargs: kwargs for matplotlib plot function
+        *args: Additional positional arguments passed to the Matplotlib plot function.
+        **kwargs: Additional keyword arguments passed to the Matplotlib plot function.
+            If any of ``semilogy``, ``semilogx``, ``polar``, ``loglog``,
+            ``scatter``, ``errorbar``, or ``step`` is present and evaluates to
+            ``True``, the corresponding Matplotlib function is used instead of
+            the standard ``plot``.
 
-        if any of semilogy, semilogx, polar, loglog, scatter, errorbar or step is in kwargs the argument will be evaluated with
-        bool(). If this evaluates to True the corresponding matplotlib function is used instead of the standard plot
-
+    Note:
     Returns:
-        Returns formated matplotlib plot.
+        list: Matplotlib plot object(s) returned by the underlying plot call.
 
-    Example:
+    Examples:
 
        Plotting a SpinData object:
 
@@ -129,9 +131,9 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
         showPar (boolean): Toggle whether to show experiment parameters
 
     Returns:
-        Returns formatted matplotlib plot.
+        list: Matplotlib plot object(s) returned by the underlying plot call.
 
-    Example:
+    Examples:
 
         Simply just plotting the sldata object:
 

@@ -65,7 +65,21 @@ def calculate_enhancement(data, off_spectrum_index=0, return_complex_values=Fals
 
 
 def _create_complexEXT(data, real, imag):
-    # helper function for create_complex
+    """Combine separate real and imaginary arrays into a complex SpinData object.
+
+    Internal helper called by :func:`create_complex` when explicit real and
+    imaginary arrays are passed. The last dimension of ``data`` is removed
+    from the output object.
+
+    Args:
+        data (SpinData): Template SpinData object whose dims and coords are used
+            for the output (last dimension is dropped).
+        real (numpy.ndarray): Array of real values.
+        imag (numpy.ndarray): Array of imaginary values.
+
+    Returns:
+        SpinData: Complex SpinData object with the last dimension removed.
+    """
     complexData = _np.vectorize(complex)(real, imag)
 
     dims = data.dims
@@ -83,6 +97,23 @@ def _create_complexEXT(data, real, imag):
 
 
 def _create_complexINT(sldata, dim, real=0, imag=1):
+    """Combine two slices of a SpinData dimension into a single complex dataset.
+
+    Internal helper called by :func:`create_complex` when a dimension name is
+    passed as the ``real`` argument. The specified dimension must have length 2
+    (or the ``real`` and ``imag`` index arguments must address valid slices).
+    The source dimension is collapsed and removed from the output.
+
+    Args:
+        sldata (SpinData): Input SpinData object containing both real and
+            imaginary parts along ``dim``.
+        dim (str): Name of the dimension containing the real and imaginary parts.
+        real (int): Index of the real part along ``dim``. Default is ``0``.
+        imag (int): Index of the imaginary part along ``dim``. Default is ``1``.
+
+    Returns:
+        SpinData: Complex SpinData object with ``dim`` collapsed.
+    """
     try:
         if len(sldata.coords[dim]) != 2:
             _warnings.warn(

@@ -6,6 +6,25 @@ from ..math import *
 
 
 def inversion_recovery_fit(integrals):
+    """Fit an inversion recovery experiment to extract the longitudinal relaxation time T1.
+
+    Fits the real part of the integrated signal intensities to the inversion
+    recovery function :func:`spinlab.math.relaxation.t1` using an automatically
+    estimated initial guess.
+
+    Args:
+        integrals (SpinData): Integrated signal intensities as a function of
+            the inversion recovery delay time. The data object must have a
+            dimension labeled ``"t1"``.
+
+    Returns:
+        dict: Fit results dictionary containing the fitted curve, optimal
+            parameters, and fit errors (see :func:`spinlab.fitting.fit`).
+
+    .. note::
+        This function is currently under development. Results are printed to
+        the console but not yet returned in a structured format.
+    """
     # Estimate an initial guess from experimental data
 
     initial_guess = (2.0, -4000, 4000)
