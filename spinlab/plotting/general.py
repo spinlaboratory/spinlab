@@ -252,6 +252,8 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
 
         if showPar:
             prmString = ""
+            prmString += "Acq. Parameters:"
+            prmString += "\n"
             keylist = list(SpinLAB_CONFIG[exp_type].keys())
             attrs_tpl = [
                 (k.lstrip("showpar_"), k)
@@ -277,11 +279,11 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
                     )
 
             SW = coord[-1] - coord[0]
-            prmString += "SW: " + str(round(SW, 2))
+            prmString += "SW: " + str(round(SW, 2)) + " (mT)"
             box_style = dict(boxstyle="round", facecolor="white", alpha=0.25)
             xmin, xmax, ymin, ymax = _plt.axis()
 
-            _plt.text(xmin * 1.001, ymin * 0.90, prmString, bbox=box_style)
+            _plt.text(xmin * 1.001, ymin * 0.90, prmString, bbox=box_style, fontsize = "x-small", fontfamily = "monospace")
 
         data.fold()
 
