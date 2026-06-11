@@ -16,8 +16,8 @@ def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwa
         dim (str): If giving directories as list, name of dimension to concatenate data along
         coord (numpy.ndarray): If giving directories as list, coordinates of new dimension
         verbose (bool): If true, print debugging output
-        args: Args passed to spectrometer specific import function
-        kwargs: Key word args passed to spectrometer specific import function
+        *args: Additional positional arguments passed to the format-specific import function.
+        **kwargs: Additional keyword arguments passed to the format-specific import function.
 
     Returns:
         data (slData): Data object
@@ -68,8 +68,8 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
         path (str): Path to data directory or file
         data_format (str): Format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers"
         verbose (bool): If true, print additional debug outputs
-        args: Arguments passed to spectrometer specific import function
-        kwargs: Key word arguments passed to spectrometer specific import function
+        *args: Additional positional arguments passed to the format-specific import function.
+        **kwargs: Additional keyword arguments passed to the format-specific import function.
 
     Returns:
         data (slData): Data object

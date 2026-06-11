@@ -6,16 +6,17 @@ def stack(data, *args, offset=None, **kwargs):
     """Stack Plot for 2D data
 
     Args:
-        data (sldata): sldata object for matplotlib plot function
-        args: args for matplotlib plot function
-        offset: Value to offset each spectra, by default maximum of absolute value
-        kwargs: kwargs for matplotlib plot function
+        data (SpinData): SpinData object to plot.
+        *args: Additional positional arguments passed to the Matplotlib plot function.
+        offset (float, optional): Value to offset each spectrum. Defaults to the
+            maximum absolute value in the data.
+        **kwargs: Additional keyword arguments passed to the Matplotlib plot function.
 
-    Example::
+    Examples:
 
-       sl.slResults.plt.figure()
-       sl.slResults.stack(data)
-       sl.slResults.plt.show()
+        >>> sl.plt.figure()
+        >>> sl.stack(data)
+        >>> sl.plt.show()
 
     """
 
@@ -40,11 +41,11 @@ def waterfall(data, dx, dy, *args, **kwargs):
         dx (float, int): x-increment for each line
         dy (float, int): y-increment for each line
 
-    Example::
+    Examples:
 
-       sl.slResults.plt.figure()
-       sl.slResults.waterfall(data)
-       sl.slResults.plt.show()
+        >>> sl.plt.figure()
+        >>> sl.waterfall(data)
+        >>> sl.plt.show()
 
     """
 
