@@ -66,15 +66,19 @@ def remove_background(
     return out
 
 
-def background(data, dim="t2", deg=0, regions=None, func: callable = None, **kwargs):
-    """Remove background from data
+def background(data, dim=None, deg=0, regions=None, func: callable = None, **kwargs):
+    """Fit and return the background of data.
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to perform background fit
+        dim (str or None): Dimension to perform background fit. If None, the
+            first dimension is used.
         deg (int): Polynomial degree
-        regions (None, list): Background regions, by default entire region is background corrected. Regions can be specified as a list of tuples [(min, max), ...]
-        func (optional callable): The fitting function to fit the background
+        regions (None, list): Background regions. If None, the entire dimension
+            is used for the fit. Regions can be specified as a list of tuples
+            [(min, max), ...]
+        func (optional callable): Optional fitting function to fit the
+            background instead of a polynomial.
         **kwargs: arguments for fitting function
 
     Returns:
