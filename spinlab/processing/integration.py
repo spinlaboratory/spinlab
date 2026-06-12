@@ -6,13 +6,23 @@ from scipy.integrate import trapezoid as _trapezoid
 from scipy.integrate import cumulative_trapezoid as _cumulative_trapezoid
 
 
-def cumulative_integrate(data, dim="f2", regions=None):
+def _get_integration_dim(data, dim):
+    if dim is None:
+        if len(data.dims) == 0:
+            raise ValueError("Cannot integrate data without dimensions.")
+        return data.dims[0]
+    return dim
+
+
+def cumulative_integrate(data, dim=None, regions=None):
     """Cumulative integration
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to perform cumulative integration
-        regions (None, list): List of tuples to specify range of integration [(min, max), ...]
+        dim (str or None): Dimension to perform cumulative integration. If None,
+            the first dimension is used.
+        regions (None, list): List of tuples to specify range of integration
+            [(min, max), ...]
 
     Returns:
         data: cumulative sum of data
