@@ -214,9 +214,12 @@ def tp90_B1(tp90):
 
 
 def calc_tp90(c, P, Q=1, alpha=0, verbose=False):
-    """Calculate 90 degree pulse length
+    r"""Calculate 90 degree pulse length
 
-    Calculate 90 degree pulse length (tp90) from probe conversion factor, and applied RF power. Optionally, the quality factor and attenuation can be given as input arguments. The function returns the pulse length in (ns). A formatted output can be generated when setting the verbose flag to True.
+    Calculate 90 degree pulse length (tp90) from probe conversion factor and
+    applied RF power. Optionally, the quality factor and attenuation can be
+    given as input arguments. A formatted output can be generated when setting
+    the verbose flag to True.
 
     Args:
         c (float):          Probe conversion factor (G/sqrt(W))
