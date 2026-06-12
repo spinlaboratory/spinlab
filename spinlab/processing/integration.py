@@ -93,18 +93,23 @@ def integrate(data, dim=None, regions=None):
     Examples:
         Integrated entire data region:
 
-            >>> data = sl.integrate(data)
+            >>> data = sl.load("path/to/data")
+            >>> integrals = sl.integrate(data)  # integrates along first dim
+            >>> integrals = sl.integrate(data, dim='f2')
 
         Integrate single peak/region:
 
-            >>> data = sl.integrate(data, regions=[(4, 5)])
+            >>> data = sl.load("path/to/data")
+            >>> integrals = sl.integrate(data, regions=[(4, 5)])
 
         Integrate two regions:
 
-            >>> data = sl.integrate(data, regions=[(1.1, 2.1), (4.5, 4.9)])
+            >>> data = sl.load("path/to/data")
+            >>> integrals = sl.integrate(data, regions=[(1.1, 2.1), (4.5, 4.9)])
 
     """
     out = data.copy()
+    dim = _get_integration_dim(out, dim)
     out.attrs["experiment_type"] = "integrals"
 
     index = out.index(dim)
