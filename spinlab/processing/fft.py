@@ -147,7 +147,7 @@ def inverse_fourier_transform(
         dim (str): Dimension to inverse Fourier transform. The default is "f2"
         zero_fill_factor (int): Increases the number of points in inverse Fourier transformed dimension by this factor with zero filling. The default is 1
         shift (bool): Apply fftshift to the inverse Fourier transformed data, placing zero frequency at center of dimension
-        convert_from_ppm (bool): If true, convert Fourier transformed axis from ppm units to Hz by using the "frequency" stored in attrs
+        convert_from_ppm (bool): If true, convert Fourier transformed axis from ppm units to Hz by using the "frequency" stored in spinlab_attrs
 
     Returns:
         data (SpinData): Data object after inverse Fourier Transformation
@@ -172,26 +172,26 @@ def inverse_fourier_transform(
 
     index = out.dims.index(dim)
 
-    df = out.coords[dim][1] - out.coords[dim][0]
+    df = _coord_spacing(out, dim)
     if convert_from_ppm:
-        if "nmr_frequency" not in out.attrs.keys():
+        frequency = _get_frequency(out)
+        if frequency is None:
             warn(
-                "NMR frequency not found in the attrs dictionary. Conversion from ppm to Hz requires the NMR frequency."
+                "Frequency not found. Conversion from ppm to Hz requires the frequency."
             )
         else:
-            nmr_frequency = out.attrs["nmr_frequency"]
-            df /= 1 / (nmr_frequency / 1.0e6)  # updated
+            df /= 1 / (frequency / 1.0e6)  # updated
 
     n_pts = zero_fill_factor * len(out.coords[dim])
     t = (1.0 / (n_pts * df)) * _np.r_[0:n_pts]
 
     if shift:
-        out.values = _np.fft.fftshift(out.values, axes=index)
+        out.values = _np.fft.ifftshift(out.values, axes=index)
 
     out.values = _np.fft.ifft(out.values, n=n_pts, axis=index)
     out.coords[dim] = t
 
-    new_dim = rename_ft_dim(dim, "f", "t")
+    new_dim = _rename_ft_dim(dim, "f", "t")
     out.rename(dim, new_dim)
 
     proc_attr_name = "inverse_fourier_transform"
@@ -202,4 +202,4 @@ def inverse_fourier_transform(
 
 def zero_fill():
     """Zero fill data, Not Implemented"""
-    return NotImplemented
+    raise NotImplementedError("zero_fill is not implemented")
