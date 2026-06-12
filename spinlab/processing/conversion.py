@@ -33,22 +33,33 @@ def decay2Ce(decay_time, gA, gB, FB):
 
 
 def convert_power(data, mode="dBm2W"):
-    """Convert power in dBm to power in W and vice versa
+    """Convert power between dBm and W.
 
-    Convert power in dBm to power in W and vice versa
+    For SpinData input, the coordinate whose dimension is named "Power" or
+    "powers" is converted. If ``spinlab_attrs["power_unit"]`` is present, it
+    determines the conversion direction regardless of ``mode``. Otherwise,
+    ``mode`` determines the conversion direction.
 
-    If power_unit exists in the SpinData object, the function will automatically convert the power, regardless the mode.
-
-    If power_unit doesn't exist, the function will be performed in the default mode.
-
-    If data is not SpinLab object, the function will be performed based on the mode.
+    Non-SpinData input is converted directly according to ``mode``.
 
     Args:
-        data (SpinData, array, list, float or int)
-        mode (str): By default, the function convert power in dBm to power in W
+        data (SpinData, array, list, float or int): Power values or SpinData
+            with a power coordinate.
+        mode (str): "dBm2W" or "W2dBm". Defaults to "dBm2W".
 
     Returns:
         out (SpinData, array, list, float or int)
+
+    Raises:
+        ValueError: If no power dimension is found, power_unit is invalid, or
+            mode is invalid.
+
+    Examples:
+
+        >>> data = sl.load("path/to/data")
+        >>> data = sl.convert_power(data)
+        >>> powers_w = sl.convert_power([0, 10, 20], mode="dBm2W")
+        >>> powers_dbm = sl.convert_power([0.001, 0.01, 0.1], mode="W2dBm")
 
     """
     if isinstance(data, SpinData):
@@ -58,7 +69,7 @@ def convert_power(data, mode="dBm2W"):
             if dim.lower() == "power" or dim.lower() == "powers":
                 break
             elif dim == dims[-1]:
-                raise Warning("Power is not in dim")
+                raise ValueError("Power is not in dim")
             else:
                 continue
 
@@ -68,7 +79,7 @@ def convert_power(data, mode="dBm2W"):
             elif out.spinlab_attrs["power_unit"] == "W":
                 mode = "W2dBm"
             else:
-                raise Warning("Power unit in spinlab_attrs is invalid")
+                raise ValueError("Power unit in spinlab_attrs is invalid")
 
         if mode.lower() == "dbm2w":
             power_unit = "W"
@@ -77,7 +88,7 @@ def convert_power(data, mode="dBm2W"):
             power_unit = "dBm"
             f = w2dBm
         else:
-            raise Warning("Mode is not acceptable")
+            raise ValueError("Mode is not acceptable")
 
         out.coords[dim] = f(out.coords[dim])
         proc_parameters = {
@@ -95,7 +106,7 @@ def convert_power(data, mode="dBm2W"):
         elif mode.lower() == "w2dbm":
             f = w2dBm
         else:
-            raise Warning("Mode is not acceptable")
+            raise ValueError("Mode is not acceptable")
         return f(data)
 
 
