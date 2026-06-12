@@ -259,9 +259,12 @@ def calc_tp90(c, P, Q=1, alpha=0, verbose=False):
 
 
 def calc_conversion_factor(tp90, P, Q=1, alpha=0, verbose=False):
-    """Calculate probe conversion factor
+    r"""Calculate probe conversion factor
 
-    Calculate the probe microwave conversion factor from the 90 degree pulse length (tp90), and applied RF power. Optionally, the quality factor and attenuation can be given as input arguments. The function returns the conversion factor in (G/sqrt(W)). A formatted output can be generated when setting the verbose flag to True.
+    Calculate the probe microwave conversion factor from the 90 degree pulse
+    length (tp90) and applied RF power. Optionally, the quality factor and
+    attenuation can be given as input arguments. A formatted output can be
+    generated when setting the verbose flag to True.
 
     Args:
         tp90 (float):       90 degree pulse length (ns)
@@ -301,3 +304,5 @@ def calc_conversion_factor(tp90, P, Q=1, alpha=0, verbose=False):
         print("B1 Field Strength (G):           ", b1_g)
         print("B1 Field Strength (MHz):         ", b1_mhz * 1e6)
         print("Conversion Factor c (G/sqrt(W)): ", c)
+
+    return c
