@@ -39,14 +39,26 @@ def fourier_transform(
     shift=True,
     convert_to_ppm=None,
 ):
-    """Perform Fourier Transform along the dimension (dim) given in proc_parameters
+    """Perform a Fourier transform along one SpinData dimension.
+
+    If ``data.spinlab_attrs["data_type"] == "NMR"``, the output coordinate is
+    converted from Hz to ppm regardless of the value of ``convert_to_ppm``. This
+    conversion requires ``data.spinlab_attrs["frequency"]``. Frequency values in
+    ``attrs`` or under other spinlab attribute names are not used for ppm
+    conversion.
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to Fourier Transform. The default is "t2"
-        zero_fill_factor (int): Increases the number of points in Fourier transformed dimension by this factor with zero filling. The default is 1
-        shift (bool): Apply fftshift to the Fourier transformed data, placing zero frequency at center of dimension
-        convert_to_ppm (bool): If true, convert Fourier transformed axis to ppm units by using the "frequency" stored in spinlab_attrs. NMR data always converts to ppm.
+        dim (str): Dimension to Fourier transform. The default is "t2".
+        zero_fill_factor (int): Increases the number of points in the
+            transformed dimension by this factor with zero filling. Values less
+            than one are treated as one.
+        shift (bool): Apply fftshift to the transformed data and coordinate,
+            placing zero frequency at the center of the dimension.
+        convert_to_ppm (bool or None): If True, convert the transformed
+            coordinate from Hz to ppm using ``spinlab_attrs["frequency"]``. If
+            None, conversion is False except for NMR data, where conversion is
+            always forced to True.
 
     Returns:
         data (SpinData): Data object after Fourier Transformation
@@ -55,6 +67,7 @@ def fourier_transform(
 
         Fourier transformation of a (NMR) FID stored in a SpinData object
 
+        >>> data = sl.load("path/to/data")
         >>> data = sl.fourier_transform(data)
 
         Fourier transform along t1 dimension and zero fill to twice the original length
@@ -140,17 +153,32 @@ def inverse_fourier_transform(
     shift=True,
     convert_from_ppm=True,
 ):
-    """Perform an inverse Fourier Transform along the dimension (dim) given in proc_parameters
+    """Perform an inverse Fourier transform along one SpinData dimension.
+
+    If ``convert_from_ppm`` is True, the input coordinate spacing is converted
+    from ppm to Hz using ``data.spinlab_attrs["frequency"]`` before calculating
+    the output time coordinate. Frequency values in ``attrs`` or under other
+    spinlab attribute names are not used.
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to inverse Fourier transform. The default is "f2"
-        zero_fill_factor (int): Increases the number of points in inverse Fourier transformed dimension by this factor with zero filling. The default is 1
-        shift (bool): Apply fftshift to the inverse Fourier transformed data, placing zero frequency at center of dimension
-        convert_from_ppm (bool): If true, convert Fourier transformed axis from ppm units to Hz by using the "frequency" stored in spinlab_attrs
+        dim (str): Dimension to inverse Fourier transform. The default is "f2".
+        zero_fill_factor (int): Increases the number of points in the inverse
+            transformed dimension by this factor with zero filling. Values less
+            than one are treated as one.
+        shift (bool): Apply ifftshift before the inverse transform when the
+            input data has been shifted.
+        convert_from_ppm (bool): If True, convert the input coordinate spacing
+            from ppm to Hz using ``spinlab_attrs["frequency"]``.
 
     Returns:
         data (SpinData): Data object after inverse Fourier Transformation
+
+    Examples:
+
+        >>> data = sl.load("path/to/data")
+        >>> data = sl.fourier_transform(data)
+        >>> data = sl.inverse_fourier_transform(data)
 
     .. Note::
         Assumes df = f[1] - f[0]
