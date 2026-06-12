@@ -5,12 +5,27 @@ import numpy as _np
 __all__ = ["fourier_transform", "inverse_fourier_transform"]
 
 
-def _convert_to_ppm(freq_coord, nmr_frequency):
-    freq_coord /= nmr_frequency / 1.0e6
-    return freq_coord
+def _convert_to_ppm(freq_coord, frequency):
+    return _np.asarray(freq_coord) / (frequency / 1.0e6)
 
 
-def rename_ft_dim(dim, old_string, new_string):
+def _get_frequency(data):
+    if "frequency" in data.spinlab_attrs:
+        return data.spinlab_attrs["frequency"]
+    return None
+
+
+def _coord_spacing(data, dim):
+    coord = data.coords[dim]
+    if len(coord) < 2:
+        raise ValueError(
+            "Cannot Fourier transform dim %s. Coordinate must contain at least two points."
+            % dim
+        )
+    return coord[1] - coord[0]
+
+
+def _rename_ft_dim(dim, old_string, new_string):
     if re.fullmatch("%s[0-9]*" % old_string, dim) is not None:
         dim = dim.replace(old_string, new_string)
 
