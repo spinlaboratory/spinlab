@@ -23,22 +23,26 @@ def _handle_array(x):
     else:
         N = len(x)
 
+    if N < 2:
+        raise ValueError("window length must be at least two points")
+
     return N
 
 
 def exponential(x, lw):
-    """Calculate exponential window function
+    r"""Calculate exponential window function
 
     Args:
         x (array_like): Vector of points
-        lw (int or float): linewidth
+        lw (int or float): Exponential line broadening.
 
     Returns:
         array: exponential window function
 
     .. math::
-        \\mathrm{exponential} =  e^{-\\pi * x * lw}
+        \mathrm{exponential}(x) = e^{-\pi (x - x_0) lw}
     """
+    x = _as_array(x)
     return _np.exp(-_const.pi * (x - x[0]) * lw)
 
 
