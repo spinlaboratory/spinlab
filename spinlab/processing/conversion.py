@@ -15,6 +15,13 @@ def decay2Ce(decay_time, gA, gB, FB):
         gA, gB:                 (isotropic) g-values of spin A and B
         FB:                     Fraction of B spins excited by pump pulse
                                 (DEER modulation depth)
+
+    Returns:
+        float: Effective concentration.
+
+    Examples:
+
+        >>> Ce = sl.decay2Ce(decay_time=1.5e-6, gA=2.0, gB=2.1, FB=0.3)
     """
 
     # Eq. 13.3.5 (p. 415)
@@ -101,11 +108,27 @@ def dBm2w(power_in_dBm):
         power_in_dBm (array, list, float or int): Power in (dBm)
 
     Returns:
-        float (array, list, float or int): Power in (W)
+        float (array, list, float or int): Power in (W). Numpy array outputs are
+            floating-point arrays.
+
+    Examples:
+
+        >>> sl.dBm2w(0)
+        0.001
+        >>> sl.dBm2w([0, 10, 20])
+        [0.001, 0.01, 0.1]
+        >>> sl.dBm2w(np.array([0, 10, 20]))
+        array([0.001, 0.01 , 0.1  ])
 
     """
 
-    if isinstance(power_in_dBm, (_np.ndarray, list)):
+    if isinstance(power_in_dBm, _np.ndarray):
+        power_in_W = power_in_dBm.astype(float, copy=True)
+        for index in range(len(power_in_dBm)):
+            power_in_W[index] = dBm2w(power_in_dBm[index])
+        return power_in_W
+
+    elif isinstance(power_in_dBm, list):
         power_in_W = power_in_dBm.copy()
         for index in range(len(power_in_dBm)):
             power_in_W[index] = dBm2w(power_in_dBm[index])
@@ -128,10 +151,26 @@ def w2dBm(power_in_W):
         power_in_W (array, list, float or int):   Power in (W)
 
     Returns:
-        float (array, list, float or int): Power in (dBm)
+        float (array, list, float or int): Power in (dBm). Numpy array outputs
+            are floating-point arrays.
+
+    Examples:
+
+        >>> sl.w2dBm(0.001)
+        0.0
+        >>> sl.w2dBm([0.001, 0.01, 0.1])
+        [0.0, 10.0, 20.0]
+        >>> sl.w2dBm(np.array([0.001, 0.01, 0.1]))
+        array([ 0., 10., 20.])
 
     """
-    if isinstance(power_in_W, (_np.ndarray, list)):
+    if isinstance(power_in_W, _np.ndarray):
+        power_in_dBm = power_in_W.astype(float, copy=True)
+        for index in range(len(power_in_W)):
+            power_in_dBm[index] = w2dBm(power_in_W[index])
+        return power_in_dBm
+
+    elif isinstance(power_in_W, list):
         power_in_dBm = power_in_W.copy()
         for index in range(len(power_in_W)):
             power_in_dBm[index] = w2dBm(power_in_W[index])
