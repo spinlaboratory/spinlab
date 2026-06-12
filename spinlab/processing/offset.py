@@ -35,16 +35,19 @@ def remove_background(
 
         0th-order background removal (DC offset)
 
+        >>> data = sl.load("path/to/data")
         >>> data = sl.remove_background(data)
 
 
         Background removal with a given fit function
 
+        >>> data = sl.load("path/to/data")
         >>> data = sl.remove_background(data, dim = 'tau', func= sl.relaxation.general_exp, p0=(1,-1,900))
 
     """
 
     out = data.copy()
+    dim = _get_background_dim(out, dim)
 
     proc_parameters = {
         "dim": dim,
