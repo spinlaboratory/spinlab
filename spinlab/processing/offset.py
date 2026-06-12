@@ -3,17 +3,29 @@ from ..fitting import *
 from ..math import relaxation
 
 
+def _get_background_dim(data, dim):
+    if dim is None:
+        if len(data.dims) == 0:
+            raise ValueError("Cannot fit background for data without dimensions.")
+        return data.dims[0]
+    return dim
+
+
 def remove_background(
-    data, dim="t2", deg=0, regions=None, func: callable = None, **kwargs
+    data, dim=None, deg=0, regions=None, func: callable = None, **kwargs
 ):
-    """Remove polynomial background from data
+    """Remove a fitted background from data.
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to perform background fit
+        dim (str or None): Dimension to perform background fit. If None, the
+            first dimension is used.
         deg (int): Polynomial degree
-        regions (None, list): Background regions, by default the entire region is used to calculate the background correction. Regions can be specified as a list of tuples [(min, max), ...]
-        func (optional callable): The fitting function to fit the background
+        regions (None, list): Background regions. If None, the entire dimension
+            is used to calculate the background correction. Regions can be
+            specified as a list of tuples [(min, max), ...]
+        func (optional callable): Optional fitting function to fit the
+            background instead of a polynomial.
         **kwargs: arguments for fitting function
 
     Returns:
