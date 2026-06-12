@@ -31,21 +31,19 @@ def cumulative_integrate(data, dim=None, regions=None):
         Example showing cumulative integration of lorentzian function
 
         >>> import numpy as np
-        >>> from matplotlib.pylab import *
         >>> import spinlab as sl
-        >>> x = np.r_[-10:10:1000j]
-        >>> y = sl.math.lineshape.lorentzian(x,0,1)
-        >>> data = sl.SpinData(y, ['f2'], [x])
-        >>> data_int = sl.cumulative_integrate(data)
-        >>> figure()
-        >>> sl.plot(data)
-        >>> sl.plot(data_int)
-        >>> show()
+        >>> data = sl.load("path/to/data")
+        >>> data_int = sl.cumulative_integrate(data)  # integrates along first dim
+        >>> sl.plt.figure()
+        >>> sl.fancy_plot(data)
+        >>> sl.fancy_plot(data_int)
+        >>> sl.show()
 
 
     """
 
     out = data.copy()
+    dim = _get_integration_dim(out, dim)
 
     if regions == None:
         index = out.index(dim)
