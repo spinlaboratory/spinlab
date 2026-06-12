@@ -120,7 +120,7 @@ def dBm2w(power_in_dBm):
 
 
 def w2dBm(power_in_W):
-    """Convert power in W to power in dbM
+    """Convert power in W to power in dBm
 
     Convert a microwave power given in W to dBm
 
@@ -146,13 +146,16 @@ def w2dBm(power_in_W):
 def tp90_B1(tp90):
     """Calculate B1 field strength from 90 degree pulse length.
 
-    Calculate B1 field strength from 90 degree pulse length.
-
     Args:
         tp90 (float):       Pulse length of the 90 degree pulse (s)
 
     Returns:
         B1 (float):         B1 field strength (Hz)
+
+    Examples:
+
+        >>> sl.tp90_B1(10e-9)
+        25000000.0
     """
 
     B1_Hz = 1 / tp90 / 4
