@@ -75,12 +75,16 @@ def cumulative_integrate(data, dim=None, regions=None):
         return data_list
 
 
-def integrate(data, dim="f2", regions=None):
-    """Integrate data along given dimension. If no region is given, the integral is calculated over the entire range.
+def integrate(data, dim=None, regions=None):
+    """Integrate data along given dimension.
+
+    If no dimension is given, the first dimension is used. If no region is
+    given, the integral is calculated over the entire range.
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to perform integration. Default is "f2"
+        dim (str or None): Dimension to perform integration. If None, the first
+            dimension is used.
         regions (None, list): List of tuples defining the region to integrate
 
     Returns:
