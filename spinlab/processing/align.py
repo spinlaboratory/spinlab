@@ -113,11 +113,12 @@ def ndalign(data, dim=None, reference=None, center=None, width=None):
     all_values = out.values.T
 
     abs_temp_values = _np.abs(temp_values)
+    selected_coord = temp_out.coords[dim]
 
     if reference is None:
         reference = _np.abs(temp_values[-1])
-    elif isinstance(reference, SpinData):
-        reference = _np.abs(reference.values)
+    else:
+        reference = _prepare_reference(reference, coord, selected_coord, dim)
 
     ref_max_ix = _np.argmax(reference)
 
