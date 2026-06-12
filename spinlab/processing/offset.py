@@ -88,16 +88,19 @@ def background(data, dim=None, deg=0, regions=None, func: callable = None, **kwa
 
         0th-order background fit (DC offset)
 
+        >>> data = sl.load("path/to/data")
         >>> bg = sl.background(data)
 
 
         Background with a given fit function
 
+        >>> data = sl.load("path/to/data")
         >>> bg = sl.background(data, dim = 'tau', func= sl.relaxation.general_exp, p0=(1,-1,900))
 
     """
 
     out = data.copy()
+    dim = _get_background_dim(out, dim)
 
     proc_parameters = {
         "dim": dim,
