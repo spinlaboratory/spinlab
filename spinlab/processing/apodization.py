@@ -13,12 +13,25 @@ _windows = {
 }
 
 
-def apodize(data, dim="t2", kind="exponential", **kwargs):
-    r"""Apply Apodization to data along a given dimension. Currently the following window functions are implemented: exponential, gaussian, hanning, hamming, and sin-squared. In addition the following window transformation functions are implemented: traf, and lorentz_gauss
+def _get_apodization_dim(data, dim):
+    if dim is None:
+        if len(data.dims) == 0:
+            raise ValueError("Cannot apodize data without dimensions.")
+        return data.dims[0]
+    return dim
+
+
+def apodize(data, dim=None, kind="exponential", **kwargs):
+    r"""Apply apodization to data along one SpinData dimension.
+
+    Currently the following window functions are implemented: exponential,
+    gaussian, hann, hamming, and sin-squared. In addition, the transformation
+    windows traf and lorentz_gauss are implemented.
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to apply apodization along, "t2" by default
+        dim (str or None): Dimension to apply apodization along. If None, the
+            first dimension is used.
         kind (str): Type of apodization, "exponential" by default
         kwargs: Arguments to be passed to apodization function, e.g. line width parameter
 
@@ -30,10 +43,13 @@ def apodize(data, dim="t2", kind="exponential", **kwargs):
 
         Exponential line broadening using a line width of 2 Hz along the f2 dimension
 
+        >>> data = sl.load("path/to/data")
         >>> data = sl.apodize(data, lw = 2)
+        >>> data = sl.apodize(data, dim = 'f2', lw = 2)
 
         Lorentz-Gauss transformation:
 
+        >>> data = sl.load("path/to/data")
         >>> data = sl.apodize(data, dim = 't2', kind = 'lorentz_gauss', lw = 4, gauss_lw = 8)
 
     Functions:
@@ -64,6 +80,7 @@ def apodize(data, dim="t2", kind="exponential", **kwargs):
     """
 
     out = data.copy()
+    dim = _get_apodization_dim(out, dim)
 
     index = out.index(dim)
     coord = out.coords[dim]
@@ -86,6 +103,7 @@ def apodize(data, dim="t2", kind="exponential", **kwargs):
     out *= apwin
 
     proc_parameters = {
+        "dim": dim,
         "kind": kind,
     }
     for key in kwargs:

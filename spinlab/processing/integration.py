@@ -6,13 +6,23 @@ from scipy.integrate import trapezoid as _trapezoid
 from scipy.integrate import cumulative_trapezoid as _cumulative_trapezoid
 
 
-def cumulative_integrate(data, dim="f2", regions=None):
+def _get_integration_dim(data, dim):
+    if dim is None:
+        if len(data.dims) == 0:
+            raise ValueError("Cannot integrate data without dimensions.")
+        return data.dims[0]
+    return dim
+
+
+def cumulative_integrate(data, dim=None, regions=None):
     """Cumulative integration
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to perform cumulative integration
-        regions (None, list): List of tuples to specify range of integration [(min, max), ...]
+        dim (str or None): Dimension to perform cumulative integration. If None,
+            the first dimension is used.
+        regions (None, list): List of tuples to specify range of integration
+            [(min, max), ...]
 
     Returns:
         data: cumulative sum of data
@@ -21,21 +31,19 @@ def cumulative_integrate(data, dim="f2", regions=None):
         Example showing cumulative integration of lorentzian function
 
         >>> import numpy as np
-        >>> from matplotlib.pylab import *
         >>> import spinlab as sl
-        >>> x = np.r_[-10:10:1000j]
-        >>> y = sl.math.lineshape.lorentzian(x,0,1)
-        >>> data = sl.SpinData(y, ['f2'], [x])
-        >>> data_int = sl.cumulative_integrate(data)
-        >>> figure()
-        >>> sl.plot(data)
-        >>> sl.plot(data_int)
-        >>> show()
+        >>> data = sl.load("path/to/data")
+        >>> data_int = sl.cumulative_integrate(data)  # integrates along first dim
+        >>> sl.plt.figure()
+        >>> sl.fancy_plot(data)
+        >>> sl.fancy_plot(data_int)
+        >>> sl.show()
 
 
     """
 
     out = data.copy()
+    dim = _get_integration_dim(out, dim)
 
     if regions == None:
         index = out.index(dim)
@@ -65,12 +73,16 @@ def cumulative_integrate(data, dim="f2", regions=None):
         return data_list
 
 
-def integrate(data, dim="f2", regions=None):
-    """Integrate data along given dimension. If no region is given, the integral is calculated over the entire range.
+def integrate(data, dim=None, regions=None):
+    """Integrate data along given dimension.
+
+    If no dimension is given, the first dimension is used. If no region is
+    given, the integral is calculated over the entire range.
 
     Args:
         data (SpinData): Data object
-        dim (str): Dimension to perform integration. Default is "f2"
+        dim (str or None): Dimension to perform integration. If None, the first
+            dimension is used.
         regions (None, list): List of tuples defining the region to integrate
 
     Returns:
@@ -79,18 +91,23 @@ def integrate(data, dim="f2", regions=None):
     Examples:
         Integrated entire data region:
 
-            >>> data = sl.integrate(data)
+            >>> data = sl.load("path/to/data")
+            >>> integrals = sl.integrate(data)  # integrates along first dim
+            >>> integrals = sl.integrate(data, dim='f2')
 
         Integrate single peak/region:
 
-            >>> data = sl.integrate(data, regions=[(4, 5)])
+            >>> data = sl.load("path/to/data")
+            >>> integrals = sl.integrate(data, regions=[(4, 5)])
 
         Integrate two regions:
 
-            >>> data = sl.integrate(data, regions=[(1.1, 2.1), (4.5, 4.9)])
+            >>> data = sl.load("path/to/data")
+            >>> integrals = sl.integrate(data, regions=[(1.1, 2.1), (4.5, 4.9)])
 
     """
     out = data.copy()
+    dim = _get_integration_dim(out, dim)
     out.attrs["experiment_type"] = "integrals"
 
     index = out.index(dim)

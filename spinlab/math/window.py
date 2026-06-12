@@ -2,6 +2,13 @@ import numpy as _np
 from ..constants import constants as _const
 
 
+def _as_array(x):
+    x = _np.asarray(x)
+    if x.size == 0:
+        raise ValueError("window coordinate must contain at least one point")
+    return x
+
+
 def _handle_array(x):
     """Handle array or integer input argument for window functions
 
@@ -16,22 +23,26 @@ def _handle_array(x):
     else:
         N = len(x)
 
+    if N < 2:
+        raise ValueError("window length must be at least two points")
+
     return N
 
 
 def exponential(x, lw):
-    """Calculate exponential window function
+    r"""Calculate exponential window function
 
     Args:
         x (array_like): Vector of points
-        lw (int or float): linewidth
+        lw (int or float): Exponential line broadening.
 
     Returns:
         array: exponential window function
 
     .. math::
-        \\mathrm{exponential} =  e^{-\\pi * x * lw}
+        \mathrm{exponential}(x) = e^{-\pi (x - x_0) lw}
     """
+    x = _as_array(x)
     return _np.exp(-_const.pi * (x - x[0]) * lw)
 
 
@@ -40,14 +51,16 @@ def gaussian(x, lw):
 
     Args:
         x (array_like): vector of points
-        lw (float): Standard deviation of gaussian window
+        lw (float): Full width at half maximum of the Gaussian window.
 
     Returns:
         array: gaussian window function
 
     .. math::
-        \mathrm{gaussian} = e^{(\sigma * x^{2})}
+        \sigma &= \frac{lw}{2\sqrt{2\ln(2)}} \\
+        \mathrm{gaussian}(x) &= e^{-2\pi^2 x^2 \sigma^2}
     """
+    x = _as_array(x)
     sigma = lw / (
         2.0 * _np.sqrt(2.0 * _np.log(2.0))
     )  # convert FWHM to standard deviation
@@ -58,8 +71,7 @@ def hann(x):
     r"""Calculate hann window function
 
     Args:
-        x (array_like): vector of points
-        N(int): number of points to return in window function
+        x (array_like, int): vector of points or number of points.
 
     Returns:
         ndarray: hann window function
@@ -77,7 +89,7 @@ def traf(x, lw):
 
     Args:
         x (array_like): vector of points
-        lw (str): linewidth of traficant window
+        lw (int or float): linewidth of Traficante window
 
     Returns:
         ndarray: traf window function
@@ -89,6 +101,7 @@ def traf(x, lw):
 
                f2(t)   &=  \exp((t - T) * \pi * \mathrm{linewidth[1]}) &
     """
+    x = _as_array(x)
     T2 = 1.0 / (_const.pi * lw)
     t = x
     T = _np.max(t)
@@ -101,8 +114,7 @@ def hamming(x):
     r"""Calculate hamming window function
 
     Args:
-        x (array_like): vector of points
-        N(int): number of points to return in window function
+        x (array_like, int): vector of points or number of points.
 
     Returns:
         ndarray: hamming window function
@@ -115,16 +127,14 @@ def hamming(x):
     return 0.53836 + 0.46164 * _np.cos(1.0 * _const.pi * _np.arange(N) / (N - 1))
 
 
-# FIX -> Function does not look correct
 def lorentz_gauss(x, lw, gauss_lw, gaussian_max=0):
     r"""Calculate lorentz-gauss window function
 
     Args:
         x (array_like): vector of points
-        N(int): number of points to return in window function
         lw (int or float): exponential linewidth
         gauss_lw (int or float): gaussian linewidth
-        gaussian_max (int): location of maximum in gaussian window
+        gaussian_max (int or float): location of maximum in gaussian window
 
     Returns:
         array: gauss_lorentz window function
@@ -137,6 +147,7 @@ def lorentz_gauss(x, lw, gauss_lw, gaussian_max=0):
            G(t)    &=  0.6\pi * \mathrm{linewidth[1]} * (\mathrm{gaussian\_max} * (N - 1) - t) &
     """
 
+    x = _as_array(x)
     N = len(x)
     expo = _const.pi * x * lw
     gaus = 0.6 * _const.pi * gauss_lw * (gaussian_max * (N - 1) - x)
@@ -147,8 +158,7 @@ def sin2(x):
     r"""Calculate sin-squared window function
 
     Args:
-        x (array_like): vector of points
-        N(int): number of points to return in window function
+        x (array_like, int): vector of points or number of points.
 
     Returns:
         array: sin-squared window function
