@@ -16,13 +16,33 @@ class sl_fft_tester(unittest.TestCase):
         tau = 0.1
         t2 = np.r_[0 : 1 : 1j * pts]
         y = np.exp(1j * t2 * omega) * np.exp(-1 * t2 / tau)
-        self.data_1d = sl.SpinData(y, ["t2"], [t2])
-        self.data_1d.spinlab_attrs["frequency"] = 400e6
+        self.data_1d = sl.SpinData(
+            y,
+            ["t2"],
+            [t2],
+            spinlab_attrs={"frequency": 400e6, "data_type": "EPR"},
+        )
+        self.nmr_data_1d = sl.SpinData(
+            y,
+            ["t2"],
+            [t2],
+            spinlab_attrs={"frequency": 400e6, "data_type": "NMR"},
+        )
 
         t1 = np.r_[0:8]
         y_2d = np.array([y * (i + 1) for i in t1]).T
-        self.data_2d = sl.SpinData(y_2d, ["t2", "t1"], [t2, t1])
-        self.data_2d.spinlab_attrs["frequency"] = 400e6
+        self.data_2d = sl.SpinData(
+            y_2d,
+            ["t2", "t1"],
+            [t2, t1],
+            spinlab_attrs={"frequency": 400e6, "data_type": "EPR"},
+        )
+        self.nmr_data_2d = sl.SpinData(
+            y_2d,
+            ["t2", "t1"],
+            [t2, t1],
+            spinlab_attrs={"frequency": 400e6, "data_type": "NMR"},
+        )
 
     def test_fourier_transform_1d(self):
         ft_data = sl.fourier_transform(
@@ -113,8 +133,7 @@ class sl_fft_tester(unittest.TestCase):
         )
 
     def test_fourier_transform_without_frequency_does_not_convert_to_ppm(self):
-        data = self.data_1d.copy()
-        data.spinlab_attrs["data_type"] = "NMR"
+        data = self.nmr_data_1d.copy()
         data.spinlab_attrs.pop("frequency", None)
         data.attrs.pop("frequency", None)
 
@@ -146,8 +165,7 @@ class sl_fft_tester(unittest.TestCase):
         self.assertTrue(ft_data.proc_attrs[-1][1]["convert_to_ppm"])
 
     def test_fourier_transform_convert_to_ppm_default_uses_nmr_data_type(self):
-        data = self.data_1d.copy()
-        data.spinlab_attrs["data_type"] = "NMR"
+        data = self.nmr_data_1d.copy()
 
         ft_data = sl.fourier_transform(data)
 
@@ -160,8 +178,7 @@ class sl_fft_tester(unittest.TestCase):
         self.assertTrue(ft_data.proc_attrs[-1][1]["convert_to_ppm"])
 
     def test_fourier_transform_nmr_data_type_forces_convert_to_ppm(self):
-        data = self.data_1d.copy()
-        data.spinlab_attrs["data_type"] = "NMR"
+        data = self.nmr_data_1d.copy()
 
         ft_data = sl.fourier_transform(data, convert_to_ppm=False)
 
