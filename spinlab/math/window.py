@@ -89,7 +89,7 @@ def traf(x, lw):
 
     Args:
         x (array_like): vector of points
-        lw (str): linewidth of traficant window
+        lw (int or float): linewidth of Traficante window
 
     Returns:
         ndarray: traf window function
@@ -114,8 +114,7 @@ def hamming(x):
     r"""Calculate hamming window function
 
     Args:
-        x (array_like): vector of points
-        N(int): number of points to return in window function
+        x (array_like, int): vector of points or number of points.
 
     Returns:
         ndarray: hamming window function
@@ -159,8 +158,7 @@ def sin2(x):
     r"""Calculate sin-squared window function
 
     Args:
-        x (array_like): vector of points
-        N(int): number of points to return in window function
+        x (array_like, int): vector of points or number of points.
 
     Returns:
         array: sin-squared window function
