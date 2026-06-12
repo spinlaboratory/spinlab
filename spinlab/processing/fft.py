@@ -46,7 +46,7 @@ def fourier_transform(
         dim (str): Dimension to Fourier Transform. The default is "t2"
         zero_fill_factor (int): Increases the number of points in Fourier transformed dimension by this factor with zero filling. The default is 1
         shift (bool): Apply fftshift to the Fourier transformed data, placing zero frequency at center of dimension
-        convert_to_ppm (bool): If true, convert Fourier transformed axis to ppm units by using the "frequency" stored in attrs
+        convert_to_ppm (bool): If true, convert Fourier transformed axis to ppm units by using the "frequency" stored in spinlab_attrs. NMR data always converts to ppm.
 
     Returns:
         data (SpinData): Data object after Fourier Transformation
@@ -82,32 +82,24 @@ def fourier_transform(
 
     index = out.dims.index(dim)
 
-    dt = out.coords[dim][1] - out.coords[dim][0]
+    dt = _coord_spacing(out, dim)
     n_pts = zero_fill_factor * len(out.coords[dim])
     f = (1.0 / (n_pts * dt)) * _np.r_[0:n_pts]
     if shift == True:
         f -= 1.0 / (2 * dt)
 
-    if convert_to_ppm is None:
-        if out.spinlab_attrs.get("data_type", False) == "NMR":
-            convert_to_ppm = True
-        else:
-            convert_to_ppm = False
+    if out.spinlab_attrs.get("data_type", False) == "NMR":
+        convert_to_ppm = True
+    elif convert_to_ppm is None:
+        convert_to_ppm = False
 
     proc_parameters["convert_to_ppm"] = (
         convert_to_ppm  # update proc_parameters with the final value of convert_to_ppm
     )
 
     if convert_to_ppm:
-        if ("frequency" not in out.spinlab_attrs.keys()) and (
-            "topspin" not in out.attrs.keys()
-        ):
-            print(
-                "NMR frequency not found in the attrs dictionary. Conversion from ppm to Hz requires the NMR frequency."
-            )
-
         # linked to topspin.py through special attr "_topspin_procs_offset"
-        elif out.attrs.get("_topspin_procs_offset", False) is not False:
+        if out.attrs.get("_topspin_procs_offset", False) is not False:
             # assume that OFFSET gives first ppm value shown by spectrometer
             offset = out.attrs["_topspin_procs_offset"]
             sw = out.attrs["SW"]
@@ -117,8 +109,13 @@ def fourier_transform(
                 - sw * (f.size - 1) / f.size
             )
         else:
-            nmr_frequency = out.spinlab_attrs["frequency"]
-            f = _convert_to_ppm(f, nmr_frequency)
+            frequency = _get_frequency(out)
+            if frequency is None:
+                warn(
+                    "Frequency not found. Conversion from Hz to ppm requires the frequency."
+                )
+            else:
+                f = _convert_to_ppm(f, frequency)
 
     out.values = _np.fft.fft(out.values, n=n_pts, axis=index)
 
@@ -127,7 +124,7 @@ def fourier_transform(
 
     out.coords[dim] = f
 
-    new_dim = rename_ft_dim(dim, "t", "f")
+    new_dim = _rename_ft_dim(dim, "t", "f")
     out.rename(dim, new_dim)
 
     proc_attr_name = "fourier_transform"
