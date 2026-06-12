@@ -2,6 +2,13 @@ import numpy as _np
 from ..constants import constants as _const
 
 
+def _as_array(x):
+    x = _np.asarray(x)
+    if x.size == 0:
+        raise ValueError("window coordinate must contain at least one point")
+    return x
+
+
 def _handle_array(x):
     """Handle array or integer input argument for window functions
 
