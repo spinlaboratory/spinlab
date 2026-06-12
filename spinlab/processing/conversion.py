@@ -229,9 +229,20 @@ def calc_tp90(c, P, Q=1, alpha=0, verbose=False):
         verbose (boolean):  Optionally, return results in formatted output
 
     Returns:
-        tp90 (float):       90 degree pulse length (ns)
+        tp90 (float):       90 degree pulse length
+
+    Examples:
+
+        >>> tp90 = sl.calc_tp90(c=120.0, P=0.5, Q=2.0, alpha=3.0)
+        >>> tp90 > 0
+        True
 
     .. math::
+
+        P_\mathrm{probe} &= \frac{P}{10^{\alpha / 10}} \\
+        B_1(\mathrm{G}) &= c \sqrt{P_\mathrm{probe} Q} \\
+        B_1(\mathrm{MHz}) &= 2.804 \times 10^{-6} B_1(\mathrm{G}) \\
+        t_{90} &= \frac{1}{4 B_1(\mathrm{MHz})} \times 10^{-12}
 
     """
 
@@ -276,16 +287,25 @@ def calc_conversion_factor(tp90, P, Q=1, alpha=0, verbose=False):
     Returns:
         c (float):          Probe conversion factor (G/sqrt(W))
 
+    Examples:
+
+        >>> tp90 = sl.calc_tp90(c=120.0, P=0.5, Q=2.0, alpha=3.0)
+        >>> c = sl.calc_conversion_factor(tp90, P=0.5, Q=2.0, alpha=3.0)
+        >>> round(c)
+        120
+
     .. math::
+
+        P_\mathrm{probe} &= \frac{P}{10^{\alpha / 10}} \\
+        B_1(\mathrm{MHz}) &= \frac{1}{4 t_{90}} \times 10^{-12} \\
+        B_1(\mathrm{G}) &= \frac{B_1(\mathrm{MHz})}{2.804 \times 10^{-6}} \\
+        c &= \frac{B_1(\mathrm{G})}{\sqrt{P_\mathrm{probe} Q}}
 
     """
 
     power_at_probe = P / (10 ** (alpha / 10))
 
     b1_mhz = 1 / tp90 / 4 * 1e-12
-
-    b1_Hz = 1 / tp90 / 4
-    print(b1_Hz * 1e-6)
 
     b1_g = b1_mhz / 2.804e-6
 
