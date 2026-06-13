@@ -4,8 +4,10 @@ import numpy as _np
 from ..plotting import colors
 
 from warnings import warn as _warn
+
 from ..core.data import SpinData
 from ..config.config import SpinLAB_CONFIG
+from ..constants import constants as _const
 
 # hand curated list of plotting arguments that are forwarded, from config file
 _forwarded_pyplot_plots = SpinLAB_CONFIG.getlist("PLOTTING", "forwarded_pyplot_plots")
@@ -251,17 +253,12 @@ def fancy_plot(
 
         if (showgValues == True) and (data.attrs["experiment_type"] == "epr_spectrum"):
 
-            # print(data.spinlab_attrs["frequency"])
-
             def freq2g(field):
-                h = 6.62607015e-34  # J·s
-                mu_B = 9.2740100783e-24  # J/T
 
                 mw_freq = data.spinlab_attrs["frequency"]
-
                 B = _np.asarray(field) * 1e-3  # mT → T
 
-                return (h * mw_freq) / (mu_B * B)
+                return (_const.h * mw_freq) / (_const.mub * B)
 
             secax = ax.secondary_xaxis("top", functions=(freq2g, freq2g))
             secax.set_xlabel("g-Value")
