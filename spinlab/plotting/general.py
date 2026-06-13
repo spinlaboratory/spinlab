@@ -119,7 +119,9 @@ def plot(data, *args, **kwargs):
     return plot_return
 
 
-def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
+def fancy_plot(
+    data, xlim=[], title="", showPar=False, showgValues=False, *args, **kwargs
+):
     """Streamline Plot function for sldata objects
 
     This function creates streamlined plots for NMR and EPR spectra. The type of the spectrum is detected from the attribute "experiment_type" of the sldata object. Currently the following types are implemented: nmr_spectrum, epr_spectrum, enhancements_P, and inversion_recovery. The function will automatically format the plot according to the "experiment_type" attribute.
@@ -247,6 +249,23 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
                         )
                     )
 
+        if (showgValues == True) and (data.attrs["experiment_type"] == "epr_spectrum"):
+
+            # print(data.spinlab_attrs["frequency"])
+
+            def freq2g(field):
+                h = 6.62607015e-34  # J·s
+                mu_B = 9.2740100783e-24  # J/T
+
+                mw_freq = data.spinlab_attrs["frequency"]
+
+                B = _np.asarray(field) * 1e-3  # mT → T
+
+                return (h * mw_freq) / (mu_B * B)
+
+            secax = ax.secondary_xaxis("top", functions=(freq2g, freq2g))
+            secax.set_xlabel("g-Value")
+
         if title != "":
             _plt.title(title)
 
@@ -283,7 +302,14 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
             box_style = dict(boxstyle="round", facecolor="white", alpha=0.25)
             xmin, xmax, ymin, ymax = _plt.axis()
 
-            _plt.text(xmin * 1.001, ymin * 0.90, prmString, bbox=box_style, fontsize = "x-small", fontfamily = "monospace")
+            _plt.text(
+                xmin * 1.001,
+                ymin * 0.90,
+                prmString,
+                bbox=box_style,
+                fontsize="x-small",
+                fontfamily="monospace",
+            )
 
         data.fold()
 
