@@ -258,7 +258,9 @@ def fancy_plot(
                 mw_freq = data.spinlab_attrs["frequency"]
                 B = _np.asarray(field) * 1e-3  # mT → T
 
-                return (_const.h * mw_freq) / (_const.mub * B)
+                g = (_const.h * mw_freq) / (_const.mub * B)
+
+                return g
 
             secax = ax.secondary_xaxis("top", functions=(freq2g, freq2g))
             secax.set_xlabel("g-Value")
