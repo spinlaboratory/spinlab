@@ -5,14 +5,7 @@ Author: Yen-Chun Huang
 """
 
 import numpy as _np
-
-
-def _get_interp_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot interpolate data without dimensions.")
-        return data.dims[0]
-    return dim
+from ._utils import get_default_dim
 
 
 def _interp_with_extrapolation(new_coord, coord, values, left, right, extrapolate):
@@ -72,7 +65,7 @@ def interp(data, dim=None, new_coord=None, left=None, right=None, extrapolate=Fa
     """
 
     out = data.copy()
-    dim = _get_interp_dim(out, dim)
+    dim = get_default_dim(out, dim, "interpolate")
 
     proc_parameters = {
         "dim": dim,

@@ -1,14 +1,7 @@
 import numpy as _np
 from ..fitting import *
 from ..math import relaxation
-
-
-def _get_background_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot fit background for data without dimensions.")
-        return data.dims[0]
-    return dim
+from ._utils import get_default_dim
 
 
 def remove_background(
@@ -47,7 +40,7 @@ def remove_background(
     """
 
     out = data.copy()
-    dim = _get_background_dim(out, dim)
+    dim = get_default_dim(out, dim, "fit background for")
 
     proc_parameters = {
         "dim": dim,
@@ -100,7 +93,7 @@ def background(data, dim=None, deg=0, regions=None, func: callable = None, **kwa
     """
 
     out = data.copy()
-    dim = _get_background_dim(out, dim)
+    dim = get_default_dim(out, dim, "fit background for")
 
     proc_parameters = {
         "dim": dim,

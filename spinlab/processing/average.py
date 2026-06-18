@@ -1,14 +1,5 @@
 import numpy as _np
-
-
-def _get_average_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot average data without dimensions.")
-        return data.dims[0]
-    if dim not in data.dims:
-        raise ValueError("dim {0} not in data.dims ({1})".format(dim, data.dims))
-    return dim
+from ._utils import get_default_dim
 
 
 def average(data, dim=None, axis=None):
@@ -32,7 +23,7 @@ def average(data, dim=None, axis=None):
         if dim is not None:
             raise ValueError("Use either dim or axis, not both.")
         dim = axis
-    dim = _get_average_dim(data, dim)
+    dim = get_default_dim(data, dim, "average")
 
     out = data.copy()
     proc_attr_name = "average"

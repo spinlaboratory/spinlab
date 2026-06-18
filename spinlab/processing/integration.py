@@ -1,17 +1,10 @@
 import numpy as _np
 from ..core.data import SpinData
 from ..core.util import concat
+from ._utils import get_default_dim
 
 from scipy.integrate import trapezoid as _trapezoid
 from scipy.integrate import cumulative_trapezoid as _cumulative_trapezoid
-
-
-def _get_integration_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot integrate data without dimensions.")
-        return data.dims[0]
-    return dim
 
 
 def cumulative_integrate(data, dim=None, regions=None):
@@ -43,7 +36,7 @@ def cumulative_integrate(data, dim=None, regions=None):
     """
 
     out = data.copy()
-    dim = _get_integration_dim(out, dim)
+    dim = get_default_dim(out, dim, "integrate")
 
     if regions == None:
         index = out.index(dim)
@@ -107,7 +100,7 @@ def integrate(data, dim=None, regions=None):
 
     """
     out = data.copy()
-    dim = _get_integration_dim(out, dim)
+    dim = get_default_dim(out, dim, "integrate")
     out.attrs["experiment_type"] = "integrals"
 
     index = out.index(dim)

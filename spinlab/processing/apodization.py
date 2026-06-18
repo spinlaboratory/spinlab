@@ -1,6 +1,7 @@
 import numpy as _np
 
 from ..math import window
+from ._utils import get_default_dim
 
 _windows = {
     "exponential": window.exponential,
@@ -11,14 +12,6 @@ _windows = {
     "traf": window.traf,
     "sin2": window.sin2,
 }
-
-
-def _get_apodization_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot apodize data without dimensions.")
-        return data.dims[0]
-    return dim
 
 
 def apodize(data, dim=None, kind="exponential", **kwargs):
@@ -80,7 +73,7 @@ def apodize(data, dim=None, kind="exponential", **kwargs):
     """
 
     out = data.copy()
-    dim = _get_apodization_dim(out, dim)
+    dim = get_default_dim(out, dim, "apodize")
 
     index = out.index(dim)
     coord = out.coords[dim]

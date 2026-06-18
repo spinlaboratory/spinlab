@@ -1,13 +1,6 @@
 import numpy as _np
 from ..core.data import SpinData
-
-
-def _get_align_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot align data without dimensions.")
-        return data.dims[0]
-    return dim
+from ._utils import get_default_dim
 
 
 def _alignment_range(coord, center, width):
@@ -84,7 +77,7 @@ def ndalign(data, dim=None, reference=None, center=None, width=None):
     """
 
     out = data.copy()
-    dim = _get_align_dim(out, dim)
+    dim = get_default_dim(out, dim, "align")
     coord = out.coords[dim]
     start, stop = _alignment_range(coord, center, width)
     lower = min(start, stop)

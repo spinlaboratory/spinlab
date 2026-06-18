@@ -3,6 +3,7 @@ from warnings import warn
 import numpy as _np
 from ..constants import constants as _const
 import scipy.optimize as _scoptimize
+from ._utils import get_default_dim
 
 # nonsymetric stencils and nonuniform stencils would be possible but might only come at a later point
 # https://en.wikipedia.org/wiki/Finite_difference_coefficient
@@ -26,14 +27,6 @@ for key, value in _fStencil.items():
         _bStencil[key] = _np.array(list(reversed(value)))
     else:
         _bStencil[key] = -1 * _np.array(list(reversed(value)))
-
-
-def _get_phase_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot phase data without dimensions.")
-        return data.dims[0]
-    return dim
 
 
 def _phase_array(value, name):
@@ -119,7 +112,7 @@ def autophase(
 
     """
     data = inputData.copy()
-    dim = _get_phase_dim(data, dim)
+    dim = get_default_dim(data, dim, "phase")
 
     if full_proc_attr:
         data.add_proc_attrs(
@@ -305,7 +298,7 @@ def phase_cycle(data, dim=None, receiver_phase=None):
     """
 
     out = data.copy()
-    dim = _get_phase_dim(out, dim)
+    dim = get_default_dim(out, dim, "phase")
 
     if dim not in out.dims:
         raise ValueError("dim not in dims")
@@ -366,7 +359,7 @@ def phase(data, dim=None, p0=0.0, p1=0.0, pivot=None):
 
     """
     # get rid of discontuity of mod @0
-    dim = _get_phase_dim(data, dim)
+    dim = get_default_dim(data, dim, "phase")
 
     p0 = _phase_array(p0, "p0")
     p1 = _phase_array(p1, "p1")
