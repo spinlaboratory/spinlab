@@ -1,6 +1,6 @@
 import numpy as _np
 from ..core.data import SpinData
-from ._utils import get_default_dim
+from .._utils import get_default_dim
 
 
 def _alignment_range(coord, center, width):

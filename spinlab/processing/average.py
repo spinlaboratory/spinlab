@@ -1,5 +1,5 @@
 import numpy as _np
-from ._utils import get_default_dim
+from .._utils import get_default_dim
 
 
 def average(data, dim=None, axis=None):

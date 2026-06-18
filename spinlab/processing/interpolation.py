@@ -5,7 +5,7 @@ Author: Yen-Chun Huang
 """
 
 import numpy as _np
-from ._utils import (
+from .._utils import (
     ensure_1d_coord,
     get_default_dim,
     require_min_coord_size,

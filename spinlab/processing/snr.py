@@ -2,7 +2,7 @@ import numpy as _np
 
 from ..core.data import SpinData
 from ..processing.offset import remove_background as _sl_remove_background
-from ._utils import normalize_region_input, validate_dim
+from .._utils import normalize_region_input, validate_dim
 
 
 def signal_to_noise(

@@ -3,7 +3,7 @@ from warnings import warn
 import numpy as _np
 from ..constants import constants as _const
 import scipy.optimize as _scoptimize
-from ._utils import evenly_spaced_coord_spacing, get_default_dim, reshape_along_dim
+from .._utils import evenly_spaced_coord_spacing, get_default_dim, reshape_along_dim
 
 # nonsymetric stencils and nonuniform stencils would be possible but might only come at a later point
 # https://en.wikipedia.org/wiki/Finite_difference_coefficient

@@ -1,7 +1,7 @@
 import numpy as _np
 from ..core.data import SpinData
 from ..core.util import concat
-from ._utils import get_default_dim, normalize_region_input
+from .._utils import get_default_dim, normalize_region_input
 
 from scipy.integrate import trapezoid as _trapezoid
 from scipy.integrate import cumulative_trapezoid as _cumulative_trapezoid

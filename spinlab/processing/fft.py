@@ -1,7 +1,7 @@
 from warnings import warn
 import re
 import numpy as _np
-from ._utils import require_min_coord_size, validate_dim
+from .._utils import require_min_coord_size, validate_dim
 
 __all__ = ["fourier_transform", "inverse_fourier_transform"]
 

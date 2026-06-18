@@ -13,7 +13,8 @@ from .modulation import pseudo_modulation
 from .normalization import normalize
 from .smoothing import smooth
 from .snr import signal_to_noise
-from ._utils import (
+from .._utils import (
+    as_1d_array,
     evenly_spaced_coord_spacing,
     ensure_1d_coord,
     get_default_dim,
@@ -21,6 +22,8 @@ from ._utils import (
     normalize_region_input,
     require_min_coord_size,
     reshape_along_dim,
-    validate_matching_coord_direction,
+    validate_coord_matches_dim,
     validate_dim,
+    validate_matching_coord_direction,
+    validate_positive_int,
 )

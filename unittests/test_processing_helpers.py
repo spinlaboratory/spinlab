@@ -1,4 +1,5 @@
 import unittest
+import warnings
 
 import numpy as np
 import spinlab as sl
@@ -43,6 +44,38 @@ class sl_processing_helpers_tester(unittest.TestCase):
         self.assertEqual(helpers.validate_dim(self.data, "x"), "x")
         with self.assertRaises(ValueError):
             helpers.validate_dim(self.data, "missing")
+
+    def test_as_1d_array(self):
+        assert_array_equal(helpers.as_1d_array(2, "value"), np.array([2]))
+        assert_array_equal(
+            helpers.as_1d_array([1, 2], "value", dtype=float),
+            np.array([1.0, 2.0]),
+        )
+        self.assertIsNone(helpers.as_1d_array(None, "value", allow_none=True))
+
+        with self.assertRaises(ValueError):
+            helpers.as_1d_array(None, "value")
+        with self.assertRaises(ValueError):
+            helpers.as_1d_array(np.ones((2, 2)), "value")
+
+    def test_validate_positive_int(self):
+        self.assertEqual(helpers.validate_positive_int(3, "value"), 3)
+        self.assertEqual(helpers.validate_positive_int(3.0, "value"), 3)
+
+        for value in (True, 0, -1, 1.5, "bad"):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    helpers.validate_positive_int(value, "value")
+
+    def test_validate_coord_matches_dim(self):
+        coord = helpers.validate_coord_matches_dim(self.data, "x")
+        assert_array_equal(coord, np.arange(3))
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", UserWarning)
+            bad_data = sl.SpinData(np.arange(3), ["x"], [np.arange(2)])
+        with self.assertRaises(ValueError):
+            helpers.validate_coord_matches_dim(bad_data, "x")
 
     def test_normalize_region_input(self):
         self.assertIsNone(helpers.normalize_region_input(None))

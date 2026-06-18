@@ -27,6 +27,46 @@ def validate_dim(data, dim):
     return dim
 
 
+def as_1d_array(value, name, dtype=None, allow_none=False):
+    """Return ``value`` as a 1D NumPy array.
+
+    Scalars are promoted to length-one arrays. Multi-dimensional inputs raise
+    ``ValueError``.
+    """
+    if value is None:
+        if allow_none:
+            return None
+        raise ValueError(f"{name} must be provided")
+    value = _np.asarray(value, dtype=dtype)
+    if value.ndim == 0:
+        value = value.reshape(1)
+    if value.ndim != 1:
+        raise ValueError(f"{name} must be a scalar or 1D array-like")
+    return value
+
+
+def validate_positive_int(value, name):
+    """Return ``value`` as an int after requiring a positive integer."""
+    if isinstance(value, bool):
+        raise ValueError(f"{name} must be a positive integer")
+    try:
+        int_value = int(value)
+    except (TypeError, ValueError, OverflowError):
+        raise ValueError(f"{name} must be a positive integer")
+    if int_value != value or int_value < 1:
+        raise ValueError(f"{name} must be a positive integer")
+    return int_value
+
+
+def validate_coord_matches_dim(data, dim):
+    """Return a 1D coordinate after requiring it to match ``data`` along ``dim``."""
+    dim = validate_dim(data, dim)
+    coord = ensure_1d_coord(data.coords[dim], dim)
+    if coord.size != data.shape[data.index(dim)]:
+        raise ValueError(f"coord for dim {dim} must match data length")
+    return coord
+
+
 def normalize_region_input(region):
     """Normalize a single region into a list of regions.
 

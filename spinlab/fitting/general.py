@@ -1,54 +1,12 @@
 import numpy as _np
 from scipy.optimize import curve_fit
 from ..core.data import SpinData
-
-
-def _get_fit_dim(data, dim):
-    if dim is None:
-        if len(data.dims) == 0:
-            raise ValueError("Cannot fit data without dimensions.")
-        return data.dims[0]
-    if dim not in data.dims:
-        raise ValueError("dim {0} not in data.dims ({1})".format(dim, data.dims))
-    return dim
-
-
-def _as_parameter_array(p0):
-    if p0 is None:
-        raise ValueError("p0 must be provided")
-    p0 = _np.asarray(p0, dtype=float)
-    if p0.ndim == 0:
-        p0 = p0.reshape(1)
-    if p0.ndim != 1:
-        raise ValueError("p0 must be a scalar or 1D array-like")
-    return p0
-
-
-def _validate_fit_coord(data, dim):
-    coord = _np.asarray(data.coords[dim])
-    if coord.ndim != 1:
-        raise ValueError("coord for dim {0} must be one-dimensional".format(dim))
-    if coord.size == 0:
-        raise ValueError(
-            "coord for dim {0} must contain at least one value".format(dim)
-        )
-    if coord.size != data.shape[data.index(dim)]:
-        raise ValueError("coord for dim {0} must match data length".format(dim))
-    return coord
-
-
-def _validate_fit_points(fit_points):
-    if fit_points is None:
-        return None
-    if isinstance(fit_points, bool):
-        raise ValueError("fit_points must be a positive integer")
-    try:
-        fit_points_int = int(fit_points)
-    except (TypeError, ValueError, OverflowError):
-        raise ValueError("fit_points must be a positive integer")
-    if fit_points_int != fit_points or fit_points_int < 1:
-        raise ValueError("fit_points must be a positive integer")
-    return fit_points_int
+from .._utils import (
+    as_1d_array,
+    get_default_dim,
+    validate_coord_matches_dim,
+    validate_positive_int,
+)
 
 
 def _prepare_sigma(sigma, data, dim):
@@ -112,10 +70,11 @@ def fit(
         >>> popt = out["popt"]
     """
 
-    dim = _get_fit_dim(data, dim)
-    p0 = _as_parameter_array(p0)
-    fit_points = _validate_fit_points(fit_points)
-    coord = _validate_fit_coord(data, dim)
+    dim = get_default_dim(data, dim, "fit")
+    p0 = as_1d_array(p0, "p0", dtype=float)
+    if fit_points is not None:
+        fit_points = validate_positive_int(fit_points, "fit_points")
+    coord = validate_coord_matches_dim(data, dim)
     if _np.iscomplexobj(data.values):
         raise ValueError("fit currently supports real-valued SpinData only")
     prepared_sigma = _prepare_sigma(sigma, data, dim)

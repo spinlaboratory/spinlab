@@ -1,7 +1,7 @@
 import numpy as _np
 from ..fitting import *
 from ..math import relaxation
-from ._utils import get_default_dim, normalize_region_input
+from .._utils import get_default_dim, normalize_region_input
 
 
 def remove_background(

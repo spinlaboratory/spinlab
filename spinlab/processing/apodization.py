@@ -1,5 +1,5 @@
 from ..math import window
-from ._utils import get_default_dim, reshape_along_dim
+from .._utils import get_default_dim, reshape_along_dim
 
 _windows = {
     "exponential": window.exponential,
