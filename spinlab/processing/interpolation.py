@@ -5,7 +5,12 @@ Author: Yen-Chun Huang
 """
 
 import numpy as _np
-from ._utils import get_default_dim
+from ._utils import (
+    ensure_1d_coord,
+    get_default_dim,
+    require_min_coord_size,
+    validate_matching_coord_direction,
+)
 
 
 def _interp_with_extrapolation(new_coord, coord, values, left, right, extrapolate):
@@ -78,35 +83,16 @@ def interp(data, dim=None, new_coord=None, left=None, right=None, extrapolate=Fa
     if new_coord is None:
         raise ValueError("new_coord must be provided")
 
-    if len(_np.shape(new_coord)) != 1:
-        raise ValueError("The input coord can only be one dimension")
+    new_coord = ensure_1d_coord(new_coord, "new_coord")
+    coord = require_min_coord_size(out.coords[dim], dim, 2, "interpolate")
+    direction = validate_matching_coord_direction(coord, new_coord, dim)
 
-    if isinstance(new_coord, list):
-        new_coord = _np.array(new_coord)
-
-    if len(new_coord) == 0:
-        raise ValueError("new_coord must contain at least one point")
-
-    coord = _np.asarray(out.coords[dim])
-    if len(coord) < 2:
-        raise ValueError(
-            "Cannot interpolate dim %s. Coordinate must contain at least two points."
-            % dim
-        )
-
-    coord_diff = _np.diff(coord)
-    if _np.all(coord_diff > 0):
-        if len(new_coord) > 1 and not _np.all(_np.diff(new_coord) > 0):
-            raise ValueError("new_coord must be increasing for dim %s." % dim)
+    if direction > 0:
         interp_coord = coord
         interp_values = out.values
-    elif _np.all(coord_diff < 0):
-        if len(new_coord) > 1 and not _np.all(_np.diff(new_coord) < 0):
-            raise ValueError("new_coord must be decreasing for dim %s." % dim)
+    else:
         interp_coord = coord[::-1]
         interp_values = _np.flip(out.values, axis=out.index(dim))
-    else:
-        raise ValueError("Coordinate for dim %s must be monotonic." % dim)
 
     index = out.index(dim)
     values = _np.moveaxis(interp_values, index, 0)

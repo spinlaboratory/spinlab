@@ -1,7 +1,5 @@
-import numpy as _np
-
 from ..math import window
-from ._utils import get_default_dim
+from ._utils import get_default_dim, reshape_along_dim
 
 _windows = {
     "exponential": window.exponential,
@@ -75,7 +73,6 @@ def apodize(data, dim=None, kind="exponential", **kwargs):
     out = data.copy()
     dim = get_default_dim(out, dim, "apodize")
 
-    index = out.index(dim)
     coord = out.coords[dim]
 
     kind = str(kind).lower()  # kind of apodization is a lower case string
@@ -88,10 +85,7 @@ def apodize(data, dim=None, kind="exponential", **kwargs):
     window = _windows[kind]
     apwin = window(coord, **kwargs)
 
-    out_shape = out.shape
-
-    new_shape = [1 if ix != index else out_shape[index] for ix in range(out.ndim)]
-    apwin = _np.reshape(apwin, new_shape)
+    apwin = reshape_along_dim(apwin, out, dim)
 
     out *= apwin
 

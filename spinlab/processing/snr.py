@@ -2,6 +2,7 @@ import numpy as _np
 
 from ..core.data import SpinData
 from ..processing.offset import remove_background as _sl_remove_background
+from ._utils import normalize_region_input, validate_dim
 
 
 def signal_to_noise(
@@ -43,30 +44,7 @@ def signal_to_noise(
         ... )
 
     """
-
-    # convenience for signal and noise region
-    def _convenience_tuple_to_list(possible_region: list):
-        if possible_region is None:
-            return possible_region
-        # we assume its iterable
-        try:
-            l = len(possible_region)
-            if l != 2:
-                return possible_region  # it seems to be iterable?
-        except TypeError:
-            return [possible_region]  # return as is in a list, might be slice
-        try:
-            # check whether we can interpret it as value
-            int(possible_region[0])
-            return [
-                (possible_region[0], possible_region[1])
-            ]  # make a list that contains a tuple
-        except TypeError:
-            if type(possible_region) == list:
-                return possible_region
-            return [possible_region]
-
-    signal_region = _convenience_tuple_to_list(signal_region)
+    signal_region = normalize_region_input(signal_region)
     if len(signal_region) > 1:
         snr = []
         for sr in signal_region:
@@ -88,11 +66,10 @@ def signal_to_noise(
         snrData = SpinData(data_new, dims, coords_new)
         return snrData
 
-    noise_region = _convenience_tuple_to_list(noise_region)
-    remove_background = _convenience_tuple_to_list(remove_background)
+    noise_region = normalize_region_input(noise_region)
+    remove_background = normalize_region_input(remove_background)
 
-    if not (dim in data.dims):
-        raise ValueError("dim {0} not in data.dims ({1})".format(dim, data.dims))
+    validate_dim(data, dim)
 
     # remove background
     if remove_background is not None:

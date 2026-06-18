@@ -14,9 +14,13 @@ from .normalization import normalize
 from .smoothing import smooth
 from .snr import signal_to_noise
 from ._utils import (
+    evenly_spaced_coord_spacing,
     ensure_1d_coord,
     get_default_dim,
+    monotonic_direction,
     normalize_region_input,
+    require_min_coord_size,
     reshape_along_dim,
+    validate_matching_coord_direction,
     validate_dim,
 )

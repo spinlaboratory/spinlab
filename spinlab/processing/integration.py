@@ -1,7 +1,7 @@
 import numpy as _np
 from ..core.data import SpinData
 from ..core.util import concat
-from ._utils import get_default_dim
+from ._utils import get_default_dim, normalize_region_input
 
 from scipy.integrate import trapezoid as _trapezoid
 from scipy.integrate import cumulative_trapezoid as _cumulative_trapezoid
@@ -37,6 +37,7 @@ def cumulative_integrate(data, dim=None, regions=None):
 
     out = data.copy()
     dim = get_default_dim(out, dim, "integrate")
+    regions = normalize_region_input(regions)
 
     if regions == None:
         index = out.index(dim)
@@ -101,6 +102,15 @@ def integrate(data, dim=None, regions=None):
     """
     out = data.copy()
     dim = get_default_dim(out, dim, "integrate")
+    original_regions = regions
+    regions = normalize_region_input(regions)
+    proc_regions = (
+        tuple(regions)
+        if isinstance(original_regions, tuple)
+        and len(original_regions) == 2
+        and not hasattr(original_regions[0], "__iter__")
+        else regions
+    )
     out.attrs["experiment_type"] = "integrals"
 
     index = out.index(dim)
@@ -117,10 +127,6 @@ def integrate(data, dim=None, regions=None):
         #     noise = np.trapz(out.)
 
     else:
-        if len(regions) == 2 and (
-            not hasattr(regions[0], "__iter__")
-        ):  # allow special case of regions=(1,2)
-            regions = ((regions[0], regions[1]),)
         data_list = []
         for region in regions:
             data_list.append(integrate(out[dim, region], dim))
@@ -132,7 +138,7 @@ def integrate(data, dim=None, regions=None):
     proc_attr_name = "integrate"
     proc_parameters = {
         "dim": dim,
-        "regions": regions,
+        "regions": proc_regions,
     }
 
     out.add_proc_attrs(proc_attr_name, proc_parameters)

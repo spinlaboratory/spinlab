@@ -1,7 +1,7 @@
 import numpy as _np
 from ..fitting import *
 from ..math import relaxation
-from ._utils import get_default_dim
+from ._utils import get_default_dim, normalize_region_input
 
 
 def remove_background(
@@ -41,6 +41,7 @@ def remove_background(
 
     out = data.copy()
     dim = get_default_dim(out, dim, "fit background for")
+    regions = normalize_region_input(regions)
 
     proc_parameters = {
         "dim": dim,
@@ -94,6 +95,7 @@ def background(data, dim=None, deg=0, regions=None, func: callable = None, **kwa
 
     out = data.copy()
     dim = get_default_dim(out, dim, "fit background for")
+    regions = normalize_region_input(regions)
 
     proc_parameters = {
         "dim": dim,

@@ -3,7 +3,7 @@ from warnings import warn
 import numpy as _np
 from ..constants import constants as _const
 import scipy.optimize as _scoptimize
-from ._utils import get_default_dim
+from ._utils import evenly_spaced_coord_spacing, get_default_dim, reshape_along_dim
 
 # nonsymetric stencils and nonuniform stencils would be possible but might only come at a later point
 # https://en.wikipedia.org/wiki/Finite_difference_coefficient
@@ -58,11 +58,9 @@ def _phase_axis(coord, pivot=None):
 
 def _validate_autophase_inputs(data, coords, deriv):
     data = _np.asarray(data)
-    coords = _np.asarray(coords, dtype=float)
     if data.ndim != 1:
         raise ValueError("autophase data must be one-dimensional")
-    if coords.ndim != 1:
-        raise ValueError("autophase coordinates must be one-dimensional")
+    coords = _np.asarray(coords, dtype=float)
     if coords.size != data.size:
         raise ValueError("autophase coordinates must match data length")
     if deriv not in _cStencil:
@@ -76,12 +74,8 @@ def _validate_autophase_inputs(data, coords, deriv):
     if data.size < min_size:
         raise ValueError("autophase data is too short for the selected derivative")
 
-    coord_diff = _np.diff(coords)
-    if _np.any(coord_diff == 0):
-        raise ValueError("autophase coordinates must be strictly monotonic")
-    if not _np.allclose(coord_diff, coord_diff[0]):
-        raise ValueError("autophase coordinates must be evenly spaced")
-    return data, coords, coord_diff[0]
+    dx = evenly_spaced_coord_spacing(coords, "autophase coordinates", "autophase")
+    return data, coords, dx
 
 
 def autophase(
@@ -316,12 +310,9 @@ def phase_cycle(data, dim=None, receiver_phase=None):
 
     receiver_phase = _np.tile(receiver_phase, int(coord.size / receiver_phase.size))
 
-    index = out.dims.index(dim)
-
-    reshape_size = [1 for k in out.dims]
-    reshape_size[index] = len(out.coords[dim])
-
-    out *= _np.exp(-1j * (_const.pi / 2.0) * receiver_phase.reshape(reshape_size))
+    out *= _np.exp(
+        -1j * (_const.pi / 2.0) * reshape_along_dim(receiver_phase, out, dim)
+    )
 
     proc_attr_name = "phasecycle"
     out.add_proc_attrs(proc_attr_name, proc_parameters)

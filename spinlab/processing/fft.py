@@ -1,6 +1,7 @@
 from warnings import warn
 import re
 import numpy as _np
+from ._utils import require_min_coord_size, validate_dim
 
 __all__ = ["fourier_transform", "inverse_fourier_transform"]
 
@@ -16,12 +17,7 @@ def _get_frequency(data):
 
 
 def _coord_spacing(data, dim):
-    coord = data.coords[dim]
-    if len(coord) < 2:
-        raise ValueError(
-            "Cannot Fourier transform dim %s. Coordinate must contain at least two points."
-            % dim
-        )
+    coord = require_min_coord_size(data.coords[dim], dim, 2, "Fourier transform")
     return coord[1] - coord[0]
 
 
@@ -80,6 +76,7 @@ def fourier_transform(
     """
 
     out = data.copy()
+    dim = validate_dim(out, dim)
 
     # handle zero_fill_factor
     zero_fill_factor = int(zero_fill_factor)
@@ -185,6 +182,7 @@ def inverse_fourier_transform(
     """
 
     out = data.copy()
+    dim = validate_dim(out, dim)
 
     # handle zero_fill_factor
     zero_fill_factor = int(zero_fill_factor)

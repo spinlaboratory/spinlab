@@ -60,6 +60,39 @@ class sl_processing_helpers_tester(unittest.TestCase):
         with self.assertRaises(ValueError):
             helpers.ensure_1d_coord([], "x")
 
+    def test_require_min_coord_size(self):
+        coord = helpers.require_min_coord_size([0, 1], "x", 2, "test")
+        assert_array_equal(coord, np.array([0, 1]))
+
+        with self.assertRaises(ValueError):
+            helpers.require_min_coord_size([0], "x", 2, "test")
+
+    def test_monotonic_direction(self):
+        self.assertEqual(helpers.monotonic_direction([0, 1, 2], "x"), 1)
+        self.assertEqual(helpers.monotonic_direction([2, 1, 0], "x"), -1)
+
+        with self.assertRaises(ValueError):
+            helpers.monotonic_direction([0, 2, 1], "x")
+
+    def test_validate_matching_coord_direction(self):
+        self.assertEqual(
+            helpers.validate_matching_coord_direction([0, 1, 2], [0, 0.5, 1], "x"),
+            1,
+        )
+        self.assertEqual(
+            helpers.validate_matching_coord_direction([2, 1, 0], [2, 1.5, 1], "x"),
+            -1,
+        )
+
+        with self.assertRaises(ValueError):
+            helpers.validate_matching_coord_direction([0, 1, 2], [1, 0], "x")
+
+    def test_evenly_spaced_coord_spacing(self):
+        self.assertEqual(helpers.evenly_spaced_coord_spacing([0, 2, 4], "x"), 2)
+
+        with self.assertRaises(ValueError):
+            helpers.evenly_spaced_coord_spacing([0, 1, 3], "x")
+
     def test_reshape_along_dim(self):
         out = helpers.reshape_along_dim(np.array([1, 2, 3]), self.data, "x")
         self.assertEqual(out.shape, (3, 1))

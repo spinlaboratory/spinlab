@@ -66,6 +66,51 @@ def ensure_1d_coord(coord, dim):
     return coord
 
 
+def require_min_coord_size(coord, dim, min_size, operation_name="process"):
+    """Return ``coord`` as a 1D array and require at least ``min_size`` points."""
+    coord = ensure_1d_coord(coord, dim)
+    if coord.size < min_size:
+        raise ValueError(
+            f"Cannot {operation_name} dim {dim}. Coordinate must contain at least {min_size} points."
+        )
+    return coord
+
+
+def monotonic_direction(coord, dim):
+    """Return ``1`` for increasing coordinates and ``-1`` for decreasing."""
+    coord = require_min_coord_size(coord, dim, 2, "check coordinate direction for")
+    coord_diff = _np.diff(coord)
+    if _np.all(coord_diff > 0):
+        return 1
+    if _np.all(coord_diff < 0):
+        return -1
+    raise ValueError(f"Coordinate for dim {dim} must be monotonic.")
+
+
+def validate_matching_coord_direction(coord, new_coord, dim, new_name="new_coord"):
+    """Require ``new_coord`` to be monotonic in the same direction as ``coord``."""
+    direction = monotonic_direction(coord, dim)
+    new_coord = ensure_1d_coord(new_coord, new_name)
+    if new_coord.size > 1:
+        new_diff = _np.diff(new_coord)
+        if direction > 0 and not _np.all(new_diff > 0):
+            raise ValueError(f"{new_name} must be increasing for dim {dim}.")
+        if direction < 0 and not _np.all(new_diff < 0):
+            raise ValueError(f"{new_name} must be decreasing for dim {dim}.")
+    return direction
+
+
+def evenly_spaced_coord_spacing(coord, dim, operation_name="process"):
+    """Return coordinate spacing after validating 1D, length, and even spacing."""
+    coord = require_min_coord_size(coord, dim, 2, operation_name)
+    coord_diff = _np.diff(coord)
+    if _np.any(coord_diff == 0):
+        raise ValueError(f"Coordinate for dim {dim} must be strictly monotonic.")
+    if not _np.allclose(coord_diff, coord_diff[0]):
+        raise ValueError(f"Coordinate for dim {dim} must be evenly spaced.")
+    return coord_diff[0]
+
+
 def reshape_along_dim(values, data, dim):
     """Reshape 1D ``values`` for broadcasting along ``dim`` of ``data``.
 
