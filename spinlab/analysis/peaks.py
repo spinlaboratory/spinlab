@@ -301,7 +301,9 @@ def peak_info(data):
                 )
         print("--------------------------------------------")
     else:
-        raise ValueError("The function only works with peak lists from 1d or 2d datasets")
+        raise ValueError(
+            "The function only works with peak lists from 1d or 2d datasets"
+        )
 
 
 def _peak_list_checker(peak_list, coord, dim):
