@@ -304,7 +304,9 @@ def phase_cycle(data, dim=None, receiver_phase=None):
     if receiver_phase.size == 0:
         raise ValueError("receiver_phase must contain at least one value")
     if coord.size % receiver_phase.size != 0:
-        raise ValueError("receiver_phase length must divide the selected dimension length")
+        raise ValueError(
+            "receiver_phase length must divide the selected dimension length"
+        )
 
     proc_parameters = {"dim": dim, "receiver_phase": receiver_phase}
 

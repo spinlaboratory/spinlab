@@ -29,7 +29,9 @@ def _validate_fit_coord(data, dim):
     if coord.ndim != 1:
         raise ValueError("coord for dim {0} must be one-dimensional".format(dim))
     if coord.size == 0:
-        raise ValueError("coord for dim {0} must contain at least one value".format(dim))
+        raise ValueError(
+            "coord for dim {0} must contain at least one value".format(dim)
+        )
     if coord.size != data.shape[data.index(dim)]:
         raise ValueError("coord for dim {0} must match data length".format(dim))
     return coord

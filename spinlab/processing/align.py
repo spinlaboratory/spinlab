@@ -88,9 +88,15 @@ def ndalign(data, dim=None, reference=None, center=None, width=None):
     proc_parameters = {
         "dim": dim,
         "reference": None if reference is None else type(reference).__name__,
-        "reference_shape": None
-        if reference is None
-        else (reference.shape if isinstance(reference, SpinData) else _np.shape(reference)),
+        "reference_shape": (
+            None
+            if reference is None
+            else (
+                reference.shape
+                if isinstance(reference, SpinData)
+                else _np.shape(reference)
+            )
+        ),
         "center": center,
         "width": width,
     }
