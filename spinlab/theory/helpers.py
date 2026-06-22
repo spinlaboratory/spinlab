@@ -78,3 +78,85 @@ def show_sphere_orientations(theta, phi):
     _plt.show()
 
     return fig
+
+
+def Jp(j=0.5):
+    r"""General spin raising operator :math:`J_+`.
+
+    Args:
+        j (float): Spin quantum number (default: 1/2).
+
+    Returns:
+        ndarray: Matrix representation of :math:`J_+` in the Zeeman basis.
+
+    """
+    mult = round(2 * j + 1)
+    out = _np.zeros((mult, mult), dtype=complex)
+    for k_val in _np.arange(-j, j):
+        row = int(k_val + j)
+        col = int(k_val + j + 1)
+        out[row, col] = _np.sqrt(j * (j + 1) - k_val * (k_val + 1))
+    return out
+
+
+def Jm(j=0.5):
+    r"""General spin lowering operator :math:`J_-`.
+
+    Args:
+        j (float): Spin quantum number (default: 1/2).
+
+    Returns:
+        ndarray: Matrix representation of :math:`J_-` in the Zeeman basis.
+
+    """
+    mult = round(2 * j + 1)
+    out = _np.zeros((mult, mult), dtype=complex)
+    for k_val in _np.arange(-j + 1, j + 1):
+        row = int(k_val + j)
+        col = int(k_val + j - 1)
+        out[row, col] = _np.sqrt(j * (j + 1) - k_val * (k_val - 1))
+    return out
+
+
+def Jx(j=0.5):
+    r"""General spin operator :math:`J_x`.
+
+    Args:
+        j (float): Spin quantum number (default: 1/2).
+
+    Returns:
+        ndarray: Matrix representation of :math:`J_x` in the Zeeman basis.
+
+    """
+    return 0.5 * (Jp(j) + Jm(j))
+
+
+def Jy(j=0.5):
+    r"""General spin operator :math:`J_y`.
+
+    Args:
+        j (float): Spin quantum number (default: 1/2).
+
+    Returns:
+        ndarray: Matrix representation of :math:`J_y` in the Zeeman basis.
+
+    """
+    return -0.5j * (Jp(j) - Jm(j))
+
+
+def Jz(j=0.5):
+    r"""General spin operator :math:`J_z`.
+
+    Args:
+        j (float): Spin quantum number (default: 1/2).
+
+    Returns:
+        ndarray: Matrix representation of :math:`J_z` in the Zeeman basis.
+
+    """
+    mult = round(2 * j + 1)
+    out = _np.zeros((mult, mult), dtype=complex)
+    for k_val in _np.arange(-j, j + 1):
+        idx = int(k_val + j)
+        out[idx, idx] = -k_val
+    return out
