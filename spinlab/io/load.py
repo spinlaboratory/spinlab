@@ -2,9 +2,20 @@ import os
 from . import *
 import re
 import warnings
+import xml.etree.ElementTree as _ET
 
 from ..core.util import concat
 from ..config.config import SpinLAB_CONFIG
+
+
+def _is_esr5000_xml(path):
+    """Check if an XML file is an ESR5000 file by inspecting the root tag."""
+    try:
+        for _, el in _ET.iterparse(path, events=["start"]):
+            return el.tag == "ESRXmlFile"
+    except Exception:
+        return False
+    return False
 
 
 def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwargs):
@@ -125,13 +136,16 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
     elif data_format == "rs2d":
         data = rs2d.import_rs2d(path, *args, **kwargs)
 
+    elif data_format == "esr5000":
+        data = esr5000.import_esr5000(path, *args, **kwargs)
+
     # elif data_format == "mat":
     #     data = mat.import_mat(path, *args, **kwargs)
 
     else:
         raise ValueError("Invalid data format: %s" % data_format)
 
-    if data_format not in ["h5", "power", "vna", "cnsi_powers", "mat"]:
+    if data_format not in ["h5", "power", "vna", "cnsi_powers", "mat", "esr5000"]:
         data = _assign_spinlab_attrs(data, data_format)
 
     return data
@@ -200,6 +214,8 @@ def autodetect(test_path, verbose=False):
         data_format = "prospa"
     elif path_exten == ".h5":
         data_format = "h5"
+    elif path_exten == ".xml" and _is_esr5000_xml(test_path):
+        data_format = "esr5000"
     elif path_exten in [".xml", ".dat"]:
         data_format = "rs2d"
     elif path_exten in [".mat"]:
