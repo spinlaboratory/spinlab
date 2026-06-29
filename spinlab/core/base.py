@@ -1016,6 +1016,8 @@ class ABCData(object):
             )
         )
 
+        return self
+
     def new_dim(self, dim, coord):
         """Add new dimension with length 1
 
