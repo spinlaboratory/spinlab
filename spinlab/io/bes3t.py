@@ -425,7 +425,7 @@ def load_gf_files(
         file_opened = open(path, "rb")
         file_bytes = file_opened.read()
         file_opened.close()
-        coords = _np.frombuffer(file_bytes, dtype=axis_format)
+        coords = _np.frombuffer(file_bytes, dtype=gf_type)
     elif path == "none":
         if axis_type == "nonlinear":
             warnings.warn(

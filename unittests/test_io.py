@@ -200,6 +200,9 @@ class bes3t_import_tester(unittest.TestCase):
         self.assertEqual(data.dims, ["B0", "t1"])
         self.assertEqual(data.values.shape, (1600, 100))
         self.assertEqual(data.attrs["frequency"], 9.627213)
+        # t1 axis is nonlinear (YTYP IGD) and read from the .YGF file
+        self.assertEqual(data.coords["t1"][0], 0.0)
+        self.assertEqual(data.coords["t1"][-1], 2180.53)
 
 
 class winepr_import_tester(unittest.TestCase):
