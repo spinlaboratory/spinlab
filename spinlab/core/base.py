@@ -33,6 +33,24 @@ def _replaceClassWithAttribute(replace_class, args, kwargs, target_attr="_values
     return tuple(r_args), r_kwargs
 
 
+def _object_equal(a, b):
+    if isinstance(a, _np.generic):
+        a = a.item()
+    if isinstance(b, _np.generic):
+        b = b.item()
+    if isinstance(a, _np.ndarray) or isinstance(b, _np.ndarray):
+        return _np.array_equal(a, b)
+    if isinstance(a, dict) and isinstance(b, dict):
+        return set(a.keys()) == set(b.keys()) and all(
+            _object_equal(a[key], b[key]) for key in a
+        )
+    if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
+        return len(a) == len(b) and all(
+            _object_equal(left, right) for left, right in zip(a, b)
+        )
+    return a == b
+
+
 # utility function to return integer index of string or int if input is integer
 _str_to_int_index = lambda possible_dim, sldat: (
     int(sldat.index(possible_dim)) if isinstance(possible_dim, str) else possible_dim
@@ -446,6 +464,36 @@ class ABCData(object):
             deep copy of data object
         """
         return deepcopy(self)
+
+    def __eq__(self, other):
+        if not isinstance(other, ABCData):
+            return False
+        if not _np.array_equal(self.values, other.values):
+            return False
+        if self.dims != other.dims:
+            return False
+        if len(self.coords) != len(other.coords):
+            return False
+        if not all(
+            _np.array_equal(self.coords[dim], other.coords[dim]) for dim in self.dims
+        ):
+            return False
+        if not _object_equal(self.attrs, other.attrs):
+            return False
+        if not _object_equal(
+            getattr(self, "spinlab_attrs", {}), getattr(other, "spinlab_attrs", {})
+        ):
+            return False
+        if not _object_equal(
+            getattr(self, "proc_attrs", []), getattr(other, "proc_attrs", [])
+        ):
+            return False
+        if self.error is None or other.error is None:
+            return self.error is other.error
+        return _np.array_equal(self.error, other.error)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def cumulative_sum(self, dim):
         """Calculate Cumulative sum of sldata object

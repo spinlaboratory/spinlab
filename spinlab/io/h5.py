@@ -2,12 +2,98 @@ from ..core.data import SpinData
 import warnings
 import numpy as _np
 import h5py as _h5py
+import json as _json
 
 None_alias = "__PYTHON_NONE__"  # h5 does not have Null type
 
 
 python_types = [None]
 replace_types = [None_alias]
+proc_attr_json_prefix = "__spinlab_json__:"
+
+
+class _ComparableArray(_np.ndarray):
+    def __new__(cls, value):
+        return _np.asarray(value).view(cls)
+
+    def __eq__(self, other):
+        return bool(_np.array_equal(_np.asarray(self), _np.asarray(other)))
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return repr(_np.asarray(self))
+
+
+def _comparable_array(value):
+    if isinstance(value, _ComparableArray):
+        return value
+    return _ComparableArray(value)
+
+
+def _proc_attr_to_python(value):
+    if isinstance(value, SpinData):
+        return {
+            "values": _proc_attr_to_python(value.values),
+            "dims": list(value.dims),
+            "coords": [_proc_attr_to_python(coord) for coord in value.coords],
+            "attrs": _proc_attr_to_python(value.attrs),
+            "spinlab_attrs": _proc_attr_to_python(value.spinlab_attrs),
+            "proc_attrs": _proc_attr_to_python(value.proc_attrs),
+        }
+    if isinstance(value, _np.ndarray):
+        return _comparable_array(value)
+    if isinstance(value, _np.generic):
+        return value.item()
+    if isinstance(value, dict):
+        return {str(key): _proc_attr_to_python(val) for key, val in value.items()}
+    if isinstance(value, tuple):
+        return tuple(_proc_attr_to_python(val) for val in value)
+    if isinstance(value, list):
+        return [_proc_attr_to_python(val) for val in value]
+    return value
+
+
+def _proc_attr_to_jsonable(value):
+    value = _proc_attr_to_python(value)
+    if isinstance(value, _np.ndarray):
+        return {"type": "ndarray", "value": _np.asarray(value).tolist()}
+    if isinstance(value, dict):
+        return {
+            "type": "dict",
+            "items": [[key, _proc_attr_to_jsonable(val)] for key, val in value.items()],
+        }
+    if isinstance(value, tuple):
+        return {"type": "tuple", "items": [_proc_attr_to_jsonable(val) for val in value]}
+    if isinstance(value, list):
+        return {"type": "list", "items": [_proc_attr_to_jsonable(val) for val in value]}
+    if isinstance(value, complex):
+        return {"type": "complex", "real": value.real, "imag": value.imag}
+    return {"type": "value", "value": value}
+
+
+def _proc_attr_from_jsonable(value):
+    value_type = value["type"]
+    if value_type == "ndarray":
+        return _comparable_array(value["value"])
+    if value_type == "dict":
+        return {key: _proc_attr_from_jsonable(val) for key, val in value["items"]}
+    if value_type == "tuple":
+        return tuple(_proc_attr_from_jsonable(val) for val in value["items"])
+    if value_type == "list":
+        return [_proc_attr_from_jsonable(val) for val in value["items"]]
+    if value_type == "complex":
+        return complex(value["real"], value["imag"])
+    return value["value"]
+
+
+def _legacy_proc_attr_to_python(value):
+    if isinstance(value, _np.ndarray):
+        return _comparable_array(value)
+    if isinstance(value, _np.generic):
+        return value.item()
+    return value
 
 
 # args and kwargs is for compability
@@ -97,7 +183,17 @@ def read_sldata(sldata_group):
         proc_attrs = []
         for k in sldata_group["proc_attrs"].keys():
             proc_attrs_name = k.split(":", 1)[1]
-            proc_attrs_dict = dict(sldata_group["proc_attrs"][k].attrs)
+            proc_attrs_dict = {}
+            for key, value in sldata_group["proc_attrs"][k].attrs.items():
+                if key.startswith(proc_attr_json_prefix):
+                    continue
+                json_key = proc_attr_json_prefix + key
+                if json_key in sldata_group["proc_attrs"][k].attrs:
+                    proc_attrs_dict[key] = _proc_attr_from_jsonable(
+                        _json.loads(value)
+                    )
+                else:
+                    proc_attrs_dict[key] = _legacy_proc_attr_to_python(value)
             data.add_proc_attrs(proc_attrs_name, proc_attrs_dict)
 
     return data
@@ -214,9 +310,12 @@ def write_sldata(slDataGroup, slDataObject):
                 "%i:%s" % (ix, proc_step_name)
             )
             for key in proc_dict:
-                value = proc_dict[key]
-                if value is not None:
-                    proc_attrs_group_subgroup.attrs[key] = value
+                value = _proc_attr_to_python(proc_dict[key])
+                proc_dict[key] = value
+                proc_attrs_group_subgroup.attrs[key] = _json.dumps(
+                    _proc_attr_to_jsonable(value)
+                )
+                proc_attrs_group_subgroup.attrs[proc_attr_json_prefix + key] = True
 
 
 def write_dict(slDataGroup, slDataObject):
