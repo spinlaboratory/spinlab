@@ -65,7 +65,10 @@ def _proc_attr_to_jsonable(value):
             "items": [[key, _proc_attr_to_jsonable(val)] for key, val in value.items()],
         }
     if isinstance(value, tuple):
-        return {"type": "tuple", "items": [_proc_attr_to_jsonable(val) for val in value]}
+        return {
+            "type": "tuple",
+            "items": [_proc_attr_to_jsonable(val) for val in value],
+        }
     if isinstance(value, list):
         return {"type": "list", "items": [_proc_attr_to_jsonable(val) for val in value]}
     if isinstance(value, complex):
@@ -189,9 +192,7 @@ def read_sldata(sldata_group):
                     continue
                 json_key = proc_attr_json_prefix + key
                 if json_key in sldata_group["proc_attrs"][k].attrs:
-                    proc_attrs_dict[key] = _proc_attr_from_jsonable(
-                        _json.loads(value)
-                    )
+                    proc_attrs_dict[key] = _proc_attr_from_jsonable(_json.loads(value))
                 else:
                     proc_attrs_dict[key] = _legacy_proc_attr_to_python(value)
             data.add_proc_attrs(proc_attrs_name, proc_attrs_dict)
