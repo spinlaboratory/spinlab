@@ -6,7 +6,6 @@
 import os
 import sys
 
-
 # sys.path.insert(0, os.path.abspath("../../"))
 sys.path.insert(0, os.path.abspath("../"))
 # sys.path.insert(0, os.path.abspath("../../"))
@@ -113,15 +112,15 @@ pygments_style = None
 from sphinx_gallery.sorting import FileNameSortKey
 
 sphinx_gallery_conf = {
-    "examples_dirs":            ["../examples"],                        # path to your example scripts
-    "gallery_dirs":             ["sl_examples"],                        # path to where to save gallery generated output
+    "examples_dirs": ["../examples"],  # path to your example scripts
+    "gallery_dirs": ["sl_examples"],  # path to where to save gallery generated output
     # "examples_dirs":            ["../examples", "../tutorials"],        # path to your example scripts
     # "gallery_dirs":             ["sl_examples", "sl_tutorials"],        # path to where to save gallery generated output
-    "remove_config_comments":   True,
-    "within_subsection_order":  FileNameSortKey,                        # Sort by file name
-    "run_stale_examples":       True,                                   # Force sphinx to rebuild example. Set to False to only run examples that have changed
-    'image_scrapers':           'matplotlib',                           # Define output scraper
-    'download_all_examples':    False,
+    "remove_config_comments": True,
+    "within_subsection_order": FileNameSortKey,  # Sort by file name
+    "run_stale_examples": True,  # Force sphinx to rebuild example. Set to False to only run examples that have changed
+    "image_scrapers": "matplotlib",  # Define output scraper
+    "download_all_examples": False,
 }
 
 # -- Options for HTML output -------------------------------------------------
@@ -188,18 +187,18 @@ htmlhelp_basename = "Spinlabdoc"
 # # -- Options for LaTeX output ------------------------------------------------
 
 latex_elements = {
-#     # The paper size ('letterpaper' or 'a4paper').
-#     #
-#     # 'papersize': 'letterpaper',
-#     # The font size ('10pt', '11pt' or '12pt').
-#     #
-#     # 'pointsize': '10pt',
-#     # Additional stuff for the LaTeX preamble.
-#     #
-#     # 'preamble': '',
-#     # Latex figure (float) alignment
-#     #
-#     # 'figure_align': 'htbp',
+    #     # The paper size ('letterpaper' or 'a4paper').
+    #     #
+    #     # 'papersize': 'letterpaper',
+    #     # The font size ('10pt', '11pt' or '12pt').
+    #     #
+    #     # 'pointsize': '10pt',
+    #     # Additional stuff for the LaTeX preamble.
+    #     #
+    #     # 'preamble': '',
+    #     # Latex figure (float) alignment
+    #     #
+    #     # 'figure_align': 'htbp',
 }
 
 # # Grouping the document tree into LaTeX files. List of tuples
@@ -274,8 +273,8 @@ nitpick_ignore = [
 # Suppress warnings for cross-references that cannot be resolved because the
 # target appears in both SpinData and ABCData (ref.python ambiguity).
 suppress_warnings = [
-    "ref.python",       # ambiguous cross-refs from SpinData/ABCData shared attrs
-    "config.cache",     # sphinx_gallery_conf contains FileNameSortKey (unpicklable)
+    "ref.python",  # ambiguous cross-refs from SpinData/ABCData shared attrs
+    "config.cache",  # sphinx_gallery_conf contains FileNameSortKey (unpicklable)
 ]
 
 # # -- Extension configuration -------------------------------------------------
