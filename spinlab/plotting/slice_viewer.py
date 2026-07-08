@@ -47,8 +47,12 @@ def slice_viewer(data, scroll_dim=None):
 
     slice_data = _get_slice(0)
     if _np.iscomplexobj(slice_data):
-        (line_re,) = ax.plot(plot_coord, slice_data.real, color=BrukerPacific, label="Re")
-        (line_im,) = ax.plot(plot_coord, slice_data.imag, color="grey", alpha=0.6, label="Im")
+        (line_re,) = ax.plot(
+            plot_coord, slice_data.real, color=BrukerPacific, label="Re"
+        )
+        (line_im,) = ax.plot(
+            plot_coord, slice_data.imag, color="grey", alpha=0.6, label="Im"
+        )
         ax.legend(loc="upper right", fontsize=10)
     else:
         (line_re,) = ax.plot(plot_coord, slice_data, color=BrukerPacific)

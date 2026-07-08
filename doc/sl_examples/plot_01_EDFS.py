@@ -1,10 +1,10 @@
-
 """
 .. _EDFS_Example:
 
 EDFS Spectrum (#1)
 ==================
 """
+
 # %%
 # This example demonstrates how to load and plot an Echo-Detected Field-Sweep (EDFS) spectrum.
 
