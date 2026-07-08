@@ -1,8 +1,8 @@
-
 """
 Echo Transient with Phase Cycle(#6)
 ===================================
 """
+
 # %%
 # This example demonstrates how to load and plot an echo transient (time trace) of a stimulated echo using a 64-step phase cycle to remove all unwanted echoes.
 

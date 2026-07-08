@@ -1,8 +1,8 @@
-
 """
 Three-Pulse ESEEM (#8)
 ======================
 """
+
 # %%
 # This example demonstrates how to load and plot a Three-Pulse Electron Spin Echo Envelop Modulation (ESEEM) spectrum.
 
