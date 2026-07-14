@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ddc95155"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SpinLab
+              <img src="_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ways-to-install-spinlab">Ways to Install SpinLab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-using-pip">Installing Using Pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#confirm-successful-installation">Confirm Successful Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specify-a-spinlab-version-to-install">Specify a SpinLab Version to Install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-preliminary-release">Install Preliminary Release</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrading-spinlab">Upgrading SpinLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uninstalling-spinlab">Uninstalling SpinLab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-spinlab-using-a-virtual-environment-ubuntu">Installing SpinLab Using a Virtual Environment (Ubuntu)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Current Release</p></td>
+<td><p>1.1.4</p></td>
+</tr>
+<tr class="row-even"><td><p>Documentation Build Date</p></td>
+<td><p>07/14/2026, 19:16:53</p></td>
+</tr>
+<tr class="row-odd"><td><p>Author(s)</p></td>
+<td><p>The SpinLab Team</p></td>
+</tr>
+</tbody>
+</table>
+<p>The source code is maintained on GitHub: <a href="https://github.com/SpinLab/Spinlab" target="_blank"> SpinLab on GitHub</a></p>
+<p>To check the SpinLab version currently installed on your computer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>SpinLab can be easily installed via pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>SpinLab requires <strong>Python 3.10 or higher</strong>.</p>
+<p>SpinLab uses a few well-known Python packages, which will be automatically installed during the installation. Currently, the following packages and their respective minimal versions are required:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Package</strong></p></td>
+<td><p><strong>Version</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>NumPy</p></td>
+<td><p>2.0.0 or higher</p></td>
+</tr>
+<tr class="row-odd"><td><p>SciPy</p></td>
+<td><p>1.14.0 or higher</p></td>
+</tr>
+<tr class="row-even"><td><p>Matplotlib</p></td>
+<td><p>3.9.0 or higher</p></td>
+</tr>
+<tr class="row-odd"><td><p>h5py</p></td>
+<td><p>3.11.0 or higher</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ways-to-install-spinlab">
+<h2>Ways to Install SpinLab<a class="headerlink" href="#ways-to-install-spinlab" title="Link to this heading"></a></h2>
+<section id="installing-using-pip">
+<h3>Installing Using Pip<a class="headerlink" href="#installing-using-pip" title="Link to this heading"></a></h3>
+<p>The easiest and most convenient way to install SpinLab is by using <a href="https://pip.pypa.io/en/stable/" target="_blank">pip</a>. In a terminal simply type the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<p>or just:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<p>If you prefer to install SpinLab from the source code, check out our GitHub repository <a href="https://github.com/SpinLab/Spinlab" target="_blank"> SpinLab on GitHub</a>. The newest developments are always merged into the <em>Development</em> branch.</p>
+</section>
+<section id="confirm-successful-installation">
+<h3>Confirm Successful Installation<a class="headerlink" href="#confirm-successful-installation" title="Link to this heading"></a></h3>
+<p>To confirm a successful SpinLab installation execute the following command in a terminal window:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<p>The output will look similar to this (note, the actual version and path to location depends on your local installation):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Name:<span class="w"> </span>spinlab
+Version:<span class="w"> </span><span class="m">1</span>.0.0
+Summary:<span class="w"> </span>SpinLab<span class="w"> </span>-<span class="w"> </span>Bringing<span class="w"> </span>the<span class="w"> </span>Power<span class="w"> </span>of<span class="w"> </span>Python<span class="w"> </span>to<span class="w"> </span>MR<span class="w"> </span>Spectroscopy
+Home-page:
+Author:
+Author-email:
+License-Expression:<span class="w"> </span>MIT
+Location:<span class="w"> </span>Path/to/Package
+Editable<span class="w"> </span>project<span class="w"> </span>location:<span class="w"> </span>Path/to/editable/location
+Requires:
+Required-by:
+</pre></div>
+</div>
+</section>
+<section id="specify-a-spinlab-version-to-install">
+<h3>Specify a SpinLab Version to Install<a class="headerlink" href="#specify-a-spinlab-version-to-install" title="Link to this heading"></a></h3>
+<p>If you wish to install a specific SpinLab version execute the following command in a terminal window:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">spinlab</span><span class="o">==</span><span class="m">1</span>.0.0
+</pre></div>
+</div>
+</section>
+<section id="install-preliminary-release">
+<h3>Install Preliminary Release<a class="headerlink" href="#install-preliminary-release" title="Link to this heading"></a></h3>
+<p>If you wish to use a pre-release version of SpinLab (downloaded from the GitHub repository) we recommend first uninstalling the current SpinLab version. Clone (or download or fork ...) the desired branch from the GitHub repository. In a terminal window navigate into the directory that contains the spinlab folder (important, <strong>DO NOT</strong> navigate <strong>into</strong> the folder) and execute the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<p>Once the installation is finished verify the path and version of the package by executing the following command in a terminal window:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<p>If the version does not match the version of the checked-out branch, you may have to first uninstall SpinLab (<code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">spinlab</span></code>), then re-install the version you would like to use (<code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">spinlab</span></code>), and then run (<code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">spinlab</span></code>) if you would like to make your own changes to the code.</p>
+</section>
+</section>
+<section id="upgrading-spinlab">
+<h2>Upgrading SpinLab<a class="headerlink" href="#upgrading-spinlab" title="Link to this heading"></a></h2>
+<p>To upgrade the currently installed version of SpinLab execute the following command in a terminal window:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>spinlab
+</pre></div>
+</div>
+</section>
+<section id="uninstalling-spinlab">
+<h2>Uninstalling SpinLab<a class="headerlink" href="#uninstalling-spinlab" title="Link to this heading"></a></h2>
+<p>Don't like SpinLab? Please let us know how to improve the package.</p>
+<p>The safest method to uninstall SpinLab is to use pip by executing the following command in a terminal window:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>uninstall<span class="w"> </span>spinlab
+</pre></div>
+</div>
+<section id="installing-spinlab-using-a-virtual-environment-ubuntu">
+<h3>Installing SpinLab Using a Virtual Environment (Ubuntu)<a class="headerlink" href="#installing-spinlab-using-a-virtual-environment-ubuntu" title="Link to this heading"></a></h3>
+<p>Starting from Ubuntu 23.10 <code class="docutils literal notranslate"><span class="pre">pip3</span></code> will issue a warning when trying to install SpinLab from PyPi. It is recommended to not perform a global install but instead use a virtual environment (venv). If you do not have already created a virtual environment you can create a folder at a convenient location where the environment will be located (see example below).</p>
+<p>In this example this will be in our home folder and the folder will be named SpinLab.
+To create this environment use the command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>~/SpinLab
+</pre></div>
+</div>
+<p>Note that you need to activate the environment to use it and install packages via pip3. You can activate the virtual environment by sourcing the activate script that should be located in ~/SpinLab/bin</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/SpinLab/bin/activate
+</pre></div>
+</div>
+<p>This needs to be done every time you start this particular environment. To simplify this process, you can create an alias &quot;spinlab&quot; and add it to your .bash_aliases file</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;spinlab = &#39;source ~/SpinLab/bin/activate&#39;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bash_aliases
+</pre></div>
+</div>
+<p>To deactivate the virtual environment enter the following command in a terminal.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>deactivate
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

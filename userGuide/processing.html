@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Processing Data &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Attributes" href="attributes.html" />
+    <link rel="prev" title="Loading Data" href="loading_data.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_data.html">Loading Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Processing Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#apodization-window-functions">Apodization (Window Functions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fourier-transform">Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phase-correction">Phase Correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#baseline-background-correction">Baseline / Background Correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alignment">Alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration">Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conversion">Conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-the-processing-log">Inspecting the Processing Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-nmr-processing-example">Full NMR Processing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-epr-eseem-processing-example">Full EPR ESEEM Processing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Processing Data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/userGuide/processing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="processing-data">
+<h1>Processing Data<a class="headerlink" href="#processing-data" title="Link to this heading"></a></h1>
+<p>SpinLab provides a comprehensive set of processing functions for NMR and EPR data. All functions follow the same design pattern:</p>
+<ul class="simple">
+<li><p>They accept a <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object as their first argument.</p></li>
+<li><p>They return a <strong>new</strong> <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object — the original is never modified.</p></li>
+<li><p>They automatically stamp a record of the processing step (name + parameters) into <code class="docutils literal notranslate"><span class="pre">proc_attrs</span></code>.</p></li>
+</ul>
+<p>A typical NMR processing workflow looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/fid/&quot;</span><span class="p">)</span>           <span class="c1"># load raw FID</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>            <span class="c1"># apply window function</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>        <span class="c1"># Fourier transform</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>             <span class="c1"># phase correction</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>        <span class="c1"># baseline correction</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>                            <span class="c1"># plot the spectrum</span>
+</pre></div>
+</div>
+<section id="apodization-window-functions">
+<h2>Apodization (Window Functions)<a class="headerlink" href="#apodization-window-functions" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sl.apodize()</span></code> multiplies the time-domain signal by a window function before Fourier transformation to improve sensitivity or resolution.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exponential line broadening (most common for NMR)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;t2&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;exponential&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Gaussian window</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Hann or Hamming window (good for EPR ESEEM)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hann&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hamming&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sin-squared (common for 2D EPR)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;sin2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Lorentz-Gauss transformation (resolution enhancement)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;lorentz_gauss&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">gauss_lw</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># TRAF window</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;traf&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">gauss_lw</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Available window functions:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">kind</span></code></p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;exponential&quot;</span></code></p></td>
+<td><p>Exponential decay — line broadening, improves sensitivity</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;gaussian&quot;</span></code></p></td>
+<td><p>Gaussian window — line broadening with Gaussian shape</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;hann&quot;</span></code></p></td>
+<td><p>Hann (von Hann) window — reduces spectral leakage</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;hamming&quot;</span></code></p></td>
+<td><p>Hamming window — similar to Hann, slightly different shape</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;sin2&quot;</span></code></p></td>
+<td><p>Sine-squared — commonly used for 2D EPR experiments</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;lorentz_gauss&quot;</span></code></p></td>
+<td><p>Lorentz-to-Gauss transformation — resolution enhancement</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;traf&quot;</span></code></p></td>
+<td><p>TRAF function — sensitivity/resolution compromise</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fourier-transform">
+<h2>Fourier Transform<a class="headerlink" href="#fourier-transform" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sl.fourier_transform()</span></code> performs a fast Fourier transform (FFT) along the chosen dimension. The time axis is renamed automatically (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;t2&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;f2&quot;</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic Fourier transform along t2 (default)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Zero-fill to twice the original length before transforming</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zero_fill_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Fourier transform along t1 in a 2D dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;t1&quot;</span><span class="p">)</span>
+
+<span class="c1"># Suppress fftshift (zero frequency stays at edge)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For NMR data imported from TopSpin, the frequency axis is automatically
+converted to <strong>ppm</strong> using the NMR frequency stored in <code class="docutils literal notranslate"><span class="pre">attrs</span></code>.
+Set <code class="docutils literal notranslate"><span class="pre">convert_to_ppm=False</span></code> to keep the axis in Hz.</p>
+</div>
+<p>The inverse Fourier transform is available as <code class="docutils literal notranslate"><span class="pre">sl.inverse_fourier_transform()</span></code>.</p>
+</section>
+<section id="phase-correction">
+<h2>Phase Correction<a class="headerlink" href="#phase-correction" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sl.phase()</span></code> applies zero-order (<code class="docutils literal notranslate"><span class="pre">p0</span></code>) and first-order (<code class="docutils literal notranslate"><span class="pre">p1</span></code>) phase corrections to complex spectral data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Zero-order phase correction only</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mf">45.0</span><span class="p">)</span>
+
+<span class="c1"># Zero- and first-order correction with a pivot point</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mf">45.0</span><span class="p">,</span> <span class="n">p1</span><span class="o">=</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">pivot</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1"># Apply a different phase to each spectrum in a 2D dataset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="n">phases</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For automated phase correction use <code class="docutils literal notranslate"><span class="pre">sl.autophase()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Autophase all spectra independently (entropy minimization)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">autophase</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Autophase using a specific reference slice</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">autophase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">reference_slice</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Average&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="baseline-background-correction">
+<h2>Baseline / Background Correction<a class="headerlink" href="#baseline-background-correction" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sl.remove_background()</span></code> fits and removes a polynomial background from the data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove DC offset (0th-order polynomial, most common)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Remove a linear background (1st order)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Fit background only in specified regions (leaving signal untouched)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">regions</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">)])</span>
+
+<span class="c1"># Use a custom fitting function (e.g. exponential background)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;tau&quot;</span><span class="p">,</span>
+                            <span class="n">func</span><span class="o">=</span><span class="n">sl</span><span class="o">.</span><span class="n">relaxation</span><span class="o">.</span><span class="n">general_exp</span><span class="p">,</span>
+                            <span class="n">p0</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">900</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="alignment">
+<h2>Alignment<a class="headerlink" href="#alignment" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sl.ndalign()</span></code> aligns a series of spectra using FFT cross-correlation. This is useful for correcting small frequency drifts across a set of repeated measurements.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Align all spectra to the last one (default reference)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">ndalign</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Align using only a sub-region of the spectrum</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">ndalign</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="c1"># Align to a specific reference spectrum</span>
+<span class="n">reference</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Average&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">ndalign</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">reference</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="integration">
+<h2>Integration<a class="headerlink" href="#integration" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sl.integrate()</span></code> calculates the area under the curve using the trapezoidal rule.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Integrate over the entire dimension</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;f2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Integrate over a specific region</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;f2&quot;</span><span class="p">,</span> <span class="n">regions</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sl.cumulative_integrate()</span></code> returns the running integral (cumulative sum), useful for visualizing EPR lineshapes or calculating enhancement profiles:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_cumint</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">cumulative_integrate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;B0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="conversion">
+<h2>Conversion<a class="headerlink" href="#conversion" title="Link to this heading"></a></h2>
+<p>SpinLab provides unit conversion utilities in the <code class="docutils literal notranslate"><span class="pre">sl.processing.conversion</span></code> module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert microwave power from Watts to dBm</span>
+<span class="n">power_dBm</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">w2dBm</span><span class="p">(</span><span class="n">power_W</span><span class="p">)</span>
+
+<span class="c1"># Convert from dBm to Watts</span>
+<span class="n">power_W</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">dBm2w</span><span class="p">(</span><span class="n">power_dBm</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="helpers">
+<h2>Helpers<a class="headerlink" href="#helpers" title="Link to this heading"></a></h2>
+<p>Several utility functions assist with common data preparation tasks.</p>
+<p>Create a complex dataset from separate real and imaginary arrays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_complex</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">create_complex</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="n">real_data</span><span class="p">,</span> <span class="n">imag</span><span class="o">=</span><span class="n">imag_data</span><span class="p">)</span>
+
+<span class="c1"># Or from two slices along a dimension (e.g. &quot;channel&quot;)</span>
+<span class="n">data_complex</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">create_complex</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="s2">&quot;channel&quot;</span><span class="p">,</span>
+                                 <span class="n">real_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">imag_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Signal-to-noise ratio calculation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">snr</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">signal_to_noise</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
+                          <span class="n">signal_region</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                          <span class="n">noise_region</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">)])</span>
+</pre></div>
+</div>
+</section>
+<section id="inspecting-the-processing-log">
+<h2>Inspecting the Processing Log<a class="headerlink" href="#inspecting-the-processing-log" title="Link to this heading"></a></h2>
+<p>After applying processing steps, the full audit log is available via <code class="docutils literal notranslate"><span class="pre">proc_info()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">proc_info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1 | window           | kind: exponential, lw: 5
+2 | fourier_transform | dim: t2, zero_fill_factor: 2, shift: True
+3 | phase            | p0: 45.0, p1: 0.0, pivot: None
+4 | remove_background| dim: f2, deg: 0, regions: None
+</pre></div>
+</div>
+</section>
+<section id="full-nmr-processing-example">
+<h2>Full NMR Processing Example<a class="headerlink" href="#full-nmr-processing-example" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+
+<span class="c1"># 1. Load raw FID from TopSpin</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;experiment/1/&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Apply exponential line broadening (5 Hz)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;t2&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;exponential&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># 3. Fourier transform with 2x zero-filling</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zero_fill_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 4. Phase correction</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mf">12.5</span><span class="p">)</span>
+
+<span class="c1"># 5. Remove linear baseline</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 6. Plot</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Chemical shift (ppm)&quot;</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 7. Save the processed spectrum</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;processed.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="full-epr-eseem-processing-example">
+<h2>Full EPR ESEEM Processing Example<a class="headerlink" href="#full-epr-eseem-processing-example" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+
+<span class="c1"># 1. Load raw ESEEM time trace</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;eseem_data.d01&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Remove background decay</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;t2&quot;</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># 3. Apply Hamming window</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;t2&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hamming&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4. Fourier transform with 4x zero-filling</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zero_fill_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># 5. Take the absolute value</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">data</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1"># 6. Plot the ESEEM spectrum</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency (MHz)&quot;</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="spindata_object.html"><span class="doc">The SpinData Object</span></a> — the <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object that all functions operate on</p></li>
+<li><p><a class="reference internal" href="loading_data.html"><span class="doc">Loading Data</span></a> — how to load data before processing</p></li>
+<li><p><a class="reference internal" href="plotting.html"><span class="doc">Plotting Data</span></a> — how to visualize the results</p></li>
+<li><p><a class="reference internal" href="../api/processing.html#api-processing"><span class="std std-ref">Processing</span></a> — full API reference for all processing functions</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="loading_data.html" class="btn btn-neutral float-left" title="Loading Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="attributes.html" class="btn btn-neutral float-right" title="Attributes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

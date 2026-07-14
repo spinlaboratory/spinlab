@@ -1,0 +1,936 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Processing &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="People" href="../people.html" />
+    <link rel="prev" title="Plotting" href="plotting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fitting.html">Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.apodization.apodize"><code class="docutils literal notranslate"><span class="pre">apodize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.fft.fourier_transform"><code class="docutils literal notranslate"><span class="pre">fourier_transform()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.fft.inverse_fourier_transform"><code class="docutils literal notranslate"><span class="pre">inverse_fourier_transform()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.phase.autophase"><code class="docutils literal notranslate"><span class="pre">autophase()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.phase.autophase_dep"><code class="docutils literal notranslate"><span class="pre">autophase_dep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.phase.phase"><code class="docutils literal notranslate"><span class="pre">phase()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.phase.phase_cycle"><code class="docutils literal notranslate"><span class="pre">phase_cycle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.offset.background"><code class="docutils literal notranslate"><span class="pre">background()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.offset.remove_background"><code class="docutils literal notranslate"><span class="pre">remove_background()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.integration.cumulative_integrate"><code class="docutils literal notranslate"><span class="pre">cumulative_integrate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.integration.integrate"><code class="docutils literal notranslate"><span class="pre">integrate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.align.ndalign"><code class="docutils literal notranslate"><span class="pre">ndalign()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.average.average"><code class="docutils literal notranslate"><span class="pre">average()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.conversion.calc_conversion_factor"><code class="docutils literal notranslate"><span class="pre">calc_conversion_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.conversion.calc_tp90"><code class="docutils literal notranslate"><span class="pre">calc_tp90()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.conversion.convert_power"><code class="docutils literal notranslate"><span class="pre">convert_power()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.conversion.dBm2w"><code class="docutils literal notranslate"><span class="pre">dBm2w()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.conversion.decay2Ce"><code class="docutils literal notranslate"><span class="pre">decay2Ce()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.conversion.tp90_B1"><code class="docutils literal notranslate"><span class="pre">tp90_B1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.conversion.w2dBm"><code class="docutils literal notranslate"><span class="pre">w2dBm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.processing.interpolation.interp"><code class="docutils literal notranslate"><span class="pre">interp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Processing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/processing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-spinlab.processing.apodization">
+<span id="processing"></span><span id="api-processing"></span><h1>Processing<a class="headerlink" href="#module-spinlab.processing.apodization" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.apodization.apodize">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.apodization.</span></span><span class="sig-name descname"><span class="pre">apodize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'exponential'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.apodization.apodize" title="Link to this definition"></a></dt>
+<dd><p>Apply apodization to data along one SpinData dimension.</p>
+<p>Currently the following window functions are implemented: exponential,
+gaussian, hann, hamming, and sin-squared. In addition, the transformation
+windows traf and lorentz_gauss are implemented.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to apply apodization along. If None, the
+first dimension is used.</p></li>
+<li><p><strong>kind</strong> (<em>str</em>) -- Type of apodization, &quot;exponential&quot; by default</p></li>
+<li><p><strong>kwargs</strong> -- Arguments to be passed to apodization function, e.g. line width parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object with window function applied, including attr &quot;window&quot;</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Examples of using apodize</p>
+<p>Exponential line broadening using a line width of 2 Hz along the f2 dimension</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="s1">&#39;f2&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Lorentz-Gauss transformation:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="s1">&#39;t2&#39;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;lorentz_gauss&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">gauss_lw</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Functions:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathrm{exponential}    &amp;=  \exp(-2t * \mathrm{linewidth}) &amp;\\\mathrm{gaussian}       &amp;=  \exp((\mathrm{linewidth[0]} * t) - (\mathrm{linewidth[1]} * t^{2})) &amp;\\\mathrm{hamming}        &amp;=  0.53836 + 0.46164\cos(\pi * n/(N-1)) &amp;\\\mathrm{han}            &amp;=  0.5 + 0.5\cos(\pi * n/(N-1)) &amp;\\\mathrm{sin2}           &amp;=  \cos((-0.5\pi * n/(N - 1)) + \pi)^{2} &amp;\\\mathrm{lorentz\_gauss} &amp;=  \exp(L -  G^{2}) &amp;\\       L(t)    &amp;=  \pi * \mathrm{linewidth[0]} * t &amp;\\       G(t)    &amp;=  0.6\pi * \mathrm{linewidth[1]} * (\mathrm{gaussian\_max} * (N - 1) - t) &amp;\\\mathrm{traf}           &amp;=  (f1 * (f1 + f2)) / (f1^{2} + f2^{2}) &amp;\\       f1(t)   &amp;=  \exp(-t * \pi * \mathrm{linewidth[0]}) &amp;\\       f2(t)   &amp;=  \exp((t - T) * \pi * \mathrm{linewidth[1]}) &amp;\end{aligned}\end{align} \]</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.processing.fft">
+<dt class="sig sig-object py" id="spinlab.processing.fft.fourier_transform">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.fft.</span></span><span class="sig-name descname"><span class="pre">fourier_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'t2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_fill_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_to_ppm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.fft.fourier_transform" title="Link to this definition"></a></dt>
+<dd><p>Perform a Fourier transform along one SpinData dimension.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">data.spinlab_attrs[&quot;data_type&quot;]</span> <span class="pre">==</span> <span class="pre">&quot;NMR&quot;</span></code>, the output coordinate is
+converted from Hz to ppm regardless of the value of <code class="docutils literal notranslate"><span class="pre">convert_to_ppm</span></code>. This
+conversion requires <code class="docutils literal notranslate"><span class="pre">data.spinlab_attrs[&quot;frequency&quot;]</span></code>. Frequency values in
+<code class="docutils literal notranslate"><span class="pre">attrs</span></code> or under other spinlab attribute names are not used for ppm
+conversion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- Dimension to Fourier transform. The default is &quot;t2&quot;.</p></li>
+<li><p><strong>zero_fill_factor</strong> (<em>int</em>) -- Increases the number of points in the
+transformed dimension by this factor with zero filling. Values less
+than one are treated as one.</p></li>
+<li><p><strong>shift</strong> (<em>bool</em>) -- Apply fftshift to the transformed data and coordinate,
+placing zero frequency at the center of the dimension.</p></li>
+<li><p><strong>convert_to_ppm</strong> (<em>bool</em><em> or </em><em>None</em>) -- If True, convert the transformed
+coordinate from Hz to ppm using <code class="docutils literal notranslate"><span class="pre">spinlab_attrs[&quot;frequency&quot;]</span></code>. If
+None, conversion is False except for NMR data, where conversion is
+always forced to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object after Fourier Transformation</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Fourier transformation of a (NMR) FID stored in a SpinData object</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Fourier transform along t1 dimension and zero fill to twice the original length</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="s2">&quot;t1&quot;</span><span class="p">,</span> <span class="n">zero_fill_factor</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The fourier_transform function assumes dt = t[1] - t[0]</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.fft.inverse_fourier_transform">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.fft.</span></span><span class="sig-name descname"><span class="pre">inverse_fourier_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_fill_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_from_ppm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.fft.inverse_fourier_transform" title="Link to this definition"></a></dt>
+<dd><p>Perform an inverse Fourier transform along one SpinData dimension.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">convert_from_ppm</span></code> is True, the input coordinate spacing is converted
+from ppm to Hz using <code class="docutils literal notranslate"><span class="pre">data.spinlab_attrs[&quot;frequency&quot;]</span></code> before calculating
+the output time coordinate. Frequency values in <code class="docutils literal notranslate"><span class="pre">attrs</span></code> or under other
+spinlab attribute names are not used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- Dimension to inverse Fourier transform. The default is &quot;f2&quot;.</p></li>
+<li><p><strong>zero_fill_factor</strong> (<em>int</em>) -- Increases the number of points in the inverse
+transformed dimension by this factor with zero filling. Values less
+than one are treated as one.</p></li>
+<li><p><strong>shift</strong> (<em>bool</em>) -- Apply ifftshift before the inverse transform when the
+input data has been shifted.</p></li>
+<li><p><strong>convert_from_ppm</strong> (<em>bool</em>) -- If True, convert the input coordinate spacing
+from ppm to Hz using <code class="docutils literal notranslate"><span class="pre">spinlab_attrs[&quot;frequency&quot;]</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object after inverse Fourier Transformation</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">inverse_fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Assumes df = f[1] - f[0]</p>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.processing.phase">
+<dt class="sig sig-object py" id="spinlab.processing.phase.autophase">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.phase.</span></span><span class="sig-name descname"><span class="pre">autophase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_slice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deriv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_proc_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.phase.autophase" title="Link to this definition"></a></dt>
+<dd><p>Autophase function to phase spectral data</p>
+<p>The autophase function is based on: Chen et al., &quot;An efficient algorithm for automatic phase correction of NMR spectra based on entropy minimization&quot;, JMR 158 (2002) 164-168</p>
+<p>By default, the autophase function will phase all spectra independently
+along the first dimension. This can be changed by providing a specific
+dataset as a reference slice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputData</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- SpinData object containing NMR spectra</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to autophase. If None, the first dimension is used.</p></li>
+<li><p><strong>reference_slice</strong> (<em>bool</em><em>,</em><em>tuple</em>) -- Tuple of (dimension, index) to select reference slice. The default value is 'False'</p></li>
+<li><p><strong>deriv</strong> (<em>int</em>) -- Integer for derivative value (1-4, default=1)</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) -- Scaling factor for phase optimization (default=5e-3)</p></li>
+<li><p><strong>full_proc_attr</strong> (<em>bool</em>) -- when this is true the phase tuple for each single autphased spectrum will be added. Default True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Phased data. The function will add the attribute &quot;autophase&quot; = {pivot,deriv,dim,(phasetuples)}. phasetuples is only included if reference_slice is True</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phased</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">autophase</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.phase.autophase_dep">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.phase.</span></span><span class="sig-name descname"><span class="pre">autophase_dep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'search'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zero'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pivot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_slice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_positive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.phase.autophase_dep" title="Link to this definition"></a></dt>
+<dd><p>Automatically phase correct data, or apply manual phase correction</p>
+<p>This function is deprecated and will be removed from SpinLab on 10/01/2023</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object to autophase</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- Dimension to autophase</p></li>
+<li><p><strong>method</strong> (<em>str</em>) -- Autophase method, &quot;search&quot; by default</p></li>
+<li><p><strong>reference_range</strong></p></li>
+<li><p><strong>pts_lim</strong></p></li>
+<li><p><strong>order</strong></p></li>
+<li><p><strong>pivot</strong></p></li>
+<li><p><strong>delta</strong></p></li>
+<li><p><strong>phase</strong></p></li>
+<li><p><strong>reference_slice</strong></p></li>
+<li><p><strong>force_positive</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Autophased data, including attrs &quot;phase0&quot; for order=&quot;zero&quot;, and &quot;phase1&quot; if order=&quot;first&quot;</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathrm{data}         &amp;= \exp(-1j * \mathrm{phase}) &amp;\\\mathrm{phase(arctan)} &amp;= \mathrm{arctan}(\mathrm{sum}(\mathrm{data.imag}) / \mathrm{sum}(\mathrm{data.real})) &amp;\\\mathrm{phase(search)} &amp;= \mathrm{argmax}(\mathrm{sum}(phased\_real^{2}) / \mathrm{sum}(phased\_imag^{2})) &amp;\\phased\_real          &amp;= \mathrm{data.real} * \exp(-1j * \mathrm{phase}) &amp;\\phased\_imag          &amp;= \mathrm{data.imag} * \exp(-1j * \mathrm{phase}) &amp;\end{aligned}\end{align} \]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.phase.phase">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.phase.</span></span><span class="sig-name descname"><span class="pre">phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pivot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.phase.phase" title="Link to this definition"></a></dt>
+<dd><p>Apply phase correction to SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object to phase</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to phase. If None, the first dimension is used.</p></li>
+<li><p><strong>p0</strong> (<em>float</em><em>, </em><em>array</em>) -- Zero order phase correction (degree, 0 - 360)</p></li>
+<li><p><strong>p1</strong> (<em>float</em><em>, </em><em>array</em>) -- First order phase correction (degree, 0 - 360)</p></li>
+<li><p><strong>pivot</strong> (<em>float</em>) -- Pivot point for first order phase correction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Phased data, including new attributes &quot;p0&quot;, &quot;p1&quot;, and &quot;pivot&quot;</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>0th-order phase correction of 1D or 2D SpinData object. If the SpinData object has multiple 1D spectra the same phase p0 is applied to all spectra.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>0th-order phase correction of all spectra of a 2D SpinData object using a (numpy) array p0 of phases:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="n">p0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A 2D SpinData object can either be phase using a single p0 (p1) value, or using an array of phases. When using an array, the size of the phase array has to be equal to the number of spectra to be phased.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.phase.phase_cycle">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.phase.</span></span><span class="sig-name descname"><span class="pre">phase_cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver_phase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.phase.phase_cycle" title="Link to this definition"></a></dt>
+<dd><p>Apply phase cycle to data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- data to process</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- dimension to perform phase cycle. If None, the first dimension is used.</p></li>
+<li><p><strong>receiver_phase</strong> (<em>numpy.array</em><em>, </em><em>list</em>) -- Receiver Phase 0 (x), 1 (y), 2 (-x), 3 (-y)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data object after phase cycle applied</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sldata</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cycled</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase_cycle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">receiver_phase</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.processing.offset">
+<dt class="sig sig-object py" id="spinlab.processing.offset.background">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.offset.</span></span><span class="sig-name descname"><span class="pre">background</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.offset.background" title="Link to this definition"></a></dt>
+<dd><p>Fit and return the background of data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to perform background fit. If None, the
+first dimension is used.</p></li>
+<li><p><strong>deg</strong> (<em>int</em>) -- Polynomial degree</p></li>
+<li><p><strong>regions</strong> (<em>None</em><em>, </em><em>list</em>) -- Background regions. If None, the entire dimension
+is used for the fit. Regions can be specified as a list of tuples
+[(min, max), ...]</p></li>
+<li><p><strong>func</strong> (<em>optional callable</em>) -- Optional fitting function to fit the
+background instead of a polynomial.</p></li>
+<li><p><strong>**kwargs</strong> -- arguments for fitting function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Background fit</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>0th-order background fit (DC offset)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bg</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Background with a given fit function</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bg</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">relaxation</span><span class="o">.</span><span class="n">general_exp</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">900</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.offset.remove_background">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.offset.</span></span><span class="sig-name descname"><span class="pre">remove_background</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.offset.remove_background" title="Link to this definition"></a></dt>
+<dd><p>Remove a fitted background from data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to perform background fit. If None, the
+first dimension is used.</p></li>
+<li><p><strong>deg</strong> (<em>int</em>) -- Polynomial degree</p></li>
+<li><p><strong>regions</strong> (<em>None</em><em>, </em><em>list</em>) -- Background regions. If None, the entire dimension
+is used to calculate the background correction. Regions can be
+specified as a list of tuples [(min, max), ...]</p></li>
+<li><p><strong>func</strong> (<em>optional callable</em>) -- Optional fitting function to fit the
+background instead of a polynomial.</p></li>
+<li><p><strong>**kwargs</strong> -- arguments for fitting function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Background corrected data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>0th-order background removal (DC offset)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Background removal with a given fit function</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">relaxation</span><span class="o">.</span><span class="n">general_exp</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">900</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.processing.integration">
+<dt class="sig sig-object py" id="spinlab.processing.integration.cumulative_integrate">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.integration.</span></span><span class="sig-name descname"><span class="pre">cumulative_integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.integration.cumulative_integrate" title="Link to this definition"></a></dt>
+<dd><p>Cumulative integration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to perform cumulative integration. If None,
+the first dimension is used.</p></li>
+<li><p><strong>regions</strong> (<em>None</em><em>, </em><em>list</em>) -- List of tuples to specify range of integration
+[(min, max), ...]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>cumulative sum of data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Example showing cumulative integration of lorentzian function</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_int</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">cumulative_integrate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># integrates along first dim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">data_int</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.integration.integrate">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.integration.</span></span><span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.integration.integrate" title="Link to this definition"></a></dt>
+<dd><p>Integrate data along given dimension.</p>
+<p>If no dimension is given, the first dimension is used. If no region is
+given, the integral is calculated over the entire range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to perform integration. If None, the first
+dimension is used.</p></li>
+<li><p><strong>regions</strong> (<em>None</em><em>, </em><em>list</em>) -- List of tuples defining the region to integrate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integrals of data. If multiple regions are given the first value corresponds to the first region, the second value corresponds to the second region, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Integrated entire data region:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">integrals</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># integrates along first dim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">integrals</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;f2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Integrate single peak/region:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">integrals</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">regions</span><span class="o">=</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>Integrate two regions:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">integrals</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">regions</span><span class="o">=</span><span class="p">[(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">),</span> <span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">)])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.processing.align">
+<dt class="sig sig-object py" id="spinlab.processing.align.ndalign">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.align.</span></span><span class="sig-name descname"><span class="pre">ndalign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.align.ndalign" title="Link to this definition"></a></dt>
+<dd><p>Align spectra using direct cross correlation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object.</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to align along. If None, the first
+dimension is used.</p></li>
+<li><p><strong>reference</strong> (<em>array_like</em><em> or </em><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Reference spectrum for alignment.
+If None, the last spectrum along the unfolded data is used.</p></li>
+<li><p><strong>center</strong> (<em>float</em>) -- Center of alignment range. If None, the entire
+dimension is used.</p></li>
+<li><p><strong>width</strong> (<em>float</em>) -- Width of alignment range. Must be supplied together with
+center.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Aligned data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Shifts are calculated relative to the supplied reference, then adjusted
+relative to the first spectrum in the unfolded data. This preserves the
+first spectrum's position while aligning the remaining spectra to it.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_aligned</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">ndalign</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_aligned</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">ndalign</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">center</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.processing.average">
+<dt class="sig sig-object py" id="spinlab.processing.average.average">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.average.</span></span><span class="sig-name descname"><span class="pre">average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.average.average" title="Link to this definition"></a></dt>
+<dd><p>Average a dimension using numpy.mean</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>object</em>) -- SpinData object</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to average. If None, the first dimension is used.</p></li>
+<li><p><strong>axis</strong> (<em>str</em><em> or </em><em>None</em>) -- Deprecated alias for <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Averaged data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_averaged</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_averaged</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;Average&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.processing.conversion">
+<dt class="sig sig-object py" id="spinlab.processing.conversion.calc_conversion_factor">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.conversion.</span></span><span class="sig-name descname"><span class="pre">calc_conversion_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp90</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.conversion.calc_conversion_factor" title="Link to this definition"></a></dt>
+<dd><p>Calculate probe conversion factor</p>
+<p>Calculate the probe microwave conversion factor from the 90 degree pulse
+length (tp90) and applied RF power. Optionally, the quality factor and
+attenuation can be given as input arguments. A formatted output can be
+generated when setting the verbose flag to True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp90</strong> (<em>float</em>) -- 90 degree pulse length (ns)</p></li>
+<li><p><strong>P</strong> (<em>float</em>) -- Input RF power</p></li>
+<li><p><strong>Q</strong> (<em>float</em>) -- Optionally, probe quality factor. Default value is 1</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) -- Optionally, attenuation (dB)</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em>) -- Optionally, return results in formatted output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Probe conversion factor (G/sqrt(W))</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>c (float)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tp90</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">calc_tp90</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">calc_conversion_factor</span><span class="p">(</span><span class="n">tp90</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">round</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="go">120</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}P_\mathrm{probe} &amp;= \frac{P}{10^{\alpha / 10}} \\
+B_1(\mathrm{MHz}) &amp;= \frac{1}{4 t_{90}} \times 10^{-12} \\
+B_1(\mathrm{G}) &amp;= \frac{B_1(\mathrm{MHz})}{2.804 \times 10^{-6}} \\
+c &amp;= \frac{B_1(\mathrm{G})}{\sqrt{P_\mathrm{probe} Q}}\end{split}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.conversion.calc_tp90">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.conversion.</span></span><span class="sig-name descname"><span class="pre">calc_tp90</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.conversion.calc_tp90" title="Link to this definition"></a></dt>
+<dd><p>Calculate 90 degree pulse length</p>
+<p>Calculate 90 degree pulse length (tp90) from probe conversion factor and
+applied RF power. Optionally, the quality factor and attenuation can be
+given as input arguments. A formatted output can be generated when setting
+the verbose flag to True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c</strong> (<em>float</em>) -- Probe conversion factor (G/sqrt(W))</p></li>
+<li><p><strong>P</strong> (<em>float</em>) -- Input RF power</p></li>
+<li><p><strong>Q</strong> (<em>float</em>) -- Optionally, probe quality factor. Default value is 1</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) -- Optionally, attenuation (dB)</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em>) -- Optionally, return results in formatted output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>90 degree pulse length</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tp90 (float)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tp90</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">calc_tp90</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tp90</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}P_\mathrm{probe} &amp;= \frac{P}{10^{\alpha / 10}} \\
+B_1(\mathrm{G}) &amp;= c \sqrt{P_\mathrm{probe} Q} \\
+B_1(\mathrm{MHz}) &amp;= 2.804 \times 10^{-6} B_1(\mathrm{G}) \\
+t_{90} &amp;= \frac{1}{4 B_1(\mathrm{MHz})} \times 10^{-12}\end{split}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.conversion.convert_power">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.conversion.</span></span><span class="sig-name descname"><span class="pre">convert_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dBm2W'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.conversion.convert_power" title="Link to this definition"></a></dt>
+<dd><p>Convert power between dBm and W.</p>
+<p>For SpinData input, the coordinate whose dimension is named &quot;Power&quot; or
+&quot;powers&quot; is converted. If <code class="docutils literal notranslate"><span class="pre">spinlab_attrs[&quot;power_unit&quot;]</span></code> is present, it
+determines the conversion direction regardless of <code class="docutils literal notranslate"><span class="pre">mode</span></code>. Otherwise,
+<code class="docutils literal notranslate"><span class="pre">mode</span></code> determines the conversion direction.</p>
+<p>Non-SpinData input is converted directly according to <code class="docutils literal notranslate"><span class="pre">mode</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a><em>, </em><em>array</em><em>, </em><em>list</em><em>, </em><em>float</em><em> or </em><em>int</em>) -- Power values or SpinData
+with a power coordinate.</p></li>
+<li><p><strong>mode</strong> (<em>str</em>) -- &quot;dBm2W&quot; or &quot;W2dBm&quot;. Defaults to &quot;dBm2W&quot;.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>out (SpinData, array, list, float or int)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> -- If no power dimension is found, power_unit is invalid, or
+    mode is invalid.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">convert_power</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers_w</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">convert_power</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;dBm2W&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">powers_dbm</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">convert_power</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;W2dBm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.conversion.dBm2w">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.conversion.</span></span><span class="sig-name descname"><span class="pre">dBm2w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">power_in_dBm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.conversion.dBm2w" title="Link to this definition"></a></dt>
+<dd><p>Convert power in dBm to power in W</p>
+<p>Convert a microwave power given in dBm to W. Note that for values &lt;= -190 dBm the output power in W is set to 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>power_in_dBm</strong> (<em>array</em><em>, </em><em>list</em><em>, </em><em>float</em><em> or </em><em>int</em>) -- Power in (dBm)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Power in (W). Numpy array outputs are</dt><dd><p>floating-point arrays.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float (array, list, float or int)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">dBm2w</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">0.001</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">dBm2w</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="go">[0.001, 0.01, 0.1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">dBm2w</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]))</span>
+<span class="go">array([0.001, 0.01 , 0.1  ])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.conversion.decay2Ce">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.conversion.</span></span><span class="sig-name descname"><span class="pre">decay2Ce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decay_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.conversion.decay2Ce" title="Link to this definition"></a></dt>
+<dd><p>Convert decay time to effective concentration</p>
+<p>Convert the decay rate (mono exponential decay, or stretched exponential)
+into an effective concentration. See Jeschke/Schweiger &quot;Principles of
+pulse electron paramagnetic resonance&quot;, p. 415, eq. 13.3.4</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decay_time</strong> (<em>float</em>) -- Decay time from mono exponential fit (s)</p></li>
+<li><p><strong>gA</strong> -- (isotropic) g-values of spin A and B</p></li>
+<li><p><strong>gB</strong> -- (isotropic) g-values of spin A and B</p></li>
+<li><p><strong>FB</strong> -- Fraction of B spins excited by pump pulse
+(DEER modulation depth)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Effective concentration.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Ce</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">decay2Ce</span><span class="p">(</span><span class="n">decay_time</span><span class="o">=</span><span class="mf">1.5e-6</span><span class="p">,</span> <span class="n">gA</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">gB</span><span class="o">=</span><span class="mf">2.1</span><span class="p">,</span> <span class="n">FB</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.conversion.tp90_B1">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.conversion.</span></span><span class="sig-name descname"><span class="pre">tp90_B1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp90</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.conversion.tp90_B1" title="Link to this definition"></a></dt>
+<dd><p>Calculate B1 field strength from 90 degree pulse length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tp90</strong> (<em>float</em>) -- Pulse length of the 90 degree pulse (s)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>B1 field strength (Hz)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>B1 (float)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">tp90_B1</span><span class="p">(</span><span class="mf">10e-9</span><span class="p">)</span>
+<span class="go">25000000.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.conversion.w2dBm">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.conversion.</span></span><span class="sig-name descname"><span class="pre">w2dBm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">power_in_W</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.conversion.w2dBm" title="Link to this definition"></a></dt>
+<dd><p>Convert power in W to power in dBm</p>
+<p>Convert a microwave power given in W to dBm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>power_in_W</strong> (<em>array</em><em>, </em><em>list</em><em>, </em><em>float</em><em> or </em><em>int</em>) -- Power in (W)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Power in (dBm). Numpy array outputs</dt><dd><p>are floating-point arrays.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float (array, list, float or int)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">w2dBm</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">w2dBm</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="go">[0.0, 10.0, 20.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">w2dBm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]))</span>
+<span class="go">array([ 0., 10., 20.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p id="module-spinlab.processing.helpers">Shared processing utilities and backward-compatible helper exports.</p>
+<p>Most user-facing processing functions now live in domain-specific modules such
+as <code class="xref py py-mod docutils literal notranslate"><span class="pre">spinlab.processing.normalization</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">spinlab.processing.snr</span></code>.
+This module keeps small reusable helpers and re-exports the historical helper
+functions so older imports continue to work.</p>
+<p id="module-spinlab.processing.interpolation">SpinLab uses numpy.interp function to interpolate SpinData object</p>
+<p>Author: Yen-Chun Huang</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.processing.interpolation.interp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.processing.interpolation.</span></span><span class="sig-name descname"><span class="pre">interp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrapolate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.processing.interpolation.interp" title="Link to this definition"></a></dt>
+<dd><p>Interpolate SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em><em> or </em><em>None</em>) -- Dimension to interpolate. If None, the first
+dimension is used.</p></li>
+<li><p><strong>new_coord</strong> (<em>list</em><em> or </em><em>numpy.arrays</em>) -- New one-dimensional coordinate array
+for the interpolated axis.</p></li>
+<li><p><strong>(</strong><strong>optional</strong> (<em>right</em>) -- float or complex): Corresponding to data value, see numpy.interp for more details</p></li>
+<li><p><strong>(</strong><strong>optional</strong> -- float or complex): Corresponding to data value, see numpy.interp for more details</p></li>
+<li><p><strong>extrapolate</strong> (<em>bool</em>) -- If True, linearly extrapolate outside the source
+coordinate range. Explicit left or right values override
+extrapolation on that side.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>interpolated data object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">new_coord</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">1000</span><span class="n">j</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;f2&#39;</span><span class="p">,</span> <span class="n">new_coord</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">1000</span><span class="n">j</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The source coordinate along <code class="docutils literal notranslate"><span class="pre">dim</span></code> must be monotonic increasing or
+monotonic decreasing. <code class="docutils literal notranslate"><span class="pre">new_coord</span></code> must be monotonic in the same
+direction as the source coordinate. Decreasing source coordinates are
+handled by reversing the source coordinate and values before
+interpolation.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="plotting.html" class="btn btn-neutral float-left" title="Plotting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../people.html" class="btn btn-neutral float-right" title="People" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

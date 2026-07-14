@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plotting Data &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="../sl_examples/index.html" />
+    <link rel="prev" title="Indexing" href="indexing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexing.html">Indexing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fancy-plot">Fancy Plot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#epr-specific-plots">EPR Specific Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nmr-dnp-specific-plots">NMR/DNP Specific Plots</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generic-plotting-function">Generic Plotting Function</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Plotting Data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/userGuide/plotting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="plotting-data">
+<h1>Plotting Data<a class="headerlink" href="#plotting-data" title="Link to this heading"></a></h1>
+<p>SpinLab uses MatplotLib to plot data and the entire <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> module of matplotlib is available in SpinLab. For example after importing SpinLab the pyplot <code class="docutils literal notranslate"><span class="pre">figure()</span></code> commands can be used in the following way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="fancy-plot">
+<h2>Fancy Plot<a class="headerlink" href="#fancy-plot" title="Link to this heading"></a></h2>
+<p>SpinLab has a built-in plotting function called <code class="docutils literal notranslate"><span class="pre">fancy_plot</span></code> to generate publication ready figures. The appearance of the figure is controlled by the attribute <code class="docutils literal notranslate"><span class="pre">experiment-type</span></code> of the sldata object. This attribute is set automatically, when a data set is imported and the axis labeling, (default) title, appearance is controlled through the value of this sldata object attribute.</p>
+<p>The following table gives a list of available attributes. The parameters are defined in the SpinLab configuration file.</p>
+<p>To have the data plotted in a a specific plot, change the <code class="docutils literal notranslate"><span class="pre">experiment-type</span></code> attribute after loading the data. For example to show an EPR transient in the correct format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Path to my data set&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;experiment-type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;epr_transient&quot;</span>
+</pre></div>
+</div>
+<section id="epr-specific-plots">
+<h3>EPR Specific Plots<a class="headerlink" href="#epr-specific-plots" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 4.3%" />
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 52.2%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>#</strong></p></td>
+<td><p><strong>Attribute</strong></p></td>
+<td><p><strong>Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><cite>echo_decay</cite></p></td>
+<td><p>EPR</p></td>
+<td><p>Plot the echo intensity measured as a function of the pulse separation at a static magnetic field position</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><cite>eldor_profile</cite></p></td>
+<td><p>EPR</p></td>
+<td><p>Plot the ELDOR profile versus the pump frequency.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><cite>epr_spectrum</cite></p></td>
+<td><p>EPR</p></td>
+<td><p>This is a standard EPR spectrum. It is the default when an EPR measurement is loaded using SpinLab.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><cite>epr_transient</cite></p></td>
+<td><p>EPR</p></td>
+<td><p>EPR transient from the transient recorder. The signal intensity is plotted as a function of the time.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><cite>epr_transient_E580</cite></p></td>
+<td><p>EPR</p></td>
+<td><p>EPR transient from the transient recorder. The signal intensity is plotted as a function of the time. This attribute is specific to when data from the Bruker E580 is imported.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><cite>inversion_recovery</cite></p></td>
+<td><p>EPR</p></td>
+<td><p>Inversion recovery experiment. The echo (or FID) amplitude is plotted as a function of the time separating the inversion pulse from the detection sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p><cite>saturation_recovery</cite></p></td>
+<td><p>EPR</p></td>
+<td><p>Saturation recovery experiment. The echo (or FID) amplitude is plotted as a function of the time separating the saturation pulse from the detection sequence.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nmr-dnp-specific-plots">
+<h3>NMR/DNP Specific Plots<a class="headerlink" href="#nmr-dnp-specific-plots" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 4.3%" />
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 52.2%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>#</strong></p></td>
+<td><p><strong>Attribute</strong></p></td>
+<td><p><strong>Type</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><cite>enhancements_P</cite></p></td>
+<td><p>DNP</p></td>
+<td><p>Plotting the DNP enhancement factor as a function of the applied microwave power in Watt (W).</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><cite>enhancements_PdBm</cite></p></td>
+<td><p>DNP</p></td>
+<td><p>Plotting the DNP enhancement factor as a function of the applied microwave power in dBm.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><cite>enhancements_PW</cite></p></td>
+<td><p>DNP</p></td>
+<td><p>Plotting the DNP enhancement factor as a function of the applied microwave power in Watt (W).</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><cite>inversion_recovery</cite></p></td>
+<td><p>NMR</p></td>
+<td><p>Inversion recovery experiment. The signal amplitude is plotted as a function of the time separating the inversion pulse from the detection sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><cite>polarization_buildup</cite></p></td>
+<td><p>DNP</p></td>
+<td><p>Plotting the DNP enhancement factor as a function of the polarization time.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><cite>sl_enhancement_profile_f</cite></p></td>
+<td><p>DNP</p></td>
+<td><p>Plotting the DNP enhancement factor as a function of the frequency.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="generic-plotting-function">
+<h2>Generic Plotting Function<a class="headerlink" href="#generic-plotting-function" title="Link to this heading"></a></h2>
+<p>If no experiment type is specified, SpinLab has a generic plotting function to plot a SpinLab data object (here data). Simply use the <code class="docutils literal notranslate"><span class="pre">sl.plot()</span></code> command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Path to my data set&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="indexing.html" class="btn btn-neutral float-left" title="Indexing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../sl_examples/index.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

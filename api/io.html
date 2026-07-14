@@ -1,0 +1,1371 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IO &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Math" href="math.html" />
+    <link rel="prev" title="Fitting" href="fitting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fitting.html">Fitting</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.load">Load &amp; Save</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.load.autodetect"><code class="docutils literal notranslate"><span class="pre">autodetect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.load.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.load.load_file"><code class="docutils literal notranslate"><span class="pre">load_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.save.autodetect"><code class="docutils literal notranslate"><span class="pre">autodetect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.save.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.h5.load_h5"><code class="docutils literal notranslate"><span class="pre">load_h5()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.h5.read_dict"><code class="docutils literal notranslate"><span class="pre">read_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.h5.read_sldata"><code class="docutils literal notranslate"><span class="pre">read_sldata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.h5.save_h5"><code class="docutils literal notranslate"><span class="pre">save_h5()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.h5.write_dict"><code class="docutils literal notranslate"><span class="pre">write_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.h5.write_sldata"><code class="docutils literal notranslate"><span class="pre">write_sldata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.load_csv.load_csv"><code class="docutils literal notranslate"><span class="pre">load_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.bes3t">Bruker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.import_bes3t"><code class="docutils literal notranslate"><span class="pre">import_bes3t()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.load_dsc"><code class="docutils literal notranslate"><span class="pre">load_dsc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.load_dta"><code class="docutils literal notranslate"><span class="pre">load_dta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.bes3t.load_gf_files"><code class="docutils literal notranslate"><span class="pre">load_gf_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.winepr.import_winepr"><code class="docutils literal notranslate"><span class="pre">import_winepr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.winepr.load_par"><code class="docutils literal notranslate"><span class="pre">load_par()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.winepr.load_spc"><code class="docutils literal notranslate"><span class="pre">load_spc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.find_group_delay"><code class="docutils literal notranslate"><span class="pre">find_group_delay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.import_topspin"><code class="docutils literal notranslate"><span class="pre">import_topspin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_acqu"><code class="docutils literal notranslate"><span class="pre">load_acqu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_bin"><code class="docutils literal notranslate"><span class="pre">load_bin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_pdata"><code class="docutils literal notranslate"><span class="pre">load_pdata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_ser"><code class="docutils literal notranslate"><span class="pre">load_ser()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_title"><code class="docutils literal notranslate"><span class="pre">load_title()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.load_topspin_jcamp_dx"><code class="docutils literal notranslate"><span class="pre">load_topspin_jcamp_dx()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.topspin.topspin_vdlist"><code class="docutils literal notranslate"><span class="pre">topspin_vdlist()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.delta">JEOL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.delta.import_delta"><code class="docutils literal notranslate"><span class="pre">import_delta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.delta.import_delta_data"><code class="docutils literal notranslate"><span class="pre">import_delta_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.delta.import_delta_pars"><code class="docutils literal notranslate"><span class="pre">import_delta_pars()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.vnmrj">Varian / Agilent</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.array_coords"><code class="docutils literal notranslate"><span class="pre">array_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.import_fid"><code class="docutils literal notranslate"><span class="pre">import_fid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.import_procpar"><code class="docutils literal notranslate"><span class="pre">import_procpar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vnmrj.import_vnmrj"><code class="docutils literal notranslate"><span class="pre">import_vnmrj()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.prospa">Magritek</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_csv"><code class="docutils literal notranslate"><span class="pre">import_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_nd"><code class="docutils literal notranslate"><span class="pre">import_nd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_par"><code class="docutils literal notranslate"><span class="pre">import_par()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.import_prospa"><code class="docutils literal notranslate"><span class="pre">import_prospa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.prospa.prospa_coords"><code class="docutils literal notranslate"><span class="pre">prospa_coords()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.specman">FeMi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.analyze_attrs"><code class="docutils literal notranslate"><span class="pre">analyze_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.calculate_specman_coords"><code class="docutils literal notranslate"><span class="pre">calculate_specman_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.generate_dims"><code class="docutils literal notranslate"><span class="pre">generate_dims()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.import_specman"><code class="docutils literal notranslate"><span class="pre">import_specman()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.load_specman_d01"><code class="docutils literal notranslate"><span class="pre">load_specman_d01()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.specman.load_specman_exp"><code class="docutils literal notranslate"><span class="pre">load_specman_exp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.tnmr">Tecmag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.tnmr.import_tnmr"><code class="docutils literal notranslate"><span class="pre">import_tnmr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.tnmr.import_tnmr_data"><code class="docutils literal notranslate"><span class="pre">import_tnmr_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.rs2d">RS2D</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.rs2d.import_rs2d"><code class="docutils literal notranslate"><span class="pre">import_rs2d()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.vna">Other</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vna.get_sldata"><code class="docutils literal notranslate"><span class="pre">get_sldata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vna.import_snp"><code class="docutils literal notranslate"><span class="pre">import_snp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.vna.import_vna"><code class="docutils literal notranslate"><span class="pre">import_vna()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.cnsi.get_powers"><code class="docutils literal notranslate"><span class="pre">get_powers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.power.assign_power"><code class="docutils literal notranslate"><span class="pre">assign_power()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.power.chop_power"><code class="docutils literal notranslate"><span class="pre">chop_power()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.power.import_power"><code class="docutils literal notranslate"><span class="pre">import_power()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Processing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">IO</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/io.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="io">
+<span id="api-io"></span><h1>IO<a class="headerlink" href="#io" title="Link to this heading"></a></h1>
+<section id="module-spinlab.io.load">
+<span id="load-save"></span><h2>Load &amp; Save<a class="headerlink" href="#module-spinlab.io.load" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.load.autodetect">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.load.</span></span><span class="sig-name descname"><span class="pre">autodetect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.load.autodetect" title="Link to this definition"></a></dt>
+<dd><p>Automatically detect data format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test_path</strong> (<em>str</em>) -- Test directory</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print output for debugging</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data format as string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.load.load">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.load.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.load.load" title="Link to this definition"></a></dt>
+<dd><p>Import data from different spectrometer formats</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>list</em>) -- Path to data directory or list of directories</p></li>
+<li><p><strong>data_format</strong> (<em>str</em>) -- format of spectrometer data to import (optional). Allowed values: &quot;prospa&quot;, &quot;topspin&quot;, &quot;delta&quot;, &quot;vnmrj&quot;, &quot;tnmr&quot;, &quot;specman&quot;, &quot;xenon&quot;, &quot;xepr&quot;, &quot;winepr&quot;, &quot;esp&quot;, &quot;h5&quot;, &quot;power&quot;, &quot;vna&quot;, &quot;cnsi_powers&quot;, &quot;rs2d&quot;</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- If giving directories as list, name of dimension to concatenate data along</p></li>
+<li><p><strong>coord</strong> (<em>numpy.ndarray</em>) -- If giving directories as list, coordinates of new dimension</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print debugging output</p></li>
+<li><p><strong>*args</strong> -- Additional positional arguments passed to the format-specific import function.</p></li>
+<li><p><strong>**kwargs</strong> -- Additional keyword arguments passed to the format-specific import function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (slData)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load a data file</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;Path/To/File&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load a list of files and concatenate down a new dimension called 't1' with coordinates</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">([</span><span class="s1">&#39;1/data.1d&#39;</span><span class="p">,</span><span class="s1">&#39;2/data.1d&#39;</span><span class="p">,</span><span class="s1">&#39;3/data.1d&#39;</span><span class="p">],</span> <span class="n">dim</span> <span class="o">=</span> <span class="s1">&#39;t1&#39;</span><span class="p">,</span> <span class="n">coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.load.load_file">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.load.</span></span><span class="sig-name descname"><span class="pre">load_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.load.load_file" title="Link to this definition"></a></dt>
+<dd><p>Import data from different spectrometer formats</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to data directory or file</p></li>
+<li><p><strong>data_format</strong> (<em>str</em>) -- Format of spectrometer data to import (optional). Allowed values: &quot;prospa&quot;, &quot;topspin&quot;, &quot;delta&quot;, &quot;vnmrj&quot;, &quot;tnmr&quot;, &quot;specman&quot;, &quot;xenon&quot;, &quot;xepr&quot;, &quot;winepr&quot;, &quot;esp&quot;, &quot;h5&quot;, &quot;power&quot;, &quot;vna&quot;, &quot;cnsi_powers&quot;</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print additional debug outputs</p></li>
+<li><p><strong>*args</strong> -- Additional positional arguments passed to the format-specific import function.</p></li>
+<li><p><strong>**kwargs</strong> -- Additional keyword arguments passed to the format-specific import function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (slData)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.save">
+<dt class="sig sig-object py" id="spinlab.io.save.autodetect">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.save.</span></span><span class="sig-name descname"><span class="pre">autodetect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.save.autodetect" title="Link to this definition"></a></dt>
+<dd><p>Detect the save format from the file extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>test_name</strong> (<em>str</em>) -- File path or name including extension.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Detected format string — <code class="docutils literal notranslate"><span class="pre">&quot;h5&quot;</span></code> for HDF5 or <code class="docutils literal notranslate"><span class="pre">&quot;mat&quot;</span></code> for MATLAB.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> -- If the extension is not recognized.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.save.save">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.save.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.save.save" title="Link to this definition"></a></dt>
+<dd><p>Save data to h5 format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_object</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- sldata object to save</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) -- name of file, must include extension .h5</p></li>
+<li><p><strong>save_type</strong> (<em>str</em>) -- Type of file to save (optional). Allowed values: &quot;h5&quot;</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>none</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.h5">
+<dt class="sig sig-object py" id="spinlab.io.h5.load_h5">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.h5.</span></span><span class="sig-name descname"><span class="pre">load_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.h5.load_h5" title="Link to this definition"></a></dt>
+<dd><p>Returns Dictionary of slDataObjects</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to h5 file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>workspace object with data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sldata_collection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.h5.read_dict">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.h5.</span></span><span class="sig-name descname"><span class="pre">read_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sldata_group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.h5.read_dict" title="Link to this definition"></a></dt>
+<dd><p>Read a plain Python dictionary from an HDF5 group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sldata_group</strong> (<em>h5py.Group</em>) -- HDF5 group containing a serialized dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of attributes stored in the HDF5 group.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.h5.read_sldata">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.h5.</span></span><span class="sig-name descname"><span class="pre">read_sldata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sldata_group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.h5.read_sldata" title="Link to this definition"></a></dt>
+<dd><p>Read a SpinData object from an HDF5 group.</p>
+<p>Reconstructs a complete <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object including values, dimension
+labels, axis coordinates, experiment attributes, SpinLab attributes, and
+the processing audit log.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sldata_group</strong> (<em>h5py.Group</em>) -- HDF5 group containing a serialized SpinData object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reconstructed data object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.h5.save_h5">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.h5.</span></span><span class="sig-name descname"><span class="pre">save_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.h5.save_h5" title="Link to this definition"></a></dt>
+<dd><p>Save workspace in .h5 format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataDict</strong> (<em>dict</em>) -- sldata_collection object to save.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) -- Path to save data</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) -- If True, h5 file can be overwritten. Otherwise, h5 file cannot be overwritten</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.h5.write_dict">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.h5.</span></span><span class="sig-name descname"><span class="pre">write_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slDataGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slDataObject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.h5.write_dict" title="Link to this definition"></a></dt>
+<dd><p>Writes dictionary to h5 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slDataGroup</strong> (<em>h5py.Group</em>) -- h5 group to write attrs dictionary</p></li>
+<li><p><strong>slDataObject</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- SpinData object to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.h5.write_sldata">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.h5.</span></span><span class="sig-name descname"><span class="pre">write_sldata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slDataGroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slDataObject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.h5.write_sldata" title="Link to this definition"></a></dt>
+<dd><p>Takes file/group and writes slData object to it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slDataGroup</strong> -- h5 group to save data to</p></li>
+<li><p><strong>slDataObject</strong> -- sldata object to save in h5 format</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.load_csv">
+<dt class="sig sig-object py" id="spinlab.io.load_csv.load_csv">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.load_csv.</span></span><span class="sig-name descname"><span class="pre">load_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tcol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skiprows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.load_csv.load_csv" title="Link to this definition"></a></dt>
+<dd><p>Load data from a CSV file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) -- String or path like file that is read</p></li>
+<li><p><strong>tcol</strong> (<em>int</em>) -- column index for time data (default=0), None = not applicable, will count from 0 to npoints and then apply covert_time!</p></li>
+<li><p><strong>real</strong> (<em>int</em>) -- column index for real part (default=1), None = not applicable, will be set to zero</p></li>
+<li><p><strong>imag</strong> (<em>int</em>) -- column index for imaginary part (default=2), None = not applicable, will be set to zero</p></li>
+<li><p><strong>skiprows</strong> (<em>int</em>) -- number of rows to skip at beginning (default=0)</p></li>
+<li><p><strong>maxrows</strong> (<em>int</em>) -- if this is larger than zero, read at most maxrows rows. (default: -1)</p></li>
+<li><p><strong>convert_time</strong> (<em>callable</em>) -- callable that converts the time strings to a number (default: replaces , with .)</p></li>
+<li><p><strong>convert_data</strong> (<em>callable</em>) -- callable that converts data to a number (default: replaces , with .)</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em>) -- optional, sets the delimiter in the csv file (default ; )</p></li>
+<li><p><strong>dims</strong> (<em>str</em><em>,</em><em>list</em>) -- optional, sets name for dimension (default: [&quot;t2&quot;])</p></li>
+<li><p><strong>object</strong> (<em>**kwargs are forwarded to csv.reader</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object with values,coords and dim</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (slData)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>data=load_csv('csv_arrLNA_data.csv',imag=2,skiprows=1)</p>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.bes3t">
+<span id="bruker"></span><h2>Bruker<a class="headerlink" href="#module-spinlab.io.bes3t" title="Link to this heading"></a></h2>
+<p>Functions to import Bruker EPR data</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.import_bes3t">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">import_bes3t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.import_bes3t" title="Link to this definition"></a></dt>
+<dd><p>Import Bruker BES3T data and return sldata object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .DSC or .DTA file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing Bruker BES3T data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bes3t_data (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.load_dsc">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">load_dsc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.load_dsc" title="Link to this definition"></a></dt>
+<dd><p>Import contents of .DSC file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .DSC file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.attrs" title="spinlab.core.data.SpinData.attrs">attrs</a> (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.load_dta">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">load_dta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_dta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_xgf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_ygf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_zgf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.load_dta" title="Link to this definition"></a></dt>
+<dd><p>Import data from .DTA file. Uses .DSC and .XGF, .YGF, or .ZGF files if they exist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_dta</strong> (<em>str</em>) -- Path to .DTA file</p></li>
+<li><p><strong>path_xgf</strong> (<em>str</em>) -- path to .XGF file for 1D data with nonlinear axis, &quot;none&quot; otherwise</p></li>
+<li><p><strong>path_ygf</strong> (<em>str</em>) -- path to .YGF file for 2D data, &quot;none&quot; if 1D or linear y axis</p></li>
+<li><p><strong>path_zgf</strong> (<em>str</em>) -- path to .ZGF file for 3D data, &quot;none&quot; if 1D/2D or linear z axis</p></li>
+<li><p><strong>attrs</strong> (<em>dict</em>) -- dictionary of parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Spectrum for 1D or spectra for 2D
+dims (list) : dimensions
+coords (ndarray) : coordinates for spectrum or spectra
+attrs (dict) : updated dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.values" title="spinlab.core.data.SpinData.values">values</a> (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.bes3t.load_gf_files">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.bes3t.</span></span><span class="sig-name descname"><span class="pre">load_gf_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.bes3t.load_gf_files" title="Link to this definition"></a></dt>
+<dd><p>Import data from .XGF, .YGF, or .ZGF files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to ._GF file</p></li>
+<li><p><strong>axis_type</strong> (<em>str</em>) -- linear or nonlinear</p></li>
+<li><p><strong>axis_format</strong> (<em>str</em>) -- format of file data</p></li>
+<li><p><strong>axis_points</strong> (<em>int</em>) -- number of points in axis</p></li>
+<li><p><strong>axis_min</strong> (<em>float</em>) -- minimum value of axis</p></li>
+<li><p><strong>axis_width</strong> (<em>float</em>) -- total width of axis</p></li>
+<li><p><strong>endian</strong> (<em>float</em>) -- endian of data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axis coordinates</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.coords" title="spinlab.core.data.SpinData.coords">coords</a> (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.winepr">
+<dt class="sig sig-object py" id="spinlab.io.winepr.import_winepr">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.winepr.</span></span><span class="sig-name descname"><span class="pre">import_winepr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.winepr.import_winepr" title="Link to this definition"></a></dt>
+<dd><p>Import Bruker par/spc data and return SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .par or .spc file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing Bruker par/spc data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>parspc_data (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.winepr.load_par">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.winepr.</span></span><span class="sig-name descname"><span class="pre">load_par</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.winepr.load_par" title="Link to this definition"></a></dt>
+<dd><p>Import contents of .par file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .par file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.attrs" title="spinlab.core.data.SpinData.attrs">attrs</a> (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.winepr.load_spc">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.winepr.</span></span><span class="sig-name descname"><span class="pre">load_spc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.winepr.load_spc" title="Link to this definition"></a></dt>
+<dd><p>Import data and axes of .spc file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .spc file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>coordinates for spectrum or spectra
+values (ndarray) : data values
+attrs (dict) : updated dictionary of parameters
+dims (list) : dimension labels</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.coords" title="spinlab.core.data.SpinData.coords">coords</a> (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.topspin">
+<dt class="sig sig-object py" id="spinlab.io.topspin.find_group_delay">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">find_group_delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.find_group_delay" title="Link to this definition"></a></dt>
+<dd><p>Determine group delay from tables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs_dict</strong> (<em>dict</em>) -- dictionary of topspin acquisition parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Group delay. Number of points FID is shifted by DSP. The ceiling of this number (group delay rounded up) is the number of points should be removed from the start of the FID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.import_topspin">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">import_topspin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign_vdlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_digital_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.import_topspin" title="Link to this definition"></a></dt>
+<dd><p>Import topspin data and return sldata object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of data</p></li>
+<li><p><strong>assign_vdlist</strong> -- False, or the name of dimension to assign topspin vdlist</p></li>
+<li><p><strong>remove_digital_filter</strong> (<em>bool</em>) -- Option to remove group delay (see note below)</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- Print additional output for troubleshooting</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The group delay is a consequence of the oversampling and digital filtering in Bruker spectrometers. For more details see these blog posts <a class="reference external" href="https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html">https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html</a> and <a class="reference external" href="https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html">https://nmr-analysis.blogspot.com/2010/05/bruker-smiles.html</a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>topspin data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>sldata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_acqu">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_acqu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_acqu" title="Link to this definition"></a></dt>
+<dd><p>Import topspin acqu or proc files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- directory of acqu or proc file</p></li>
+<li><p><strong>required_params</strong> (<em>list</em>) -- Only return parameters given</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print output for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of acquisition parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_bin">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;i4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_bin" title="Link to this definition"></a></dt>
+<dd><p>Import Topspin Ser file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of data</p></li>
+<li><p><strong>dtype</strong> (<em>str</em>) -- data format for import</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data from ser file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>raw (np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_pdata">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_pdata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_pdata" title="Link to this definition"></a></dt>
+<dd><p>Import TopSpin processed data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of pdata</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print output for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Topspin processed data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_ser">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_ser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&gt;i4'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_ser" title="Link to this definition"></a></dt>
+<dd><p>Deprecated. Use load_bin. Import Topspin Ser file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of data</p></li>
+<li><p><strong>dtype</strong> (<em>str</em>) -- data format for import</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data from ser file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>raw (np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_title">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pdata/1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'title'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_title" title="Link to this definition"></a></dt>
+<dd><p>Import Topspin Experiment Title File</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of title</p></li>
+<li><p><strong>title_path</strong> (<em>str</em>) -- Path within experiment of title</p></li>
+<li><p><strong>title_filename</strong> (<em>str</em>) -- filename of title</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Contents of experiment title file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.load_topspin_jcamp_dx">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">load_topspin_jcamp_dx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.load_topspin_jcamp_dx" title="Link to this definition"></a></dt>
+<dd><p>Return the contents of topspin JCAMP-DX file as dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to file</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, print output for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of JCAMP-DX file parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.topspin.topspin_vdlist">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.topspin.</span></span><span class="sig-name descname"><span class="pre">topspin_vdlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.topspin.topspin_vdlist" title="Link to this definition"></a></dt>
+<dd><p>Return topspin vdlist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Directory of data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>vdlist as numpy array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.delta">
+<span id="jeol"></span><h2>JEOL<a class="headerlink" href="#module-spinlab.io.delta" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.delta.import_delta">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.delta.</span></span><span class="sig-name descname"><span class="pre">import_delta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.delta.import_delta" title="Link to this definition"></a></dt>
+<dd><p>Import Delta data and return SpinData object</p>
+<p>Currently only 1D and 2D data sets are supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .jdf file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing Delta data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sldata (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.delta.import_delta_data">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.delta.</span></span><span class="sig-name descname"><span class="pre">import_delta_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.delta.import_delta_data" title="Link to this definition"></a></dt>
+<dd><p>Import spectrum or spectra of Delta data</p>
+<p>Currently only 1D and 2D data sets are supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to .jdf file</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) -- dictionary of parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>spectrum or spectra if &gt;1D
+abscissa (list) : coordinates of axes
+dims (list) : axes names
+params (dict) : updated dictionary of parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>y_data (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.delta.import_delta_pars">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.delta.</span></span><span class="sig-name descname"><span class="pre">import_delta_pars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.delta.import_delta_pars" title="Link to this definition"></a></dt>
+<dd><p>Import parameter fields of Delta data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to .jdf file</p></li>
+<li><p><strong>context_start</strong> (<em>int</em>) -- the index where the context starts</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of parameter fields and values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>params (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.vnmrj">
+<span id="varian-agilent"></span><h2>Varian / Agilent<a class="headerlink" href="#module-spinlab.io.vnmrj" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.array_coords">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">array_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.array_coords" title="Link to this definition"></a></dt>
+<dd><p>Return array dimension coords from parameters dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of procpar parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dim and coord for array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.import_fid">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">import_fid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fid'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.import_fid" title="Link to this definition"></a></dt>
+<dd><p>Import VnmrJ fid file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of fid file</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) -- Name of fid file. &quot;fid&quot; by default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.import_procpar">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">import_procpar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'procpar'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.import_procpar" title="Link to this definition"></a></dt>
+<dd><p>Import VnmrJ procpar parameters file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Directory of file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of procpar parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vnmrj.import_vnmrj">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vnmrj.</span></span><span class="sig-name descname"><span class="pre">import_vnmrj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fidFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paramFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'procpar'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vnmrj.import_vnmrj" title="Link to this definition"></a></dt>
+<dd><p>Import VnmrJ Data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- path to experiment folder</p></li>
+<li><p><strong>fidFilename</strong> (<em>str</em>) -- FID file name</p></li>
+<li><p><strong>paramFilename</strong> (<em>str</em>) -- process parameter filename</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data in sldata object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sldata</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.prospa">
+<span id="magritek"></span><h2>Magritek<a class="headerlink" href="#module-spinlab.io.prospa" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_csv">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_complex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_csv" title="Link to this definition"></a></dt>
+<dd><p>Import Kea csv file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to csv file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x(numpy.array): axes if return_raw = False
+data(numpy.array): Data in csv file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_nd">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_nd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_nd" title="Link to this definition"></a></dt>
+<dd><p>Import Kea binary 1d, 2d, 3d, 4d files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>x (None, numpy.array): Axes if included in binary file, None otherwise
+data (numpy.array): Numpy array of data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_par">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_par</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_par" title="Link to this definition"></a></dt>
+<dd><p>Import Kea parameters .par file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to parameters file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of Kea Parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.import_prospa">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">import_prospa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.import_prospa" title="Link to this definition"></a></dt>
+<dd><p>Import Kea data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to data</p></li>
+<li><p><strong>parameters_filename</strong> (<em>str</em>)</p></li>
+<li><p><strong>experiment</strong> (<em>str</em>) -- Prospa experiment, used when calculating coords from parameters</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If true, prints additional information for troubleshooting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>sldata object with Kea data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.prospa.prospa_coords">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.prospa.</span></span><span class="sig-name descname"><span class="pre">prospa_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.prospa.prospa_coords" title="Link to this definition"></a></dt>
+<dd><p>Generate coords from prospa acquisition parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of prospa acqusition parameters</p></li>
+<li><p><strong>data_shape</strong> (<em>tuple</em>) -- Shape of data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dims and coords</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.specman">
+<span id="femi"></span><h2>FeMi<a class="headerlink" href="#module-spinlab.io.specman" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.analyze_attrs">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">analyze_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.analyze_attrs" title="Link to this definition"></a></dt>
+<dd><p>Analyze the attrs and add some important attrs to existing dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of specman acqusition parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dictionary of specman acqusition parameters and added parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.attrs" title="spinlab.core.data.SpinData.attrs">attrs</a> (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.calculate_specman_coords">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">calculate_specman_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.calculate_specman_coords" title="Link to this definition"></a></dt>
+<dd><p>Generate coords from specman acquisition parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of specman acqusition parameters</p></li>
+<li><p><strong>dims</strong> (<em>list</em>) -- (Optional) a list of dims</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a calculated coords</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.coords" title="spinlab.core.data.SpinData.coords">coords</a> (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.generate_dims">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">generate_dims</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.generate_dims" title="Link to this definition"></a></dt>
+<dd><p>Generate dims from specman acquisition parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>dict</em>) -- Dictionary of specman acqusition parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a new dims</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.dims" title="spinlab.core.data.SpinData.dims">dims</a> (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.import_specman">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">import_specman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autodetect_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autodetect_dims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_complex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complex_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.import_specman" title="Link to this definition"></a></dt>
+<dd><p>Import SpecMan data and return SpinData object</p>
+<p>SpinLab function to import SpecMan4EPR data (<a class="reference external" href="https://specman4epr.com/">https://specman4epr.com/</a>). The function returns a Spindata object with the spectral data.</p>
+<p>The structure of the Spindata object can be complex and the variables saved by SpecMan depend on the individual spectrometer configuration. Therefore, the import function returns a numpy array with the dimension &quot;x0&quot;, &quot;x1&quot;, &quot;x2&quot;, &quot;x3&quot;, &quot;x4&quot;. In any case, the dimension &quot;x0&quot; corresponds to the variables stored in the data file. The spectroscopic data is stored in &quot;x1&quot; to &quot;x4&quot;, depending on how many dimensions were recorded.
+The import function will require a parser script to properly assign the spectroscopic data and proper coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to either .exp file</p></li>
+<li><p><strong>autodetect_coords</strong> (<em>bool</em>) -- Autodetect coords based on attrs</p></li>
+<li><p><strong>autodetect_dims</strong> (<em>bool</em>) -- Autodetect dims based on attrs</p></li>
+<li><p><strong>make_complex</strong> (<em>bool</em>) -- If True, will create a complex SpinData object if the data is complex</p></li>
+<li><p><strong>complex_dim</strong> (<em>str</em>) -- The dimension to use for complex data (default: 'x')</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing SpecMan EPR data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.load_specman_d01">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">load_specman_d01</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.load_specman_d01" title="Link to this definition"></a></dt>
+<dd><p>Import SpecMan d01 data file</p>
+<p>SpinLab function to import the SpecMan d01 data file. The format of the SpecMan data file is described here:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .d01 or .exp file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpecMan data as numpy array
+params (dict):      Dictionary with import updated parameters dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.specman.load_specman_exp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.specman.</span></span><span class="sig-name descname"><span class="pre">load_specman_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.specman.load_specman_exp" title="Link to this definition"></a></dt>
+<dd><p>Import SpecMan parameters</p>
+<p>SpinLab function to read and import the SpecMan exp file. The .exp file is a text file that stores the experimental data, the pulse program, and other spectrometer configuration files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to either .d01 or .exp file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of parameter fields and values (SpinLab attributes)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData.attrs" title="spinlab.core.data.SpinData.attrs">attrs</a> (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.tnmr">
+<span id="tecmag"></span><h2>Tecmag<a class="headerlink" href="#module-spinlab.io.tnmr" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.tnmr.import_tnmr">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.tnmr.</span></span><span class="sig-name descname"><span class="pre">import_tnmr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squeeze</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.tnmr.import_tnmr" title="Link to this definition"></a></dt>
+<dd><p>Import tnmr data and return SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to .jdf file</p></li>
+<li><p><strong>squeeze</strong> (<em>bool</em>) -- Automatically remove length 1 dimensions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object containing tnmr data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sldata (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.tnmr.import_tnmr_data">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.tnmr.</span></span><span class="sig-name descname"><span class="pre">import_tnmr_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.tnmr.import_tnmr_data" title="Link to this definition"></a></dt>
+<dd><p>Import spectrum or spectra of tnmr data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- Path to .tnt file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Spectrum or spectra if &gt;1D
+abscissa (list):    Coordinates of axes
+dims (list):        Axes names</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.rs2d">
+<span id="rs2d"></span><h2>RS2D<a class="headerlink" href="#module-spinlab.io.rs2d" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.rs2d.import_rs2d">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.rs2d.</span></span><span class="sig-name descname"><span class="pre">import_rs2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datafile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data.dat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headerfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'header.xml'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.rs2d.import_rs2d" title="Link to this definition"></a></dt>
+<dd><p>Import data from an RS2D file.</p>
+<p>Accepts either the <code class="docutils literal notranslate"><span class="pre">header.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">data.dat</span></code> file; the companion file
+is located automatically in the same directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to the <code class="docutils literal notranslate"><span class="pre">header.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">data.dat</span></code> file.</p></li>
+<li><p><strong>datafile</strong> (<em>str</em>) -- Name of the binary data file. Default is <code class="docutils literal notranslate"><span class="pre">&quot;data.dat&quot;</span></code>.</p></li>
+<li><p><strong>headerfile</strong> (<em>str</em>) -- Name of the XML header file. Default is <code class="docutils literal notranslate"><span class="pre">&quot;header.xml&quot;</span></code>.</p></li>
+<li><p><strong>**kwargs</strong> -- Additional keyword arguments passed to the data reader
+(e.g. <code class="docutils literal notranslate"><span class="pre">endianess</span></code>, <code class="docutils literal notranslate"><span class="pre">fmt</span></code>, <code class="docutils literal notranslate"><span class="pre">fmt_size</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Imported data object with axes and acquisition parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-spinlab.io.vna">
+<span id="other"></span><h2>Other<a class="headerlink" href="#module-spinlab.io.vna" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vna.get_sldata">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vna.</span></span><span class="sig-name descname"><span class="pre">get_sldata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vna.get_sldata" title="Link to this definition"></a></dt>
+<dd><p>Construct a SpinData object from VNA data arrays.</p>
+<p>For 1D data (single S-parameter trace) a single SpinData is returned.
+For 2D data (multiple traces, e.g. all four S-parameters of an s2p file)
+the traces are concatenated along <code class="docutils literal notranslate"><span class="pre">concat_dim</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) -- S-parameter data, 1D or 2D.</p></li>
+<li><p><strong>coords</strong> (<em>numpy.ndarray</em>) -- Frequency axis array.</p></li>
+<li><p><strong>attrs</strong> (<em>dict</em>) -- Acquisition attributes (format, center frequency, span).</p></li>
+<li><p><strong>concat_dim</strong> (<em>str</em><em>, </em><em>optional</em>) -- Name of the new dimension when concatenating
+multiple traces. Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object containing the VNA measurement.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vna.import_snp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vna.</span></span><span class="sig-name descname"><span class="pre">import_snp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vna.import_snp" title="Link to this definition"></a></dt>
+<dd><p>Import sNp file and return numpy array</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.vna.import_vna">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.vna.</span></span><span class="sig-name descname"><span class="pre">import_vna</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.vna.import_vna" title="Link to this definition"></a></dt>
+<dd><p>Import VNA data and return sldata object</p>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.cnsi">
+<dt class="sig sig-object py" id="spinlab.io.cnsi.get_powers">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.cnsi.</span></span><span class="sig-name descname"><span class="pre">get_powers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiment_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.cnsi.get_powers" title="Link to this definition"></a></dt>
+<dd><p>Split power readings files into array of power measurements equal in length to number of spectra in dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Path to base folder containing power file</p></li>
+<li><p><strong>power_file</strong> (<em>str</em>) -- filename, &quot;power&quot; or &quot;t1_powers&quot;</p></li>
+<li><p><strong>experiment_list</strong> (<em>list</em>) -- list of folder numbers of experiments corresponding to power_file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of power readings equal in length to experiment_list</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>power_list (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.power">
+<dt class="sig sig-object py" id="spinlab.io.power.assign_power">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.power.</span></span><span class="sig-name descname"><span class="pre">assign_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expNumList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">powersList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.power.assign_power" title="Link to this definition"></a></dt>
+<dd><p>Given a dictionary of slData objects with key being folder string,
+return the data with power values assigned to a new axis dimension</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataDict</strong> (<em>dict</em>) -- dictionary of data objects</p></li>
+<li><p><strong>expNumList</strong> (<em>list</em>) -- List of experiment numbers</p></li>
+<li><p><strong>powersList</strong> (<em>list</em>) -- List of powers</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object with powers</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.power.chop_power">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.power.</span></span><span class="sig-name descname"><span class="pre">chop_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.power.chop_power" title="Link to this definition"></a></dt>
+<dd><p>Use Derivative to chop Powers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>numpy.ndarray</em>) -- Array of time points</p></li>
+<li><p><strong>p</strong> (<em>numpy.ndarray</em>) -- Array of powers</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) -- Threshold to chop powers</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of average time values
+averagePowerArray: Array of average power values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>averageTimeArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.power.import_power">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.power.</span></span><span class="sig-name descname"><span class="pre">import_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.power.import_power" title="Link to this definition"></a></dt>
+<dd><p>import powers file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) -- Directory of powers</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) -- filename of powers if given</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of time points
+p (numpy.ndarray): Array of powers</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>t (numpy.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fitting.html" class="btn btn-neutral float-left" title="Fitting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="math.html" class="btn btn-neutral float-right" title="Math" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

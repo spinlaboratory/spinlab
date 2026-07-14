@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributing &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ddc95155"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="People" href="people.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SpinLab
+              <img src="_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="people.html">People</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ways-to-contribute">Ways to Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reporting-bugs-and-requesting-features">Reporting Bugs and Requesting Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-the-code">Working with the Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-a-development-environment">Setting Up a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#branching-and-committing">Branching and Committing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opening-a-pull-request">Opening a Pull Request</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-to-the-documentation">Contributing to the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#becoming-a-maintainer">Becoming a Maintainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/contributing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h1>
+<p>We welcome contributions of all kinds — bug reports, feature requests, documentation improvements, new test cases, and code fixes. Every contribution helps make SpinLab better for the entire magnetic resonance community.</p>
+<section id="ways-to-contribute">
+<h2>Ways to Contribute<a class="headerlink" href="#ways-to-contribute" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Report a bug</strong> — open an issue on the <a href="https://github.com/spinlaboratory/spinlab/issues" target="_blank"> SpinLab GitHub Issue Tracker</a></p></li>
+<li><p><strong>Request a feature</strong> — open a feature request on the <a href="https://github.com/spinlaboratory/spinlab/issues" target="_blank"> SpinLab GitHub Issue Tracker</a></p></li>
+<li><p><strong>Improve the documentation</strong> — fix a typo, expand an example, or add a new guide page</p></li>
+<li><p><strong>Add a test case</strong> — help improve test coverage</p></li>
+<li><p><strong>Submit a code fix</strong> — fix a bug or implement a new feature</p></li>
+<li><p><strong>Become a maintainer</strong> — see the section below</p></li>
+</ul>
+</section>
+<section id="reporting-bugs-and-requesting-features">
+<h2>Reporting Bugs and Requesting Features<a class="headerlink" href="#reporting-bugs-and-requesting-features" title="Link to this heading"></a></h2>
+<p>SpinLab uses the GitHub issue tracker for all bugs and enhancement requests.</p>
+<p>When reporting a <strong>bug</strong>, please include:</p>
+<ol class="arabic simple">
+<li><p>A short, self-contained Python snippet that reproduces the problem</p></li>
+<li><p>The SpinLab version (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">show</span> <span class="pre">spinlab</span></code>)</p></li>
+<li><p>Your Python version and operating system</p></li>
+<li><p>What you expected to happen and what actually happened</p></li>
+</ol>
+<p>When requesting a <strong>feature</strong>, please describe:</p>
+<ol class="arabic simple">
+<li><p>What you are trying to accomplish</p></li>
+<li><p>Why the current functionality does not cover the use case</p></li>
+<li><p>If possible, a sketch of the desired API</p></li>
+</ol>
+</section>
+<section id="working-with-the-code">
+<h2>Working with the Code<a class="headerlink" href="#working-with-the-code" title="Link to this heading"></a></h2>
+<section id="setting-up-a-development-environment">
+<h3>Setting Up a Development Environment<a class="headerlink" href="#setting-up-a-development-environment" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>Fork the repository on GitHub and clone your fork locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/&lt;your-github-username&gt;/spinlab<span class="w"> </span>spinlab-dev
+<span class="nb">cd</span><span class="w"> </span>spinlab-dev
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/SpinLab/spinlab.git
+</pre></div>
+</div>
+</li>
+<li><p>Create a virtual environment with Python 3.10 or higher and install SpinLab in editable mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">        </span><span class="c1"># macOS / Linux</span>
+venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">           </span><span class="c1"># Windows</span>
+
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>spinlab
+</pre></div>
+</div>
+</li>
+<li><p>Switch to the <code class="docutils literal notranslate"><span class="pre">Development</span></code> branch, which contains the latest in-progress work:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>Development
+git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>Development
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="branching-and-committing">
+<h3>Branching and Committing<a class="headerlink" href="#branching-and-committing" title="Link to this heading"></a></h3>
+<p>Always branch from <code class="docutils literal notranslate"><span class="pre">Development</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>Development
+git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>Development
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>yourname-gh-&lt;issue-number&gt;
+</pre></div>
+</div>
+<p>Make small, focused commits. After making changes, verify nothing is broken:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest
+</pre></div>
+</div>
+<p>Check for syntax errors and formatting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>flake8<span class="w"> </span>.<span class="w"> </span>--count<span class="w"> </span>--select<span class="o">=</span>E9,F63,F7,F82<span class="w"> </span>--show-source<span class="w"> </span>--statistics
+python<span class="w"> </span>-m<span class="w"> </span>black<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="opening-a-pull-request">
+<h3>Opening a Pull Request<a class="headerlink" href="#opening-a-pull-request" title="Link to this heading"></a></h3>
+<p>Push your branch to your fork and open a pull request against <code class="docutils literal notranslate"><span class="pre">SpinLab/Development</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>yourname-gh-&lt;issue-number&gt;
+</pre></div>
+</div>
+<p>In your pull request description, briefly explain what the change does and reference the related issue (e.g. <code class="docutils literal notranslate"><span class="pre">Closes</span> <span class="pre">#42</span></code>). Automated checks will run; a maintainer will review and merge once everything passes.</p>
+</section>
+</section>
+<section id="contributing-to-the-documentation">
+<h2>Contributing to the Documentation<a class="headerlink" href="#contributing-to-the-documentation" title="Link to this heading"></a></h2>
+<p>The documentation is written in reStructuredText and built with <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a>. Source files live in the <code class="docutils literal notranslate"><span class="pre">doc/</span></code> directory.</p>
+<p>To build the docs locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>doc
+make<span class="w"> </span>html<span class="w">             </span><span class="c1"># macOS / Linux</span>
+.<span class="se">\m</span>ake.bat<span class="w"> </span>html<span class="w">       </span><span class="c1"># Windows</span>
+</pre></div>
+</div>
+<p>The built HTML is written to <code class="docutils literal notranslate"><span class="pre">doc/_build/html/</span></code>. Open <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in a browser to preview.</p>
+<p>Documentation contributions are especially welcome — if something is unclear, a pull request fixing it is the fastest way to help the whole community.</p>
+</section>
+<section id="becoming-a-maintainer">
+<h2>Becoming a Maintainer<a class="headerlink" href="#becoming-a-maintainer" title="Link to this heading"></a></h2>
+<p>We warmly welcome committed individuals to help maintain SpinLab. You do not need to be a Python expert or a magnetic resonance expert — enthusiasm and reliability matter more. Please reach out to any of the <a class="reference internal" href="people.html"><span class="doc">current team members</span></a> if you are interested.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>By contributing, you agree that your contributions will be licensed under the <a class="reference external" href="https://opensource.org/licenses/MIT">MIT License</a> that covers this project.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="people.html" class="btn btn-neutral float-left" title="People" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

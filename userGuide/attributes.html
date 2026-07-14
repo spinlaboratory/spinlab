@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attributes &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Indexing" href="indexing.html" />
+    <link rel="prev" title="Processing Data" href="processing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">Processing Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Attributes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#spinlab-attributes-spinlab-attrs">SpinLab Attributes (<code class="docutils literal notranslate"><span class="pre">spinlab_attrs</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-experiment-type-attribute">The <code class="docutils literal notranslate"><span class="pre">experiment_type</span></code> Attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-attributes">Accessing Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-attributes">Modifying Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Attributes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/userGuide/attributes.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="attributes">
+<h1>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h1>
+<p>Every <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object carries two attribute dictionaries that travel with the data through the entire processing workflow:</p>
+<ul class="simple">
+<li><p><strong>``attrs``</strong> — the raw experimental parameters read directly from the spectrometer file. Keys and values are instrument-specific (e.g. Bruker BES3T uses <code class="docutils literal notranslate"><span class="pre">&quot;MF&quot;</span></code> for microwave frequency, TopSpin uses <code class="docutils literal notranslate"><span class="pre">&quot;SFO1&quot;</span></code>).</p></li>
+<li><p><strong>``spinlab_attrs``</strong> — a normalized layer that SpinLab populates automatically on import. It maps the instrument-specific keys to a common, format-independent set of names so that the same code works regardless of which instrument produced the data.</p></li>
+</ul>
+<p>Both dictionaries are plain Python <code class="docutils literal notranslate"><span class="pre">dict</span></code> objects and can be read, updated, or extended at any time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read a raw attribute</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;MF&quot;</span><span class="p">])</span>              <span class="c1"># Bruker WinEPR microwave frequency</span>
+
+<span class="c1"># Read a normalized SpinLab attribute</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spinlab_attrs</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>   <span class="c1"># same value, any format</span>
+
+<span class="c1"># Print all raw attributes in a formatted table</span>
+<span class="n">data</span><span class="o">.</span><span class="n">exp_info</span><span class="p">()</span>
+
+<span class="c1"># Print all SpinLab attributes</span>
+<span class="n">data</span><span class="o">.</span><span class="n">spinlab_info</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="spinlab-attributes-spinlab-attrs">
+<h2>SpinLab Attributes (<code class="docutils literal notranslate"><span class="pre">spinlab_attrs</span></code>)<a class="headerlink" href="#spinlab-attributes-spinlab-attrs" title="Link to this heading"></a></h2>
+<p>The following attributes are automatically extracted and normalized on import. A value of <code class="docutils literal notranslate"><span class="pre">None</span></code> means the attribute is not available for a particular format.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 12.0%" />
+<col style="width: 18.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Available for</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">experiment_type</span></code></p></td>
+<td><p>—</p></td>
+<td><p>All formats</p></td>
+<td><p>String identifying the experiment type. Set automatically on import and used by <code class="docutils literal notranslate"><span class="pre">sl.fancy_plot()</span></code> to select axis labels and formatting. Can be changed manually (see below).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data_format</span></code></p></td>
+<td><p>—</p></td>
+<td><p>All formats</p></td>
+<td><p>Name of the file format that was imported (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;XEPR&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;TopSpin&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;WinEPR&quot;</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data_type</span></code></p></td>
+<td><p>—</p></td>
+<td><p>All formats</p></td>
+<td><p>Technique: <code class="docutils literal notranslate"><span class="pre">&quot;EPR&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;NMR&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scans</span></code></p></td>
+<td><p>—</p></td>
+<td><p>All formats</p></td>
+<td><p>Number of scans or averages accumulated.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">frequency</span></code></p></td>
+<td><p>Hz</p></td>
+<td><p>All formats</p></td>
+<td><p>Microwave frequency (EPR) or NMR Larmor frequency. Stored in Hz after unit conversion.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power</span></code></p></td>
+<td><p>W</p></td>
+<td><p>EPR, RS2D</p></td>
+<td><p>Microwave or RF power.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">attenuation</span></code></p></td>
+<td><p>dB</p></td>
+<td><p>EPR (Xepr, Xenon, WinEPR, ESP, RS2D)</p></td>
+<td><p>Attenuator setting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pulse_attenuation</span></code></p></td>
+<td><p>dB</p></td>
+<td><p>EPR (Xepr, Xenon)</p></td>
+<td><p>Pulse attenuator setting (pulsed EPR).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">center_field</span></code></p></td>
+<td><p>mT</p></td>
+<td><p>EPR</p></td>
+<td><p>Center magnetic field of the sweep.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sweep_field</span></code></p></td>
+<td><p>mT</p></td>
+<td><p>EPR, VnmrJ, TNMR, SpecMan</p></td>
+<td><p>Total field sweep width (EPR) or spectral width (NMR).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repetition_time</span></code></p></td>
+<td><p>s</p></td>
+<td><p>NMR (Prospa, Delta, VnmrJ, TNMR), SpecMan</p></td>
+<td><p>Repetition time between successive scans.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">receiver_gain</span></code></p></td>
+<td><p>—</p></td>
+<td><p>EPR (WinEPR, ESP), NMR (Delta, TNMR), RS2D</p></td>
+<td><p>Receiver gain setting.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">receiver_attenuation</span></code></p></td>
+<td><p>dB</p></td>
+<td><p>(reserved, currently None for all formats)</p></td>
+<td><p>Receiver attenuation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">conversion_time</span></code></p></td>
+<td><p>ms</p></td>
+<td><p>EPR (Xepr, Xenon, WinEPR, ESP)</p></td>
+<td><p>ADC conversion time per point (CW EPR).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_constant</span></code></p></td>
+<td><p>ms</p></td>
+<td><p>EPR (Xepr, Xenon, WinEPR, ESP)</p></td>
+<td><p>Filter time constant (CW EPR).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">modulation_amplitude</span></code></p></td>
+<td><p>mT</p></td>
+<td><p>EPR (Xepr, Xenon, WinEPR, ESP)</p></td>
+<td><p>Field modulation amplitude (CW EPR).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">modulation_frequency</span></code></p></td>
+<td><p>kHz</p></td>
+<td><p>EPR (Xepr, Xenon, WinEPR, ESP)</p></td>
+<td><p>Field modulation frequency (CW EPR).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code></p></td>
+<td><p>K</p></td>
+<td><p>EPR (Xepr, Xenon, WinEPR, ESP), NMR (Delta, VnmrJ, TNMR)</p></td>
+<td><p>Sample temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dwell_time</span></code></p></td>
+<td><p>s</p></td>
+<td><p>RS2D</p></td>
+<td><p>Dwell time between digitizer samples.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-experiment-type-attribute">
+<h2>The <code class="docutils literal notranslate"><span class="pre">experiment_type</span></code> Attribute<a class="headerlink" href="#the-experiment-type-attribute" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">experiment_type</span></code> is the most important attribute in SpinLab. It is stored in <code class="docutils literal notranslate"><span class="pre">attrs</span></code> (not <code class="docutils literal notranslate"><span class="pre">spinlab_attrs</span></code>) and controls how <code class="docutils literal notranslate"><span class="pre">sl.fancy_plot()</span></code> formats the figure — which axis labels, title, and marker style are applied.</p>
+<p>SpinLab sets it automatically on import based on the file format. You can inspect or change it at any time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;experiment_type&quot;</span><span class="p">])</span>          <span class="c1"># e.g. &#39;epr_spectrum&#39;</span>
+
+<span class="c1"># Override to use a different plot style</span>
+<span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;experiment_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;inversion_recovery&quot;</span>
+</pre></div>
+</div>
+<p>The following values are currently defined:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 15.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">experiment_type</span></code></p></th>
+<th class="head"><p>Technique</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">epr_spectrum</span></code></p></td>
+<td><p>EPR</p></td>
+<td><p>Continuous-wave EPR spectrum. Default when a CW EPR file is loaded. X-axis: magnetic field (mT).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">epr_transient</span></code></p></td>
+<td><p>EPR</p></td>
+<td><p>EPR transient from a transient recorder. X-axis: time (µs).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">epr_transient_E580</span></code></p></td>
+<td><p>EPR</p></td>
+<td><p>EPR transient specific to the Bruker E580 spectrometer. X-axis: time (ns).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">echo_decay</span></code></p></td>
+<td><p>EPR</p></td>
+<td><p>Echo intensity as a function of pulse separation. X-axis: time (s).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">eldor_profile</span></code></p></td>
+<td><p>EPR</p></td>
+<td><p>ELDOR profile. X-axis: pump frequency (GHz).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">saturation_recovery</span></code></p></td>
+<td><p>EPR</p></td>
+<td><p>Saturation recovery experiment. X-axis: evolution time (s).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inversion_recovery</span></code></p></td>
+<td><p>NMR</p></td>
+<td><p>Inversion recovery experiment. X-axis: evolution time T<sub>1</sub> (s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">polarization_buildup</span></code></p></td>
+<td><p>DNP</p></td>
+<td><p>DNP polarization build-up. X-axis: contact time (s).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enhancements_P</span></code></p></td>
+<td><p>DNP</p></td>
+<td><p>DNP enhancement factor vs. microwave power. X-axis: power (dBm).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">enhancements_PdBm</span></code></p></td>
+<td><p>DNP</p></td>
+<td><p>DNP enhancement factor vs. microwave power in dBm. X-axis: power (dBm).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enhancements_PW</span></code></p></td>
+<td><p>DNP</p></td>
+<td><p>DNP enhancement factor vs. microwave power in Watts. X-axis: power (W).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sl_enhancement_profile_f</span></code></p></td>
+<td><p>DNP</p></td>
+<td><p>Spin enhancement profile vs. frequency. X-axis: frequency (GHz).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="accessing-attributes">
+<h2>Accessing Attributes<a class="headerlink" href="#accessing-attributes" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;spectrum.DTA&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Raw attrs ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>                        <span class="c1"># full dictionary</span>
+<span class="n">data</span><span class="o">.</span><span class="n">exp_info</span><span class="p">()</span>                          <span class="c1"># formatted table printout</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;experiment_type&quot;</span><span class="p">])</span>     <span class="c1"># &#39;epr_spectrum&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>           <span class="c1"># microwave frequency (raw)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;nscans&quot;</span><span class="p">])</span>              <span class="c1"># number of scans (Xepr raw key)</span>
+
+<span class="c1"># --- SpinLab attrs ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spinlab_attrs</span><span class="p">)</span>                <span class="c1"># full dictionary</span>
+<span class="n">data</span><span class="o">.</span><span class="n">spinlab_info</span><span class="p">()</span>                      <span class="c1"># formatted table printout</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spinlab_attrs</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>   <span class="c1"># same frequency value, normalized</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spinlab_attrs</span><span class="p">[</span><span class="s2">&quot;scans&quot;</span><span class="p">])</span>       <span class="c1"># number of scans, any format</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">spinlab_attrs</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">])</span> <span class="c1"># temperature in K</span>
+
+<span class="c1"># --- Both together ---</span>
+<span class="n">data</span><span class="o">.</span><span class="n">show_attrs</span><span class="p">()</span>                        <span class="c1"># prints spinlab_attrs + proc_attrs</span>
+</pre></div>
+</div>
+</section>
+<section id="modifying-attributes">
+<h2>Modifying Attributes<a class="headerlink" href="#modifying-attributes" title="Link to this heading"></a></h2>
+<p>Attributes can be added or changed freely. A common use case is correcting the <code class="docutils literal notranslate"><span class="pre">experiment_type</span></code> or adding custom metadata before saving:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change experiment type for fancy_plot formatting</span>
+<span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;experiment_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;echo_decay&quot;</span>
+
+<span class="c1"># Add a custom annotation</span>
+<span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;sample_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TEMPO in toluene&quot;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;concentration_mM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="c1"># Save with the updated attributes — all attrs are preserved in HDF5</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;annotated_data.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="spindata_object.html"><span class="doc">The SpinData Object</span></a> — full description of the <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object and its attributes</p></li>
+<li><p><a class="reference internal" href="loading_data.html"><span class="doc">Loading Data</span></a> — how attributes are populated for each file format</p></li>
+<li><p><a class="reference internal" href="plotting.html"><span class="doc">Plotting Data</span></a> — how <code class="docutils literal notranslate"><span class="pre">experiment_type</span></code> controls <code class="docutils literal notranslate"><span class="pre">fancy_plot</span></code> output</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="processing.html" class="btn btn-neutral float-left" title="Processing Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="indexing.html" class="btn btn-neutral float-right" title="Indexing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

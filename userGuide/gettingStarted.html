@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The SpinData Object" href="spindata_object.html" />
+    <link rel="prev" title="Changelog" href="../changelog.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-import-spinlab">Step 1 — Import SpinLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-load-a-data-file">Step 2 — Load a Data File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-inspect-the-data">Step 3 — Inspect the Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-plot-the-spectrum">Step 4 — Plot the Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-5-process-the-data">Step 5 — Process the Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-6-save-the-result">Step 6 — Save the Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/userGuide/gettingStarted.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
+<p>This page walks you through the first steps with SpinLab: loading a real data file, inspecting the result, processing the data, and plotting the spectrum. The entire workflow takes less than 10 minutes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before starting, make sure SpinLab is installed. See <a class="reference internal" href="../installation.html"><span class="doc">Installation</span></a> for instructions. SpinLab requires <strong>Python 3.10 or higher</strong>.</p>
+</div>
+<section id="step-1-import-spinlab">
+<h2>Step 1 — Import SpinLab<a class="headerlink" href="#step-1-import-spinlab" title="Link to this heading"></a></h2>
+<p>Open a terminal (e.g. Windows PowerShell, macOS Terminal, or a Jupyter notebook) and import SpinLab:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+</pre></div>
+</div>
+<p>SpinLab is imported under the alias <code class="docutils literal notranslate"><span class="pre">sl</span></code> by convention. All SpinLab functions are accessible via this alias (e.g. <code class="docutils literal notranslate"><span class="pre">sl.load()</span></code>, <code class="docutils literal notranslate"><span class="pre">sl.plot()</span></code>).</p>
+</section>
+<section id="step-2-load-a-data-file">
+<h2>Step 2 — Load a Data File<a class="headerlink" href="#step-2-load-a-data-file" title="Link to this heading"></a></h2>
+<p>SpinLab can load many different spectrometer formats. In most cases the file format is detected automatically from the file extension:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/bes3t/1D_CW.DTA&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is a <a class="reference internal" href="spindata_object.html"><span class="doc">The SpinData Object</span></a> — SpinLab's central data container. It holds the spectral values together with the axis coordinates and experimental parameters.</p>
+<p>To see a summary of what was loaded:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>values:
+    2250 ndarray (float64)
+dims:
+    [&#39;B0&#39;]
+coords:
+    array([342.055, 342.062, ..., 357.048], shape=(2250,))
+attrs:
+    &#39;experiment_type&#39;: &#39;epr_spectrum&#39;
+    &#39;mw_frequency&#39;: 9.804448
+    &#39;center_field&#39;: 3495.55
+    &#39;power&#39;: 1.002
+    +12 attrs
+</pre></div>
+</div>
+<p>The object contains:</p>
+<ul class="simple">
+<li><p><strong>values</strong> — the spectral data as a NumPy array (2250 points)</p></li>
+<li><p><strong>dims</strong> — the dimension label (<code class="docutils literal notranslate"><span class="pre">'B0'</span></code>, the magnetic field axis)</p></li>
+<li><p><strong>coords</strong> — the field values in mT</p></li>
+<li><p><strong>attrs</strong> — experimental parameters read directly from the file</p></li>
+</ul>
+<p>See <a class="reference internal" href="loading_data.html"><span class="doc">Loading Data</span></a> for examples of every supported file format.</p>
+</section>
+<section id="step-3-inspect-the-data">
+<h2>Step 3 — Inspect the Data<a class="headerlink" href="#step-3-inspect-the-data" title="Link to this heading"></a></h2>
+<p>You can access any part of the object directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>          <span class="c1"># (2250,)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>                  <span class="c1"># [&#39;B0&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;B0&quot;</span><span class="p">])</span>          <span class="c1"># field axis array in mT</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;mw_frequency&quot;</span><span class="p">])</span> <span class="c1"># 9.804448 GHz</span>
+</pre></div>
+</div>
+<p>To see all experimental parameters in a formatted table:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">exp_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-plot-the-spectrum">
+<h2>Step 4 — Plot the Spectrum<a class="headerlink" href="#step-4-plot-the-spectrum" title="Link to this heading"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">sl.plot()</span></code> to quickly visualize the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>SpinLab imports Matplotlib internally and exposes the full <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> module as <code class="docutils literal notranslate"><span class="pre">sl.plt</span></code>. Any Matplotlib command works:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Magnetic Field (mT)&quot;</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Intensity (a.u.)&quot;</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;CW EPR Spectrum&quot;</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For publication-ready figures with automatic axis labels and formatting based on the experiment type, use <code class="docutils literal notranslate"><span class="pre">sl.fancy_plot()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">fancy_plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="plotting.html"><span class="doc">Plotting Data</span></a> for the full list of supported experiment types and plot options.</p>
+</section>
+<section id="step-5-process-the-data">
+<h2>Step 5 — Process the Data<a class="headerlink" href="#step-5-process-the-data" title="Link to this heading"></a></h2>
+<p>SpinLab processing functions always take a <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object as input and return a new one — the original is never modified.</p>
+<p>A typical NMR processing sequence (load → apodize → Fourier transform → phase):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load a raw NMR FID from TopSpin</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;experiment/1/&quot;</span><span class="p">)</span>
+
+<span class="c1"># Apply exponential line broadening (5 Hz)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">apodize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;t2&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;exponential&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Fourier transform with 2x zero-filling</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">fourier_transform</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zero_fill_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Phase correction</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mf">12.5</span><span class="p">)</span>
+
+<span class="c1"># Plot the spectrum</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Every processing step is automatically recorded in the audit log. To inspect it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">proc_info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="processing.html"><span class="doc">Processing Data</span></a> for the complete processing reference.</p>
+</section>
+<section id="step-6-save-the-result">
+<h2>Step 6 — Save the Result<a class="headerlink" href="#step-6-save-the-result" title="Link to this heading"></a></h2>
+<p>Save the processed data to SpinLab's HDF5 format, which preserves the full object including axes and the processing audit log:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;processed_spectrum.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Reload it at any time with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;processed_spectrum.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="spindata_object.html"><span class="doc">The SpinData Object</span></a> — understand the <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object in depth</p></li>
+<li><p><a class="reference internal" href="loading_data.html"><span class="doc">Loading Data</span></a> — load data from every supported file format</p></li>
+<li><p><a class="reference internal" href="processing.html"><span class="doc">Processing Data</span></a> — full processing reference with examples</p></li>
+<li><p><a class="reference internal" href="indexing.html"><span class="doc">Indexing</span></a> — slice and select subsets of your data</p></li>
+<li><p><a class="reference internal" href="plotting.html"><span class="doc">Plotting Data</span></a> — create publication-quality figures</p></li>
+<li><p><a class="reference internal" href="../api/index.html#api-reference"><span class="std std-ref">API Reference</span></a> — complete API reference</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../changelog.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="spindata_object.html" class="btn btn-neutral float-right" title="The SpinData Object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

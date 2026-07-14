@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading Data &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Processing Data" href="processing.html" />
+    <link rel="prev" title="The SpinData Object" href="spindata_object.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Loading Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#automatic-format-detection">Automatic Format Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#format-by-format-examples">Format-by-Format Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bruker-xepr-elexsys-bes3t">Bruker Xepr / Elexsys (BES3T)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bruker-winepr-esp">Bruker WinEPR / ESP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bruker-topspin-raw-fid-ser">Bruker TopSpin (raw FID / SER)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bruker-topspin-processed-pdata">Bruker TopSpin (processed pdata)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#varian-agilent-vnmrj">Varian / Agilent VnmrJ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jeol-delta">JEOL Delta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#magritek-prospa">Magritek Prospa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#femi-specman4epr">FeMi SpecMan4EPR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#csv-files">CSV Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab-hdf5-h5">SpinLab HDF5 (<code class="docutils literal notranslate"><span class="pre">.h5</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-multiple-files">Loading Multiple Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#saving-data">Saving Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Loading Data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/userGuide/loading_data.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="loading-data">
+<h1>Loading Data<a class="headerlink" href="#loading-data" title="Link to this heading"></a></h1>
+<p>SpinLab can import data from a wide range of spectrometer formats. The universal entry point is the <code class="docutils literal notranslate"><span class="pre">sl.load()</span></code> function — in most cases it detects the file format automatically from the file extension or directory contents.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/my/data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is always a <a class="reference internal" href="spindata_object.html"><span class="doc">The SpinData Object</span></a> ready for processing.</p>
+<section id="automatic-format-detection">
+<h2>Automatic Format Detection<a class="headerlink" href="#automatic-format-detection" title="Link to this heading"></a></h2>
+<p>SpinLab inspects the file extension (or the contents of a directory) to determine the format. The table below shows which formats are detected automatically:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 30.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Spectrometer / Software</p></th>
+<th class="head"><p>Extension / Indicator</p></th>
+<th class="head"><p>Format string</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bruker Xepr / Elexsys (BES3T)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.DSC</span></code>, <code class="docutils literal notranslate"><span class="pre">.DTA</span></code>, <code class="docutils literal notranslate"><span class="pre">.YGF</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;xepr&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Bruker WinEPR / ESP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.par</span></code>, <code class="docutils literal notranslate"><span class="pre">.spc</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;winepr&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Bruker TopSpin (raw)</p></td>
+<td><p>directory with <code class="docutils literal notranslate"><span class="pre">acqus</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;topspin&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Bruker TopSpin (processed)</p></td>
+<td><p>directory with <code class="docutils literal notranslate"><span class="pre">procs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;topspin</span> <span class="pre">pdata&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Varian / Agilent VnmrJ</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.fid</span></code> directory</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;vnmrj&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>JEOL Delta</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.jdf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;delta&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Magritek Prospa</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.1d</span></code>, <code class="docutils literal notranslate"><span class="pre">.2d</span></code>, <code class="docutils literal notranslate"><span class="pre">.3d</span></code>, <code class="docutils literal notranslate"><span class="pre">.4d</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;prospa&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>FeMi SpecMan4EPR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.d01</span></code>, <code class="docutils literal notranslate"><span class="pre">.exp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;specman&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Tecmag TNMR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.tnt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;tnmr&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>RS2D</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.xml</span></code>, <code class="docutils literal notranslate"><span class="pre">.dat</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;rs2d&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>VNA (S-parameters)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.s1p</span></code>, <code class="docutils literal notranslate"><span class="pre">.s2p</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;vna&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SpinLab HDF5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.h5</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;h5&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>CSV</p></td>
+<td><p>(use <code class="docutils literal notranslate"><span class="pre">sl.load_csv</span></code> directly)</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
+<p>If autodetection fails, pass the format explicitly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/data&quot;</span><span class="p">,</span> <span class="n">data_format</span><span class="o">=</span><span class="s2">&quot;topspin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="format-by-format-examples">
+<h2>Format-by-Format Examples<a class="headerlink" href="#format-by-format-examples" title="Link to this heading"></a></h2>
+<section id="bruker-xepr-elexsys-bes3t">
+<h3>Bruker Xepr / Elexsys (BES3T)<a class="headerlink" href="#bruker-xepr-elexsys-bes3t" title="Link to this heading"></a></h3>
+<p>Point <code class="docutils literal notranslate"><span class="pre">sl.load()</span></code> at the <code class="docutils literal notranslate"><span class="pre">.DTA</span></code> or <code class="docutils literal notranslate"><span class="pre">.DSC</span></code> file. Axis files (<code class="docutils literal notranslate"><span class="pre">.XGF</span></code>, <code class="docutils literal notranslate"><span class="pre">.YGF</span></code>, <code class="docutils literal notranslate"><span class="pre">.ZGF</span></code>) are loaded automatically if present:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;experiment/1D_CW.DTA&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bruker-winepr-esp">
+<h3>Bruker WinEPR / ESP<a class="headerlink" href="#bruker-winepr-esp" title="Link to this heading"></a></h3>
+<p>Pass the <code class="docutils literal notranslate"><span class="pre">.par</span></code> or <code class="docutils literal notranslate"><span class="pre">.spc</span></code> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;spectrum.par&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bruker-topspin-raw-fid-ser">
+<h3>Bruker TopSpin (raw FID / SER)<a class="headerlink" href="#bruker-topspin-raw-fid-ser" title="Link to this heading"></a></h3>
+<p>Pass the <strong>experiment directory</strong> (the folder containing <code class="docutils literal notranslate"><span class="pre">acqus</span></code>). SpinLab reads the <code class="docutils literal notranslate"><span class="pre">fid</span></code> or <code class="docutils literal notranslate"><span class="pre">ser</span></code> binary file and applies the acquisition parameters automatically:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/topspin/1/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bruker-topspin-processed-pdata">
+<h3>Bruker TopSpin (processed pdata)<a class="headerlink" href="#bruker-topspin-processed-pdata" title="Link to this heading"></a></h3>
+<p>Pass the <code class="docutils literal notranslate"><span class="pre">pdata/1</span></code> subdirectory (the folder containing <code class="docutils literal notranslate"><span class="pre">procs</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/topspin/1/pdata/1/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="varian-agilent-vnmrj">
+<h3>Varian / Agilent VnmrJ<a class="headerlink" href="#varian-agilent-vnmrj" title="Link to this heading"></a></h3>
+<p>Pass the <code class="docutils literal notranslate"><span class="pre">.fid</span></code> directory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;experiment.fid/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="jeol-delta">
+<h3>JEOL Delta<a class="headerlink" href="#jeol-delta" title="Link to this heading"></a></h3>
+<p>Pass the <code class="docutils literal notranslate"><span class="pre">.jdf</span></code> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;spectrum.jdf&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="magritek-prospa">
+<h3>Magritek Prospa<a class="headerlink" href="#magritek-prospa" title="Link to this heading"></a></h3>
+<p>Pass the <code class="docutils literal notranslate"><span class="pre">.1d</span></code> (or <code class="docutils literal notranslate"><span class="pre">.2d</span></code>, <code class="docutils literal notranslate"><span class="pre">.3d</span></code>, <code class="docutils literal notranslate"><span class="pre">.4d</span></code>) file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;experiment.1d&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="femi-specman4epr">
+<h3>FeMi SpecMan4EPR<a class="headerlink" href="#femi-specman4epr" title="Link to this heading"></a></h3>
+<p>Pass the <code class="docutils literal notranslate"><span class="pre">.d01</span></code> or <code class="docutils literal notranslate"><span class="pre">.exp</span></code> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;experiment.d01&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="csv-files">
+<h3>CSV Files<a class="headerlink" href="#csv-files" title="Link to this heading"></a></h3>
+<p>CSV files are not handled by <code class="docutils literal notranslate"><span class="pre">sl.load()</span></code> — use <code class="docutils literal notranslate"><span class="pre">sl.load_csv()</span></code> directly. By default it expects columns: time (col 0), real (col 1), imaginary (col 2):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load_csv</span><span class="p">(</span>
+    <span class="s2">&quot;data.csv&quot;</span><span class="p">,</span>
+    <span class="n">tcol</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>      <span class="c1"># column index for the time/x axis</span>
+    <span class="n">real</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>      <span class="c1"># column index for real part</span>
+    <span class="n">imag</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>      <span class="c1"># column index for imaginary part</span>
+    <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># skip one header row</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="spinlab-hdf5-h5">
+<h3>SpinLab HDF5 (<code class="docutils literal notranslate"><span class="pre">.h5</span></code>)<a class="headerlink" href="#spinlab-hdf5-h5" title="Link to this heading"></a></h3>
+<p>HDF5 is SpinLab's own storage format (see <a class="reference internal" href="#saving-data"><span class="std std-ref">Saving Data</span></a>). Load it exactly like any other file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;experiment.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the <code class="docutils literal notranslate"><span class="pre">.h5</span></code> file contains multiple datasets (saved as a dictionary), a Python dictionary of <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> objects is returned:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">workspace</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;workspace.h5&quot;</span><span class="p">)</span>
+<span class="n">data_nmr</span> <span class="o">=</span> <span class="n">workspace</span><span class="p">[</span><span class="s2">&quot;nmr&quot;</span><span class="p">]</span>
+<span class="n">data_epr</span> <span class="o">=</span> <span class="n">workspace</span><span class="p">[</span><span class="s2">&quot;epr&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="loading-multiple-files">
+<h2>Loading Multiple Files<a class="headerlink" href="#loading-multiple-files" title="Link to this heading"></a></h2>
+<p>Pass a list of paths together with a <code class="docutils literal notranslate"><span class="pre">dim</span></code> name and a <code class="docutils literal notranslate"><span class="pre">coord</span></code> array to concatenate several files along a new dimension in one step. This is useful for, e.g., a power series or a time series:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">paths</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;power_1mW.DTA&quot;</span><span class="p">,</span> <span class="s2">&quot;power_5mW.DTA&quot;</span><span class="p">,</span> <span class="s2">&quot;power_10mW.DTA&quot;</span><span class="p">]</span>
+<span class="n">powers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1e-3</span><span class="p">,</span> <span class="mf">5e-3</span><span class="p">,</span> <span class="mf">10e-3</span><span class="p">])</span>   <span class="c1"># in Watts</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="s2">&quot;power&quot;</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="n">powers</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>    <span class="c1"># [&#39;B0&#39;, &#39;power&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="c1"># (2250, 3)</span>
+</pre></div>
+</div>
+<p>The individual spectra are stacked along the new <code class="docutils literal notranslate"><span class="pre">&quot;power&quot;</span></code> dimension. The <code class="docutils literal notranslate"><span class="pre">coord</span></code> array must have the same length as the list of paths.</p>
+</section>
+<section id="saving-data">
+<span id="id1"></span><h2>Saving Data<a class="headerlink" href="#saving-data" title="Link to this heading"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">sl.save()</span></code> to write a <code class="docutils literal notranslate"><span class="pre">SpinData</span></code> object to an HDF5 file. HDF5 preserves the full object — values, axes, all attributes, and the processing audit log:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;processed_data.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To save multiple datasets in a single file, pass a dictionary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">workspace</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nmr&quot;</span><span class="p">:</span> <span class="n">data_nmr</span><span class="p">,</span> <span class="s2">&quot;epr&quot;</span><span class="p">:</span> <span class="n">data_epr</span><span class="p">}</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">workspace</span><span class="p">,</span> <span class="s2">&quot;workspace.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default <code class="docutils literal notranslate"><span class="pre">sl.save()</span></code> will raise an error if the file already exists.
+Pass <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code> to allow overwriting:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;processed_data.h5&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="spindata_object.html"><span class="doc">The SpinData Object</span></a> — understand the object that <code class="docutils literal notranslate"><span class="pre">sl.load()</span></code> returns</p></li>
+<li><p><a class="reference internal" href="processing.html"><span class="doc">Processing Data</span></a> — process the data after loading</p></li>
+<li><p><a class="reference internal" href="../api/io.html#api-io"><span class="std std-ref">IO</span></a> — full API reference for all I/O functions</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="spindata_object.html" class="btn btn-neutral float-left" title="The SpinData Object" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="processing.html" class="btn btn-neutral float-right" title="Processing Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

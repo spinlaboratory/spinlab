@@ -1,0 +1,925 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Fitting" href="fitting.html" />
+    <link rel="prev" title="Constants" href="constants.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.core.data.SpinData"><code class="docutils literal notranslate"><span class="pre">SpinData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.values"><code class="docutils literal notranslate"><span class="pre">SpinData.values</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.coords"><code class="docutils literal notranslate"><span class="pre">SpinData.coords</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.dims"><code class="docutils literal notranslate"><span class="pre">SpinData.dims</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.attrs"><code class="docutils literal notranslate"><span class="pre">SpinData.attrs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.add_proc_attrs"><code class="docutils literal notranslate"><span class="pre">SpinData.add_proc_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.exp_info"><code class="docutils literal notranslate"><span class="pre">SpinData.exp_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.phase"><code class="docutils literal notranslate"><span class="pre">SpinData.phase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.proc_info"><code class="docutils literal notranslate"><span class="pre">SpinData.proc_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.select"><code class="docutils literal notranslate"><span class="pre">SpinData.select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.show_attrs"><code class="docutils literal notranslate"><span class="pre">SpinData.show_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.spinlab_info"><code class="docutils literal notranslate"><span class="pre">SpinData.spinlab_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.data.SpinData.squeeze"><code class="docutils literal notranslate"><span class="pre">SpinData.squeeze()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.core.base.ABCData"><code class="docutils literal notranslate"><span class="pre">ABCData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.values"><code class="docutils literal notranslate"><span class="pre">ABCData.values</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.dims"><code class="docutils literal notranslate"><span class="pre">ABCData.dims</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.coords"><code class="docutils literal notranslate"><span class="pre">ABCData.coords</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.attrs"><code class="docutils literal notranslate"><span class="pre">ABCData.attrs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.error"><code class="docutils literal notranslate"><span class="pre">ABCData.error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.proc_attrs"><code class="docutils literal notranslate"><span class="pre">ABCData.proc_attrs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.abs"><code class="docutils literal notranslate"><span class="pre">ABCData.abs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.align"><code class="docutils literal notranslate"><span class="pre">ABCData.align()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.argmax"><code class="docutils literal notranslate"><span class="pre">ABCData.argmax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.argmax_index"><code class="docutils literal notranslate"><span class="pre">ABCData.argmax_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.argmin"><code class="docutils literal notranslate"><span class="pre">ABCData.argmin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.argmin_index"><code class="docutils literal notranslate"><span class="pre">ABCData.argmin_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.chunk"><code class="docutils literal notranslate"><span class="pre">ABCData.chunk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.concatenate"><code class="docutils literal notranslate"><span class="pre">ABCData.concatenate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.copy"><code class="docutils literal notranslate"><span class="pre">ABCData.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.cumulative_sum"><code class="docutils literal notranslate"><span class="pre">ABCData.cumulative_sum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.dtype"><code class="docutils literal notranslate"><span class="pre">ABCData.dtype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.fold"><code class="docutils literal notranslate"><span class="pre">ABCData.fold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.get_coord"><code class="docutils literal notranslate"><span class="pre">ABCData.get_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.imag"><code class="docutils literal notranslate"><span class="pre">ABCData.imag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.index"><code class="docutils literal notranslate"><span class="pre">ABCData.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.is_sorted"><code class="docutils literal notranslate"><span class="pre">ABCData.is_sorted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.maximum"><code class="docutils literal notranslate"><span class="pre">ABCData.maximum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.merge_attrs"><code class="docutils literal notranslate"><span class="pre">ABCData.merge_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.minimum"><code class="docutils literal notranslate"><span class="pre">ABCData.minimum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.ndim"><code class="docutils literal notranslate"><span class="pre">ABCData.ndim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.new_dim"><code class="docutils literal notranslate"><span class="pre">ABCData.new_dim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.real"><code class="docutils literal notranslate"><span class="pre">ABCData.real</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.rename"><code class="docutils literal notranslate"><span class="pre">ABCData.rename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.reorder"><code class="docutils literal notranslate"><span class="pre">ABCData.reorder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.shape"><code class="docutils literal notranslate"><span class="pre">ABCData.shape</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.size"><code class="docutils literal notranslate"><span class="pre">ABCData.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.smoosh"><code class="docutils literal notranslate"><span class="pre">ABCData.smoosh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.sort"><code class="docutils literal notranslate"><span class="pre">ABCData.sort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.sort_dims"><code class="docutils literal notranslate"><span class="pre">ABCData.sort_dims()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.split"><code class="docutils literal notranslate"><span class="pre">ABCData.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.squeeze"><code class="docutils literal notranslate"><span class="pre">ABCData.squeeze()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.sum"><code class="docutils literal notranslate"><span class="pre">ABCData.sum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.core.base.ABCData.unfold"><code class="docutils literal notranslate"><span class="pre">ABCData.unfold()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.core.util.concat"><code class="docutils literal notranslate"><span class="pre">concat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.core.util.get_slice"><code class="docutils literal notranslate"><span class="pre">get_slice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.core.util.implements_np"><code class="docutils literal notranslate"><span class="pre">implements_np()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.core.util.update_axis"><code class="docutils literal notranslate"><span class="pre">update_axis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.core.ufunc.generate_data"><code class="docutils literal notranslate"><span class="pre">generate_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fitting.html">Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html">IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Processing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Core</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-spinlab.core.data">
+<span id="core"></span><span id="api-core"></span><h1>Core<a class="headerlink" href="#module-spinlab.core.data" title="Link to this heading"></a></h1>
+<p>SpinData object for storing N-dimensional data with coordinates</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">spinlab.core.data.</span></span><span class="sig-name descname"><span class="pre">SpinData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([],</span> <span class="pre">dtype=float64)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spinlab_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'attenuation':</span> <span class="pre">25,</span> <span class="pre">'center_field':</span> <span class="pre">3435.0,</span> <span class="pre">'data_format':</span> <span class="pre">'XEPR',</span> <span class="pre">'data_type':</span> <span class="pre">'EPR',</span> <span class="pre">'frequency':</span> <span class="pre">9625482000.0,</span> <span class="pre">'power':</span> <span class="pre">0.4743,</span> <span class="pre">'pulse_attenuation':</span> <span class="pre">0,</span> <span class="pre">'scans':</span> <span class="pre">1}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proc_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spinlab.core.base.ABCData" title="spinlab.core.base.ABCData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABCData</span></code></a></p>
+<p>SpinData Class for handling spinlab data</p>
+<p>The SpinData class is inspired by pyspecdata nddata object which handles n-dimensional data, axes, and other relevant information together.</p>
+<p>This class is designed to handle data and axes together so that performing NMR processing can be performed easily.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.values">
+<span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#spinlab.core.data.SpinData.values" title="Link to this definition"></a></dt>
+<dd><p>Numpy Array containing data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.coords">
+<span class="sig-name descname"><span class="pre">coords</span></span><a class="headerlink" href="#spinlab.core.data.SpinData.coords" title="Link to this definition"></a></dt>
+<dd><p>List of numpy arrays containing axes of data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.dims">
+<span class="sig-name descname"><span class="pre">dims</span></span><a class="headerlink" href="#spinlab.core.data.SpinData.dims" title="Link to this definition"></a></dt>
+<dd><p>List of axes labels for data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.attrs">
+<span class="sig-name descname"><span class="pre">attrs</span></span><a class="headerlink" href="#spinlab.core.data.SpinData.attrs" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of parameters for data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.add_proc_attrs">
+<span class="sig-name descname"><span class="pre">add_proc_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proc_attr_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proc_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.add_proc_attrs" title="Link to this definition"></a></dt>
+<dd><p>Stamp processing step to SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proc_attr_name</strong> (<em>str</em>) -- Name of processing step (e.g. &quot;fourier_transform&quot;)</p></li>
+<li><p><strong>proc_dict</strong> (<em>dict</em>) -- Dictionary of processing parameters for this processing step.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.exp_info">
+<span class="sig-name descname"><span class="pre">exp_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.exp_info" title="Link to this definition"></a></dt>
+<dd><p>Print experiment attributes currently in attrs dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.phase">
+<span class="sig-name descname"><span class="pre">phase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.phase" title="Link to this definition"></a></dt>
+<dd><p>Return phase of SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>phase of data calculated from sum of imaginary</dt><dd><p>divided by sum of real components</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>phase (float,int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.proc_info">
+<span class="sig-name descname"><span class="pre">proc_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.proc_info" title="Link to this definition"></a></dt>
+<dd><p>Print processing steps and parameters currently in proc_attrs list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.select" title="Link to this definition"></a></dt>
+<dd><p>Select subset of 2D data object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>selection</strong> (<em>int</em><em>, </em><em>range</em><em>, </em><em>list</em><em>, </em><em>tuple</em>) -- list or tuple of slices to keep</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>subset of SpinData object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SpinData object</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>data.select((1, range(5,10), 15)) # keeps slices: 1, 5, 6, 7, 8, 9, and 15</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.show_attrs">
+<span class="sig-name descname"><span class="pre">show_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_exp_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_spinlab_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_proc_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.show_attrs" title="Link to this definition"></a></dt>
+<dd><p>Print experiment attributes, spinlab attributes and processing steps</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.spinlab_info">
+<span class="sig-name descname"><span class="pre">spinlab_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.spinlab_info" title="Link to this definition"></a></dt>
+<dd><p>Print parameters currently in used in spinlab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.data.SpinData.squeeze">
+<span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.data.SpinData.squeeze" title="Link to this definition"></a></dt>
+<dd><p>Remove all length 1 dimensions from data</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Axes information is lost</p>
+</div>
+<p class="rubric">Examples</p>
+<p>data.squeeze()</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-spinlab.core.base">
+<span id="module-spinlab.core.coord"></span><dt class="sig sig-object py" id="spinlab.core.base.ABCData">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">spinlab.core.base.</span></span><span class="sig-name descname"><span class="pre">ABCData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([],</span> <span class="pre">dtype=float64)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sl_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>N-Dimensional Data Object</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.values">
+<span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.values" title="Link to this definition"></a></dt>
+<dd><p>Data values in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.dims">
+<span class="sig-name descname"><span class="pre">dims</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.dims" title="Link to this definition"></a></dt>
+<dd><p>List of strings giving dimension labels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.coords">
+<span class="sig-name descname"><span class="pre">coords</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.coords" title="Link to this definition"></a></dt>
+<dd><p>Collection of numpy.ndarrays defining the axes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Coords</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.attrs">
+<span class="sig-name descname"><span class="pre">attrs</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.attrs" title="Link to this definition"></a></dt>
+<dd><p>dictionary of parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.error">
+<span class="sig-name descname"><span class="pre">error</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.error" title="Link to this definition"></a></dt>
+<dd><p>If not None, error for values which are propagated during mathematical operations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.proc_attrs">
+<span class="sig-name descname"><span class="pre">proc_attrs</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.proc_attrs" title="Link to this definition"></a></dt>
+<dd><p>List of processing steps</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.abs">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">abs</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.abs" title="Link to this definition"></a></dt>
+<dd><p>SpinData with absolute part of values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.align">
+<span class="sig-name descname"><span class="pre">align</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.align" title="Link to this definition"></a></dt>
+<dd><p>Align two data objects for numerical operations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>b</strong> -- Object to align with self</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>self and b aligned data objects</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.argmax">
+<span class="sig-name descname"><span class="pre">argmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.argmax" title="Link to this definition"></a></dt>
+<dd><p>Return value of coord at values maximum for given dim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to perform operation along</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.argmax_index">
+<span class="sig-name descname"><span class="pre">argmax_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.argmax_index" title="Link to this definition"></a></dt>
+<dd><p>Return index of coord at values maximum for given dim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to perform operation along</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.argmin">
+<span class="sig-name descname"><span class="pre">argmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.argmin" title="Link to this definition"></a></dt>
+<dd><p>Return value of coord at values minimum for given dim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to perform operation along</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.argmin_index">
+<span class="sig-name descname"><span class="pre">argmin_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.argmin_index" title="Link to this definition"></a></dt>
+<dd><p>Return index of coord at values minimum for given dim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to perform operation along</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.chunk">
+<span class="sig-name descname"><span class="pre">chunk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_sizes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.chunk" title="Link to this definition"></a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a placeholder for a function that's not yet implemented</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>str</em>) -- Assume that the dimension <cite>dim</cite> is a direct product of the
+dimensions given in <cite>new_dims</cite>, and chunk it out into those new
+dimensions.</p></li>
+<li><p><strong>new_dims</strong> (<em>list</em><em> of </em><em>str</em>) -- <p>The new dimensions to generate.  Note that one of the elements of
+the list can be <cite>dim</cite> if you like.</p>
+<p>It's assumed that the ordering of <cite>dim</cite> is a direct product given
+in C-ordering (<em>i.e.</em> the inner dimensions are listed last and the
+outer dimensions are listed first -- here &quot;inner&quot; means that
+changes to the index of the inner-most dimension correspond to
+adjacent positions in memory and/or adjacent indeces in the
+original dimension that you are chunking)</p>
+</p></li>
+<li><p><strong>new_sizes</strong> (<em>list</em><em> of </em><em>int</em>) -- sizes of the new dimensions`</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>self</strong> -- The new nddata object.
+Note that uniformly ascending or descending coordinates are manipulated in a rational way,
+<em>e.g.</em> <cite>[1,2,3,4,5,6]</cite> when chunked to a size of <cite>[2,3]</cite> will yield
+coordinates for the two new dimensions:
+<cite>[1,4]</cite> and <cite>[0,1,2]</cite>.
+Coordinates that are not uniformly ascending or descending will
+yield and error and must be manually modified by the user.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nddata_core</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.concatenate">
+<span class="sig-name descname"><span class="pre">concatenate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.concatenate" title="Link to this definition"></a></dt>
+<dd><p>Concatenate SpinData objects</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>b</strong> (<a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Data object to append to current data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- dimension to concatenate along</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.copy" title="Link to this definition"></a></dt>
+<dd><p>Return deepcopy of sldata object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>deep copy of data object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.cumulative_sum">
+<span class="sig-name descname"><span class="pre">cumulative_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.cumulative_sum" title="Link to this definition"></a></dt>
+<dd><p>Calculate Cumulative sum of sldata object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>cumulative sum of data object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.dtype">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.dtype" title="Link to this definition"></a></dt>
+<dd><p>Values type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.fold">
+<span class="sig-name descname"><span class="pre">fold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.fold" title="Link to this definition"></a></dt>
+<dd><p>Fold 2d data to original ND shape</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.get_coord">
+<span class="sig-name descname"><span class="pre">get_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.get_coord" title="Link to this definition"></a></dt>
+<dd><p>Return coord corresponding to given dimension name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Name of dim to retrieve coordinates from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>array of coordinates</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.imag">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">imag</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.imag" title="Link to this definition"></a></dt>
+<dd><p>SpinData with imaginary part of values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.index" title="Link to this definition"></a></dt>
+<dd><p>Find index of given dimension name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Name of dimension to index</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Index value of dim</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.is_sorted">
+<span class="sig-name descname"><span class="pre">is_sorted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.is_sorted" title="Link to this definition"></a></dt>
+<dd><p>Determine if coords corresponding to give dim are sorted in ascending order
+:param dim: Dimension to check if sorted
+:type dim: str</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if sorted, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.maximum">
+<span class="sig-name descname"><span class="pre">maximum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.maximum" title="Link to this definition"></a></dt>
+<dd><p>Return max for given dim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to take maximum along</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.merge_attrs">
+<span class="sig-name descname"><span class="pre">merge_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.merge_attrs" title="Link to this definition"></a></dt>
+<dd><p>Merge the given dictionaries</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>b</strong> (<em>nddata_core</em>) -- attributes to merge into object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.minimum">
+<span class="sig-name descname"><span class="pre">minimum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.minimum" title="Link to this definition"></a></dt>
+<dd><p>Return min for given dim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to perform operation along</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.ndim">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.ndim" title="Link to this definition"></a></dt>
+<dd><p>Number of dimensions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.new_dim">
+<span class="sig-name descname"><span class="pre">new_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.new_dim" title="Link to this definition"></a></dt>
+<dd><p>Add new dimension with length 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>str</em>) -- Name of new dimension</p></li>
+<li><p><strong>coord</strong> (<em>int</em><em>, </em><em>float</em>) -- New coord</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.real">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">real</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.real" title="Link to this definition"></a></dt>
+<dd><p>SpinData with real part of values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.rename">
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.rename" title="Link to this definition"></a></dt>
+<dd><p>Rename dim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>str</em>) -- Name of dimension to rename</p></li>
+<li><p><strong>new_name</strong> (<em>str</em>) -- New name for dim</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.reorder">
+<span class="sig-name descname"><span class="pre">reorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.reorder" title="Link to this definition"></a></dt>
+<dd><p>Reorder dimensions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dims</strong> (<em>list</em>) -- List of strings in new order</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.shape">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.shape" title="Link to this definition"></a></dt>
+<dd><p>Shape of values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.size">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#spinlab.core.base.ABCData.size" title="Link to this definition"></a></dt>
+<dd><p>Returns values.size. Total number of elements in numpy array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.smoosh">
+<span class="sig-name descname"><span class="pre">smoosh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.smoosh" title="Link to this definition"></a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet implemented.</p>
+</div>
+<p><cite>smoosh</cite> does the opposite of <cite>chunk</cite> -- see :func`:~nddata_core.chunk`</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.sort" title="Link to this definition"></a></dt>
+<dd><p>Sort the coords corresponding to the given dim in ascending order</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- dimension to sort</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.sort_dims">
+<span class="sig-name descname"><span class="pre">sort_dims</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.sort_dims" title="Link to this definition"></a></dt>
+<dd><p>Sort the dimensions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.split" title="Link to this definition"></a></dt>
+<dd><p>Split the dimension dim into</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.squeeze">
+<span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.squeeze" title="Link to this definition"></a></dt>
+<dd><p>Remove length 1 axes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.sum">
+<span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.sum" title="Link to this definition"></a></dt>
+<dd><p>Perform sum down given dimension</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to perform sum down</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="spinlab.core.base.ABCData.unfold">
+<span class="sig-name descname"><span class="pre">unfold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.base.ABCData.unfold" title="Link to this definition"></a></dt>
+<dd><p>Unfold ND data to 2d data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<em>str</em>) -- Dimension to make first (length N), all other dimensions unfolded so that values has shape (N x M)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.core.util">
+<dt class="sig sig-object py" id="spinlab.core.util.concat">
+<span class="sig-prename descclassname"><span class="pre">spinlab.core.util.</span></span><span class="sig-name descname"><span class="pre">concat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">casting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same_kind'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.util.concat" title="Link to this definition"></a></dt>
+<dd><p>Concatenates list of data objects down another dimension</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_list</strong> (<em>list</em>) -- List of SpinData objects to concatenate</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- new dimension name</p></li>
+<li><p><strong>coord</strong> -- coords for new dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>concatenated data object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.core.util.get_slice">
+<span class="sig-prename descclassname"><span class="pre">spinlab.core.util.</span></span><span class="sig-name descname"><span class="pre">get_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.util.get_slice" title="Link to this definition"></a></dt>
+<dd><p>Get data slice of SpinData object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- Input data object</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- Selected dimension</p></li>
+<li><p><strong>slice_index</strong> (<em>int</em>) -- Index of slice to be returned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpinData object with selected slice</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.core.util.implements_np">
+<span class="sig-prename descclassname"><span class="pre">spinlab.core.util.</span></span><span class="sig-name descname"><span class="pre">implements_np</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">np_function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.util.implements_np" title="Link to this definition"></a></dt>
+<dd><p>register a numpy function for special handling in SPECIAL_NP_HANDLED</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.core.util.update_axis">
+<span class="sig-prename descclassname"><span class="pre">spinlab.core.util.</span></span><span class="sig-name descname"><span class="pre">update_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.util.update_axis" title="Link to this definition"></a></dt>
+<dd><p>Update axis</p>
+<p>Update dimensions (dims) and axis (coords) of a slData object. The name of the dims will be replaced with the name giving in new_dims. The variable start_stop defines the values of the new coords. This can be either a tuple (start values, stop value) or a vector with values. If the start and stop value is provided, either a linear axis (spacing = &quot;lin&quot;, default) or a logarithmically space (spacing = &quot;log&quot;) will be created. The new axis will replace the coords in the sldata object.</p>
+<p>The function is currently implemented for 1D objects only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a>) -- slData object</p></li>
+<li><p><strong>start_stop</strong> (<em>tuple</em><em> or </em><em>vector</em>) -- Coords for new dimension</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) -- Dimension to act on</p></li>
+<li><p><strong>new_dims</strong> (<em>str</em>) -- Name of the new dimension. If None the name will not be changed.</p></li>
+<li><p><strong>spacing</strong> (<em>str</em>) -- &quot;lin&quot; for linear spaced axis or &quot;log&quot; for logarithmically spaced axis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>concatenated data object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>data (<a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.core.ufunc">
+<dt class="sig sig-object py" id="spinlab.core.ufunc.generate_data">
+<span class="sig-prename descclassname"><span class="pre">spinlab.core.ufunc.</span></span><span class="sig-name descname"><span class="pre">generate_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.core.ufunc.generate_data" title="Link to this definition"></a></dt>
+<dd><p>Generate a SpinData object filled with random normal values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shape</strong> (<em>tuple</em>) -- Shape of the output array. Each element defines the
+length of one dimension. Dimensions are labeled <code class="docutils literal notranslate"><span class="pre">x0</span></code>, <code class="docutils literal notranslate"><span class="pre">x1</span></code>, etc.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data object with random values and integer coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="constants.html" class="btn btn-neutral float-left" title="Constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fitting.html" class="btn btn-neutral float-right" title="Fitting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

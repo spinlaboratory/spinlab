@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math &mdash; SpinLab 1.1.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ddc95155"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plotting" href="plotting.html" />
+    <link rel="prev" title="IO" href="io.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fitting.html">Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html">IO</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Math</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.lineshape.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.lineshape.lorentzian"><code class="docutils literal notranslate"><span class="pre">lorentzian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.lineshape.voigtian"><code class="docutils literal notranslate"><span class="pre">voigtian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.relaxation.buildup_function"><code class="docutils literal notranslate"><span class="pre">buildup_function()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.relaxation.general_biexp"><code class="docutils literal notranslate"><span class="pre">general_biexp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.relaxation.general_exp"><code class="docutils literal notranslate"><span class="pre">general_exp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.relaxation.ksigma_smax"><code class="docutils literal notranslate"><span class="pre">ksigma_smax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.relaxation.logistic"><code class="docutils literal notranslate"><span class="pre">logistic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.relaxation.t1"><code class="docutils literal notranslate"><span class="pre">t1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.relaxation.t2"><code class="docutils literal notranslate"><span class="pre">t2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.window.exponential"><code class="docutils literal notranslate"><span class="pre">exponential()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.window.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.window.hamming"><code class="docutils literal notranslate"><span class="pre">hamming()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.window.hann"><code class="docutils literal notranslate"><span class="pre">hann()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.window.lorentz_gauss"><code class="docutils literal notranslate"><span class="pre">lorentz_gauss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.window.sin2"><code class="docutils literal notranslate"><span class="pre">sin2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.window.traf"><code class="docutils literal notranslate"><span class="pre">traf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.adiabatic"><code class="docutils literal notranslate"><span class="pre">adiabatic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.chirp"><code class="docutils literal notranslate"><span class="pre">chirp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.load_shape"><code class="docutils literal notranslate"><span class="pre">load_shape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.plane_wave"><code class="docutils literal notranslate"><span class="pre">plane_wave()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.save_shape"><code class="docutils literal notranslate"><span class="pre">save_shape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.sinc"><code class="docutils literal notranslate"><span class="pre">sinc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.square"><code class="docutils literal notranslate"><span class="pre">square()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spinlab.math.pulses.wurst"><code class="docutils literal notranslate"><span class="pre">wurst()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Processing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Math</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/math.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-spinlab.math.lineshape">
+<span id="math"></span><span id="api-math"></span><h1>Math<a class="headerlink" href="#module-spinlab.math.lineshape" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.lineshape.gaussian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.lineshape.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.lineshape.gaussian" title="Link to this definition"></a></dt>
+<dd><p>Gaussian distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- input x</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- Center of distribution</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) -- Standard deviation of Gaussian distribution</p></li>
+<li><p><strong>integral</strong> (<em>float</em>) -- Integral of distribution</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Gaussian distribution</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p>The Gaussian distribution is defined as:</p>
+<div class="math notranslate nohighlight">
+\[f(x; x_0, \sigma) = \frac{1}{\sigma \sqrt{2 \pi}} \exp{\left(\frac{(x-x_0)^2}{2 \sigma^2}\right)}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.lineshape.lorentzian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.lineshape.</span></span><span class="sig-name descname"><span class="pre">lorentzian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deriv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.lineshape.lorentzian" title="Link to this definition"></a></dt>
+<dd><p>Lorentzian Distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- input x</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- Center of distribution</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) -- Lorentzian width. 2*gamma is full width at half maximum (FWHM)</p></li>
+<li><p><strong>integral</strong> (<em>float</em>) -- Integral of distribution</p></li>
+<li><p><strong>deriv</strong> (<em>boolean</em>) -- Derivative of a Lorentzian Distribution (Imaginary part of a phased spectrum)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lorentzian distribution</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p>The Lorentzian distribution is defined as:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1}{\pi \gamma} \left[\frac{\gamma^2}{(x-x_0)^2 + \gamma^2}\right]\]</div>
+<p>Derivative:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1}{\pi \gamma} \left[\frac{- 2\gamma^2 (x-x_0)}{\left( (x-x_0)^2 + \gamma^2 \right)^2}\right]\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.lineshape.voigtian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.lineshape.</span></span><span class="sig-name descname"><span class="pre">voigtian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deriv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.lineshape.voigtian" title="Link to this definition"></a></dt>
+<dd><p>Voigtian distribution. Lineshape given by a convolution of Gaussian and Lorentzian distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- input x</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- center of distribution</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) -- Gaussian Linewidth. Standard deviation of Gaussian distribution.</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) -- Lorentzian linewidth. 2*gamma is the full width at half maximum (FWHM)</p></li>
+<li><p><strong>integral</strong> (<em>float</em>) -- Integral of distribution</p></li>
+<li><p><strong>deriv</strong> (<em>boolean</em>) -- Derivative of a Voigtian distribution (Gaussian broadened imaginary part of a phased spectrum).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Voigtian distribution</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p>The Voigtian distribution is defined as:</p>
+<div class="math notranslate nohighlight">
+\[f(x; x_0, \sigma, \gamma) = \frac{\operatorname{Re}[w(z)]}{\sigma \sqrt{2 \pi}}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{x + i\gamma}{\sigma \sqrt{2}}\]</div>
+<p>Derivative:
+.. math:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> \<span class="n">frac</span><span class="p">{</span><span class="mi">1</span><span class="p">}{</span>\<span class="n">sigma</span><span class="o">^</span><span class="mi">3</span> \<span class="n">sqrt</span><span class="p">{</span><span class="mi">2</span> \<span class="n">pi</span><span class="p">}}</span> \<span class="n">left</span><span class="p">[</span> \<span class="n">gamma</span> \<span class="n">operatorname</span><span class="p">{</span><span class="n">Im</span><span class="p">}[</span><span class="n">w</span><span class="p">(</span><span class="n">z</span><span class="p">)]</span> <span class="o">-</span> \<span class="n">left</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span>\<span class="n">right</span><span class="p">)</span> \<span class="n">operatorname</span><span class="p">{</span><span class="n">Re</span><span class="p">}[</span><span class="n">w</span><span class="p">(</span><span class="n">z</span><span class="p">)]</span> \<span class="n">right</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{\left( \left( x - x0 \right)  + 1j \gamma \right)}{\sigma \sqrt{2}}\]</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.math.relaxation">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.buildup_function">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">buildup_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_half</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.buildup_function" title="Link to this definition"></a></dt>
+<dd><p>Calculate asymptotic buildup curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>array</em>) -- power series</p></li>
+<li><p><strong>E_max</strong> (<em>float</em>) -- maximum enhancement</p></li>
+<li><p><strong>p_half</strong> (<em>float</em>) -- power at half saturation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>buildup curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(p) = 1 + E_{max} * p / (p_{1/2} + p)\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.general_biexp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">general_biexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.general_biexp" title="Link to this definition"></a></dt>
+<dd><p>Calculate bi-exponential curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>C1</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>C2</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>C3</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>tau1</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>tau2</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>bi-exponential curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = C1 + C2 e^{-t/tau1} + C3 e^{-t/tau2}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.general_exp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">general_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.general_exp" title="Link to this definition"></a></dt>
+<dd><p>Calculate mono-exponential curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>C1</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>C2</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>tau</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>mono-exponential curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = C1 + C2 e^{-t/tau}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.ksigma_smax">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">ksigma_smax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_half</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.ksigma_smax" title="Link to this definition"></a></dt>
+<dd><p>Calculate asymptotic buildup curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>array</em>) -- power series</p></li>
+<li><p><strong>E_max</strong> (<em>float</em>) -- maximum enhancement</p></li>
+<li><p><strong>p_half</strong> (<em>float</em>) -- power at half saturation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>buildup curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(p) = E_{max} * p / (p_{1/2} + p)\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.logistic">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.logistic" title="Link to this definition"></a></dt>
+<dd><p>Not Implemented. Placeholder for calculating asymptotic buildup curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array</em>) -- x values</p></li>
+<li><p><strong>c</strong> (<em>float</em>) -- offset</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- x-value of sigmoid's midpoint</p></li>
+<li><p><strong>L</strong> (<em>float</em>) -- maximum value</p></li>
+<li><p><strong>k</strong> (<em>float</em>) -- logistic growth steepness</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>buildup curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.t1">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">t1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M_inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.t1" title="Link to this definition"></a></dt>
+<dd><p>Exponential recovery for inversion recovery and saturation recovery T1 Measurements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>T_1</strong> (<em>float</em>) -- T1 value</p></li>
+<li><p><strong>M_0</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>M_inf</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>T1 curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = M_{\infty} - (M_{\infty} - M_0) e^{-t/T_1}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.relaxation.t2">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.relaxation.</span></span><span class="sig-name descname"><span class="pre">t2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.relaxation.t2" title="Link to this definition"></a></dt>
+<dd><p>Calculate stretched or un-stretched (p=1) exponential T2 curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>array_like</em>) -- time series</p></li>
+<li><p><strong>M_0</strong> (<em>float</em>) -- see equation</p></li>
+<li><p><strong>T_2</strong> (<em>float</em>) -- T2 value</p></li>
+<li><p><strong>p</strong> (<em>float</em>) -- see equation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>T2 curve</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[f(t) = M_{0} e^{(-(t/T_{2})^{p}}\]</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.math.window">
+<dt class="sig sig-object py" id="spinlab.math.window.exponential">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.exponential" title="Link to this definition"></a></dt>
+<dd><p>Calculate exponential window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- Vector of points</p></li>
+<li><p><strong>lw</strong> (<em>int</em><em> or </em><em>float</em>) -- Exponential line broadening.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>exponential window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\mathrm{exponential}(x) = e^{-\pi (x - x_0) lw}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.gaussian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.gaussian" title="Link to this definition"></a></dt>
+<dd><p>Calculate gaussian window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>lw</strong> (<em>float</em>) -- Full width at half maximum of the Gaussian window.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>gaussian window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sigma &amp;= \frac{lw}{2\sqrt{2\ln(2)}} \\
+\mathrm{gaussian}(x) &amp;= e^{-2\pi^2 x^2 \sigma^2}\end{split}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.hamming">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">hamming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.hamming" title="Link to this definition"></a></dt>
+<dd><p>Calculate hamming window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>array_like</em><em>, </em><em>int</em>) -- vector of points or number of points.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>hamming window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\mathrm{hamming} = 0.53836 + 0.46164\cos(\pi * n / (N-1))\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.hann">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">hann</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.hann" title="Link to this definition"></a></dt>
+<dd><p>Calculate hann window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>array_like</em><em>, </em><em>int</em>) -- vector of points or number of points.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>hann window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\mathrm{hann} = 0.5 + 0.5\cos(\pi * n / (N-1))\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.lorentz_gauss">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">lorentz_gauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauss_lw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussian_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.lorentz_gauss" title="Link to this definition"></a></dt>
+<dd><p>Calculate lorentz-gauss window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>lw</strong> (<em>int</em><em> or </em><em>float</em>) -- exponential linewidth</p></li>
+<li><p><strong>gauss_lw</strong> (<em>int</em><em> or </em><em>float</em>) -- gaussian linewidth</p></li>
+<li><p><strong>gaussian_max</strong> (<em>int</em><em> or </em><em>float</em>) -- location of maximum in gaussian window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>gauss_lorentz window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathrm{lorentz\_gauss} &amp;=  \exp(L -  G^{2}) &amp;\\   L(t)    &amp;=  \pi * \mathrm{linewidth[0]} * t &amp;\\   G(t)    &amp;=  0.6\pi * \mathrm{linewidth[1]} * (\mathrm{gaussian\_max} * (N - 1) - t) &amp;\end{aligned}\end{align} \]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.sin2">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">sin2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.sin2" title="Link to this definition"></a></dt>
+<dd><p>Calculate sin-squared window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>array_like</em><em>, </em><em>int</em>) -- vector of points or number of points.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>sin-squared window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\sin^{2}  =  \cos((-0.5\pi * n / (N - 1)) + \pi)^{2}\]</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.window.traf">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.window.</span></span><span class="sig-name descname"><span class="pre">traf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.window.traf" title="Link to this definition"></a></dt>
+<dd><p>Calculate traf window function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) -- vector of points</p></li>
+<li><p><strong>lw</strong> (<em>int</em><em> or </em><em>float</em>) -- linewidth of Traficante window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>traf window function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathrm{traf}  &amp;=  (f1 * (f1 + f2)) / (f1^{2} + f2^{2}) &amp;\\       f1(t)   &amp;=  \exp(-t * \pi * \mathrm{linewidth[0]}) &amp;\\       f2(t)   &amp;=  \exp((t - T) * \pi * \mathrm{linewidth[1]}) &amp;\end{aligned}\end{align} \]</div>
+</dd></dl>
+
+<p id="module-spinlab.math.pulses">The shaped pulses simulation</p>
+<p>Author: Timothy Keller</p>
+<p>Edit: Yen-Chun Huang</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.adiabatic">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">adiabatic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BW</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.adiabatic" title="Link to this definition"></a></dt>
+<dd><p>Make Adiabatic Pulse Shape based on Hyperbolic Secant pulse</p>
+<div class="math notranslate nohighlight">
+\[\text{sech} \left( \beta (t - \frac{t_p}{2}) \right) ^{1+i(\pi BW / \beta)}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> (<em>float</em>) -- pulse length</p></li>
+<li><p><strong>BW</strong> (<em>float</em>) -- pulse bandwidth</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) -- truncation factor</p></li>
+<li><p><strong>resolution</strong> (<em>float</em>) -- pulse resolution</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>t (<em>numpy.ndarray</em>): Time axes</p>
+<p>pulse (<em>numpy.ndarray</em>): Pulse shape</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.chirp">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">chirp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BW</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.chirp" title="Link to this definition"></a></dt>
+<dd><p>Complex chirp pulse</p>
+<div class="math notranslate nohighlight">
+\[e^{i 2 \pi (k/2) (t - t_p/2)^2}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> (<em>float</em>) -- Pulse length</p></li>
+<li><p><strong>BW</strong> (<em>float</em>) -- Bandwidth of pulse</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>t (<em>numpy.ndarray</em>): Time axis</p>
+<p>pulse (<em>numpy.ndarray</em>): Pulse shape</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.gaussian">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigmas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.gaussian" title="Link to this definition"></a></dt>
+<dd><p>Gaussian pulse</p>
+<div class="math notranslate nohighlight">
+\[e^{- \frac{1}{2} \left( \frac{t - t_p/2}{\sigma} \right)^2}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> (<em>float</em>) -- Pulse length</p></li>
+<li><p><strong>sigmas</strong> (<em>float</em>) -- Number of standard deviations where pulse is truncated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>t (<em>numpy.ndarray</em>): Time axis</p>
+<p>pulse (<em>numpy.ndarray</em>): Pulse shape</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.load_shape">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">load_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.load_shape" title="Link to this definition"></a></dt>
+<dd><p>Load a pulse shape from csv file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) -- Path to file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of pulse shape</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.plane_wave">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">plane_wave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.plane_wave" title="Link to this definition"></a></dt>
+<dd><p>Complex plane wave pulse shape</p>
+<div class="math notranslate nohighlight">
+\[e^{i 2 \pi f \left( t - \frac{t_p}{2} \right) }\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> (<em>float</em>) -- Pulse length</p></li>
+<li><p><strong>f</strong> (<em>float</em>) -- Frequency of plane wave</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>t (<em>numpy.ndarray</em>): Time axis</p>
+<p>pulse (<em>numpy.ndarray</em>): Pulse shape</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.save_shape">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">save_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pulse_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">101</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.save_shape" title="Link to this definition"></a></dt>
+<dd><p>Save a numpy array as csv format compatible with Xepr</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pulse_shape</strong> (<em>numpy.ndarray</em>) -- Array of pulse shape</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) -- Filename to save pulse shape</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.sinc">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">sinc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.sinc" title="Link to this definition"></a></dt>
+<dd><p>Sinc pulse</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\frac{\sin \left( \frac{\pi}{2} (n + 1) x \right) }{x}\\x = \frac{t-\frac{t_p}{2}}{\frac{t_p}{2}}\end{aligned}\end{align} \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> (<em>float</em>) -- Pulse length</p></li>
+<li><p><strong>n</strong> (<em>float</em>) -- Total sinc lobes, must be odd for full sinc</p></li>
+</ul>
+</dd>
+</dl>
+<p>n is number of sinc lobes, should be odd for full sinc</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>t (<em>numpy.ndarray</em>): Time axis</p>
+<p>pulse (<em>numpy.ndarray</em>): Pulse shape</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.square">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">square</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.square" title="Link to this definition"></a></dt>
+<dd><p>Square pulse</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> (<em>float</em>) -- Pulse length</p></li>
+<li><p><strong>t_length</strong> (<em>float</em>) -- Total length of time axis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>t (<em>numpy.ndarray</em>): Time axis</p>
+<p>pulse (<em>numpy.ndarray</em>): Pulse shape</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.math.pulses.wurst">
+<span class="sig-prename descclassname"><span class="pre">spinlab.math.pulses.</span></span><span class="sig-name descname"><span class="pre">wurst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.math.pulses.wurst" title="Link to this definition"></a></dt>
+<dd><p>Real value WURST envelope pulse shape</p>
+<div class="math notranslate nohighlight">
+\[1 - \text{abs} \left( \cos \left( \frac{\pi}{t_p} (t - \frac{t_p}{2}) + \frac{\pi}{2} \right) \right) ^N\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> (<em>float</em>) -- Pulse length</p></li>
+<li><p><strong>N</strong> (<em>float</em>) -- exponential</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<p>t (<em>numpy.ndarray</em>): Time axis</p>
+<p>pulse (<em>numpy.ndarray</em>): Pulse shape</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="io.html" class="btn btn-neutral float-left" title="IO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plotting.html" class="btn btn-neutral float-right" title="Plotting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
