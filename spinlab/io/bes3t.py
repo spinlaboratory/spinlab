@@ -217,10 +217,18 @@ def load_dsc(path):
         except ValueError:
             continue
 
-    if sweep_domain == "Time" and "attenuation" in attrs and int(attrs["attenuation"]) == 60:
+    if (
+        sweep_domain == "Time"
+        and "attenuation" in attrs
+        and int(attrs["attenuation"]) == 60
+    ):
         attrs.pop("attenuation", None)
         attrs.pop("power", None)
-    elif sweep_domain == "Time" and "pulse_attenuation" in attrs and int(attrs["pulse_attenuation"]) == 60:
+    elif (
+        sweep_domain == "Time"
+        and "pulse_attenuation" in attrs
+        and int(attrs["pulse_attenuation"]) == 60
+    ):
         attrs["pulse_attenuation"] = attrs.get("attenuation")
         attrs.pop("attenuation", None)
 
