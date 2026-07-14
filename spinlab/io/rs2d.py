@@ -7,7 +7,21 @@ from .. import SpinData
 
 
 def import_rs2d(path, datafile="data.dat", headerfile="header.xml", *args, **kwargs):
+    """Import data from an RS2D file.
 
+    Accepts either the ``header.xml`` or ``data.dat`` file; the companion file
+    is located automatically in the same directory.
+
+    Args:
+        path (str): Path to the ``header.xml`` or ``data.dat`` file.
+        datafile (str): Name of the binary data file. Default is ``"data.dat"``.
+        headerfile (str): Name of the XML header file. Default is ``"header.xml"``.
+        **kwargs: Additional keyword arguments passed to the data reader
+            (e.g. ``endianess``, ``fmt``, ``fmt_size``).
+
+    Returns:
+        SpinData: Imported data object with axes and acquisition parameters.
+    """
     path = _pathlib.Path(path)
 
     #
@@ -36,7 +50,14 @@ def import_rs2d(path, datafile="data.dat", headerfile="header.xml", *args, **kwa
 
 
 def _load_rs2d_header(path):
+    """Parse an RS2D XML header file and return a dictionary of acquisition parameters.
 
+    Args:
+        path (str): Path to the ``header.xml`` file.
+
+    Returns:
+        dict: Acquisition parameters extracted from the XML header.
+    """
     tree = _ET.parse(path)
     root = tree.getroot()
 
@@ -70,6 +91,25 @@ def _load_rs2d_header(path):
 
 
 def _load_rs2d_data(path, attrs, **kwargs):
+    """Read binary data from an RS2D ``data.dat`` file.
+
+    Reads the entire file into memory in one chunk, reshapes it according to
+    the acquisition matrix dimensions stored in ``attrs``, and returns complex
+    data together with dimension labels and axis coordinates.
+
+    Args:
+        path (pathlib.Path): Path to the ``data.dat`` binary file.
+        attrs (dict): Acquisition parameters from the RS2D header (used to
+            determine data shape and dwell time).
+        **kwargs: Optional overrides — ``endianess`` (default ``">"``,
+            big-endian), ``fmt`` (default ``"f"``, 32-bit float),
+            ``fmt_size`` (default ``4``).
+
+    Returns:
+        tuple: ``(data, dims, coords)`` where ``data`` is a complex NumPy
+            array, ``dims`` is a list of dimension name strings, and
+            ``coords`` is a list of coordinate arrays.
+    """
     #
     # currently reads whole file in one chunk, you better have enough ram
     #

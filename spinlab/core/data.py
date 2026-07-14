@@ -263,7 +263,7 @@ class SpinData(ABCData):
         .. warning::
             Axes information is lost
 
-        Example:
+        Examples:
             data.squeeze()
         """
         remove_axes = []
@@ -287,7 +287,7 @@ class SpinData(ABCData):
         Returns:
             SpinData object: subset of SpinData object
 
-        Example:
+        Examples:
             data.select((1, range(5,10), 15)) # keeps slices: 1, 5, 6, 7, 8, 9, and 15
 
         """

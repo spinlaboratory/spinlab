@@ -48,7 +48,7 @@ def load_csv(
        data (slData): Data object with values,coords and dim
 
 
-    example:
+    Examples:
 
         data=load_csv('csv_arrLNA_data.csv',imag=2,skiprows=1)
     """

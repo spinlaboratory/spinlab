@@ -258,7 +258,7 @@ class ABCData(object):
         Args:
             args (tuple): Tuple containing alternative dims and indexing values for each dimension to be indexed. (e.g. data['x', 1:10, 'y', :, 'z', (3.5, 7.5)])
 
-        Example::
+        Examples:
 
             data['x', 1] # return data indexing down "x" dim with index 1
 
@@ -373,7 +373,7 @@ class ABCData(object):
             args (tuple): Tuple containing alternative dims and indexing values for each dimension to be indexed. (e.g. data['x', 1:10, 'y', :, 'z', (3.5, 7.5)])
             new_values (numpy.ndarray): New values at given index
 
-        Example::
+        Examples:
 
             data['x', 1] = 1 # return data indexing down "x" dim with index 1
 
@@ -1015,6 +1015,8 @@ class ABCData(object):
                 _np.array(b.coords[dim]).reshape(-1),
             )
         )
+
+        return self
 
     def new_dim(self, dim, coord):
         """Add new dimension with length 1

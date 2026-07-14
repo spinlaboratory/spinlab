@@ -4,8 +4,10 @@ import numpy as _np
 from ..plotting import colors
 
 from warnings import warn as _warn
+
 from ..core.data import SpinData
 from ..config.config import SpinLAB_CONFIG
+from ..constants import constants as _const
 
 # hand curated list of plotting arguments that are forwarded, from config file
 _forwarded_pyplot_plots = SpinLAB_CONFIG.getlist("PLOTTING", "forwarded_pyplot_plots")
@@ -44,16 +46,18 @@ def plot(data, *args, **kwargs):
 
     Args:
         data (SpinData): SpinData object for matplotlib plot function
-        args: args for matplotlib plot function
-        kwargs: kwargs for matplotlib plot function
+        *args: Additional positional arguments passed to the Matplotlib plot function.
+        **kwargs: Additional keyword arguments passed to the Matplotlib plot function.
+            If any of ``semilogy``, ``semilogx``, ``polar``, ``loglog``,
+            ``scatter``, ``errorbar``, or ``step`` is present and evaluates to
+            ``True``, the corresponding Matplotlib function is used instead of
+            the standard ``plot``.
 
-        if any of semilogy, semilogx, polar, loglog, scatter, errorbar or step is in kwargs the argument will be evaluated with
-        bool(). If this evaluates to True the corresponding matplotlib function is used instead of the standard plot
-
+    Note:
     Returns:
-        Returns formated matplotlib plot.
+        list: Matplotlib plot object(s) returned by the underlying plot call.
 
-    Example:
+    Examples:
 
        Plotting a SpinData object:
 
@@ -117,7 +121,9 @@ def plot(data, *args, **kwargs):
     return plot_return
 
 
-def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
+def fancy_plot(
+    data, xlim=[], title="", showPar=False, showgValues=False, *args, **kwargs
+):
     """Streamline Plot function for sldata objects
 
     This function creates streamlined plots for NMR and EPR spectra. The type of the spectrum is detected from the attribute "experiment_type" of the sldata object. Currently the following types are implemented: nmr_spectrum, epr_spectrum, enhancements_P, and inversion_recovery. The function will automatically format the plot according to the "experiment_type" attribute.
@@ -129,9 +135,9 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
         showPar (boolean): Toggle whether to show experiment parameters
 
     Returns:
-        Returns formatted matplotlib plot.
+        list: Matplotlib plot object(s) returned by the underlying plot call.
 
-    Example:
+    Examples:
 
         Simply just plotting the sldata object:
 
@@ -245,11 +251,27 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
                         )
                     )
 
+        if (showgValues == True) and (data.attrs["experiment_type"] == "epr_spectrum"):
+
+            def freq2g(field):
+
+                mw_freq = data.spinlab_attrs["frequency"]
+                B = _np.asarray(field) * 1e-3  # mT → T
+
+                g = (_const.h * mw_freq) / (_const.mub * B)
+
+                return g
+
+            secax = ax.secondary_xaxis("top", functions=(freq2g, freq2g))
+            secax.set_xlabel("g-Value")
+
         if title != "":
             _plt.title(title)
 
         if showPar:
             prmString = ""
+            prmString += "Acq. Parameters:"
+            prmString += "\n"
             keylist = list(SpinLAB_CONFIG[exp_type].keys())
             attrs_tpl = [
                 (k.lstrip("showpar_"), k)
@@ -275,11 +297,18 @@ def fancy_plot(data, xlim=[], title="", showPar=False, *args, **kwargs):
                     )
 
             SW = coord[-1] - coord[0]
-            prmString += "SW: " + str(round(SW, 2))
+            prmString += "SW: " + str(round(SW, 2)) + " (mT)"
             box_style = dict(boxstyle="round", facecolor="white", alpha=0.25)
             xmin, xmax, ymin, ymax = _plt.axis()
 
-            _plt.text(xmin * 1.001, ymin * 0.90, prmString, bbox=box_style)
+            _plt.text(
+                xmin * 1.001,
+                ymin * 0.90,
+                prmString,
+                bbox=box_style,
+                fontsize="x-small",
+                fontfamily="monospace",
+            )
 
         data.fold()
 

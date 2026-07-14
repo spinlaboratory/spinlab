@@ -470,7 +470,7 @@ def load_ser(path, dtype=">i4"):
         path (str): Directory of data
         dtype (str): data format for import
 
-    returns:
+    Returns:
         raw (np.ndarray): Data from ser file
     """
     warn(
@@ -491,7 +491,7 @@ def load_bin(path, dtype=">i4"):
         path (str): Directory of data
         dtype (str): data format for import
 
-    returns:
+    Returns:
         raw (np.ndarray): Data from ser file
     """
 

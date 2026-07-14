@@ -12,6 +12,20 @@ logger = logging.getLogger(__name__)
 
 
 def _escape_split(s, delim=",", escape="\\"):
+    """Split a string on a delimiter while respecting escape characters.
+
+    A delimiter preceded by the escape character is treated as a literal
+    character and does not split the string. A double escape (``\\\\``) is
+    treated as a literal escape character.
+
+    Args:
+        s (str): Input string to split.
+        delim (str): Delimiter character. Default is ``","``.
+        escape (str): Escape character. Default is ``"\\"``.
+
+    Returns:
+        list: List of token strings.
+    """
     tokens = []
     previous_escape = False
     subtoken = ""
@@ -38,6 +52,18 @@ def _escape_split(s, delim=",", escape="\\"):
 
 
 def _kwarg_converter(s: str):
+    """Parse a comma-separated string of positional and keyword arguments.
+
+    Used as a custom converter for :mod:`configparser` to parse config values
+    of the form ``"arg1, key=value, arg2"`` into Python args and kwargs.
+
+    Args:
+        s (str): Raw config string to parse.
+
+    Returns:
+        tuple: ``(args, kwargs)`` where ``args`` is a list of positional
+            argument strings and ``kwargs`` is a dict of keyword argument strings.
+    """
     tokens = _escape_split(s, ",", escape="\\")
     args = []
     kwargs = {}
@@ -51,6 +77,24 @@ def _kwarg_converter(s: str):
 
 
 def _get_sl_config(configname="spinlab.cfg"):
+    """Load the SpinLab configuration file.
+
+    Searches three locations in order of increasing precedence:
+
+    1. The directory containing this module (package default ``spinlab.cfg``)
+    2. The user's home directory
+    3. The current working directory
+
+    A file found later in the list overrides values from earlier files, allowing
+    users to customize settings without modifying the package defaults.
+
+    Args:
+        configname (str): Name of the configuration file. Default is ``"spinlab.cfg"``.
+
+    Returns:
+        configparser.ConfigParser: Populated configuration object with custom
+            ``list`` and ``args_kwargs`` converters.
+    """
     config = configparser.ConfigParser(
         converters={
             "list": lambda x: list(x.strip("[").strip("]").split(",")),

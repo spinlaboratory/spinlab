@@ -45,6 +45,18 @@ def load_h5(path, *args, **kwargs):
 
 
 def read_sldata(sldata_group):
+    """Read a SpinData object from an HDF5 group.
+
+    Reconstructs a complete ``SpinData`` object including values, dimension
+    labels, axis coordinates, experiment attributes, SpinLab attributes, and
+    the processing audit log.
+
+    Args:
+        sldata_group (h5py.Group): HDF5 group containing a serialized SpinData object.
+
+    Returns:
+        SpinData: Reconstructed data object.
+    """
     coords = []
     dims = []
     attrs = {}
@@ -92,6 +104,14 @@ def read_sldata(sldata_group):
 
 
 def read_dict(sldata_group):
+    """Read a plain Python dictionary from an HDF5 group.
+
+    Args:
+        sldata_group (h5py.Group): HDF5 group containing a serialized dictionary.
+
+    Returns:
+        dict: Dictionary of attributes stored in the HDF5 group.
+    """
     data = dict(sldata_group["attrs"].attrs)
     return data
 
