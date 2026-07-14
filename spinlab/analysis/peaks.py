@@ -1,12 +1,69 @@
 import numpy as _np
 import scipy.signal as _spsig
-import spinlab as _sl
-import warnings
+from ..core.util import concat, update_axis
+from .._utils import (
+    evenly_spaced_coord_spacing,
+    get_default_dim,
+    normalize_region_input,
+    validate_coord_matches_dim,
+)
+
+__all__ = ["find_peaks", "peak_info"]
+
+
+def _get_linewidth_frequency(data):
+    if "frequency" in data.spinlab_attrs:
+        return data.spinlab_attrs["frequency"]
+    if "nmr_frequency" in data.attrs:
+        return data.attrs["nmr_frequency"]
+    raise ValueError(
+        "Frequency not found. Peak width conversion requires "
+        'spinlab_attrs["frequency"] or attrs["nmr_frequency"].'
+    )
+
+
+def _region_indices(coord, regions):
+    if regions is None:
+        return [_np.arange(coord.size)]
+
+    index_list = []
+    all_indices = _np.arange(coord.size)
+    for region in regions:
+        if isinstance(region, slice):
+            index_list.append(all_indices[region])
+        elif isinstance(region, tuple) and len(region) == 1:
+            index_list.append(_np.array([int(_np.argmin(_np.abs(coord - region[0])))]))
+        else:
+            start, stop = region
+            low = min(start, stop)
+            high = max(start, stop)
+            index_list.append(all_indices[(coord >= low) & (coord <= high)])
+
+    return [indices for indices in index_list if indices.size > 0]
+
+
+def _normalize_peak_values(values, indices):
+    if indices.size == 0:
+        return values.copy()
+
+    normalized_values = values.copy()
+    selected_values = normalized_values[indices]
+    factor = _np.max(_np.abs(selected_values))
+    if factor != 0:
+        normalized_values = normalized_values / factor
+
+    real_array = normalized_values[indices].real
+    max_value = _np.max(real_array)
+    min_value = _np.min(real_array)
+    if _np.abs(max_value) < _np.abs(min_value):
+        normalized_values *= -1
+
+    return normalized_values
 
 
 def find_peaks(
     data,
-    dims="f2",
+    dims=None,
     normalize=True,
     regions=None,
     height=0.5,
@@ -17,14 +74,21 @@ def find_peaks(
     wlen=None,
     rel_height=0.5,
     plateau_size=None,
+    *,
+    dim=None,
 ):
     """Find peaks in spectrum
 
-    Find peaks in spectrum (sldata object) and returns peak index, chemical shift (ppm), peak height, peak width (Hz) and peak width height. The function uses the SciPy functions "find_peaks" and "peak_widths".
+    Find peaks in spectrum (SpinData object) and return peak index, peak
+    coordinate, peak height, peak width (Hz), and peak width height. The
+    function uses the SciPy functions ``find_peaks`` and ``peak_widths``.
 
     Args:
         data (SpinData):                         Data object
-        dims (str):                             Dimension to find peaks
+        dims (str or None):                     Dimension to find peaks. If
+                                                None, the first dimension is
+                                                used. ``dim`` is accepted as a
+                                                clearer keyword alias.
         regions (None, list):                   List of tuples defining the region to find peaks
         normalize (boolean):                    Normalize data to a maximum value of 1. Default is True
         height (float or numpy.array):          Optionally, height of peaks. If an array is supplied, the first element is minimum and the second is maximum
@@ -38,34 +102,46 @@ def find_peaks(
         peak_info (boolean):                    If True print output to terminal
 
     Returns:
-        data (SpinData):         nd array of peak index, peak width and relative peak height. The linewidth is returned in (Hz), based on the spectrometer frequency
+        data (SpinData):         Array of peak index, peak coordinate, peak
+                                  height, peak width and relative peak height.
+                                  The linewidth is returned in Hz using
+                                  ``spinlab_attrs["frequency"]`` or the legacy
+                                  ``attrs["nmr_frequency"]``.
 
     Examples:
         Find peaks in entire data region:
 
+            >>> data = sl.load("path/to/data")
             >>> peak_list = sl.find_peaks(data)
 
         Find peaks with an amplitude > 0.01 (after normalization):
 
-            >>> peak_list = sl.find_peaks(data, peak_height = 0.05)
+            >>> peak_list = sl.find_peaks(data, height=0.05)
 
         Find peaks with an amplitude > 500 (data not normalized):
 
-            >>> peak_list = sl.find_peaks(data, peak_height = 500, normalize = False)
+            >>> peak_list = sl.find_peaks(data, height=500, normalize=False)
 
     """
 
+    if dim is not None:
+        if dims is not None:
+            raise ValueError("Use either dims or dim, not both.")
+        dims = dim
+    dims = get_default_dim(data, dims, "find peaks in")
+    regions = normalize_region_input(regions)
+
     if len(data.dims) == 2:
         data_list = []
-        second_dim = data.dims[-1]
+        second_dim = [data_dim for data_dim in data.dims if data_dim != dims][0]
         second_coord = data.coords[second_dim]
         for i in range(len(second_coord)):
             sub_data = data[second_dim, i].sum(second_dim)
             data_list.append(
                 find_peaks(
                     sub_data,
-                    dims,
-                    normalize,
+                    dims=dims,
+                    normalize=normalize,
                     regions=regions,
                     height=height,
                     threshold=threshold,
@@ -82,61 +158,77 @@ def find_peaks(
         #     data_list, second_coord, second_dim
         # )
 
-        return _sl.concat(
-            data_list, dim=second_dim, coord=second_coord, casting="unsafe"
-        )
+        return concat(data_list, dim=second_dim, coord=second_coord, casting="unsafe")
 
     elif len(data.dims) == 1:
         out = data.copy()
         out.attrs["experiment_type"] = "peak_list"
         out.attrs["data_type"] = "peak_list"
 
-        resolution = _np.sum(_np.diff(out.coords)) / _np.size(out.coords)
-        frequency = out.attrs["nmr_frequency"]
+        coords = validate_coord_matches_dim(out, dims)
+        resolution = abs(evenly_spaced_coord_spacing(coords, dims, "find peaks"))
+        frequency = _get_linewidth_frequency(out)
 
-        coords = out.coords[dims]
-        append_index = 0
-
-        if regions:
-            out = out[dims, regions]
-            append_index = _np.where(coords == out.coords[dims][0])[0][0]
-
-        if normalize == True:
-            out = _sl.normalize(out)
-
-            # In the case of the negative peaks
-            real_array = out.values.real
-            max_value = _np.max(real_array)
-            min_value = _np.min(real_array)
-            if _np.abs(max_value) < _np.abs(min_value):
-                out.values *= -1
-
-        peak_index, _ = _spsig.find_peaks(
-            out.values,
-            height=height,
-            threshold=threshold,
-            distance=distance,
-            prominence=prominence,
-            width=width,
-            wlen=wlen,
-            rel_height=rel_height,
-            plateau_size=plateau_size,
+        region_indices = _region_indices(coords, regions)
+        normalized_indices = (
+            _np.concatenate(region_indices)
+            if region_indices
+            else _np.array([], dtype=int)
         )
-        peak_width_height = _spsig.peak_widths(
-            out.values.real, peaks=peak_index, rel_height=rel_height
-        )
-        peak_width = peak_width_height[0] * resolution * 1e-6 * frequency
-        peak_width_height = peak_width_height[1]
+        peak_values_for_detection = out.values
+        if normalize is True:
+            peak_values_for_detection = _normalize_peak_values(
+                peak_values_for_detection, normalized_indices
+            )
 
-        peak_index = [x + append_index for x in peak_index]
-        peak_values = [data.values.real[x] for x in peak_index]
-        peak_shift = [coords[int(x)] for x in peak_index]
+        peak_index_list = []
+        peak_width_list = []
+        peak_width_height_list = []
+        for indices in region_indices:
+            segment_values = peak_values_for_detection[indices].real
+            segment_peak_index, _ = _spsig.find_peaks(
+                segment_values,
+                height=height,
+                threshold=threshold,
+                distance=distance,
+                prominence=prominence,
+                width=width,
+                wlen=wlen,
+                rel_height=rel_height,
+                plateau_size=plateau_size,
+            )
+            segment_peak_width_height = _spsig.peak_widths(
+                segment_values, peaks=segment_peak_index, rel_height=rel_height
+            )
+            peak_index_list.append(indices[segment_peak_index])
+            peak_width_list.append(
+                segment_peak_width_height[0] * resolution * 1e-6 * frequency
+            )
+            peak_width_height_list.append(segment_peak_width_height[1])
+
+        peak_index = (
+            _np.concatenate(peak_index_list)
+            if peak_index_list
+            else _np.array([], dtype=int)
+        )
+        peak_width = (
+            _np.concatenate(peak_width_list)
+            if peak_width_list
+            else _np.array([], dtype=float)
+        )
+        peak_width_height = (
+            _np.concatenate(peak_width_height_list)
+            if peak_width_height_list
+            else _np.array([], dtype=float)
+        )
+        peak_values = data.values.real[peak_index]
+        peak_shift = coords[peak_index]
 
         out.values = _np.vstack(
             (peak_index, peak_shift, peak_values, peak_width, peak_width_height)
         )
 
-        out = _sl.update_axis(
+        out = update_axis(
             out, dim=0, new_dims="peak_info", start_stop=(0, len(out.values) - 1)
         )
         out.coords.append(dim="index", coord=_np.arange(0, len(peak_index), 1))
@@ -177,7 +269,7 @@ def peak_info(data):
         Output (str):       Peak list table
     """
 
-    if data.attrs["experiment_type"] != "peak_list":
+    if data.attrs.get("experiment_type") != "peak_list":
         print("Peak list required as input")
         return
 
@@ -209,7 +301,9 @@ def peak_info(data):
                 )
         print("--------------------------------------------")
     else:
-        raise ValueError("The function only works with 1d or 2d datasets")
+        raise ValueError(
+            "The function only works with peak lists from 1d or 2d datasets"
+        )
 
 
 def _peak_list_checker(peak_list, coord, dim):
