@@ -5,6 +5,10 @@ from ..constants import constants as _const
 # import scipy.constants as _const
 
 
+def _as_array(x):
+    return _np.asarray(x)
+
+
 def voigtian(x, x0, sigma, gamma, integral=1.0, deriv=False):
     r"""Voigtian distribution. Lineshape given by a convolution of Gaussian and Lorentzian distributions.
 
@@ -41,6 +45,7 @@ def voigtian(x, x0, sigma, gamma, integral=1.0, deriv=False):
         z = \frac{\left( \left( x - x0 \right)  + 1j \gamma \right)}{\sigma \sqrt{2}}
 
     """
+    x = _as_array(x)
     if not isinstance(deriv, bool) and isinstance(deriv, (float, int)):
         deriv = True if int(deriv) == 1 else False
         # the scipy.optimize.curve_fit passing bool to an float
@@ -84,6 +89,7 @@ def gaussian(x, x0, sigma, integral=1.0):
         f(x; x_0, \sigma) = \frac{1}{\sigma \sqrt{2 \pi}} \exp{\left(\frac{(x-x_0)^2}{2 \sigma^2}\right)}
 
     """
+    x = _as_array(x)
     return (
         integral
         / (sigma * _np.sqrt(2 * _const.pi))
@@ -116,6 +122,7 @@ def lorentzian(x, x0, gamma, integral=1.0, deriv=False):
 
         f(x) = \frac{1}{\pi \gamma} \left[\frac{- 2\gamma^2 (x-x_0)}{\left( (x-x_0)^2 + \gamma^2 \right)^2}\right]
     """
+    x = _as_array(x)
     if not isinstance(deriv, bool) and isinstance(deriv, (float, int)):
         deriv = True if int(deriv) == 1 else False
         # the scipy.optimize.curve_fit passing bool to an float
