@@ -10,7 +10,7 @@ def _as_array(x):
 
 
 def _handle_array(x):
-    """Handle array or integer input argument for window functions
+    """Handle array or integer input argument for window functions.
 
     Args:
         x (array_like, int): array or integer
@@ -18,7 +18,7 @@ def _handle_array(x):
     Returns:
         int: length of array or integer input
     """
-    if type(x) == int:
+    if isinstance(x, int):
         N = x
     else:
         N = len(x)
@@ -29,124 +29,138 @@ def _handle_array(x):
     return N
 
 
-def exponential(x, lw):
-    r"""Calculate exponential window function
+def exponential(x, lw, shift=0.0):
+    r"""Calculate exponential window function.
+
+    The window maximum is at ``shift`` (default 0) and decays symmetrically
+    on both sides. For data starting at 0 this reproduces the classic
+    one-sided exponential decay.
 
     Args:
-        x (array_like): Vector of points
-        lw (int or float): Exponential line broadening.
+        x (array_like): Vector of points (e.g. time axis).
+        lw (int or float): Linewidth in Hz.
+        shift (float): Position of the window maximum (default: 0).
 
     Returns:
-        array: exponential window function
+        ndarray: Exponential window function.
 
     .. math::
-        \mathrm{exponential}(x) = e^{-\pi (x - x_0) lw}
+        \mathrm{exponential} = e^{-\pi \, |x - \mathrm{shift}| \, lw}
     """
     x = _as_array(x)
-    return _np.exp(-_const.pi * (x - x[0]) * lw)
+    return _np.exp(-_const.pi * _np.abs(x - shift) * lw)
 
 
-def gaussian(x, lw):
-    r"""Calculate gaussian window function
+def gaussian(x, lw, shift=0.0):
+    r"""Calculate gaussian window function.
 
     Args:
-        x (array_like): vector of points
-        lw (float): Full width at half maximum of the Gaussian window.
+        x (array_like): Vector of points (e.g. time axis).
+        lw (float): Full width at half maximum (FWHM) of the Gaussian.
+        shift (float): Position of the window maximum (default: 0).
 
     Returns:
-        array: gaussian window function
+        ndarray: Gaussian window function.
 
     .. math::
         \sigma &= \frac{lw}{2\sqrt{2\ln(2)}} \\
-        \mathrm{gaussian}(x) &= e^{-2\pi^2 x^2 \sigma^2}
+        \mathrm{gaussian} = e^{-2\pi^{2} \sigma^{2} (x - \mathrm{shift})^{2}}
     """
     x = _as_array(x)
-    sigma = lw / (
-        2.0 * _np.sqrt(2.0 * _np.log(2.0))
-    )  # convert FWHM to standard deviation
-    return _np.exp(-1 * 2.0 * _const.pi**2.0 * (x**2.0) * (sigma**2.0))
+    sigma = lw / (2.0 * _np.sqrt(2.0 * _np.log(2.0)))
+    return _np.exp(-2.0 * _const.pi**2 * sigma**2 * (x - shift) ** 2)
 
 
-def hann(x):
-    r"""Calculate hann window function
+def hann(x, shift=0.0):
+    r"""Calculate Hann window function.
 
     Args:
-        x (array_like, int): vector of points or number of points.
+        x (array_like, int): Vector of points or number of points.
+        shift (float): Position of the window maximum (default: 0).
 
     Returns:
-        ndarray: hann window function
+        ndarray: Hann window function.
 
     .. math::
-        \mathrm{hann} = 0.5 + 0.5\cos(\pi * n / (N-1))
+        \mathrm{hann} = 0.5 + 0.5\cos\left(\pi \frac{x - \mathrm{shift}}{x_{\max}}\right)
     """
     N = _handle_array(x)
+    if isinstance(x, int):
+        x = _np.arange(N, dtype=float)
+    else:
+        x = _np.asarray(x)
+    x_max = _np.max(_np.abs(x - shift))
+    if x_max == 0:
+        return _np.ones_like(x)
+    return 0.5 + 0.5 * _np.cos(_const.pi * (x - shift) / x_max)
 
-    return 0.5 + 0.5 * _np.cos(1.0 * _const.pi * _np.arange(N) / (N - 1))
 
-
-def traf(x, lw):
-    r"""Calculate traf window function
+def traf(x, lw, shift=0.0):
+    r"""Calculate TRAF (Trafficante) window function.
 
     Args:
-        x (array_like): vector of points
-        lw (int or float): linewidth of Traficante window
+        x (array_like): Vector of points (e.g. time axis).
+        lw (float): Linewidth in Hz.
+        shift (float): Position of the window maximum (default: 0).
 
     Returns:
-        ndarray: traf window function
+        ndarray: TRAF window function.
 
     .. math::
-        \mathrm{traf}  &=  (f1 * (f1 + f2)) / (f1^{2} + f2^{2}) &
-
-               f1(t)   &=  \exp(-t * \pi * \mathrm{linewidth[0]}) &
-
-               f2(t)   &=  \exp((t - T) * \pi * \mathrm{linewidth[1]}) &
+        \mathrm{traf}  &=  \frac{f_1 (f_1 + f_2)}{f_1^{2} + f_2^{2}} \\
+        f_1(t) &=  \exp(-|t - \mathrm{shift}| \, \pi \, lw) \\
+        f_2(t) &=  \exp(-(T_{\max} - |t - \mathrm{shift}|) \, \pi \, lw)
     """
     x = _as_array(x)
+    t_abs = _np.abs(x - shift)
+    T = _np.max(t_abs)
     T2 = 1.0 / (_const.pi * lw)
-    t = x
-    T = _np.max(t)
-    E = _np.exp(-1 * t / T2)
-    e = _np.exp(-1 * (T - t) / T2)
+    E = _np.exp(-t_abs / T2)
+    e = _np.exp(-(T - t_abs) / T2)
     return E * (E + e) / (E**2 + e**2)
 
 
-def hamming(x):
-    r"""Calculate hamming window function
+def hamming(x, shift=0.0):
+    r"""Calculate Hamming window function.
 
     Args:
-        x (array_like, int): vector of points or number of points.
+        x (array_like, int): Vector of points or number of points.
+        shift (float): Position of the window maximum (default: 0).
 
     Returns:
-        ndarray: hamming window function
+        ndarray: Hamming window function.
 
     .. math::
-        \mathrm{hamming} = 0.53836 + 0.46164\cos(\pi * n / (N-1))
+        \mathrm{hamming} = 0.53836 + 0.46164\cos\left(\pi \frac{x - \mathrm{shift}}{x_{\max}}\right)
     """
     N = _handle_array(x)
-
-    return 0.53836 + 0.46164 * _np.cos(1.0 * _const.pi * _np.arange(N) / (N - 1))
+    if isinstance(x, int):
+        x = _np.arange(N, dtype=float)
+    else:
+        x = _np.asarray(x)
+    x_max = _np.max(_np.abs(x - shift))
+    if x_max == 0:
+        return _np.ones_like(x)
+    return 0.53836 + 0.46164 * _np.cos(_const.pi * (x - shift) / x_max)
 
 
 def lorentz_gauss(x, lw, gauss_lw, gaussian_max=0):
-    r"""Calculate lorentz-gauss window function
+    r"""Calculate lorentz-gauss window function.
 
     Args:
-        x (array_like): vector of points
-        lw (int or float): exponential linewidth
-        gauss_lw (int or float): gaussian linewidth
-        gaussian_max (int or float): location of maximum in gaussian window
+        x (array_like): Vector of points.
+        lw (int or float): Exponential linewidth.
+        gauss_lw (int or float): Gaussian linewidth.
+        gaussian_max (int or float): Location of maximum in gaussian window.
 
     Returns:
-        array: gauss_lorentz window function
+        ndarray: Lorentz-Gauss window function.
 
     .. math::
-        \mathrm{lorentz\_gauss} &=  \exp(L -  G^{2}) &
-
-           L(t)    &=  \pi * \mathrm{linewidth[0]} * t &
-
-           G(t)    &=  0.6\pi * \mathrm{linewidth[1]} * (\mathrm{gaussian\_max} * (N - 1) - t) &
+        \mathrm{lorentz\_gauss} &=  \exp(L -  G^{2}) \\
+           L(t)    &=  \pi \cdot lw \cdot t \\
+           G(t)    &=  0.6\pi \cdot gauss\_lw \cdot (\mathrm{gaussian\_max} \cdot (N - 1) - t)
     """
-
     x = _as_array(x)
     N = len(x)
     expo = _const.pi * x * lw
@@ -154,18 +168,25 @@ def lorentz_gauss(x, lw, gauss_lw, gaussian_max=0):
     return _np.exp(expo - gaus**2).reshape(N)
 
 
-def sin2(x):
-    r"""Calculate sin-squared window function
+def sin2(x, shift=0.0):
+    r"""Calculate sin-squared window function.
 
     Args:
-        x (array_like, int): vector of points or number of points.
+        x (array_like, int): Vector of points or number of points.
+        shift (float): Position of the window maximum (default: 0).
 
     Returns:
-        array: sin-squared window function
+        ndarray: Sin-squared window function.
 
     .. math::
-        \sin^{2}  =  \cos((-0.5\pi * n / (N - 1)) + \pi)^{2}
+        \sin^{2} = \cos\left(\frac{\pi}{2} \frac{x - \mathrm{shift}}{x_{\max}}\right)^{2}
     """
     N = _handle_array(x)
-
-    return _np.cos((-0.5 * _const.pi * _np.arange(N) / (N - 1)) + _const.pi) ** 2
+    if isinstance(x, int):
+        x = _np.arange(N, dtype=float)
+    else:
+        x = _np.asarray(x)
+    x_max = _np.max(_np.abs(x - shift))
+    if x_max == 0:
+        return _np.ones_like(x)
+    return _np.cos(0.5 * _const.pi * (x - shift) / x_max) ** 2

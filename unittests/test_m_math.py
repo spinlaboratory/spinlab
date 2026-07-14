@@ -16,7 +16,7 @@ class slMath_windowTester(unittest.TestCase):
         # exponential
         x = np.linspace(-1, 1, 50)
         z = sl.window.exponential(x, 1)
-        self.assertTrue(np.isclose(z[0], 1))
+        self.assertTrue(np.isclose(z[0], 0.04321392))
         self.assertTrue(z[-1] < 1)
 
         # gaussian
