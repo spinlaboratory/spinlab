@@ -217,11 +217,19 @@ def load_dsc(path):
         except ValueError:
             continue
 
-    if sweep_domain == "Time" and int(attrs["attenuation"]) == 60:
+    if (
+        sweep_domain == "Time"
+        and "attenuation" in attrs
+        and int(attrs["attenuation"]) == 60
+    ):
         attrs.pop("attenuation", None)
         attrs.pop("power", None)
-    elif sweep_domain == "Time" and int(attrs["pulse_attenuation"]) == 60:
-        attrs["pulse_attenuation"] = attrs["attenuation"]
+    elif (
+        sweep_domain == "Time"
+        and "pulse_attenuation" in attrs
+        and int(attrs["pulse_attenuation"]) == 60
+    ):
+        attrs["pulse_attenuation"] = attrs.get("attenuation")
         attrs.pop("attenuation", None)
 
     if all(
@@ -425,7 +433,7 @@ def load_gf_files(
         file_opened = open(path, "rb")
         file_bytes = file_opened.read()
         file_opened.close()
-        coords = _np.frombuffer(file_bytes, dtype=axis_format)
+        coords = _np.frombuffer(file_bytes, dtype=gf_type)
     elif path == "none":
         if axis_type == "nonlinear":
             warnings.warn(

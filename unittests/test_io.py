@@ -169,6 +169,9 @@ class bes3t_import_tester(unittest.TestCase):
         self.test_data_ESE = os.path.join(".", "data", "bes3t", "2D_ESE.DTA")
         self.test_data_1D = os.path.join(".", "data", "bes3t", "1D_CW.DTA")
         self.test_data_2D = os.path.join(".", "data", "bes3t", "2D_CW.YGF")
+        self.test_data_CW_time_sweep = os.path.join(
+            ".", "data", "bes3t", "CW_time_sweep.DSC"
+        )
 
     def test_import_bes3t_HYSCORE(self):
         data = sl.load(self.test_data_HYSCORE, data_format="xepr")
@@ -200,6 +203,21 @@ class bes3t_import_tester(unittest.TestCase):
         self.assertEqual(data.dims, ["B0", "t1"])
         self.assertEqual(data.values.shape, (1600, 100))
         self.assertEqual(data.attrs["frequency"], 9.627213)
+        # t1 axis is nonlinear (YTYP IGD) and read from the .YGF file
+        self.assertEqual(data.coords["t1"][0], 0.0)
+        self.assertEqual(data.coords["t1"][-1], 2180.53)
+
+    def test_import_bes3t_CW_time_sweep(self):
+        # CW time-sweep: linear Time axis (t2), nonlinear per-scan Field
+        # axis (t1) read from the .YGF file. XNAM=Time also exercises the
+        # sweep_domain == "Time" branch of load_dsc, which previously
+        # raised a KeyError when attenuation/pulse_attenuation were absent.
+        data = sl.load(self.test_data_CW_time_sweep, data_format="xepr")
+        self.assertEqual(data.dims, ["t2", "t1"])
+        self.assertEqual(data.values.shape, (1000, 10))
+        self.assertEqual(data.attrs["frequency"], 9.834281)
+        self.assertEqual(data.coords["t1"][0], 1499.95)
+        self.assertEqual(data.coords["t1"][-1], 1500.0500000000002)
 
 
 class winepr_import_tester(unittest.TestCase):
