@@ -4,10 +4,10 @@ from ..constants import constants as _const
 
 
 _UNIT_CONVERSIONS = {
-    "rad/s": 1.0,
-    "Hz": 1.0 / (2 * _const.pi),
-    "MHz": 1.0 / (2 * _const.pi * 1e6),
-    "GHz": 1.0 / (2 * _const.pi * 1e9),
+    "Hz": 1.0,
+    "MHz": 1.0e-6,
+    "GHz": 1.0e-9,
+    "rad/s": 2 * _const.pi,
 }
 
 
@@ -25,19 +25,19 @@ def distance_to_dipolar_coupling(r, g1=_const.ge, g2=_const.ge, unit="Hz"):
 
     .. math::
 
-        \omega_{dd} = \frac{\mu_0}{4\pi} \frac{g_1 g_2 \mu_B^2}{\hbar r^3}
+        \nu_{dd} = \frac{\mu_0}{4\pi} \frac{g_1 g_2 \mu_B^2}{h r^3}
 
     """
     r_m = _np.asarray(r, dtype=float)
 
-    omega_dd = (_const.mu_0 / (4 * _const.pi)) * (g1 * g2 * _const.mub**2) / (_const.hbar * r_m**3)
+    nu_dd = (_const.mu_0 / (4 * _const.pi)) * (g1 * g2 * _const.mub**2) / (_const.h * r_m**3)
 
     if unit not in _UNIT_CONVERSIONS:
         raise ValueError(
             f"Unknown unit '{unit}'. Choose from {list(_UNIT_CONVERSIONS.keys())}."
         )
 
-    return omega_dd * _UNIT_CONVERSIONS[unit]
+    return nu_dd * _UNIT_CONVERSIONS[unit]
 
 
 def sphere_orientations(n):
