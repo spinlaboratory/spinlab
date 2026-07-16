@@ -125,7 +125,7 @@ def pake_pattern(freq, theta, phi, coupling, linewidth, weights=None):
 
     .. math::
 
-        \nu(\theta) = \nu_{dd} \frac{3 \cos^2\theta - 1}{2}
+        \nu(\theta) = \nu_{dd} (3 \cos^2\theta - 1)
 
     Broadening is applied as a convolution via multiplication with an
     exponential decay in the time domain.
@@ -145,7 +145,7 @@ def pake_pattern(freq, theta, phi, coupling, linewidth, weights=None):
     t = _np.arange(n_points) * dt
 
     cos2 = _np.cos(theta) ** 2
-    freqs_pos = coupling * (3 * cos2 - 1) / 2
+    freqs_pos = coupling * (3 * cos2 - 1)
     freqs_neg = -freqs_pos
 
     fid = _np.sum(
