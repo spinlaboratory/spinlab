@@ -12,7 +12,7 @@ def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwa
 
     Args:
         path (str, list): Path to data directory or list of directories
-        data_format (str): format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d", "ciqtek"
+        data_format (str): format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d"
         dim (str): If giving directories as list, name of dimension to concatenate data along
         coord (numpy.ndarray): If giving directories as list, coordinates of new dimension
         verbose (bool): If true, print debugging output
@@ -66,7 +66,7 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
 
     Args:
         path (str): Path to data directory or file
-        data_format (str): Format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "ciqtek"
+        data_format (str): Format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers"
         verbose (bool): If true, print additional debug outputs
         *args: Additional positional arguments passed to the format-specific import function.
         **kwargs: Additional keyword arguments passed to the format-specific import function.
@@ -125,16 +125,13 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
     elif data_format == "rs2d":
         data = rs2d.import_rs2d(path, *args, **kwargs)
 
-    elif data_format == "ciqtek":
-        data = ciqtek.import_ciqtek(path, *args, **kwargs)
-
     # elif data_format == "mat":
     #     data = mat.import_mat(path, *args, **kwargs)
 
     else:
         raise ValueError("Invalid data format: %s" % data_format)
 
-    if data_format not in ["h5", "power", "vna", "cnsi_powers", "mat", "ciqtek"]:
+    if data_format not in ["h5", "power", "vna", "cnsi_powers", "mat"]:
         data = _assign_spinlab_attrs(data, data_format)
 
     return data
@@ -207,8 +204,6 @@ def autodetect(test_path, verbose=False):
         data_format = "rs2d"
     elif path_exten in [".mat"]:
         data_format = "mat"
-    elif path_exten == ".epr":
-        data_format = "ciqtek"
     else:
         raise TypeError(
             "No data format given and autodetect failed to detect format, please specify a format"
