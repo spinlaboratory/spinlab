@@ -2,7 +2,6 @@ import numpy as _np
 
 from ..constants import constants as _const
 
-
 _UNIT_CONVERSIONS = {
     "Hz": 1.0,
     "MHz": 1.0e-6,
@@ -30,7 +29,11 @@ def distance_to_dipolar_coupling(r, g1=_const.ge, g2=_const.ge, unit="Hz"):
     """
     r_m = _np.asarray(r, dtype=float)
 
-    nu_dd = (_const.mu_0 / (4 * _const.pi)) * (g1 * g2 * _const.mub**2) / (_const.h * r_m**3)
+    nu_dd = (
+        (_const.mu_0 / (4 * _const.pi))
+        * (g1 * g2 * _const.mub**2)
+        / (_const.h * r_m**3)
+    )
 
     if unit not in _UNIT_CONVERSIONS:
         raise ValueError(

@@ -41,8 +41,13 @@ def show_sphere_orientations(theta, phi):
     cam = _camera_vector(ax.azim, ax.elev)
     visible = dots @ cam > 0
     scatter = ax.scatter(
-        x[visible], y[visible], z[visible],
-        s=10, color=BrukerPacific, depthshade=False, zorder=10,
+        x[visible],
+        y[visible],
+        z[visible],
+        s=10,
+        color=BrukerPacific,
+        depthshade=False,
+        zorder=10,
     )
 
     ax.set_aspect("equal")
