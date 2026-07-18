@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$data = [Console]::In.ReadToEnd() | ConvertFrom-Json; $f = $data.tool_input.file_path; if ($f -match '\\.py$') { black --target-version py311 $f } 2>$null",
+            "statusMessage": "Running black 26.5..."
+          }
+        ]
+      }
+    ]
+  }
+}
