@@ -106,14 +106,13 @@ def sphere_quadrature(n_theta, n_phi):
     return theta, phi, weights
 
 
-def pake_pattern(freq, theta, phi, coupling, linewidth, weights=None):
+def pake_pattern(freq, theta, coupling, linewidth, weights=None):
     r"""Calculate the Pake pattern for a dipolar-coupled spin pair.
 
     Args:
         freq (array_like): Frequency axis in Hz.
         theta (array_like): Polar angles in radians from
             :func:`sphere_quadrature` or :func:`sphere_orientations`.
-        phi (array_like): Azimuthal angles in radians.
         coupling (float): Dipolar coupling constant in Hz from
             :func:`distance_to_dipolar_coupling`.
         linewidth (float): Lorentzian line broadening in Hz.
