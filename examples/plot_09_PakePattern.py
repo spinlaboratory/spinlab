@@ -14,6 +14,14 @@ Pake Pattern Simulation (#9)
 
 import spinlab as sl
 import numpy as np
+from spinlab.plotting.colors import (
+    BrukerPacific,
+    BrukerOcean,
+    BrukerIce,
+    BrukerOrange,
+    BrukerDolomite,
+    BrukerGranite,
+)
 
 # %%
 # Define the inter-spin distance and calculate the dipolar coupling frequency.
@@ -35,10 +43,10 @@ freq = np.linspace(-40e6, 40e6, 4096)  # frequency axis in Hz — wide enough fo
 theta, phi, weights = sl.sphere_quadrature(n_theta=500, n_phi=1)
 
 # %%
-# Simulate the Pake pattern. A Lorentzian linewidth of 0.3 MHz is applied
+# Simulate the Pake pattern. A Lorentzian linewidth of 0.8 MHz is applied
 # via an exponential decay in the time domain before Fourier transformation.
 
-linewidth = 0.3e6  # Hz
+linewidth = 0.8e6  # Hz
 spectrum = sl.pake_pattern(freq, theta, nu_dd * 1e6, linewidth, weights)
 
 # %%
@@ -49,15 +57,16 @@ freq_MHz = freq / 1e6
 spectrum = spectrum - spectrum.min()  # baseline to zero
 
 sl.plt.figure()
-sl.plt.plot(freq_MHz, spectrum)
-sl.plt.axvline(nu_dd, color="gray", linestyle="--", linewidth=0.8, label=r"$\pm\nu_{dd}$")
-sl.plt.axvline(-nu_dd, color="gray", linestyle="--", linewidth=0.8)
-sl.plt.axvline(2 * nu_dd, color="silver", linestyle=":", linewidth=0.8, label=r"$\pm 2\nu_{dd}$")
-sl.plt.axvline(-2 * nu_dd, color="silver", linestyle=":", linewidth=0.8)
+sl.plt.plot(freq_MHz, spectrum, color=BrukerPacific)
+sl.plt.axvline(nu_dd, color=BrukerOrange, linestyle="--", linewidth=0.8, label=r"$\pm\nu_{dd}$")
+sl.plt.axvline(-nu_dd, color=BrukerOrange, linestyle="--", linewidth=0.8)
+sl.plt.axvline(2 * nu_dd, color=BrukerDolomite, linestyle=":", linewidth=0.8, label=r"$\pm 2\nu_{dd}$")
+sl.plt.axvline(-2 * nu_dd, color=BrukerDolomite, linestyle=":", linewidth=0.8)
 sl.plt.xlabel("Frequency (MHz)")
 sl.plt.ylabel("Intensity (arb. u.)")
 sl.plt.title(f"Pake Pattern, r = {r*1e9:.0f} nm, $\\nu_{{dd}}$ = {nu_dd:.2f} MHz")
 sl.plt.legend()
+sl.plt.grid(ls=":")
 sl.plt.show()
 
 # %%
@@ -68,17 +77,19 @@ sl.plt.show()
 # Pake patterns for a range of inter-spin distances.
 
 distances_nm = [1.5, 2.0, 2.5, 3.0]
+colors = [BrukerPacific, BrukerOcean, BrukerIce, BrukerOrange]
 
 sl.plt.figure()
-for r_nm in distances_nm:
+for r_nm, color in zip(distances_nm, colors):
     nu = sl.distance_to_dipolar_coupling(r_nm * 1e-9, unit="MHz")
     spec = sl.pake_pattern(freq, theta, nu * 1e6, linewidth, weights)
     spec = spec - spec.min()  # baseline to zero
     spec = spec / spec.max()  # normalize peak to 1
-    sl.plt.plot(freq_MHz, spec, label=f"r = {r_nm} nm")
+    sl.plt.plot(freq_MHz, spec, color=color, label=f"r = {r_nm} nm")
 
 sl.plt.xlabel("Frequency (MHz)")
 sl.plt.ylabel("Normalized Intensity")
 sl.plt.title("Pake Patterns for Different Inter-Spin Distances")
 sl.plt.legend()
+sl.plt.grid(ls=":")
 sl.plt.show()
