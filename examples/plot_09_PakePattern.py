@@ -31,7 +31,7 @@ print(f"Dipolar coupling: {nu_dd:.3f} MHz")
 # Set up the frequency axis and the powder-averaging orientations using
 # Gauss-Legendre quadrature on the unit sphere.
 
-freq = np.linspace(-25e6, 25e6, 4096)  # frequency axis in Hz
+freq = np.linspace(-40e6, 40e6, 4096)  # frequency axis in Hz — wide enough for all distances
 theta, phi, weights = sl.sphere_quadrature(n_theta=500, n_phi=1)
 
 # %%
@@ -46,6 +46,7 @@ spectrum = sl.pake_pattern(freq, theta, nu_dd * 1e6, linewidth, weights)
 # :math:`\pm\nu_{dd}` and the shoulders at :math:`\pm 2\nu_{dd}`.
 
 freq_MHz = freq / 1e6
+spectrum = spectrum - spectrum.min()  # baseline to zero
 
 sl.plt.figure()
 sl.plt.plot(freq_MHz, spectrum)
@@ -72,7 +73,9 @@ sl.plt.figure()
 for r_nm in distances_nm:
     nu = sl.distance_to_dipolar_coupling(r_nm * 1e-9, unit="MHz")
     spec = sl.pake_pattern(freq, theta, nu * 1e6, linewidth, weights)
-    sl.plt.plot(freq_MHz, spec / spec.max(), label=f"r = {r_nm} nm")
+    spec = spec - spec.min()  # baseline to zero
+    spec = spec / spec.max()  # normalize peak to 1
+    sl.plt.plot(freq_MHz, spec, label=f"r = {r_nm} nm")
 
 sl.plt.xlabel("Frequency (MHz)")
 sl.plt.ylabel("Normalized Intensity")
