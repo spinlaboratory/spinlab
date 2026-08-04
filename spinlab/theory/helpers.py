@@ -15,6 +15,11 @@ def show_sphere_orientations(theta, phi):
     Returns:
         Figure: Matplotlib figure with 3D scatter plot.
 
+    Example:
+        >>> import spinlab as sl
+        >>> theta, phi = sl.sphere_orientations(20)
+        >>> fig = sl.show_sphere_orientations(theta, phi)
+
     """
     x = _np.sin(theta) * _np.cos(phi)
     y = _np.sin(theta) * _np.sin(phi)
@@ -94,6 +99,14 @@ def Jp(j=0.5):
     Returns:
         ndarray: Matrix representation of :math:`J_+` in the Zeeman basis.
 
+    Example:
+        For spin-1/2, :math:`J_+` is the Pauli raising matrix:
+
+        >>> import spinlab as sl
+        >>> sl.Jp(0.5)
+        array([[0.+0.j, 1.+0.j],
+               [0.+0.j, 0.+0.j]])
+
     """
     mult = round(2 * j + 1)
     out = _np.zeros((mult, mult), dtype=complex)
@@ -112,6 +125,14 @@ def Jm(j=0.5):
 
     Returns:
         ndarray: Matrix representation of :math:`J_-` in the Zeeman basis.
+
+    Example:
+        For spin-1/2, :math:`J_-` is the Pauli lowering matrix:
+
+        >>> import spinlab as sl
+        >>> sl.Jm(0.5)
+        array([[0.+0.j, 0.+0.j],
+               [1.+0.j, 0.+0.j]])
 
     """
     mult = round(2 * j + 1)
@@ -132,6 +153,14 @@ def Jx(j=0.5):
     Returns:
         ndarray: Matrix representation of :math:`J_x` in the Zeeman basis.
 
+    Example:
+        For spin-1/2, :math:`J_x` equals half the Pauli :math:`\sigma_x`:
+
+        >>> import spinlab as sl
+        >>> sl.Jx(0.5)
+        array([[0. +0.j, 0.5+0.j],
+               [0.5+0.j, 0. +0.j]])
+
     """
     return 0.5 * (Jp(j) + Jm(j))
 
@@ -145,6 +174,14 @@ def Jy(j=0.5):
     Returns:
         ndarray: Matrix representation of :math:`J_y` in the Zeeman basis.
 
+    Example:
+        For spin-1/2, :math:`J_y` equals half the Pauli :math:`\sigma_y`:
+
+        >>> import spinlab as sl
+        >>> sl.Jy(0.5)
+        array([[ 0.+0.j , -0.-0.5j],
+               [ 0.+0.5j,  0.+0.j ]])
+
     """
     return -0.5j * (Jp(j) - Jm(j))
 
@@ -157,6 +194,15 @@ def Jz(j=0.5):
 
     Returns:
         ndarray: Matrix representation of :math:`J_z` in the Zeeman basis.
+
+    Example:
+        For spin-1/2, :math:`J_z` equals half the Pauli :math:`\sigma_z`.
+        The basis is ordered with :math:`m = +j` at index 0:
+
+        >>> import spinlab as sl
+        >>> sl.Jz(0.5)
+        array([[ 0.5+0.j,  0. +0.j],
+               [ 0. +0.j, -0.5+0.j]])
 
     """
     mult = round(2 * j + 1)

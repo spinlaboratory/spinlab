@@ -26,6 +26,14 @@ def distance_to_dipolar_coupling(r, g1=_const.ge, g2=_const.ge, unit="Hz"):
 
         \nu_{dd} = \frac{\mu_0}{4\pi} \frac{g_1 g_2 \mu_B^2}{h r^3}
 
+    Example:
+        Calculate the dipolar coupling for two electrons separated by 2 nm:
+
+        >>> import spinlab as sl
+        >>> nu = sl.distance_to_dipolar_coupling(2e-9, unit="MHz")
+        >>> round(nu, 2)
+        6.51
+
     """
     r_m = _np.asarray(r, dtype=float)
 
@@ -53,6 +61,16 @@ def sphere_orientations(n):
     Returns:
         tuple: (theta, phi) arrays of polar and azimuthal angles in radians.
             Theta ranges over [0, pi], phi over [0, 2*pi].
+
+    Example:
+        Generate orientations and verify they lie on the unit sphere:
+
+        >>> import spinlab as sl
+        >>> import numpy as np
+        >>> theta, phi = sl.sphere_orientations(10)
+        >>> r = np.sqrt(np.sin(theta)**2 + np.cos(theta)**2)
+        >>> np.allclose(r, 1.0)
+        True
 
     """
     n = int(n)
@@ -91,6 +109,14 @@ def sphere_quadrature(n_theta, n_phi):
         tuple: (theta, phi, weights) arrays. Theta and phi are in radians,
             weights incorporate the solid angle element and are normalized
             to sum to one.
+
+    Example:
+        Generate quadrature nodes and verify the weights sum to one:
+
+        >>> import spinlab as sl
+        >>> theta, phi, weights = sl.sphere_quadrature(50, 1)
+        >>> round(weights.sum(), 10)
+        1.0
 
     """
     cos_theta, w_theta = _np.polynomial.legendre.leggauss(n_theta)
@@ -131,6 +157,18 @@ def pake_pattern(freq, theta, coupling, linewidth, weights=None):
 
     Broadening is applied as a convolution via multiplication with an
     exponential decay in the time domain.
+
+    Example:
+        Simulate a Pake pattern for two electrons at 2 nm:
+
+        >>> import spinlab as sl
+        >>> import numpy as np
+        >>> freq = np.linspace(-20e6, 20e6, 2049)
+        >>> theta, phi, weights = sl.sphere_quadrature(200, 1)
+        >>> nu_dd = sl.distance_to_dipolar_coupling(2e-9)
+        >>> spectrum = sl.pake_pattern(freq, theta, nu_dd, 0.5e6, weights)
+        >>> spectrum.shape
+        (2049,)
 
     """
     freq = _np.asarray(freq, dtype=float)
