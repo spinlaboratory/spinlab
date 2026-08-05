@@ -83,3 +83,6 @@ desktop.ini
 
 # Environment
 .venv
+
+# Claude Code
+.claude/
