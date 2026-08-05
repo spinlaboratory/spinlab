@@ -126,7 +126,7 @@ def fancy_plot(
 ):
     """Streamline Plot function for sldata objects
 
-    This function creates streamlined plots for NMR and EPR spectra. The type of the spectrum is detected from the attribute "experiment_type" of the sldata object. Currently the following types are implemented: nmr_spectrum, epr_spectrum, enhancements_P, and inversion_recovery. The function will automatically format the plot according to the "experiment_type" attribute.
+    This function creates streamlined plots for NMR, EPR, and SpecLog data. The type of the spectrum is detected from the attribute "experiment_type" of the sldata object. The function will automatically format the plot according to the "experiment_type" attribute.
 
     Args:
         data (SpinData): SpinData object with values to plot
@@ -160,6 +160,7 @@ def fancy_plot(
         plot(data, *args, **kwargs)
         return
 
+    tight_layout_rect = None
     _plt.grid(True, ls=":")
     _plt.title(title)
 
@@ -198,6 +199,71 @@ def fancy_plot(
 
             _plt.text(xmin * 0.95, ymax / 10, parameterString, bbox=box_style)
 
+        data.fold()
+
+    elif data.attrs["experiment_type"].lower() == "speclog":
+        exp_type = fancyplot_label + ":" + data.attrs["experiment_type"]
+        dim = kwargs.pop("dim", SpinLAB_CONFIG.get(exp_type, "dim", fallback="time"))
+        if dim not in data.dims:
+            raise ValueError(
+                f"SpecLog data does not contain the requested dimension {dim!r}"
+            )
+
+        coord = data.coords[dim]
+        data.unfold(dim)
+        plt_config_kwargs = {
+            key.lstrip("__"): val
+            for key, val in SpinLAB_CONFIG[exp_type].items()
+            if key.startswith("__")
+        }
+        plt_config_kwargs.update(kwargs)
+        plot_return = _plt.plot(coord, data.values.real, *args, **plt_config_kwargs)
+
+        ax = _plt.gca()
+        fig = _plt.gcf()
+        for key in SpinLAB_CONFIG[exp_type].keys():
+            if key.startswith("ax.") or key.startswith("fig."):
+                config_args, config_kwargs = SpinLAB_CONFIG.getargs_kwargs(
+                    exp_type, key
+                )
+                prm_key = key.lstrip("ax.").lstrip("fig.")
+                if key.startswith("ax."):
+                    getattr(ax, prm_key)(*config_args, **config_kwargs)
+                else:
+                    getattr(fig, prm_key)(*config_args, **config_kwargs)
+
+        channel_names = (
+            [str(name) for name in data.coords["channel"]]
+            if "channel" in data.dims
+            else []
+        )
+        if channel_names:
+            legend_labels = [name.replace("_", " ") for name in channel_names]
+            legend_ncol = SpinLAB_CONFIG.getint(exp_type, "legend_ncol", fallback=3)
+            fig.legend(
+                plot_return,
+                legend_labels,
+                loc=SpinLAB_CONFIG.get(exp_type, "legend_loc", fallback="lower center"),
+                bbox_to_anchor=(
+                    SpinLAB_CONFIG.getfloat(exp_type, "legend_bbox_x", fallback=0.5),
+                    SpinLAB_CONFIG.getfloat(exp_type, "legend_bbox_y", fallback=0.01),
+                ),
+                ncol=legend_ncol,
+            )
+            legend_rows = int(_np.ceil(len(channel_names) / legend_ncol))
+            legend_margin = SpinLAB_CONFIG.getfloat(
+                exp_type, "legend_margin_base", fallback=0.08
+            ) + legend_rows * SpinLAB_CONFIG.getfloat(
+                exp_type, "legend_margin_per_row", fallback=0.055
+            )
+            tight_layout_rect = (0, legend_margin, 1, 1)
+
+        if xlim != []:
+            _plt.xlim(_np.datetime64(xlim[0]), _np.datetime64(xlim[1]))
+        if title != "":
+            _plt.title(title)
+
+        fig.autofmt_xdate()
         data.fold()
 
     elif data.attrs["experiment_type"] in fancyplot_sections:
@@ -315,6 +381,6 @@ def fancy_plot(
     else:
         plot_return = plot(data, *args, **kwargs)
 
-    _plt.tight_layout()
+    _plt.tight_layout(rect=tight_layout_rect)
 
     return plot_return
