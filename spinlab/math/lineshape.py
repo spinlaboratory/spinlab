@@ -32,7 +32,7 @@ def voigtian(x, x0, sigma, gamma, integral=1.0, deriv=False):
     with
 
     .. math::
-        z = \frac{x + i\gamma}{\sigma \sqrt{2}}
+        z = \frac{(x - x_0) + i\gamma}{\sigma \sqrt{2}}
 
     Derivative:
     .. math::
@@ -43,6 +43,13 @@ def voigtian(x, x0, sigma, gamma, integral=1.0, deriv=False):
 
     .. math::
         z = \frac{\left( \left( x - x0 \right)  + 1j \gamma \right)}{\sigma \sqrt{2}}
+
+    Example:
+        Evaluate a Voigtian at its center:
+
+        >>> from spinlab.math import lineshape
+        >>> round(float(lineshape.voigtian(0, 0, sigma=1, gamma=1)), 4)
+        0.2087
 
     """
     x = _as_array(x)
@@ -86,7 +93,16 @@ def gaussian(x, x0, sigma, integral=1.0):
 
     .. math::
 
-        f(x; x_0, \sigma) = \frac{1}{\sigma \sqrt{2 \pi}} \exp{\left(\frac{(x-x_0)^2}{2 \sigma^2}\right)}
+        f(x; x_0, \sigma) = \frac{1}{\sigma \sqrt{2 \pi}} \exp{\left(-\frac{(x-x_0)^2}{2 \sigma^2}\right)}
+
+    Example:
+        Evaluate a Gaussian at its center and one standard deviation away:
+
+        >>> from spinlab.math import lineshape
+        >>> round(float(lineshape.gaussian(0, 0, sigma=1)), 4)
+        0.3989
+        >>> round(float(lineshape.gaussian(1, 0, sigma=1)), 4)
+        0.242
 
     """
     x = _as_array(x)
@@ -121,6 +137,15 @@ def lorentzian(x, x0, gamma, integral=1.0, deriv=False):
     .. math::
 
         f(x) = \frac{1}{\pi \gamma} \left[\frac{- 2\gamma^2 (x-x_0)}{\left( (x-x_0)^2 + \gamma^2 \right)^2}\right]
+
+    Example:
+        Evaluate a Lorentzian at its center and its derivative off-center:
+
+        >>> from spinlab.math import lineshape
+        >>> round(float(lineshape.lorentzian(0, 0, gamma=1)), 4)
+        0.3183
+        >>> round(float(lineshape.lorentzian(1, 0, gamma=1, deriv=True)), 4)
+        -0.1592
     """
     x = _as_array(x)
     if not isinstance(deriv, bool) and isinstance(deriv, (float, int)):
