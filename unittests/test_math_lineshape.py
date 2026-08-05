@@ -189,7 +189,9 @@ class sl_lineshape_tester(unittest.TestCase):
         integral = 1.3
 
         assert_allclose(
-            lineshape.dysonian(self.x, x0=x0, gamma=gamma, alpha=0.0, integral=integral),
+            lineshape.dysonian(
+                self.x, x0=x0, gamma=gamma, alpha=0.0, integral=integral
+            ),
             lineshape.lorentzian(self.x, x0=x0, gamma=gamma, integral=integral),
         )
 
@@ -201,10 +203,7 @@ class sl_lineshape_tester(unittest.TestCase):
         expected = (
             integral
             * (1.0 / sl.pi)
-            * (
-                alpha * (gamma**2 - (self.x - x0) ** 2)
-                - 2.0 * gamma * (self.x - x0)
-            )
+            * (alpha * (gamma**2 - (self.x - x0) ** 2) - 2.0 * gamma * (self.x - x0))
             / ((self.x - x0) ** 2 + gamma**2) ** 2
         )
 

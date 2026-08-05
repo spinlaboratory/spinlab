@@ -135,7 +135,9 @@ ax_abs.grid(ls=":")
 ax_deriv.plot(x, y_gaussian_deriv, color=BrukerPacific, label="Gaussian")
 ax_deriv.plot(x, y_lorentzian_deriv, color=BrukerOrange, label="Lorentzian")
 ax_deriv.plot(x, y_voigtian_deriv, color=BrukerDolomite, label="Voigtian")
-ax_deriv.plot(x, y_dysonian_deriv, color=BrukerOcean, label=f"Dysonian ($\\alpha$ = {alpha})")
+ax_deriv.plot(
+    x, y_dysonian_deriv, color=BrukerOcean, label=f"Dysonian ($\\alpha$ = {alpha})"
+)
 ax_deriv.set_xlabel("x")
 ax_deriv.set_ylabel("Intensity (arb. u.)")
 ax_deriv.set_title("Derivative")
