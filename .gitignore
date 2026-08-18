@@ -4,6 +4,9 @@
 # VS Code
 .vscode/*
 
+# Claude Code
+.claude/
+
 # Vim
 *.swp
 
@@ -25,6 +28,8 @@ docs/source/auto_examples/
 doc/html/
 doc/build/
 doc/source/auto_examples/
+doc/_build_show/
+doc/sl_tutorials/
 
 bin/
 build/
