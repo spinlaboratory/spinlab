@@ -220,6 +220,38 @@ class bes3t_import_tester(unittest.TestCase):
         self.assertEqual(data.coords["t1"][-1], 1500.0500000000002)
 
 
+class esr5000_import_tester(unittest.TestCase):
+    def setUp(self):
+        self.test_data_coffee = os.path.join(".", "data", "esr5000", "Coffee.xml")
+        self.test_data_bitumen = os.path.join(".", "data", "esr5000", "Bitumen.xml")
+
+    def test_import_esr5000_coffee(self):
+        data = sl.load(self.test_data_coffee, data_format="esr5000")
+        self.assertEqual(data.dims, ["B0"])
+        self.assertEqual(data.values.shape, (3107,))
+        self.assertEqual(data.attrs["frequency"], 9.45816496965447)
+        self.assertEqual(data.attrs["q_value"], 2051.4248046875)
+        self.assertEqual(data.attrs["nscans"], 1)
+        self.assertAlmostEqual(data.coords["B0"][0], 331.53399658203125)
+        self.assertAlmostEqual(data.coords["B0"][-1], 342.0386657714844)
+        self.assertAlmostEqual(
+            data.values[365], 3.590757547876376 - 50.74475134984694j
+        )
+
+    def test_import_esr5000_bitumen(self):
+        data = sl.load(self.test_data_bitumen, data_format="esr5000")
+        self.assertEqual(data.dims, ["B0"])
+        self.assertEqual(data.values.shape, (5892,))
+        self.assertEqual(data.attrs["frequency"], 9.47938556968456)
+        self.assertEqual(data.attrs["q_value"], -1.0)
+        self.assertEqual(data.attrs["nscans"], 10)
+        self.assertAlmostEqual(data.coords["B0"][0], 86.6401850382487)
+        self.assertAlmostEqual(data.coords["B0"][-1], 590.5849609375)
+        self.assertAlmostEqual(
+            data.values[365], -18.60718468247838 - 104.82731619953861j
+        )
+
+
 class winepr_import_tester(unittest.TestCase):
     def setUp(self):
         self.test_data_ESP = os.path.join(".", "data", "parspc", "ExampleESP.par")
