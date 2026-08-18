@@ -93,7 +93,7 @@ The data set can be downloaded from the  :ref:`SampleData` page.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.071 seconds)
+   **Total running time of the script:** (0 minutes 0.203 seconds)
 
 
 .. _sphx_glr_download_sl_examples_plot_06_ETPC.py:

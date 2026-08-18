@@ -70,6 +70,8 @@ coverage.xml
 docs/_build/
 _build/
 .doctrees
+doc/_build_show/
+doc/sl_tutorials/
 .DS_Store
 
 # OSX and Windows related

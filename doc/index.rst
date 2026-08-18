@@ -71,7 +71,14 @@ If you are using SpinLab to process your MR data, please add a link to the |Spin
    
 
 .. toctree::
-   :caption: Tutorials and Examples
+   :caption: Tutorials
+   :maxdepth: 2
+   :hidden:
+
+   sl_tutorials/multiharmonic_detection/index
+
+.. toctree::
+   :caption: Examples
    :maxdepth: 1
    :hidden:
 

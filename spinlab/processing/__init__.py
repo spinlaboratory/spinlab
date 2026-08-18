@@ -6,6 +6,7 @@ from .axis import *
 from .complex_data import *
 from .enhancement import *
 from .fft import *
+from .harmonics import *
 from .integration import *
 from .modulation import *
 from .normalization import *
