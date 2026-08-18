@@ -54,6 +54,9 @@ SpinLab inspects the file extension (or the contents of a directory) to determin
    * - RS2D
      - ``.xml``, ``.dat``
      - ``"rs2d"``
+   * - Bruker ESR5000
+     - ``.xml``
+     - ``"esr5000"``
    * - VNA (S-parameters)
      - ``.s1p``, ``.s2p``
      - ``"vna"``

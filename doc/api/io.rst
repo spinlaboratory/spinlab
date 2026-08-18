@@ -38,6 +38,10 @@ Bruker
    :members:
    :show-inheritance:
 
+.. automodule:: spinlab.io.esr5000
+   :members:
+   :show-inheritance:
+
 JEOL
 ----
 
