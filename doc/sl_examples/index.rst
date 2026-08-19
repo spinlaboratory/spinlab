@@ -80,6 +80,23 @@ This section contains short examples how to load experimental data files and pro
     </div>
 
 
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Lineshapes (#10)">
+
+.. only:: html
+
+  .. image:: /sl_examples/images/thumb/sphx_glr_plot_10_Lineshapes_thumb.png
+    :alt:
+
+  :doc:`/sl_examples/plot_10_Lineshapes`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Lineshapes (#10)</div>
+    </div>
+
+
 .. thumbnail-parent-div-close
 
 .. raw:: html
@@ -94,6 +111,7 @@ This section contains short examples how to load experimental data files and pro
    /sl_examples/plot_06_ETPC
    /sl_examples/plot_07_2PE
    /sl_examples/plot_08_3PE
+   /sl_examples/plot_10_Lineshapes
 
 
 
