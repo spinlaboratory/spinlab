@@ -1,7 +1,8 @@
 import numpy as _np
 from struct import unpack
-from .. import SpinData
+from ... import SpinData
 from matplotlib.pyplot import *
+from .._verbose import verbose_data_summary, verbose_print
 
 DELTA_DATA_FORMAT_DICT = {
     1: ["One_D", 8, 8**1],
@@ -79,9 +80,11 @@ def import_delta(path, verbose=False):
     """
 
     # params = import_delta_pars(path)
+    verbose_print(verbose, "Delta file:", path)
     values, dims, coords, attrs = import_delta_data(path, verbose=verbose)
 
     out = SpinData(values, dims, coords, attrs)
+    verbose_data_summary(verbose, "Delta", out)
 
     return out
 

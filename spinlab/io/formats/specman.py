@@ -2,6 +2,7 @@ import numpy as _np
 import os
 import spinlab as _sl
 import re
+from .._verbose import verbose_data_summary, verbose_print
 
 scale_dict = {
     "p": 1e-12,
@@ -22,6 +23,7 @@ def import_specman(
     autodetect_dims: bool = True,
     make_complex: bool = True,
     complex_dim: str = "x",
+    verbose: bool = False,
 ):
     """Import SpecMan data and return SpinData object
 
@@ -52,12 +54,14 @@ def import_specman(
     else:
         raise TypeError("Incorrect file type, must be .d01 or .exp")
 
+    verbose_print(verbose, "SpecMan EXP file:", file_name_exp)
+    verbose_print(verbose, "SpecMan D01 file:", file_name_d01)
     attrs = load_specman_exp(file_name_exp)
 
     if autodetect_coords or autodetect_dims:
         attrs = analyze_attrs(attrs)
 
-    data, dims, coords, attrs = load_specman_d01(file_name_d01, attrs)
+    data, dims, coords, attrs = load_specman_d01(file_name_d01, attrs, verbose=verbose)
 
     if autodetect_dims:
         new_dims = generate_dims(attrs)
@@ -82,6 +86,7 @@ def import_specman(
     if make_complex:
         if complex_dim in dims and len(specman_data.coords[complex_dim]) == 2:
             specman_data = _sl.create_complex(specman_data, complex_dim)
+    verbose_data_summary(verbose, "SpecMan", specman_data)
     return specman_data
 
 

@@ -1,8 +1,9 @@
-from ..core.data import SpinData
+from ...core.data import SpinData
 import warnings
 import numpy as _np
 import h5py as _h5py
 import json as _json
+from .._verbose import verbose_data_summary, verbose_print
 
 None_alias = "__PYTHON_NONE__"  # h5 does not have Null type
 
@@ -100,7 +101,7 @@ def _legacy_proc_attr_to_python(value):
 
 
 # args and kwargs is for compability
-def load_h5(path, *args, **kwargs):
+def load_h5(path, *args, verbose=False, **kwargs):
     """Returns Dictionary of slDataObjects
 
     Args:
@@ -112,11 +113,14 @@ def load_h5(path, *args, **kwargs):
 
     f = _h5py.File(path, "r")
     keys_list = f.keys()
+    verbose_print(verbose, "H5 file:", path)
+    verbose_print(verbose, "H5 keys:", list(keys_list))
 
     if list(keys_list) == [
         "__SpinDATA__"
     ]:  # If Only SpinData object in h5 file, return SpinData object, not dictionary
         data = read_sldata(f["__SpinDATA__"])
+        verbose_data_summary(verbose, "H5", data)
         return data
 
     sl_dict = {}
@@ -130,6 +134,7 @@ def load_h5(path, *args, **kwargs):
             warnings.warn("could not import key: %s" % str(key))
 
         sl_dict[key] = data
+    verbose_data_summary(verbose, "H5", sl_dict)
     return sl_dict
 
 

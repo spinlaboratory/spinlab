@@ -6,7 +6,8 @@ import configparser
 
 import numpy as _np
 
-from .. import SpinData
+from ... import SpinData
+from .._verbose import verbose_data_summary, verbose_print
 
 # define logger
 logger = logging.getLogger(__name__)
@@ -25,6 +26,7 @@ def load_csv(
     maxrows=-1,
     convert_time=lambda x: float(x.replace(",", ".")),
     convert_data=lambda x: float(x.replace(",", ".")),
+    verbose=False,
     **kwargs,
 ):
     """Load data from a CSV file
@@ -56,6 +58,9 @@ def load_csv(
     delimiter = kwargs.pop("delimiter", ";")
 
     dims = kwargs.pop("dims", ["t2"])
+    verbose_print(verbose, "CSV file:", filename)
+    verbose_print(verbose, "CSV delimiter:", repr(delimiter))
+    verbose_print(verbose, "CSV columns:", {"tcol": tcol, "real": real, "imag": imag})
 
     def _checknone(x, row, ind=None):
         if x is None and (ind is not None):
@@ -95,4 +100,6 @@ def load_csv(
         )
     )
 
-    return SpinData(values, dims, [coords])
+    out = SpinData(values, dims, [coords])
+    verbose_data_summary(verbose, "CSV", out)
+    return out
