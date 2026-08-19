@@ -34,6 +34,10 @@ def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwa
     """
 
     if isinstance(path, list):
+        detected_format = data_format or autodetect(path[0], verbose=verbose)
+        if detected_format.lower() == "speclog":
+            return speclog.load_speclog(path, *args, **kwargs)
+
         if len(coord) != len(path):
             raise ValueError(
                 "coord must be a list or array equal in len to the number of paths given"
@@ -44,16 +48,18 @@ def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwa
             dim = "unnamed"
         for filename in path:
             data = load_file(
-                filename, data_format=data_format, verbose=verbose, *args, **kwargs
+                filename,
+                data_format=detected_format,
+                verbose=verbose,
+                *args,
+                **kwargs,
             )
             data_list.append(data)
         # coord could be empty list
         if len(coord) == 0:
             coord = None  # to not break concat call signature
 
-        data = concat(data_list, dim=dim, coord=coord)
-
-        return data
+        return concat(data_list, dim=dim, coord=coord)
 
     else:
         return load_file(
@@ -128,10 +134,24 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
     # elif data_format == "mat":
     #     data = mat.import_mat(path, *args, **kwargs)
 
+    elif data_format == "csv":
+        data = load_csv.load_csv(path, *args, **kwargs)
+
+    elif data_format == "speclog":
+        data = speclog.load_speclog(path, *args, **kwargs)
+
     else:
         raise ValueError("Invalid data format: %s" % data_format)
 
-    if data_format not in ["h5", "power", "vna", "cnsi_powers", "mat"]:
+    if data_format.lower() not in [
+        "h5",
+        "power",
+        "vna",
+        "cnsi_powers",
+        "mat",
+        "csv",
+        "speclog",
+    ]:
         data = _assign_spinlab_attrs(data, data_format)
 
     return data
@@ -204,6 +224,11 @@ def autodetect(test_path, verbose=False):
         data_format = "rs2d"
     elif path_exten in [".mat"]:
         data_format = "mat"
+    elif path_exten.lower() == ".csv":
+        if os.path.basename(test_path).lower().startswith("log_"):
+            data_format = "speclog"
+        else:
+            data_format = "csv"
     else:
         raise TypeError(
             "No data format given and autodetect failed to detect format, please specify a format"
