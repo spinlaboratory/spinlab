@@ -3,10 +3,13 @@ import pathlib as _pathlib
 import warnings as _warnings
 import struct as _struct
 import numpy as _np
-from .. import SpinData
+from ... import SpinData
+from .._verbose import verbose_data_summary, verbose_print
 
 
-def import_rs2d(path, datafile="data.dat", headerfile="header.xml", *args, **kwargs):
+def import_rs2d(
+    path, datafile="data.dat", headerfile="header.xml", verbose=False, *args, **kwargs
+):
     """Import data from an RS2D file.
 
     Accepts either the ``header.xml`` or ``data.dat`` file; the companion file
@@ -23,6 +26,7 @@ def import_rs2d(path, datafile="data.dat", headerfile="header.xml", *args, **kwa
         SpinData: Imported data object with axes and acquisition parameters.
     """
     path = _pathlib.Path(path)
+    verbose_print(verbose, "RS2D input path:", path)
 
     #
     # either accept header.xml or data.dat, nothing else for now
@@ -37,14 +41,17 @@ def import_rs2d(path, datafile="data.dat", headerfile="header.xml", *args, **kwa
         )
 
     attrs = _load_rs2d_header(str(path))
+    verbose_print(verbose, "RS2D header file:", path)
 
     path = path.with_name(datafile)
+    verbose_print(verbose, "RS2D data file:", path)
     data, dims, coords = _load_rs2d_data(path, attrs, **kwargs)
 
     data = SpinData(data, dims, coords, attrs=attrs)
     dims.reverse()
     data.reorder(dims)
     data.squeeze()
+    verbose_data_summary(verbose, "RS2D", data)
 
     return data
 

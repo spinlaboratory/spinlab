@@ -1,9 +1,10 @@
-from ..core.data import SpinData
+from ...core.data import SpinData
 import numpy as _np
 from struct import unpack
 import warnings
 import os
 import glob
+from .._verbose import verbose_data_summary, verbose_print
 
 
 def import_prospa(path, parameters_filename=None, experiment=None, verbose=False):
@@ -22,6 +23,7 @@ def import_prospa(path, parameters_filename=None, experiment=None, verbose=False
     if parameters_filename == None:
         parameters_filename = "acqu.par"
     extension = ""
+    verbose_print(verbose, "Prospa path:", path)
 
     if os.path.isfile(path):
         path, filename = os.path.split(path)
@@ -69,6 +71,7 @@ def import_prospa(path, parameters_filename=None, experiment=None, verbose=False
     dims, coords = prospa_coords(attrs, data_shape, experiment=experiment)
 
     kea_data = SpinData(data, dims, coords, attrs)
+    verbose_data_summary(verbose, "Prospa", kea_data)
 
     return kea_data
 

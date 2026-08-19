@@ -1,6 +1,7 @@
-from .. import SpinData
+from ... import SpinData
 import numpy as _np
 import struct
+from .._verbose import verbose_data_summary, verbose_print
 
 TMAG_ATTRS = {
     # format:
@@ -91,7 +92,7 @@ TMAG_ATTRS = {
 }
 
 
-def import_tnmr(path, squeeze=True):
+def import_tnmr(path, squeeze=True, verbose=False):
     """Import tnmr data and return SpinData object
 
     Args:
@@ -102,12 +103,16 @@ def import_tnmr(path, squeeze=True):
         sldata (object):   SpinData object containing tnmr data
     """
 
+    verbose_print(verbose, "TNMR file:", path)
     values, dims, coords, attrs = import_tnmr_data(path)
 
     data = SpinData(values, dims, coords, attrs)
 
     if squeeze:
         data.squeeze()
+        verbose_print(verbose, "TNMR squeeze:", True)
+
+    verbose_data_summary(verbose, "TNMR", data)
 
     return data
 

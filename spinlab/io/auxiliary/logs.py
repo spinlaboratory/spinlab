@@ -9,7 +9,7 @@ import zipfile
 try:
     from LOGS import LOGS
     from LOGS.Entities import DatasetRequestParameter
-    from . import load
+    from .. import load
 
     def download(
         names: str | list[str],
@@ -61,7 +61,7 @@ try:
             if path_exten == ".zip":  # ignore zip files
                 continue
             try:
-                data_format = load.autodetect(file)
+                data_format = load._detect_load_format(file)
                 break
             except TypeError:
                 continue

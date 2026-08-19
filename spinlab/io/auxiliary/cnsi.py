@@ -4,9 +4,10 @@ import re
 import time
 import datetime
 from scipy.io import loadmat
+from .._verbose import verbose_print
 
 
-def get_powers(path, power_file, experiment_list):
+def get_powers(path, power_file, experiment_list, verbose=False):
     """
     Split power readings files into array of power measurements equal in length to number of spectra in dataset
 
@@ -86,14 +87,14 @@ def get_powers(path, power_file, experiment_list):
         threshold = 20
 
         if os.path.isfile(os.path.join(path, power_file + ".mat")):
-            print("Extracted powers from " + power_file + ".mat file")
+            verbose_print(verbose, "Extracted powers from " + power_file + ".mat file")
             openfile = loadmat(os.path.join(path, power_file + ".mat"))
             power = openfile.pop("powerlist")
             power = _np.array([x for i in power for x in i])
             exptime = openfile.pop("timelist")
             exptime = _np.array([x for i in exptime for x in i])
         elif os.path.isfile(os.path.join(path, power_file + ".csv")):
-            print("Extracted powers from " + power_file + ".csv file")
+            verbose_print(verbose, "Extracted powers from " + power_file + ".csv file")
             openfile = open(os.path.join(path, power_file + ".csv", "r"))
             lines = openfile.readlines()
             if len(lines) == 1:
@@ -136,4 +137,5 @@ def get_powers(path, power_file, experiment_list):
     except:
         raise ImportError("Unable to read the power file")
 
+    verbose_print(verbose, "CNSI power entries:", len(power_list))
     return power_list
