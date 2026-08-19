@@ -1,20 +1,25 @@
-import numpy as _np
-
 import matplotlib.pyplot as _plt
-from matplotlib.widgets import Slider, Button, RadioButtons
+import numpy as _np
+from matplotlib.widgets import Slider, Button
 
 
 def align_widget(data, dim):
     """Manually align spectra"""
 
+    if data.ndim != 2:
+        raise ValueError("align_widget requires 2D data.")
+    if dim not in data.dims:
+        raise ValueError(f"dim {dim} not in data.dims ({data.dims})")
+
     coord = data.coords[dim]
+    plot_dim = [data_dim for data_dim in data.dims if data_dim != dim][0]
     max_index = int(data.size / (coord.size**2.0))
 
     fig, ax = _plt.subplots()
     _plt.subplots_adjust(left=0.25, bottom=0.25)
     init_index = 0
     delta_index = 1
-    l = _plt.plot(data.coords["f2"], _np.real(data.values))
+    l = _plt.plot(data.coords[plot_dim], _np.real(data.values))
     ax.margins(x=0)
 
     axcolor = "lightgoldenrodyellow"
@@ -60,6 +65,13 @@ def align_widget(data, dim):
     reset_button.on_clicked(reset)
     inc_button.on_clicked(inc)
     dec_button.on_clicked(dec)
+
+    fig._widgets = {
+        "index": sindex,
+        "reset": reset_button,
+        "increment": inc_button,
+        "decrement": dec_button,
+    }
 
     _plt.show()
     manual_index = sindex.val
