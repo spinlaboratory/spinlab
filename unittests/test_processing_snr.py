@@ -17,7 +17,7 @@ class sl_snr_tester(unittest.TestCase):
     def setUp(self):
         testdata = os.path.join(".", "data", "csv")
         p = pathlib.Path(testdata)
-        self.data = sl.io.load_csv.load_csv(
+        self.data = sl.io.formats.load_csv.load_csv(
             p.joinpath("csv_example.csv"),
             skiprows=1,
             maxrows=1000,
