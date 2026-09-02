@@ -182,7 +182,7 @@ def fancy_plot(
         data.unfold(dim)
 
         plot_return = _plt.plot(coord, data.values.real, *args, **kwargs)
-        _plt.xlabel("Chemical Shift $\delta$ (ppm)")
+        _plt.xlabel(r"Chemical Shift $\delta$ (ppm)")
         _plt.ylabel("NMR Signal Intensity (a.u.)")
 
         _plt.xlim(max(coord), min(coord))
