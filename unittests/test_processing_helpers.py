@@ -11,7 +11,7 @@ from spinlab.processing.complex_data import create_complex
 from spinlab.processing.enhancement import calculate_enhancement
 from spinlab.processing.modulation import pseudo_modulation
 from spinlab.processing.normalization import normalize
-from spinlab.processing.smoothing import smooth
+from spinlab.processing.filters import smooth
 from spinlab.processing.snr import signal_to_noise
 
 
