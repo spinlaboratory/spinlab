@@ -44,15 +44,42 @@ _int_params = [
     "nscans",
 ]
 
+_SIGNAL_CURVE_KEYS = {
+    "sinus": "MW_AbsorptionSinus",
+    "cosinus": "MW_AbsorptionCosinus",
+    "absorption": "MW_Absorption",
+}
 
-def import_esr5000(path):
+
+def import_esr5000(path, signal="complex"):
     """Import Bruker ESR5000 XML data and return SpinData object.
 
     Args:
         path (str): Path to .xml file.
+        signal (str): Which data channel(s) to return. One of:
+
+            * "complex" (default): a complex-valued signal built from the
+              quadrature channels, with MW_AbsorptionSinus as the real part
+              and MW_AbsorptionCosinus as the imaginary part. Falls back to
+              the real-valued MW_Absorption channel if no quadrature data
+              is present. See note below on why sinus, not cosinus, is
+              taken as the real part.
+            * "sinus": the raw MW_AbsorptionSinus channel only.
+            * "cosinus": the raw MW_AbsorptionCosinus channel only.
+            * "absorption": the raw MW_Absorption channel only.
 
     Returns:
         SpinData: SpinData object containing ESR5000 data.
+
+    Note:
+        MW_Absorption is not the vector magnitude sqrt(sinus^2 + cosinus^2)
+        of the quadrature channels (it takes negative values, which a
+        magnitude cannot). Comparing it against sample data instead shows
+        it is a near-exact linear function of MW_AbsorptionSinus alone
+        (R^2 >= 0.998, and exactly 1.0 for one sample file), i.e. it *is*
+        the sinus channel, up to a constant baseline offset. That is why
+        "complex" assigns sinus to the real part and cosinus to the
+        imaginary part, matching the instrument's own absorption output.
 
     """
     tree = _ET.parse(path)
@@ -63,7 +90,7 @@ def import_esr5000(path):
         raise ValueError("No Measurement element found in XML file")
 
     attrs = _parse_attrs(meas)
-    values, dims, coords = _parse_data(meas)
+    values, dims, coords = _parse_data(meas, signal=signal)
 
     attrs["experiment_type"] = "epr_spectrum"
 
@@ -121,11 +148,12 @@ def _parse_attrs(meas):
     return attrs
 
 
-def _parse_data(meas):
+def _parse_data(meas, signal="complex"):
     """Extract data arrays and axes from ESR5000 XML.
 
     Args:
         meas (Element): XML Measurement element.
+        signal (str): Which channel(s) to return. See `import_esr5000`.
 
     Returns:
         tuple: (values, dims, coords).
@@ -145,14 +173,25 @@ def _parse_data(meas):
 
     field = _decode_curve(curve_dict["BField"])
 
-    if "MW_AbsorptionSinus" in curve_dict and "MW_AbsorptionCosinus" in curve_dict:
-        sin_data = _decode_curve(curve_dict["MW_AbsorptionSinus"])
-        cos_data = _decode_curve(curve_dict["MW_AbsorptionCosinus"])
-        values = cos_data + 1j * sin_data
-    elif "MW_Absorption" in curve_dict:
-        values = _decode_curve(curve_dict["MW_Absorption"])
+    if signal == "complex":
+        if "MW_AbsorptionSinus" in curve_dict and "MW_AbsorptionCosinus" in curve_dict:
+            sin_data = _decode_curve(curve_dict["MW_AbsorptionSinus"])
+            cos_data = _decode_curve(curve_dict["MW_AbsorptionCosinus"])
+            values = sin_data + 1j * cos_data
+        elif "MW_Absorption" in curve_dict:
+            values = _decode_curve(curve_dict["MW_Absorption"])
+        else:
+            raise ValueError("No absorption data found")
+    elif signal in _SIGNAL_CURVE_KEYS:
+        curve_key = _SIGNAL_CURVE_KEYS[signal]
+        if curve_key not in curve_dict:
+            raise ValueError("No %s curve found in data" % curve_key)
+        values = _decode_curve(curve_dict[curve_key])
     else:
-        raise ValueError("No absorption data found")
+        raise ValueError(
+            "Invalid signal '%s', must be one of 'complex', %s"
+            % (signal, ", ".join(repr(k) for k in _SIGNAL_CURVE_KEYS))
+        )
 
     # Field is already in mT
     coords = [field]

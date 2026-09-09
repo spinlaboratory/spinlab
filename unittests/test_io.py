@@ -1,6 +1,7 @@
 import unittest
 import spinlab as sl
 import os
+import numpy as _np
 from numpy.testing import assert_array_equal
 import logging
 
@@ -234,8 +235,10 @@ class esr5000_import_tester(unittest.TestCase):
         self.assertEqual(data.attrs["nscans"], 1)
         self.assertAlmostEqual(data.coords["B0"][0], 331.53399658203125)
         self.assertAlmostEqual(data.coords["B0"][-1], 342.0386657714844)
+        # real part is the sinus channel, imaginary part is the cosinus
+        # channel -- see the "complex" note in import_esr5000's docstring
         self.assertAlmostEqual(
-            data.values[365], 3.590757547876376 - 50.74475134984694j
+            data.values[365], -50.74475134984694 + 3.590757547876376j
         )
 
     def test_import_esr5000_bitumen(self):
@@ -248,8 +251,38 @@ class esr5000_import_tester(unittest.TestCase):
         self.assertAlmostEqual(data.coords["B0"][0], 86.6401850382487)
         self.assertAlmostEqual(data.coords["B0"][-1], 590.5849609375)
         self.assertAlmostEqual(
-            data.values[365], -18.60718468247838 - 104.82731619953861j
+            data.values[365], -104.82731619953861 - 18.60718468247838j
         )
+
+    def test_import_esr5000_signal_flag(self):
+        for path, idx, sinus, cosinus, absorption in [
+            (
+                self.test_data_coffee,
+                365,
+                -50.74475134984694,
+                3.590757547876376,
+                -0.30276094723893887,
+            ),
+            (
+                self.test_data_bitumen,
+                365,
+                -104.82731619953861,
+                -18.60718468247838,
+                -15.679582381429757,
+            ),
+        ]:
+            data_sinus = sl.load(path, data_format="esr5000", signal="sinus")
+            data_cosinus = sl.load(path, data_format="esr5000", signal="cosinus")
+            data_absorption = sl.load(path, data_format="esr5000", signal="absorption")
+            self.assertTrue(_np.isrealobj(data_sinus.values))
+            self.assertTrue(_np.isrealobj(data_cosinus.values))
+            self.assertTrue(_np.isrealobj(data_absorption.values))
+            self.assertAlmostEqual(data_sinus.values[idx], sinus)
+            self.assertAlmostEqual(data_cosinus.values[idx], cosinus)
+            self.assertAlmostEqual(data_absorption.values[idx], absorption)
+
+        with self.assertRaises(ValueError):
+            sl.load(self.test_data_coffee, data_format="esr5000", signal="bogus")
 
 
 class winepr_import_tester(unittest.TestCase):
