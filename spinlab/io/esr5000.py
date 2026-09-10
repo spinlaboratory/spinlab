@@ -55,6 +55,12 @@ _SIGNAL_CURVE_KEYS = {
 def import_esr5000(path, signal="absorption", raw=False, resolution=None):
     """Import Bruker ESR5000 XML data and return SpinData object.
 
+    Only tested against 1D CW field-sweep spectra so far (the sample
+    files this module was validated against). The ESR5000/MS-5000
+    also supports other experiment types, e.g. 2D power sweeps, but no
+    test coverage or sample data for those exists yet, and this
+    function has not been verified to parse them correctly.
+
     Args:
         path (str): Path to .xml file.
         signal (str): Which data channel(s) to return. One of:

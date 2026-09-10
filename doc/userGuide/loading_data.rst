@@ -153,6 +153,9 @@ Pass the ``.d01`` or ``.exp`` file:
 Bruker ESR5000 / MS-5000
 --------------------------
 
+.. note::
+   Only tested against 1D CW field-sweep spectra so far. The ESR5000/MS-5000 also supports other experiment types, e.g. 2D power sweeps, but no test coverage or sample data for those exists yet.
+
 Pass the ``.xml`` file exported by the instrument:
 
 .. code-block:: python
