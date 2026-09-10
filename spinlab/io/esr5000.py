@@ -52,22 +52,29 @@ _SIGNAL_CURVE_KEYS = {
 }
 
 
-def import_esr5000(path, signal="complex", raw=False, resolution=None):
+def import_esr5000(path, signal="absorption", raw=False, resolution=None):
     """Import Bruker ESR5000 XML data and return SpinData object.
 
     Args:
         path (str): Path to .xml file.
         signal (str): Which data channel(s) to return. One of:
 
-            * "complex" (default): a complex-valued signal built from the
-              quadrature channels, with MW_AbsorptionSinus as the real part
-              and MW_AbsorptionCosinus as the imaginary part. Falls back to
-              the real-valued MW_Absorption channel if no quadrature data
-              is present. See note below on why sinus, not cosinus, is
-              taken as the real part.
+            * "absorption" (default): the real-valued MW_Absorption channel
+              only. This is the same channel ESRStudio itself exports as
+              "MW_Absorption" in .DSC/.DTA files, so this default matches
+              what a vendor export of the same measurement would give you.
+            * "complex": a complex-valued signal built from the quadrature
+              channels instead, with MW_AbsorptionSinus as the real part
+              and MW_AbsorptionCosinus as the imaginary part -- this is
+              lossy in the other direction: "absorption" alone cannot be
+              un-mixed back into separate sinus/cosinus channels, so choose
+              "complex" if you need the full quadrature information (e.g.
+              for phase correction). Falls back to the real-valued
+              MW_Absorption channel if no quadrature data is present. See
+              note below on why sinus, not cosinus, is taken as the real
+              part.
             * "sinus": the raw MW_AbsorptionSinus channel only.
             * "cosinus": the raw MW_AbsorptionCosinus channel only.
-            * "absorption": the raw MW_Absorption channel only.
 
         raw (bool): If True, return the selected channel(s) exactly as
             recorded, on their own native time axis (dims=["t2"]) instead
@@ -312,7 +319,7 @@ def _resample_to_field(values, field, resolution, sweep_start=None, sweep_stop=N
 
 def _parse_data(
     meas,
-    signal="complex",
+    signal="absorption",
     raw=False,
     resolution=None,
     sweep_start=None,

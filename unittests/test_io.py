@@ -236,11 +236,10 @@ class esr5000_import_tester(unittest.TestCase):
         self.assertEqual(data.attrs["nscans"], 1)
         self.assertAlmostEqual(data.coords["B0"][0], 331.53399658203125)
         self.assertAlmostEqual(data.coords["B0"][-1], 342.0386657714844)
-        # real part is the sinus channel, imaginary part is the cosinus
-        # channel -- see the "complex" note in import_esr5000's docstring
-        self.assertAlmostEqual(
-            data.values[365], -50.74475134984694 + 3.590757547876376j
-        )
+        # default signal is "absorption" -- the real-valued channel
+        # matching ESRStudio's own .DSC/.DTA exports
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertAlmostEqual(data.values[365], -0.30276094723893887)
 
     def test_import_esr5000_bitumen(self):
         data = sl.load(self.test_data_bitumen, data_format="esr5000")
@@ -251,9 +250,19 @@ class esr5000_import_tester(unittest.TestCase):
         self.assertEqual(data.attrs["nscans"], 10)
         self.assertAlmostEqual(data.coords["B0"][0], 86.6401850382487)
         self.assertAlmostEqual(data.coords["B0"][-1], 590.5849609375)
-        self.assertAlmostEqual(
-            data.values[365], -104.82731619953861 - 18.60718468247838j
-        )
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertAlmostEqual(data.values[365], -15.679582381429757)
+
+    def test_import_esr5000_complex(self):
+        # real part is the sinus channel, imaginary part is the cosinus
+        # channel -- see the "complex" note in import_esr5000's docstring
+        for path, expected in [
+            (self.test_data_coffee, -50.74475134984694 + 3.590757547876376j),
+            (self.test_data_bitumen, -104.82731619953861 - 18.60718468247838j),
+        ]:
+            data = sl.load(path, data_format="esr5000", signal="complex")
+            self.assertTrue(_np.iscomplexobj(data.values))
+            self.assertAlmostEqual(data.values[365], expected)
 
     def test_import_esr5000_signal_flag(self):
         for path, idx, sinus, cosinus, absorption in [
@@ -288,13 +297,12 @@ class esr5000_import_tester(unittest.TestCase):
     def test_import_esr5000_raw(self):
         data = sl.load(self.test_data_coffee, data_format="esr5000", raw=True)
         self.assertEqual(data.dims, ["t2"])
-        self.assertEqual(data.values.shape, (31148,))
-        self.assertAlmostEqual(data.coords["t2"][0], 0.0)
-        self.assertAlmostEqual(data.coords["t2"][1], 0.001)
-        self.assertAlmostEqual(data.values[0], -65.19032371748527 + 4.078922743808342j)
-        self.assertAlmostEqual(
-            data.values[-1], -54.26155463530398 + 30.164155478543265j
-        )
+        self.assertEqual(data.values.shape, (15529,))
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertAlmostEqual(data.coords["t2"][0], 0.045)
+        self.assertAlmostEqual(data.coords["t2"][1], 0.047)
+        self.assertAlmostEqual(data.values[0], 0.0)
+        self.assertAlmostEqual(data.values[-1], -4.705190860668182)
         # BField, reconstructed onto the same native time axis, is not the
         # untouched raw signal -- it is provided separately in attrs.
         self.assertEqual(len(data.attrs["field_raw"]), 3107)
@@ -302,12 +310,12 @@ class esr5000_import_tester(unittest.TestCase):
         self.assertAlmostEqual(data.attrs["field_raw"][-1], 342.0386657714844)
         self.assertEqual(len(data.attrs["field_raw_time"]), 3107)
 
-        data_abs = sl.load(
-            self.test_data_coffee, data_format="esr5000", signal="absorption", raw=True
+        data_complex = sl.load(
+            self.test_data_coffee, data_format="esr5000", signal="complex", raw=True
         )
-        self.assertEqual(data_abs.dims, ["t2"])
-        self.assertEqual(data_abs.values.shape, (15529,))
-        self.assertTrue(_np.isrealobj(data_abs.values))
+        self.assertEqual(data_complex.dims, ["t2"])
+        self.assertEqual(data_complex.values.shape, (31148,))
+        self.assertTrue(_np.iscomplexobj(data_complex.values))
 
         with self.assertRaises(ValueError):
             sl.load(
@@ -362,31 +370,31 @@ class esr5000_import_tester(unittest.TestCase):
             (
                 {},
                 {
-                    "signal": "complex",
+                    "signal": "absorption",
                     "raw": False,
                     "resolution": None,
-                    "native_samples": 31148,
+                    "native_samples": 15529,
                     "output_samples": 3107,
                 },
             ),
             (
                 {"resolution": 2000},
                 {
-                    "signal": "complex",
+                    "signal": "absorption",
                     "raw": False,
                     "resolution": 2000,
-                    "native_samples": 31148,
+                    "native_samples": 15529,
                     "output_samples": 2000,
                 },
             ),
             (
                 {"raw": True},
                 {
-                    "signal": "complex",
+                    "signal": "absorption",
                     "raw": True,
                     "resolution": None,
-                    "native_samples": 31148,
-                    "output_samples": 31148,
+                    "native_samples": 15529,
+                    "output_samples": 15529,
                 },
             ),
         ]:
