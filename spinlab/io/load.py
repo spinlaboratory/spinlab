@@ -23,12 +23,14 @@ def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwa
 
     Args:
         path (str, list): Path to data directory or list of directories
-        data_format (str): format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d"
+        data_format (str): format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d", "esr5000"
         dim (str): If giving directories as list, name of dimension to concatenate data along
         coord (numpy.ndarray): If giving directories as list, coordinates of new dimension
         verbose (bool): If true, print debugging output
         *args: Additional positional arguments passed to the format-specific import function.
-        **kwargs: Additional keyword arguments passed to the format-specific import function.
+        **kwargs: Additional keyword arguments passed to the format-specific import function. For
+            data_format="esr5000", see `spinlab.io.esr5000.import_esr5000` for the available
+            "signal", "raw", and "resolution" options.
 
     Returns:
         data (slData): Data object
@@ -77,10 +79,12 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
 
     Args:
         path (str): Path to data directory or file
-        data_format (str): Format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers"
+        data_format (str): Format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d", "esr5000"
         verbose (bool): If true, print additional debug outputs
         *args: Additional positional arguments passed to the format-specific import function.
-        **kwargs: Additional keyword arguments passed to the format-specific import function.
+        **kwargs: Additional keyword arguments passed to the format-specific import function. For
+            data_format="esr5000", see `spinlab.io.esr5000.import_esr5000` for the available
+            "signal", "raw", and "resolution" options.
 
     Returns:
         data (slData): Data object
