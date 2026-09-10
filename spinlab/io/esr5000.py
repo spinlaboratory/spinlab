@@ -1,6 +1,7 @@
 import numpy as _np
 import base64 as _base64
 import struct as _struct
+import warnings as _warnings
 import xml.etree.ElementTree as _ET
 
 from .. import SpinData
@@ -51,7 +52,7 @@ _SIGNAL_CURVE_KEYS = {
 }
 
 
-def import_esr5000(path, signal="complex"):
+def import_esr5000(path, signal="complex", raw=False, resolution=None):
     """Import Bruker ESR5000 XML data and return SpinData object.
 
     Args:
@@ -68,6 +69,28 @@ def import_esr5000(path, signal="complex"):
             * "cosinus": the raw MW_AbsorptionCosinus channel only.
             * "absorption": the raw MW_Absorption channel only.
 
+        raw (bool): If True, return the selected channel(s) exactly as
+            recorded, on their own native time axis (dims=["t2"]) instead
+            of interpolating onto a field axis. The individual data curves
+            in an ESR5000 XML file are each sampled on their own timebase,
+            so the untouched samples cannot be paired with the (differently
+            sampled) BField curve without violating SpinData's requirement
+            that coords and values have matching length. The BField curve
+            is instead reconstructed onto that same native time axis by
+            interpolation (field sweeps are smooth and near-linear in time,
+            so this costs essentially no precision) and provided in
+            attrs["field_raw"], together with its own native time axis in
+            attrs["field_raw_time"], for the caller to use if needed.
+            Cannot be combined with `resolution`.
+        resolution (int): Number of points to interpolate the selected
+            channel(s) onto, spanning the same field range as the native
+            BField curve. Defaults to the native BField curve's own point
+            count (the historical behavior of this importer). If
+            `resolution` exceeds the number of native raw samples in the
+            selected channel(s), a warning is issued: the extra points are
+            interpolated and do not represent additional independent
+            measurements. Cannot be combined with `raw`.
+
     Returns:
         SpinData: SpinData object containing ESR5000 data.
 
@@ -82,6 +105,9 @@ def import_esr5000(path, signal="complex"):
         imaginary part, matching the instrument's own absorption output.
 
     """
+    if raw and resolution is not None:
+        raise ValueError("`raw` and `resolution` cannot be used together")
+
     tree = _ET.parse(path)
     root = tree.getroot()
 
@@ -90,7 +116,10 @@ def import_esr5000(path, signal="complex"):
         raise ValueError("No Measurement element found in XML file")
 
     attrs = _parse_attrs(meas)
-    values, dims, coords = _parse_data(meas, signal=signal)
+    values, dims, coords, extra_attrs = _parse_data(
+        meas, signal=signal, raw=raw, resolution=resolution
+    )
+    attrs.update(extra_attrs)
 
     attrs["experiment_type"] = "epr_spectrum"
 
@@ -148,15 +177,113 @@ def _parse_attrs(meas):
     return attrs
 
 
-def _parse_data(meas, signal="complex"):
+def _curve_time_axis(curve_el, n):
+    """Return a curve's native time axis (s), from its XOffset/XSlope.
+
+    Args:
+        curve_el (Element): XML Curve element.
+        n (int): Number of samples in the curve.
+
+    Returns:
+        ndarray: Time axis of length `n`.
+
+    """
+    offset = float(curve_el.get("XOffset"))
+    slope = float(curve_el.get("XSlope"))
+    return offset + slope * _np.arange(n)
+
+
+def _select_value_curve(curve_dict, signal):
+    """Pick the curve element(s) and decode the values for a given signal.
+
+    Args:
+        curve_dict (dict): Mapping of YType to XML Curve elements.
+        signal (str): Which channel(s) to return. See `import_esr5000`.
+
+    Returns:
+        tuple: (values (ndarray, possibly complex), time_curve_el (Element,
+        the curve whose XOffset/XSlope define the native time axis)).
+
+    """
+    if signal == "complex":
+        if "MW_AbsorptionSinus" in curve_dict and "MW_AbsorptionCosinus" in curve_dict:
+            real_el = curve_dict["MW_AbsorptionSinus"]
+            values = _decode_curve(real_el) + 1j * _decode_curve(
+                curve_dict["MW_AbsorptionCosinus"]
+            )
+            return values, real_el
+        elif "MW_Absorption" in curve_dict:
+            abs_el = curve_dict["MW_Absorption"]
+            return _decode_curve(abs_el), abs_el
+        else:
+            raise ValueError("No absorption data found")
+    elif signal in _SIGNAL_CURVE_KEYS:
+        curve_key = _SIGNAL_CURVE_KEYS[signal]
+        if curve_key not in curve_dict:
+            raise ValueError("No %s curve found in data" % curve_key)
+        curve_el = curve_dict[curve_key]
+        return _decode_curve(curve_el), curve_el
+    else:
+        raise ValueError(
+            "Invalid signal '%s', must be one of 'complex', %s"
+            % (signal, ", ".join(repr(k) for k in _SIGNAL_CURVE_KEYS))
+        )
+
+
+def _resample_to_field(values, field, resolution):
+    """Interpolate `values` onto a field axis, warning if upsampling.
+
+    Args:
+        values (ndarray): Decoded curve values, on their own native
+            sampling (not yet aligned to `field`).
+        field (ndarray): Native BField curve.
+        resolution (int): Requested number of output points, or None to
+            use the native BField curve's own point count.
+
+    Returns:
+        tuple: (values, coords_field).
+
+    """
+    native_count = len(values)
+    target_len = len(field) if resolution is None else resolution
+
+    if target_len > native_count:
+        _warnings.warn(
+            "Requested resolution (%d) exceeds the number of native raw "
+            "samples (%d) for the selected signal; points beyond the "
+            "native resolution are interpolated and do not represent "
+            "additional independent measurements." % (target_len, native_count)
+        )
+
+    if resolution is None and native_count == len(field):
+        return values, field
+
+    target_field = (
+        field if resolution is None else _np.linspace(field[0], field[-1], resolution)
+    )
+    x_orig = _np.linspace(field[0], field[-1], native_count)
+    values_interp = _np.interp(target_field, x_orig, values.real)
+    if _np.iscomplexobj(values):
+        values_interp = values_interp + 1j * _np.interp(
+            target_field, x_orig, values.imag
+        )
+
+    return values_interp, target_field
+
+
+def _parse_data(meas, signal="complex", raw=False, resolution=None):
     """Extract data arrays and axes from ESR5000 XML.
 
     Args:
         meas (Element): XML Measurement element.
         signal (str): Which channel(s) to return. See `import_esr5000`.
+        raw (bool): If True, return untouched samples on their native time
+            axis. See `import_esr5000`.
+        resolution (int): Number of output points to interpolate onto. See
+            `import_esr5000`.
 
     Returns:
-        tuple: (values, dims, coords).
+        tuple: (values, dims, coords, extra_attrs).
 
     """
     curves = meas.find("DataCurves")
@@ -171,40 +298,18 @@ def _parse_data(meas, signal="complex"):
     if "BField" not in curve_dict:
         raise ValueError("No BField curve found in data")
 
-    field = _decode_curve(curve_dict["BField"])
+    field_el = curve_dict["BField"]
+    field = _decode_curve(field_el)
 
-    if signal == "complex":
-        if "MW_AbsorptionSinus" in curve_dict and "MW_AbsorptionCosinus" in curve_dict:
-            sin_data = _decode_curve(curve_dict["MW_AbsorptionSinus"])
-            cos_data = _decode_curve(curve_dict["MW_AbsorptionCosinus"])
-            values = sin_data + 1j * cos_data
-        elif "MW_Absorption" in curve_dict:
-            values = _decode_curve(curve_dict["MW_Absorption"])
-        else:
-            raise ValueError("No absorption data found")
-    elif signal in _SIGNAL_CURVE_KEYS:
-        curve_key = _SIGNAL_CURVE_KEYS[signal]
-        if curve_key not in curve_dict:
-            raise ValueError("No %s curve found in data" % curve_key)
-        values = _decode_curve(curve_dict[curve_key])
-    else:
-        raise ValueError(
-            "Invalid signal '%s', must be one of 'complex', %s"
-            % (signal, ", ".join(repr(k) for k in _SIGNAL_CURVE_KEYS))
-        )
+    values, time_curve_el = _select_value_curve(curve_dict, signal)
 
-    # Field is already in mT
-    coords = [field]
-    dims = ["B0"]
+    if raw:
+        time_axis = _curve_time_axis(time_curve_el, len(values))
+        extra_attrs = {
+            "field_raw": field,
+            "field_raw_time": _curve_time_axis(field_el, len(field)),
+        }
+        return values, ["t2"], [time_axis], extra_attrs
 
-    # Interpolate values onto field axis if lengths differ
-    if len(values) != len(field):
-        x_orig = _np.linspace(field[0], field[-1], len(values))
-        values_interp = _np.interp(field, x_orig, values.real)
-        if _np.iscomplexobj(values):
-            values_interp = values_interp + 1j * _np.interp(
-                field, x_orig, values.imag
-            )
-        values = values_interp
-
-    return values, dims, coords
+    values, target_field = _resample_to_field(values, field, resolution)
+    return values, ["B0"], [target_field], {}

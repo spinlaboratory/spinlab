@@ -1,6 +1,7 @@
 import unittest
 import spinlab as sl
 import os
+import warnings
 import numpy as _np
 from numpy.testing import assert_array_equal
 import logging
@@ -283,6 +284,59 @@ class esr5000_import_tester(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             sl.load(self.test_data_coffee, data_format="esr5000", signal="bogus")
+
+    def test_import_esr5000_raw(self):
+        data = sl.load(self.test_data_coffee, data_format="esr5000", raw=True)
+        self.assertEqual(data.dims, ["t2"])
+        self.assertEqual(data.values.shape, (31148,))
+        self.assertAlmostEqual(data.coords["t2"][0], 0.0)
+        self.assertAlmostEqual(data.coords["t2"][1], 0.001)
+        self.assertAlmostEqual(data.values[0], -65.19032371748527 + 4.078922743808342j)
+        self.assertAlmostEqual(
+            data.values[-1], -54.26155463530398 + 30.164155478543265j
+        )
+        # BField, reconstructed onto the same native time axis, is not the
+        # untouched raw signal -- it is provided separately in attrs.
+        self.assertEqual(len(data.attrs["field_raw"]), 3107)
+        self.assertAlmostEqual(data.attrs["field_raw"][0], 331.53399658203125)
+        self.assertAlmostEqual(data.attrs["field_raw"][-1], 342.0386657714844)
+        self.assertEqual(len(data.attrs["field_raw_time"]), 3107)
+
+        data_abs = sl.load(
+            self.test_data_coffee, data_format="esr5000", signal="absorption", raw=True
+        )
+        self.assertEqual(data_abs.dims, ["t2"])
+        self.assertEqual(data_abs.values.shape, (15529,))
+        self.assertTrue(_np.isrealobj(data_abs.values))
+
+        with self.assertRaises(ValueError):
+            sl.load(
+                self.test_data_coffee,
+                data_format="esr5000",
+                raw=True,
+                resolution=100,
+            )
+
+    def test_import_esr5000_resolution(self):
+        # downsampling below the native 31148-point sinus/cosinus curves
+        # should not warn
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            data = sl.load(
+                self.test_data_coffee, data_format="esr5000", resolution=1000
+            )
+            self.assertEqual(data.values.shape, (1000,))
+            self.assertEqual(len(w), 0)
+
+        # requesting more points than the native raw samples should warn
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            data = sl.load(
+                self.test_data_coffee, data_format="esr5000", resolution=60000
+            )
+            self.assertEqual(data.values.shape, (60000,))
+            self.assertEqual(len(w), 1)
+            self.assertIn("exceeds", str(w[0].message))
 
 
 class winepr_import_tester(unittest.TestCase):
