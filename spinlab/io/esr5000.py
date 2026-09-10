@@ -83,12 +83,11 @@ def import_esr5000(path, signal="absorption", raw=False, resolution=None):
             so the untouched samples cannot be paired with the (differently
             sampled) BField curve without violating SpinData's requirement
             that coords and values have matching length. The BField curve
-            is instead reconstructed onto that same native time axis by
-            interpolation (field sweeps are smooth and near-linear in time,
-            so this costs essentially no precision) and provided in
-            attrs["field_raw"], together with its own native time axis in
-            attrs["field_raw_time"], for the caller to use if needed.
-            Cannot be combined with `resolution`.
+            is instead provided untouched, on its own native time axis, as
+            attrs["field_raw"] and attrs["field_raw_time"] respectively,
+            for the caller to align against the selected channel's own
+            time axis (`data.coords["t2"]`) if needed. Cannot be combined
+            with `resolution`.
         resolution (int): Number of points to interpolate the selected
             channel(s) onto. Defaults to the native BField curve's own
             point count and axis (the historical behavior of this
@@ -102,6 +101,20 @@ def import_esr5000(path, signal="absorption", raw=False, resolution=None):
             selected channel(s), a warning is issued: the extra points are
             interpolated and do not represent additional independent
             measurements. Cannot be combined with `raw`.
+
+            Whenever `raw` is False (whether or not `resolution` is
+            given), each raw sample of the selected channel(s) is
+            registered to field by interpolating the (coarser) BField
+            curve as a function of time onto that channel's own native
+            sampling times -- not by assuming samples are spread linearly
+            across the field range. This matters because real sweeps can
+            have settling/dwell time at the edges (confirmed non-trivial
+            in sample data): the naive linear assumption was verified
+            against a vendor .DSC/.DTA export of the same measurement to
+            produce a measurably stretched/shifted field axis (~0.1 mT
+            error in peak/trough position and linewidth), which this
+            time-based registration eliminates (verified to match the
+            vendor export to numerical precision on two sample files).
 
     Returns:
         SpinData: SpinData object containing ESR5000 data. The processing
