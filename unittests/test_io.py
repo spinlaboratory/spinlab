@@ -338,6 +338,64 @@ class esr5000_import_tester(unittest.TestCase):
             self.assertEqual(len(w), 1)
             self.assertIn("exceeds", str(w[0].message))
 
+    def test_import_esr5000_resolution_matches_nominal_sweep(self):
+        # An explicit `resolution` spans the nominal sweep_start/sweep_stop
+        # (Bfrom/Bto), not the literal BField curve endpoints (which
+        # overshoot slightly) -- this is the field window vendor-exported
+        # files at a given point count use, e.g. ESRStudio's own .DSC
+        # export of the same measurement at 2000 points uses exactly
+        # 331.7-341.7, not the XML's literal 331.534-342.039.
+        data = sl.load(self.test_data_coffee, data_format="esr5000", resolution=2000)
+        self.assertAlmostEqual(data.coords["B0"][0], data.attrs["sweep_start"])
+        self.assertAlmostEqual(data.coords["B0"][-1], data.attrs["sweep_stop"])
+        self.assertAlmostEqual(data.attrs["sweep_start"], 331.7)
+        self.assertAlmostEqual(data.attrs["sweep_stop"], 341.7)
+
+        # the default (no resolution given) output is unchanged: it keeps
+        # the literal BField curve, overshoot and all
+        default_data = sl.load(self.test_data_coffee, data_format="esr5000")
+        self.assertAlmostEqual(default_data.coords["B0"][0], 331.53399658203125)
+        self.assertAlmostEqual(default_data.coords["B0"][-1], 342.0386657714844)
+
+    def test_import_esr5000_proc_attrs(self):
+        for kwargs, expected in [
+            (
+                {},
+                {
+                    "signal": "complex",
+                    "raw": False,
+                    "resolution": None,
+                    "native_samples": 31148,
+                    "output_samples": 3107,
+                },
+            ),
+            (
+                {"resolution": 2000},
+                {
+                    "signal": "complex",
+                    "raw": False,
+                    "resolution": 2000,
+                    "native_samples": 31148,
+                    "output_samples": 2000,
+                },
+            ),
+            (
+                {"raw": True},
+                {
+                    "signal": "complex",
+                    "raw": True,
+                    "resolution": None,
+                    "native_samples": 31148,
+                    "output_samples": 31148,
+                },
+            ),
+        ]:
+            data = sl.load(self.test_data_coffee, data_format="esr5000", **kwargs)
+            self.assertEqual(len(data.proc_attrs), 1)
+            name, proc_dict = data.proc_attrs[0]
+            self.assertEqual(name, "esr5000_import")
+            self.assertEqual(proc_dict, expected)
+
 
 class winepr_import_tester(unittest.TestCase):
     def setUp(self):

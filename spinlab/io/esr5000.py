@@ -83,16 +83,24 @@ def import_esr5000(path, signal="complex", raw=False, resolution=None):
             attrs["field_raw_time"], for the caller to use if needed.
             Cannot be combined with `resolution`.
         resolution (int): Number of points to interpolate the selected
-            channel(s) onto, spanning the same field range as the native
-            BField curve. Defaults to the native BField curve's own point
-            count (the historical behavior of this importer). If
+            channel(s) onto. Defaults to the native BField curve's own
+            point count and axis (the historical behavior of this
+            importer, including any real nonlinearity in the recorded
+            sweep). When `resolution` is given explicitly, the output
+            instead spans a synthetic axis from the nominal sweep_start to
+            sweep_stop field (Bfrom/Bto) -- matching the field window
+            vendor-exported files at a given point count use, rather than
+            the literal (slightly overshooting) BField curve endpoints. If
             `resolution` exceeds the number of native raw samples in the
             selected channel(s), a warning is issued: the extra points are
             interpolated and do not represent additional independent
             measurements. Cannot be combined with `raw`.
 
     Returns:
-        SpinData: SpinData object containing ESR5000 data.
+        SpinData: SpinData object containing ESR5000 data. The processing
+        performed at import (signal, raw, resolution, and the native vs.
+        output sample counts) is recorded as an "esr5000_import" entry in
+        data.proc_attrs.
 
     Note:
         MW_Absorption is not the vector magnitude sqrt(sinus^2 + cosinus^2)
@@ -116,14 +124,30 @@ def import_esr5000(path, signal="complex", raw=False, resolution=None):
         raise ValueError("No Measurement element found in XML file")
 
     attrs = _parse_attrs(meas)
-    values, dims, coords, extra_attrs = _parse_data(
-        meas, signal=signal, raw=raw, resolution=resolution
+    values, dims, coords, extra_attrs, native_samples = _parse_data(
+        meas,
+        signal=signal,
+        raw=raw,
+        resolution=resolution,
+        sweep_start=attrs.get("sweep_start"),
+        sweep_stop=attrs.get("sweep_stop"),
     )
     attrs.update(extra_attrs)
 
     attrs["experiment_type"] = "epr_spectrum"
 
-    return SpinData(values, dims, coords, attrs)
+    data = SpinData(values, dims, coords, attrs)
+    data.add_proc_attrs(
+        "esr5000_import",
+        {
+            "signal": signal,
+            "raw": raw,
+            "resolution": resolution,
+            "native_samples": native_samples,
+            "output_samples": len(values),
+        },
+    )
+    return data
 
 
 def _decode_curve(curve_el):
@@ -230,7 +254,7 @@ def _select_value_curve(curve_dict, signal):
         )
 
 
-def _resample_to_field(values, field, resolution):
+def _resample_to_field(values, field, resolution, sweep_start=None, sweep_stop=None):
     """Interpolate `values` onto a field axis, warning if upsampling.
 
     Args:
@@ -239,6 +263,17 @@ def _resample_to_field(values, field, resolution):
         field (ndarray): Native BField curve.
         resolution (int): Requested number of output points, or None to
             use the native BField curve's own point count.
+        sweep_start (float): Nominal sweep start field (Bfrom), used as the
+            span for a synthetic axis when `resolution` is given. The
+            literal BField curve typically overshoots this slightly at
+            both ends (sweep settling), which is also why vendor-exported
+            files at a given point count use this nominal window rather
+            than the literal curve's own endpoints. Ignored when
+            `resolution` is None, since the default output uses the
+            literal BField curve as-is (preserving any real nonlinearity
+            in the recorded sweep) rather than a synthetic axis.
+        sweep_stop (float): Nominal sweep stop field (Bto). See
+            `sweep_start`.
 
     Returns:
         tuple: (values, coords_field).
@@ -255,13 +290,17 @@ def _resample_to_field(values, field, resolution):
             "additional independent measurements." % (target_len, native_count)
         )
 
-    if resolution is None and native_count == len(field):
-        return values, field
+    if resolution is None:
+        if native_count == len(field):
+            return values, field
+        span_start, span_stop = field[0], field[-1]
+        target_field = field
+    else:
+        span_start = sweep_start if sweep_start is not None else field[0]
+        span_stop = sweep_stop if sweep_stop is not None else field[-1]
+        target_field = _np.linspace(span_start, span_stop, resolution)
 
-    target_field = (
-        field if resolution is None else _np.linspace(field[0], field[-1], resolution)
-    )
-    x_orig = _np.linspace(field[0], field[-1], native_count)
+    x_orig = _np.linspace(span_start, span_stop, native_count)
     values_interp = _np.interp(target_field, x_orig, values.real)
     if _np.iscomplexobj(values):
         values_interp = values_interp + 1j * _np.interp(
@@ -271,7 +310,14 @@ def _resample_to_field(values, field, resolution):
     return values_interp, target_field
 
 
-def _parse_data(meas, signal="complex", raw=False, resolution=None):
+def _parse_data(
+    meas,
+    signal="complex",
+    raw=False,
+    resolution=None,
+    sweep_start=None,
+    sweep_stop=None,
+):
     """Extract data arrays and axes from ESR5000 XML.
 
     Args:
@@ -281,9 +327,13 @@ def _parse_data(meas, signal="complex", raw=False, resolution=None):
             axis. See `import_esr5000`.
         resolution (int): Number of output points to interpolate onto. See
             `import_esr5000`.
+        sweep_start (float): Nominal sweep start field (Bfrom). See
+            `_resample_to_field`.
+        sweep_stop (float): Nominal sweep stop field (Bto). See
+            `_resample_to_field`.
 
     Returns:
-        tuple: (values, dims, coords, extra_attrs).
+        tuple: (values, dims, coords, extra_attrs, native_samples).
 
     """
     curves = meas.find("DataCurves")
@@ -302,14 +352,17 @@ def _parse_data(meas, signal="complex", raw=False, resolution=None):
     field = _decode_curve(field_el)
 
     values, time_curve_el = _select_value_curve(curve_dict, signal)
+    native_samples = len(values)
 
     if raw:
-        time_axis = _curve_time_axis(time_curve_el, len(values))
+        time_axis = _curve_time_axis(time_curve_el, native_samples)
         extra_attrs = {
             "field_raw": field,
             "field_raw_time": _curve_time_axis(field_el, len(field)),
         }
-        return values, ["t2"], [time_axis], extra_attrs
+        return values, ["t2"], [time_axis], extra_attrs, native_samples
 
-    values, target_field = _resample_to_field(values, field, resolution)
-    return values, ["B0"], [target_field], {}
+    values, target_field = _resample_to_field(
+        values, field, resolution, sweep_start=sweep_start, sweep_stop=sweep_stop
+    )
+    return values, ["B0"], [target_field], {}, native_samples
