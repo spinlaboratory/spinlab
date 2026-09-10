@@ -150,6 +150,40 @@ Pass the ``.d01`` or ``.exp`` file:
 
     data = sl.load("experiment.d01")
 
+Bruker ESR5000 / MS-5000
+--------------------------
+
+Pass the ``.xml`` file exported by the instrument:
+
+.. code-block:: python
+
+    data = sl.load("data/esr5000/Coffee.xml")
+
+By default this returns the real-valued ``MW_Absorption`` channel — the same channel ESRStudio itself exports in ``.DSC``/``.DTA`` files, so it matches a vendor export of the same measurement. Pass ``signal="complex"`` instead to get the full quadrature signal (``MW_AbsorptionSinus`` as the real part, ``MW_AbsorptionCosinus`` as the imaginary part), e.g. for phase correction:
+
+.. code-block:: python
+
+    data = sl.load("data/esr5000/Coffee.xml", signal="complex")
+
+The individual ``MW_AbsorptionSinus``/``MW_AbsorptionCosinus``/``MW_Absorption`` curves in the XML file are each recorded on their own native timebase, at a much finer resolution than the ``BField`` curve itself. By default SpinLab interpolates the selected channel onto the field axis at ``BField``'s own point count; pass ``resolution`` to interpolate onto a different number of points instead — spanning the same nominal sweep window (``Bfrom``/``Bto``) a vendor export at that point count would use:
+
+.. code-block:: python
+
+    data = sl.load("data/esr5000/Coffee.xml", resolution=2000)
+
+If ``resolution`` exceeds the number of native raw samples for the selected channel, a warning is issued: the extra points are interpolated, not additional independent measurements.
+
+To get the selected channel's samples completely untouched, on their own native time axis, pass ``raw=True`` (cannot be combined with ``resolution``):
+
+.. code-block:: python
+
+    data = sl.load("data/esr5000/Coffee.xml", raw=True)
+    print(data.dims)                     # ['t2']
+    print(data.attrs["field_raw"])       # the untouched BField curve
+    print(data.attrs["field_raw_time"])  # BField's own native time axis
+
+See ``spinlab.io.esr5000.import_esr5000`` (:ref:`api-io`) for the full details of the ``signal``, ``raw``, and ``resolution`` options.
+
 CSV Files
 ---------
 
