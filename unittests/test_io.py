@@ -239,7 +239,7 @@ class esr5000_import_tester(unittest.TestCase):
         # default signal is "absorption" -- the real-valued channel
         # matching ESRStudio's own .DSC/.DTA exports
         self.assertTrue(_np.isrealobj(data.values))
-        self.assertAlmostEqual(data.values[365], -0.30276094723893887)
+        self.assertAlmostEqual(data.values[365], 3.7853982239281443)
 
     def test_import_esr5000_bitumen(self):
         data = sl.load(self.test_data_bitumen, data_format="esr5000")
@@ -251,14 +251,14 @@ class esr5000_import_tester(unittest.TestCase):
         self.assertAlmostEqual(data.coords["B0"][0], 86.6401850382487)
         self.assertAlmostEqual(data.coords["B0"][-1], 590.5849609375)
         self.assertTrue(_np.isrealobj(data.values))
-        self.assertAlmostEqual(data.values[365], -15.679582381429757)
+        self.assertAlmostEqual(data.values[365], -6.636497485025046)
 
     def test_import_esr5000_complex(self):
         # real part is the sinus channel, imaginary part is the cosinus
         # channel -- see the "complex" note in import_esr5000's docstring
         for path, expected in [
-            (self.test_data_coffee, -50.74475134984694 + 3.590757547876376j),
-            (self.test_data_bitumen, -104.82731619953861 - 18.60718468247838j),
+            (self.test_data_coffee, -75.49862990973563 - 11.63869396713729j),
+            (self.test_data_bitumen, -95.66189177853802 - 13.73977131689887j),
         ]:
             data = sl.load(path, data_format="esr5000", signal="complex")
             self.assertTrue(_np.iscomplexobj(data.values))
@@ -269,16 +269,16 @@ class esr5000_import_tester(unittest.TestCase):
             (
                 self.test_data_coffee,
                 365,
-                -50.74475134984694,
-                3.590757547876376,
-                -0.30276094723893887,
+                -75.49862990973563,
+                -11.63869396713729,
+                3.7853982239281443,
             ),
             (
                 self.test_data_bitumen,
                 365,
-                -104.82731619953861,
-                -18.60718468247838,
-                -15.679582381429757,
+                -95.66189177853802,
+                -13.73977131689887,
+                -6.636497485025046,
             ),
         ]:
             data_sinus = sl.load(path, data_format="esr5000", signal="sinus")

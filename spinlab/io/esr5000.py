@@ -261,24 +261,43 @@ def _select_value_curve(curve_dict, signal):
         )
 
 
-def _resample_to_field(values, field, resolution, sweep_start=None, sweep_stop=None):
+def _resample_to_field(
+    values,
+    field,
+    field_time,
+    values_time,
+    resolution,
+    sweep_start=None,
+    sweep_stop=None,
+):
     """Interpolate `values` onto a field axis, warning if upsampling.
+
+    The selected channel's samples are registered to field via their
+    actual recorded timing, not by assuming they are spread linearly
+    across the field range: the (coarser) BField curve is interpolated as
+    a function of time onto the selected channel's own native sample
+    times, giving the true field value at each raw sample -- capturing any
+    real nonlinearity or dwell time in the sweep (both curves are recorded
+    against the same clock, just each on their own native timebase, given
+    by XOffset/XSlope). Without this, files with sweep settling/dwell time
+    at the edges produce a measurably stretched or shifted field axis
+    compared to what the field truly was during each sample.
 
     Args:
         values (ndarray): Decoded curve values, on their own native
             sampling (not yet aligned to `field`).
         field (ndarray): Native BField curve.
+        field_time (ndarray): BField curve's own native time axis.
+        values_time (ndarray): Selected channel's own native time axis.
         resolution (int): Requested number of output points, or None to
-            use the native BField curve's own point count.
-        sweep_start (float): Nominal sweep start field (Bfrom), used as the
-            span for a synthetic axis when `resolution` is given. The
-            literal BField curve typically overshoots this slightly at
-            both ends (sweep settling), which is also why vendor-exported
+            use the native BField curve's own point count and axis.
+        sweep_start (float): Nominal sweep start field (Bfrom), used as
+            the target span when `resolution` is given -- vendor-exported
             files at a given point count use this nominal window rather
-            than the literal curve's own endpoints. Ignored when
-            `resolution` is None, since the default output uses the
-            literal BField curve as-is (preserving any real nonlinearity
-            in the recorded sweep) rather than a synthetic axis.
+            than the literal (slightly overshooting) BField curve
+            endpoints. Ignored when `resolution` is None, since the
+            default output uses the literal BField curve as its target
+            axis instead of a synthetic one.
         sweep_stop (float): Nominal sweep stop field (Bto). See
             `sweep_start`.
 
@@ -298,20 +317,18 @@ def _resample_to_field(values, field, resolution, sweep_start=None, sweep_stop=N
         )
 
     if resolution is None:
-        if native_count == len(field):
-            return values, field
-        span_start, span_stop = field[0], field[-1]
         target_field = field
     else:
         span_start = sweep_start if sweep_start is not None else field[0]
         span_stop = sweep_stop if sweep_stop is not None else field[-1]
         target_field = _np.linspace(span_start, span_stop, resolution)
 
-    x_orig = _np.linspace(span_start, span_stop, native_count)
-    values_interp = _np.interp(target_field, x_orig, values.real)
+    field_per_sample = _np.interp(values_time, field_time, field)
+
+    values_interp = _np.interp(target_field, field_per_sample, values.real)
     if _np.iscomplexobj(values):
         values_interp = values_interp + 1j * _np.interp(
-            target_field, x_orig, values.imag
+            target_field, field_per_sample, values.imag
         )
 
     return values_interp, target_field
@@ -357,19 +374,26 @@ def _parse_data(
 
     field_el = curve_dict["BField"]
     field = _decode_curve(field_el)
+    field_time = _curve_time_axis(field_el, len(field))
 
     values, time_curve_el = _select_value_curve(curve_dict, signal)
     native_samples = len(values)
+    values_time = _curve_time_axis(time_curve_el, native_samples)
 
     if raw:
-        time_axis = _curve_time_axis(time_curve_el, native_samples)
         extra_attrs = {
             "field_raw": field,
-            "field_raw_time": _curve_time_axis(field_el, len(field)),
+            "field_raw_time": field_time,
         }
-        return values, ["t2"], [time_axis], extra_attrs, native_samples
+        return values, ["t2"], [values_time], extra_attrs, native_samples
 
     values, target_field = _resample_to_field(
-        values, field, resolution, sweep_start=sweep_start, sweep_stop=sweep_stop
+        values,
+        field,
+        field_time,
+        values_time,
+        resolution,
+        sweep_start=sweep_start,
+        sweep_stop=sweep_stop,
     )
     return values, ["B0"], [target_field], {}, native_samples
