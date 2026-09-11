@@ -92,6 +92,34 @@ Pulsed EPR Data Sets
 
 
 
+CW EPR Data Sets
+================
+
+Bruker ESR5000 field-sweep absorption spectra, both the raw instrument XML and the corresponding ESRStudio ``.DSC``/``.DTA`` export. See :doc:`userGuide/loading_data` for how to load these with ``sl.load()``.
+
+.. list-table::
+  :widths: 10 90 90 90
+
+  * - **#**
+    - **Sample**
+    - **Raw XML (ESR5000)**
+    - **ESRStudio Export (.DSC / .DTA)**
+  * - 1
+    - Dark Roast Coffee
+
+      1D CW field-sweep absorption spectrum
+    - :download:`Coffee.xml <../data/esr5000/Coffee.xml>`
+    - 2000 pts: :download:`.DSC <../data/esr5000/Dark roast coffee_2000pts.DSC>` / :download:`.DTA <../data/esr5000/Dark roast coffee_2000pts.DTA>`
+
+      60000 pts: :download:`.DSC <../data/esr5000/Dark roast coffee_60000pts.DSC>` / :download:`.DTA <../data/esr5000/Dark roast coffee_60000pts.DTA>`
+  * - 2
+    - Bitumen
+
+      1D CW field-sweep absorption spectrum
+    - :download:`Bitumen.xml <../data/esr5000/Bitumen.xml>`
+    - 2000 pts: :download:`.DSC <../data/esr5000/Bitumen_04_result_2000pts.DSC>` / :download:`.DTA <../data/esr5000/Bitumen_04_result_2000pts.DTA>`
+
+
 .. NMR Data Sets
 .. =============
 
