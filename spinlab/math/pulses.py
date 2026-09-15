@@ -11,44 +11,79 @@ import numpy as np
 default_number = 43  # default number for saving pulse shape
 resolution = 1.0e-9  # default pulse shape resolution
 
-# define sech function
-np.sech = lambda x: 1.0 / np.cosh(x)
+
+def _sech(x):
+    return 1.0 / np.cosh(x)
+
+
+def _validate_positive(value, name):
+    value = float(value)
+    if value <= 0:
+        raise ValueError(f"{name} must be positive")
+    return value
+
+
+def _validate_nonnegative(value, name):
+    value = float(value)
+    if value < 0:
+        raise ValueError(f"{name} must be nonnegative")
+    return value
+
+
+def _time_axis(tp, resolution):
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
+    return np.r_[0.0:tp:resolution]
 
 
 def save_shape(pulse_shape, filename, num=101):
-    """Save a numpy array as csv format compatible with Xepr
+    """Save a pulse shape in Xepr text shape format.
 
     Args:
-        pulse_shape (numpy.ndarray): Array of pulse shape
-        filename (str): Filename to save pulse shape
+        pulse_shape (array_like): One-dimensional real or complex pulse shape.
+        filename (str or path-like): Output filename.
+        num (int): Xepr shape number written in the header and footer.
+
+    Returns:
+        None
+
+    Examples:
+        >>> import numpy as np
+        >>> import spinlab as sl
+        >>> pulse = np.array([0.0, 0.5, 1.0])
+        >>> sl.pulses.save_shape(pulse, "shape.txt", num=7)
     """
 
-    pulse_shape = np.array(pulse_shape)
+    pulse_shape = np.asarray(pulse_shape)
+    if pulse_shape.ndim != 1:
+        raise ValueError("pulse_shape must be a 1D array")
 
     with open(filename, "w") as f:
         f.write('begin shape%i "Shape %i"\n' % (int(num), int(num)))
 
-        if pulse_shape.dtype is np.dtype(complex):
-            for ix, value in enumerate(pulse_shape):
-                f.write(
-                    "%0.4f,%0.04f\n"
-                    % (np.real(pulse_shape[ix]), np.imag(pulse_shape[ix]))
-                )
+        if np.iscomplexobj(pulse_shape):
+            for value in pulse_shape:
+                f.write("%0.4f,%0.04f\n" % (np.real(value), np.imag(value)))
         else:
-            for ix, value in enumerate(pulse_shape):
-                f.write("%0.4f\n" % (pulse_shape[ix]))
+            for value in pulse_shape:
+                f.write("%0.4f\n" % value)
 
         f.write("end shape%i" % (int(num)))
 
 
 def load_shape(filename):
-    """Load a pulse shape from csv file
+    """Load a pulse shape from Xepr text shape format.
 
     Args:
-        filename (str): Path to file
+        filename (str or path-like): Path to a pulse shape file.
 
     Returns:
-        numpy.ndarray: Array of pulse shape
+        ndarray: Complex-valued pulse shape. Real-only files are returned with
+        zero imaginary components.
+
+    Examples:
+        >>> import spinlab as sl
+        >>> pulse = sl.pulses.load_shape("shape.txt")
     """
 
     with open(filename, "r") as f:
@@ -77,176 +112,270 @@ def load_shape(filename):
 
 
 def adiabatic(tp, BW, beta, resolution=resolution):
-    """Make Adiabatic Pulse Shape based on Hyperbolic Secant pulse
-
-    .. math::
-        \\text{sech} \\left( \\beta (t - \\frac{t_p}{2}) \\right) ^{1+i(\\pi BW / \\beta)}
+    r"""Generate a complex hyperbolic-secant adiabatic pulse.
 
     Args:
-        tp (float): pulse length
-        BW (float): pulse bandwidth
-        beta (float): truncation factor
-        resolution (float): pulse resolution
+        tp (float): Pulse length.
+        BW (float): Pulse bandwidth.
+        beta (float): Dimensionless truncation factor.
+        resolution (float): Time resolution of the generated shape.
 
     Returns:
-        tuple: tuple containing:
+        tuple: Tuple containing:
 
-            t (*numpy.ndarray*): Time axes
+            t (ndarray): Time axis.
+            pulse (ndarray): Complex pulse shape.
 
-            pulse (*numpy.ndarray*): Pulse shape
+    .. math::
+
+        \mathrm{pulse}(t) =
+        \operatorname{sech}\left(\frac{\beta}{t_p}
+        \left(t-\frac{t_p}{2}\right)\right)^{1+i\mu}
+
+    with
+
+    .. math::
+
+        \mu = \frac{\pi BW}{\beta/t_p}
+
+    Examples:
+        >>> import spinlab as sl
+        >>> t, pulse = sl.pulses.adiabatic(tp=1e-6, BW=10e6, beta=5, resolution=1e-9)
     """
 
-    beta = float(beta) / tp
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
+    beta = _validate_positive(beta, "beta") / tp
     mu = np.pi * BW / beta
 
-    t = np.r_[0.0:tp:resolution]
+    t = _time_axis(tp, resolution)
 
-    pulse = (np.sech(beta * (t - 0.5 * tp))) ** (1.0 + 1.0j * mu)
+    pulse = (_sech(beta * (t - 0.5 * tp))) ** (1.0 + 1.0j * mu)
 
     return t, pulse
 
 
 def chirp(tp, BW, resolution=resolution):
-    """Complex chirp pulse
-
-    .. math::
-        e^{i 2 \\pi (k/2) (t - t_p/2)^2}
+    r"""Generate a complex quadratic chirp pulse.
 
     Args:
-        tp (float): Pulse length
-        BW (float): Bandwidth of pulse
+        tp (float): Pulse length.
+        BW (float): Pulse bandwidth.
+        resolution (float): Time resolution of the generated shape.
 
     Returns:
-        tuple: tuple containing:
+        tuple: Tuple containing:
 
-            t (*numpy.ndarray*): Time axis
+            t (ndarray): Time axis.
+            pulse (ndarray): Complex pulse shape.
 
-            pulse (*numpy.ndarray*): Pulse shape
+    .. math::
+
+        \mathrm{pulse}(t) =
+        e^{i 2\pi \frac{k}{2}\left(t-\frac{t_p}{2}\right)^2}
+
+    with
+
+    .. math::
+
+        k = \frac{BW}{t_p}
+
+    Examples:
+        >>> import spinlab as sl
+        >>> t, pulse = sl.pulses.chirp(tp=1e-6, BW=10e6, resolution=1e-9)
     """
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
     k = BW / tp
-    t = np.r_[0.0:tp:resolution]
+    t = _time_axis(tp, resolution)
     pulse = np.exp(1.0j * 2.0 * np.pi * ((k / 2.0) * ((t - tp / 2.0) ** 2.0)))
     return t, pulse
 
 
 def wurst(tp, N, resolution=resolution):
-    """Real value WURST envelope pulse shape
-
-    .. math::
-        1 - \\text{abs} \\left( \\cos \\left( \\frac{\\pi}{t_p} (t - \\frac{t_p}{2}) + \\frac{\\pi}{2} \\right) \\right) ^N
+    r"""Generate a WURST envelope pulse.
 
     Args:
-        tp (float): Pulse length
-        N (float): exponential
+        tp (float): Pulse length.
+        N (float): WURST exponent controlling edge steepness.
+        resolution (float): Time resolution of the generated shape.
 
     Returns:
-        tuple: tuple containing:
+        tuple: Tuple containing:
 
-        t (*numpy.ndarray*): Time axis
+            t (ndarray): Time axis.
+            pulse (ndarray): Complex-valued WURST envelope.
 
-        pulse (*numpy.ndarray*): Pulse shape
+    .. math::
+
+        \mathrm{pulse}(t) =
+        1 - \left|\cos\left(\frac{\pi}{t_p}
+        \left(t-\frac{t_p}{2}\right)+\frac{\pi}{2}\right)\right|^N
+
+    Examples:
+        >>> import spinlab as sl
+        >>> t, pulse = sl.pulses.wurst(tp=1e-6, N=20, resolution=1e-9)
     """
-    t = np.r_[0.0:tp:resolution]
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
+    N = _validate_positive(N, "N")
+    t = _time_axis(tp, resolution)
     pulse = (1.0 - np.abs(np.cos(np.pi * (t - tp / 2.0) / tp + np.pi / 2.0)) ** N) + 0j
 
     return t, pulse
 
 
 def gaussian(tp, sigmas, resolution=resolution):
-    """Gaussian pulse
-
-    .. math::
-        e^{- \\frac{1}{2} \\left( \\frac{t - t_p/2}{\\sigma} \\right)^2}
+    r"""Generate a Gaussian envelope pulse.
 
     Args:
-        tp (float): Pulse length
-        sigmas (float): Number of standard deviations where pulse is truncated
+        tp (float): Pulse length.
+        sigmas (float): Number of standard deviations from the center to each
+            pulse edge.
+        resolution (float): Time resolution of the generated shape.
 
     Returns:
-        tuple: tuple containing:
+        tuple: Tuple containing:
 
-            t (*numpy.ndarray*): Time axis
+            t (ndarray): Time axis.
+            pulse (ndarray): Complex-valued Gaussian envelope.
 
-            pulse (*numpy.ndarray*): Pulse shape
+    .. math::
+
+        \mathrm{pulse}(t) =
+        e^{-\frac{1}{2}\left(\frac{t-t_p/2}{\sigma}\right)^2}
+
+    with
+
+    .. math::
+
+        \sigma = \frac{t_p}{2\,\mathrm{sigmas}}
+
+    Examples:
+        >>> import spinlab as sl
+        >>> t, pulse = sl.pulses.gaussian(tp=1e-6, sigmas=3, resolution=1e-9)
     """
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
+    sigmas = _validate_positive(sigmas, "sigmas")
     sigma = 0.5 * tp / sigmas
-    t = np.r_[0.0:tp:resolution]
+    t = _time_axis(tp, resolution)
     pulse = np.exp(-1.0 * (t - tp / 2.0) ** 2.0 / (2.0 * (sigma**2.0))) + 0j
     return t, pulse
 
 
 def square(tp, t_length=0.0, resolution=resolution):
-    """Square pulse
+    """Generate a square pulse.
+
+    If ``t_length`` is greater than ``tp``, the pulse is centered in a longer
+    zero-padded time axis. The active pulse interval is half-open:
+    ``start <= t < stop``.
 
     Args:
-        tp (float): Pulse length
-        t_length (float): Total length of time axis
+        tp (float): Pulse length.
+        t_length (float): Total length of the time axis. If this is less than
+            or equal to ``tp``, the time axis length is ``tp``.
+        resolution (float): Time resolution of the generated shape.
 
     Returns:
-        tuple: tuple containing:
+        tuple: Tuple containing:
 
-            t (*numpy.ndarray*): Time axis
+            t (ndarray): Time axis.
+            pulse (ndarray): Complex-valued square pulse.
 
-            pulse (*numpy.ndarray*): Pulse shape
+    Examples:
+        >>> import spinlab as sl
+        >>> t, pulse = sl.pulses.square(tp=1e-6, resolution=1e-9)
+        >>> t, pulse = sl.pulses.square(tp=1e-6, t_length=2e-6, resolution=1e-9)
     """
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
+    t_length = _validate_nonnegative(t_length, "t_length")
     if t_length > tp:
-        t = np.r_[0.0:t_length:resolution]
+        t = _time_axis(t_length, resolution)
         pulse = np.zeros_like(t, dtype=complex)
-        for t_ix, t_value in enumerate(t):
-            if abs(t_value - t_length / 2.0) < (tp / 2.0):
-                pulse[t_ix] = 1.0
+        start = (t_length - tp) / 2.0
+        stop = start + tp
+        pulse[(t >= start) & (t < stop)] = 1.0
     else:
-        t = np.r_[0.0:tp:resolution]
+        t = _time_axis(tp, resolution)
         pulse = np.ones_like(t, dtype=complex)
     return t, pulse
 
 
 def plane_wave(tp, f, resolution=resolution):
-    """Complex plane wave pulse shape
-
-    .. math::
-        e^{i 2 \\pi f \\left( t - \\frac{t_p}{2} \\right) }
+    r"""Generate a complex plane-wave pulse.
 
     Args:
-        tp (float): Pulse length
-        f (float): Frequency of plane wave
+        tp (float): Pulse length.
+        f (float): Plane-wave frequency.
+        resolution (float): Time resolution of the generated shape.
 
     Returns:
-        tuple: tuple containing:
+        tuple: Tuple containing:
 
-            t (*numpy.ndarray*): Time axis
+            t (ndarray): Time axis.
+            pulse (ndarray): Complex pulse shape.
 
-            pulse (*numpy.ndarray*): Pulse shape
+    .. math::
+
+        \mathrm{pulse}(t) =
+        e^{i2\pi f\left(t-\frac{t_p}{2}\right)}
+
+    Examples:
+        >>> import spinlab as sl
+        >>> t, pulse = sl.pulses.plane_wave(tp=1e-6, f=1e6, resolution=1e-9)
     """
-    t = np.r_[0.0:tp:resolution]
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
+    t = _time_axis(tp, resolution)
     pulse = np.exp(1.0j * 2.0 * np.pi * f * (t - tp / 2.0))
     return t, pulse
 
 
 def sinc(tp, n, resolution=resolution):
-    """Sinc pulse
-
-    .. math::
-        \\frac{\\sin \\left( \\frac{\\pi}{2} (n + 1) x \\right) }{x}
-
-        x = \\frac{t-\\frac{t_p}{2}}{\\frac{t_p}{2}}
+    r"""Generate a sinc pulse.
 
     Args:
-        tp (float): Pulse length
-        n (float): Total sinc lobes, must be odd for full sinc
-    n is number of sinc lobes, should be odd for full sinc
+        tp (float): Pulse length.
+        n (float): Number of sinc lobes. Odd values produce a full symmetric
+            sinc shape.
+        resolution (float): Time resolution of the generated shape.
 
     Returns:
-        tuple: tuple containing:
+        tuple: Tuple containing:
 
-            t (*numpy.ndarray*): Time axis
+            t (ndarray): Time axis.
+            pulse (ndarray): Sinc pulse shape.
 
-            pulse (*numpy.ndarray*): Pulse shape
+    .. math::
+
+        \mathrm{pulse}(t) =
+        \frac{\sin\left(\frac{\pi}{2}(n+1)x\right)}{x}
+
+    with
+
+    .. math::
+
+        x = \frac{t-t_p/2}{t_p/2}
+
+    The center point uses the analytic limit
+    ``((n + 1) / 2) * pi`` instead of evaluating ``0 / 0``.
+
+    Examples:
+        >>> import spinlab as sl
+        >>> t, pulse = sl.pulses.sinc(tp=1e-6, n=3, resolution=1e-9)
     """
-    t = np.r_[0.0:tp:resolution]
-    pulse = np.sin(((n + 1.0) / 2.0) * np.pi * (t - tp / 2.0) / (0.5 * tp)) / (
-        (t - tp / 2) / (0.5 * tp)
-    )
+    tp = _validate_positive(tp, "tp")
+    resolution = _validate_positive(resolution, "resolution")
+    n = _validate_positive(n, "n")
+    t = _time_axis(tp, resolution)
+    x = (t - tp / 2.0) / (0.5 * tp)
+    scale = ((n + 1.0) / 2.0) * np.pi
+    pulse = np.empty_like(x, dtype=float)
+    center = np.isclose(x, 0.0)
+    pulse[center] = scale
+    pulse[~center] = np.sin(scale * x[~center]) / x[~center]
 
     return t, pulse
 
