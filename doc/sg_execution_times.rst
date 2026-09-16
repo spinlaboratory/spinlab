@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.529** total execution time for 4 files **from all galleries**:
+**00:01.445** total execution time for 5 files **from all galleries**:
 
 .. container::
 
@@ -32,15 +32,18 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
+   * - :ref:`sphx_glr_sl_examples_plot_09_PakePattern.py` (``..\examples\plot_09_PakePattern.py``)
+     - 00:00.872
+     - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_01_EDFS.py` (``..\examples\plot_01_EDFS.py``)
-     - 00:00.239
+     - 00:00.248
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_08_3PE.py` (``..\examples\plot_08_3PE.py``)
-     - 00:00.143
+     - 00:00.166
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_07_2PE.py` (``..\examples\plot_07_2PE.py``)
-     - 00:00.076
+     - 00:00.083
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_06_ETPC.py` (``..\examples\plot_06_ETPC.py``)
-     - 00:00.071
+     - 00:00.076
      - 0.0
