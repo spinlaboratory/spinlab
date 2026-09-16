@@ -82,18 +82,18 @@ This section contains short examples how to load experimental data files and pro
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Pake Pattern Simulation (#9)">
+    <div class="sphx-glr-thumbcontainer" tooltip="Lineshapes (#10)">
 
 .. only:: html
 
-  .. image:: /sl_examples/images/thumb/sphx_glr_plot_09_PakePattern_thumb.png
+  .. image:: /sl_examples/images/thumb/sphx_glr_plot_10_Lineshapes_thumb.png
     :alt:
 
-  :doc:`/sl_examples/plot_09_PakePattern`
+  :doc:`/sl_examples/plot_10_Lineshapes`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Pake Pattern Simulation (#9)</div>
+      <div class="sphx-glr-thumbnail-title">Lineshapes (#10)</div>
     </div>
 
 
@@ -111,7 +111,7 @@ This section contains short examples how to load experimental data files and pro
    /sl_examples/plot_06_ETPC
    /sl_examples/plot_07_2PE
    /sl_examples/plot_08_3PE
-   /sl_examples/plot_09_PakePattern
+   /sl_examples/plot_10_Lineshapes
 
 
 

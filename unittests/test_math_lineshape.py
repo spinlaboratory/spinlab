@@ -36,6 +36,28 @@ class sl_lineshape_tester(unittest.TestCase):
         self.assertEqual(out.shape, (3,))
         assert_allclose(out, 2.0 * reference)
 
+    def test_gaussian_derivative_formula_and_numeric_flag(self):
+        x0 = 0.5
+        sigma = 0.8
+        integral = 2.0
+        expected = (
+            -integral
+            * (self.x - x0)
+            / (sigma**3 * np.sqrt(2.0 * sl.pi))
+            * np.exp(-((self.x - x0) ** 2) / (2.0 * sigma**2))
+        )
+
+        assert_allclose(
+            lineshape.gaussian(
+                self.x, x0=x0, sigma=sigma, integral=integral, deriv=True
+            ),
+            expected,
+        )
+        assert_allclose(
+            lineshape.gaussian(self.x, x0=x0, sigma=sigma, integral=integral, deriv=1),
+            expected,
+        )
+
     def test_lorentzian_formula(self):
         x0 = -0.3
         gamma = 0.7
@@ -142,17 +164,85 @@ class sl_lineshape_tester(unittest.TestCase):
         self.assertEqual(out.shape, (3,))
         self.assertGreater(out[1], out[0])
 
+    def test_dysonian_formula(self):
+        x0 = -0.3
+        gamma = 0.7
+        alpha = 0.4
+        integral = 1.5
+        expected = (
+            integral
+            * (1.0 / sl.pi)
+            * (gamma + alpha * (self.x - x0))
+            / ((self.x - x0) ** 2 + gamma**2)
+        )
+
+        assert_allclose(
+            lineshape.dysonian(
+                self.x, x0=x0, gamma=gamma, alpha=alpha, integral=integral
+            ),
+            expected,
+        )
+
+    def test_dysonian_reduces_to_lorentzian_when_alpha_zero(self):
+        x0 = 0.1
+        gamma = 0.6
+        integral = 1.3
+
+        assert_allclose(
+            lineshape.dysonian(
+                self.x, x0=x0, gamma=gamma, alpha=0.0, integral=integral
+            ),
+            lineshape.lorentzian(self.x, x0=x0, gamma=gamma, integral=integral),
+        )
+
+    def test_dysonian_derivative_formula_and_numeric_flag(self):
+        x0 = 0.2
+        gamma = 0.5
+        alpha = 0.4
+        integral = 1.25
+        expected = (
+            integral
+            * (1.0 / sl.pi)
+            * (alpha * (gamma**2 - (self.x - x0) ** 2) - 2.0 * gamma * (self.x - x0))
+            / ((self.x - x0) ** 2 + gamma**2) ** 2
+        )
+
+        assert_allclose(
+            lineshape.dysonian(
+                self.x, x0=x0, gamma=gamma, alpha=alpha, integral=integral, deriv=True
+            ),
+            expected,
+        )
+        assert_allclose(
+            lineshape.dysonian(
+                self.x, x0=x0, gamma=gamma, alpha=alpha, integral=integral, deriv=1
+            ),
+            expected,
+        )
+
+    def test_dysonian_accepts_list(self):
+        out = lineshape.dysonian([-1.0, 0.0, 1.0], x0=0.0, gamma=1.0, alpha=0.5)
+
+        self.assertEqual(out.shape, (3,))
+
     def test_invalid_derivative_flag_raises_value_error(self):
+        with self.assertRaises(ValueError):
+            lineshape.gaussian(self.x, x0=0.0, sigma=1.0, deriv="bad")
+
         with self.assertRaises(ValueError):
             lineshape.lorentzian(self.x, x0=0.0, gamma=1.0, deriv="bad")
 
         with self.assertRaises(ValueError):
             lineshape.voigtian(self.x, x0=0.0, sigma=1.0, gamma=1.0, deriv="bad")
 
+        with self.assertRaises(ValueError):
+            lineshape.dysonian(self.x, x0=0.0, gamma=1.0, alpha=0.5, deriv="bad")
+
     def test_top_level_lineshape_exports(self):
         self.assertIs(sl.lineshape.gaussian, lineshape.gaussian)
         self.assertIs(sl.lineshape.lorentzian, lineshape.lorentzian)
         self.assertIs(sl.lineshape.voigtian, lineshape.voigtian)
+        self.assertIs(sl.lineshape.dysonian, lineshape.dysonian)
 
 
 if __name__ == "__main__":
