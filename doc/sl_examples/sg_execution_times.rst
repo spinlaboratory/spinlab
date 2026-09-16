@@ -36,14 +36,14 @@ Computation times
      - 00:00.444
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_01_EDFS.py` (``plot_01_EDFS.py``)
-     - 00:00.239
+     - 00:00.248
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_08_3PE.py` (``plot_08_3PE.py``)
-     - 00:00.143
+     - 00:00.166
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_07_2PE.py` (``plot_07_2PE.py``)
-     - 00:00.076
+     - 00:00.083
      - 0.0
    * - :ref:`sphx_glr_sl_examples_plot_06_ETPC.py` (``plot_06_ETPC.py``)
-     - 00:00.071
+     - 00:00.076
      - 0.0
