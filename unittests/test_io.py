@@ -405,6 +405,53 @@ class esr5000_import_tester(unittest.TestCase):
             self.assertEqual(proc_dict, expected)
 
 
+class esr5000_dipsweep_import_tester(unittest.TestCase):
+    def setUp(self):
+        self.test_data = os.path.join(".", "data", "esr5000", "DipSweep.xml")
+
+    def test_import_esr5000_dipsweep(self):
+        # A cavity tuning dip: XDatasource="Frequency", YDatasource=
+        # "ADC_24bit". Both curves are already sample-aligned (no field
+        # curve, no time-based registration needed), unlike field-sweep
+        # spectra.
+        data = sl.load(self.test_data, data_format="esr5000")
+        self.assertEqual(data.dims, ["f"])
+        self.assertEqual(data.values.shape, (1001,))
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertEqual(data.attrs["experiment_type"], "cavity_dip_sweep")
+        self.assertAlmostEqual(data.coords["f"][0], 9.412607)
+        self.assertAlmostEqual(data.coords["f"][-1], 9.432606999999999)
+        self.assertAlmostEqual(data.values[0], 4242094.5)
+        self.assertAlmostEqual(data.values[-1], 4135889.0)
+        self.assertAlmostEqual(data.values.min(), 37383.9609375)
+
+        self.assertEqual(len(data.proc_attrs), 1)
+        name, proc_dict = data.proc_attrs[0]
+        self.assertEqual(name, "esr5000_import")
+        self.assertEqual(
+            proc_dict,
+            {
+                "signal": None,
+                "raw": False,
+                "resolution": None,
+                "native_samples": 1001,
+                "output_samples": 1001,
+            },
+        )
+
+    def test_import_esr5000_dipsweep_rejects_field_sweep_options(self):
+        # signal/raw/resolution are field-sweep-only options and must be
+        # rejected (not silently ignored) on a non-field-sweep file.
+        for kwargs in [
+            {"signal": "complex"},
+            {"signal": "absorption"},
+            {"raw": True},
+            {"resolution": 500},
+        ]:
+            with self.assertRaises(ValueError):
+                sl.load(self.test_data, data_format="esr5000", **kwargs)
+
+
 class winepr_import_tester(unittest.TestCase):
     def setUp(self):
         self.test_data_ESP = os.path.join(".", "data", "parspc", "ExampleESP.par")

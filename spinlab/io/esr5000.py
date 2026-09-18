@@ -51,22 +51,49 @@ _SIGNAL_CURVE_KEYS = {
     "absorption": "MW_Absorption",
 }
 
+# ESR5000 XML files declare what their two axes actually are via the
+# Measurement element's XDatasource/YDatasource attributes. "BField" gets
+# the full field-sweep treatment below (channel selection, time-based
+# field registration, resampling). Any other (XDatasource, YDatasource)
+# pair recognized here is a simple, already sample-aligned X/Y curve pair
+# with no further processing -- see _parse_generic_sweep. Unrecognized
+# pairs raise rather than guess at a dim name or experiment_type.
+_GENERIC_SWEEP_TYPES = {
+    # A resonator/cavity tuning dip: ADC response vs. probe frequency.
+    ("Frequency", "ADC_24bit"): {"dim": "f", "experiment_type": "cavity_dip_sweep"},
+}
 
-def import_esr5000(path, signal="absorption", raw=False, resolution=None):
+
+def import_esr5000(path, signal=None, raw=False, resolution=None):
     """Import Bruker ESR5000 XML data and return SpinData object.
 
-    Only tested against 1D CW field-sweep spectra so far (the sample
-    files this module was validated against). The ESR5000 also
-    supports other experiment types, e.g. 2D power sweeps, but no
-    test coverage or sample data for those exists yet, and this
-    function has not been verified to parse them correctly.
+    Handles two kinds of ESR5000 measurement, dispatched on the XML's own
+    Measurement/XDatasource attribute:
+
+    * Field-sweep spectra (XDatasource="BField"): the `signal`, `raw`, and
+      `resolution` options below apply. Only tested against 1D CW spectra
+      so far (the sample files this module was validated against) -- the
+      ESR5000 supports other field-sweep experiment types too, e.g. 2D
+      power sweeps, but no test coverage or sample data for those exists
+      yet, and this function has not been verified to parse them
+      correctly.
+    * Other recognized sweeps, currently just a cavity tuning dip
+      (XDatasource="Frequency", YDatasource="ADC_24bit"): a plain,
+      already sample-aligned X/Y curve pair with no channel choice or
+      resampling, so `signal`, `raw`, and `resolution` must be left at
+      their defaults -- passing any of them raises. Unrecognized
+      (XDatasource, YDatasource) combinations also raise rather than
+      guess at how to interpret them.
 
     Args:
         path (str): Path to .xml file.
-        signal (str): Which data channel(s) to return. One of:
+        signal (str): Field-sweep only. Which data channel(s) to return.
+            One of:
 
-            * "absorption" (default): the real-valued MW_Absorption channel
-              only. This is the same channel ESRStudio itself exports as
+            * None (default): resolves to "absorption" for field-sweep
+              files. Must be left as None for any other recognized sweep.
+            * "absorption": the real-valued MW_Absorption channel only.
+              This is the same channel ESRStudio itself exports as
               "MW_Absorption" in .DSC/.DTA files, so this default matches
               what a vendor export of the same measurement would give you.
             * "complex": a complex-valued signal built from the quadrature
@@ -82,11 +109,12 @@ def import_esr5000(path, signal="absorption", raw=False, resolution=None):
             * "sinus": the raw MW_AbsorptionSinus channel only.
             * "cosinus": the raw MW_AbsorptionCosinus channel only.
 
-        raw (bool): If True, return the selected channel(s) exactly as
-            recorded, on their own native time axis (dims=["t2"]) instead
-            of interpolating onto a field axis. The individual data curves
-            in an ESR5000 XML file are each sampled on their own timebase,
-            so the untouched samples cannot be paired with the (differently
+        raw (bool): Field-sweep only; must be False otherwise. If True,
+            return the selected channel(s) exactly as recorded, on their
+            own native time axis (dims=["t2"]) instead of interpolating
+            onto a field axis. The individual data curves in an ESR5000
+            XML file are each sampled on their own timebase, so the
+            untouched samples cannot be paired with the (differently
             sampled) BField curve without violating SpinData's requirement
             that coords and values have matching length. The BField curve
             is instead provided untouched, on its own native time axis, as
@@ -94,19 +122,20 @@ def import_esr5000(path, signal="absorption", raw=False, resolution=None):
             for the caller to align against the selected channel's own
             time axis (`data.coords["t2"]`) if needed. Cannot be combined
             with `resolution`.
-        resolution (int): Number of points to interpolate the selected
-            channel(s) onto. Defaults to the native BField curve's own
-            point count and axis (the historical behavior of this
-            importer, including any real nonlinearity in the recorded
-            sweep). When `resolution` is given explicitly, the output
-            instead spans a synthetic axis from the nominal sweep_start to
-            sweep_stop field (Bfrom/Bto) -- matching the field window
-            vendor-exported files at a given point count use, rather than
-            the literal (slightly overshooting) BField curve endpoints. If
-            `resolution` exceeds the number of native raw samples in the
-            selected channel(s), a warning is issued: the extra points are
-            interpolated and do not represent additional independent
-            measurements. Cannot be combined with `raw`.
+        resolution (int): Field-sweep only; must be None otherwise. Number
+            of points to interpolate the selected channel(s) onto.
+            Defaults to the native BField curve's own point count and axis
+            (the historical behavior of this importer, including any real
+            nonlinearity in the recorded sweep). When `resolution` is
+            given explicitly, the output instead spans a synthetic axis
+            from the nominal sweep_start to sweep_stop field (Bfrom/Bto)
+            -- matching the field window vendor-exported files at a given
+            point count use, rather than the literal (slightly
+            overshooting) BField curve endpoints. If `resolution` exceeds
+            the number of native raw samples in the selected channel(s), a
+            warning is issued: the extra points are interpolated and do
+            not represent additional independent measurements. Cannot be
+            combined with `raw`.
 
             Whenever `raw` is False (whether or not `resolution` is
             given), each raw sample of the selected channel(s) is
@@ -123,10 +152,13 @@ def import_esr5000(path, signal="absorption", raw=False, resolution=None):
             vendor export to numerical precision on two sample files).
 
     Returns:
-        SpinData: SpinData object containing ESR5000 data. The processing
-        performed at import (signal, raw, resolution, and the native vs.
-        output sample counts) is recorded as an "esr5000_import" entry in
-        data.proc_attrs.
+        SpinData: SpinData object containing ESR5000 data. attrs
+        ["experiment_type"] is "epr_spectrum" for field-sweep files, or
+        the recognized sweep's experiment_type otherwise (e.g.
+        "cavity_dip_sweep") -- SpinLab's fancy_plot uses this attribute to
+        pick a plot design. The processing performed at import (signal,
+        raw, resolution, and the native vs. output sample counts) is
+        recorded as an "esr5000_import" entry in data.proc_attrs.
 
     Note:
         MW_Absorption is not the vector magnitude sqrt(sinus^2 + cosinus^2)
@@ -150,7 +182,7 @@ def import_esr5000(path, signal="absorption", raw=False, resolution=None):
         raise ValueError("No Measurement element found in XML file")
 
     attrs = _parse_attrs(meas)
-    values, dims, coords, extra_attrs, native_samples = _parse_data(
+    parsed = _parse_data(
         meas,
         signal=signal,
         raw=raw,
@@ -158,19 +190,17 @@ def import_esr5000(path, signal="absorption", raw=False, resolution=None):
         sweep_start=attrs.get("sweep_start"),
         sweep_stop=attrs.get("sweep_stop"),
     )
-    attrs.update(extra_attrs)
+    attrs.update(parsed["attrs"])
 
-    attrs["experiment_type"] = "epr_spectrum"
-
-    data = SpinData(values, dims, coords, attrs)
+    data = SpinData(parsed["values"], parsed["dims"], parsed["coords"], attrs)
     data.add_proc_attrs(
         "esr5000_import",
         {
-            "signal": signal,
+            "signal": parsed["signal"],
             "raw": raw,
             "resolution": resolution,
-            "native_samples": native_samples,
-            "output_samples": len(values),
+            "native_samples": parsed["native_samples"],
+            "output_samples": len(parsed["values"]),
         },
     )
     return data
@@ -355,7 +385,7 @@ def _resample_to_field(
 
 def _parse_data(
     meas,
-    signal="absorption",
+    signal=None,
     raw=False,
     resolution=None,
     sweep_start=None,
@@ -363,20 +393,26 @@ def _parse_data(
 ):
     """Extract data arrays and axes from ESR5000 XML.
 
+    Dispatches on Measurement/XDatasource: "BField" gets the field-sweep
+    treatment (channel selection, time-based field registration,
+    resampling); anything else is handed to `_parse_generic_sweep`. See
+    `import_esr5000`.
+
     Args:
         meas (Element): XML Measurement element.
-        signal (str): Which channel(s) to return. See `import_esr5000`.
-        raw (bool): If True, return untouched samples on their native time
-            axis. See `import_esr5000`.
-        resolution (int): Number of output points to interpolate onto. See
-            `import_esr5000`.
+        signal (str): Field-sweep only; see `import_esr5000`.
+        raw (bool): Field-sweep only; see `import_esr5000`.
+        resolution (int): Field-sweep only; see `import_esr5000`.
         sweep_start (float): Nominal sweep start field (Bfrom). See
             `_resample_to_field`.
         sweep_stop (float): Nominal sweep stop field (Bto). See
             `_resample_to_field`.
 
     Returns:
-        tuple: (values, dims, coords, extra_attrs, native_samples).
+        dict: {"values", "dims", "coords", "attrs" (to merge into the
+        SpinData attrs, including "experiment_type"), "signal" (the
+        concrete channel actually used, or None for non-field-sweep
+        sweeps), "native_samples"}.
 
     """
     curves = meas.find("DataCurves")
@@ -387,6 +423,16 @@ def _parse_data(
     for curve in curves:
         if curve.text is not None and curve.text.strip():
             curve_dict[curve.get("YType")] = curve
+
+    x_datasource = meas.get("XDatasource")
+
+    if x_datasource != "BField":
+        return _parse_generic_sweep(
+            meas, curve_dict, x_datasource, signal, raw, resolution
+        )
+
+    if signal is None:
+        signal = "absorption"
 
     if "BField" not in curve_dict:
         raise ValueError("No BField curve found in data")
@@ -400,11 +446,18 @@ def _parse_data(
     values_time = _curve_time_axis(time_curve_el, native_samples)
 
     if raw:
-        extra_attrs = {
-            "field_raw": field,
-            "field_raw_time": field_time,
+        return {
+            "values": values,
+            "dims": ["t2"],
+            "coords": [values_time],
+            "attrs": {
+                "field_raw": field,
+                "field_raw_time": field_time,
+                "experiment_type": "epr_spectrum",
+            },
+            "signal": signal,
+            "native_samples": native_samples,
         }
-        return values, ["t2"], [values_time], extra_attrs, native_samples
 
     values, target_field = _resample_to_field(
         values,
@@ -415,4 +468,91 @@ def _parse_data(
         sweep_start=sweep_start,
         sweep_stop=sweep_stop,
     )
-    return values, ["B0"], [target_field], {}, native_samples
+    return {
+        "values": values,
+        "dims": ["B0"],
+        "coords": [target_field],
+        "attrs": {"experiment_type": "epr_spectrum"},
+        "signal": signal,
+        "native_samples": native_samples,
+    }
+
+
+def _parse_generic_sweep(meas, curve_dict, x_datasource, signal, raw, resolution):
+    """Parse a non-field-sweep ESR5000 measurement, e.g. a cavity tuning
+    dip (a frequency sweep with the ADC response at each frequency).
+
+    These experiments record a plain X/Y curve pair -- declared by the
+    Measurement element's XDatasource/YDatasource attributes -- already
+    aligned sample-for-sample (both curves share the same native
+    XType="Samples", XOffset=0, XSlope=1), unlike field-sweep spectra
+    where the absorption/quadrature curves are on a finer, independent
+    timebase from BField and must be registered to it (see
+    `_resample_to_field`). There is nothing to resample here and no
+    alternate channel to select, so `signal`, `raw`, and `resolution` --
+    all specific to field-sweep spectra -- are rejected if given
+    explicitly, and an unrecognized (XDatasource, YDatasource) pair
+    raises rather than guessing at a dim name or experiment_type.
+
+    Args:
+        meas (Element): XML Measurement element.
+        curve_dict (dict): Mapping of YType to XML Curve elements.
+        x_datasource (str): Measurement's XDatasource attribute.
+        signal, raw, resolution: See `import_esr5000`; only their
+            defaults (None, False, None) are accepted here.
+
+    Returns:
+        dict: Same shape as `_parse_data`'s return value.
+
+    """
+    if signal is not None:
+        raise ValueError(
+            "`signal` only applies to BField field-sweep ESR5000 files; "
+            "this file's XDatasource is %r" % x_datasource
+        )
+    if raw:
+        raise ValueError(
+            "`raw` only applies to BField field-sweep ESR5000 files; "
+            "this file's XDatasource is %r" % x_datasource
+        )
+    if resolution is not None:
+        raise ValueError(
+            "`resolution` only applies to BField field-sweep ESR5000 files; "
+            "this file's XDatasource is %r" % x_datasource
+        )
+
+    y_datasource = meas.get("YDatasource")
+    sweep_type = _GENERIC_SWEEP_TYPES.get((x_datasource, y_datasource))
+    if sweep_type is None:
+        raise ValueError(
+            "Unrecognized ESR5000 experiment (XDatasource=%r, YDatasource=%r); "
+            "only BField field sweeps and %s are currently supported"
+            % (
+                x_datasource,
+                y_datasource,
+                ", ".join("%s/%s" % pair for pair in _GENERIC_SWEEP_TYPES),
+            )
+        )
+
+    if x_datasource not in curve_dict:
+        raise ValueError("No %s curve found in data" % x_datasource)
+    if y_datasource not in curve_dict:
+        raise ValueError("No %s curve found in data" % y_datasource)
+
+    coord = _decode_curve(curve_dict[x_datasource])
+    values = _decode_curve(curve_dict[y_datasource])
+
+    if len(coord) != len(values):
+        raise ValueError(
+            "%s curve (%d points) and %s curve (%d points) have different "
+            "lengths" % (x_datasource, len(coord), y_datasource, len(values))
+        )
+
+    return {
+        "values": values,
+        "dims": [sweep_type["dim"]],
+        "coords": [coord],
+        "attrs": {"experiment_type": sweep_type["experiment_type"]},
+        "signal": None,
+        "native_samples": len(values),
+    }
