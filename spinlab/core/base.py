@@ -33,6 +33,24 @@ def _replaceClassWithAttribute(replace_class, args, kwargs, target_attr="_values
     return tuple(r_args), r_kwargs
 
 
+def _object_equal(a, b):
+    if isinstance(a, _np.generic):
+        a = a.item()
+    if isinstance(b, _np.generic):
+        b = b.item()
+    if isinstance(a, _np.ndarray) or isinstance(b, _np.ndarray):
+        return _np.array_equal(a, b)
+    if isinstance(a, dict) and isinstance(b, dict):
+        return set(a.keys()) == set(b.keys()) and all(
+            _object_equal(a[key], b[key]) for key in a
+        )
+    if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
+        return len(a) == len(b) and all(
+            _object_equal(left, right) for left, right in zip(a, b)
+        )
+    return a == b
+
+
 # utility function to return integer index of string or int if input is integer
 _str_to_int_index = lambda possible_dim, sldat: (
     int(sldat.index(possible_dim)) if isinstance(possible_dim, str) else possible_dim
@@ -264,6 +282,12 @@ class ABCData(object):
 
             data['x', 4.5] # return data indexing down "x" dim with "x" coords nearest to 4.5
 
+            data['time', '2025-01-16T00:00:06'] # nearest value on a datetime coordinate
+
+            data['channel', 'signal'] # exact value on a string coordinate
+
+            data['channel', ['signal', 'reference']] # multiple named coordinates
+
             data['x', 2:5] # return data indexing down "x" dim with index from 2 to 5
 
             data['x', (100., 150.)] # return data indexing down "x" dim where coords are range from 100 to 150
@@ -279,10 +303,57 @@ class ABCData(object):
 
         index_slice = args[1::2]
 
+        # Convert ISO timestamp strings when indexing datetime coordinates.
+        converted_index_slice = []
+        for dim, slice_ in zip(index_dims, index_slice):
+            coord = a.get_coord(dim)
+            if _np.issubdtype(coord.dtype, _np.datetime64):
+                if isinstance(slice_, str):
+                    try:
+                        slice_ = _np.datetime64(slice_)
+                    except ValueError as exc:
+                        raise ValueError(
+                            f"Invalid datetime selector for dimension {dim!r}: {slice_!r}"
+                        ) from exc
+                elif isinstance(slice_, tuple):
+                    try:
+                        slice_ = tuple(
+                            _np.datetime64(value) if isinstance(value, str) else value
+                            for value in slice_
+                        )
+                    except ValueError as exc:
+                        raise ValueError(
+                            f"Invalid datetime selector for dimension {dim!r}: {slice_!r}"
+                        ) from exc
+            elif isinstance(slice_, str):
+                matches = _np.flatnonzero(coord == slice_)
+                if matches.size == 0:
+                    raise KeyError(
+                        f"Coordinate {slice_!r} not found in dimension {dim!r}"
+                    )
+                slice_ = int(matches[0])
+            elif isinstance(slice_, (list, _np.ndarray)) and all(
+                isinstance(value, str) for value in slice_
+            ):
+                indices = []
+                for value in slice_:
+                    matches = _np.flatnonzero(coord == value)
+                    if matches.size == 0:
+                        raise KeyError(
+                            f"Coordinate {value!r} not found in dimension {dim!r}"
+                        )
+                    indices.append(int(matches[0]))
+                slice_ = _np.asarray(indices, dtype=int)
+            converted_index_slice.append(slice_)
+        index_slice = converted_index_slice
+
         # check slices
         for slice_ in index_slice:
             # type must be slice or tuple
-            if not isinstance(slice_, (slice, tuple, float, int)):
+            if not isinstance(
+                slice_,
+                (slice, tuple, list, _np.ndarray, float, int, _np.datetime64),
+            ):
                 raise ValueError("Invalid slice type")
 
             # if tuple, length must be two: (start, stop)
@@ -314,7 +385,7 @@ class ABCData(object):
                     updated_index_slice.append(slice(start, start + 1))
                 else:
                     updated_index_slice.append(slice(slice_, None))
-            elif isinstance(slice_, float):
+            elif isinstance(slice_, (float, _np.datetime64)):
                 start = _np.argmin(_np.abs(slice_ - a.get_coord(dim)))
                 updated_index_slice.append(slice(start, start + 1))
             else:
@@ -446,6 +517,36 @@ class ABCData(object):
             deep copy of data object
         """
         return deepcopy(self)
+
+    def __eq__(self, other):
+        if not isinstance(other, ABCData):
+            return False
+        if not _np.array_equal(self.values, other.values):
+            return False
+        if self.dims != other.dims:
+            return False
+        if len(self.coords) != len(other.coords):
+            return False
+        if not all(
+            _np.array_equal(self.coords[dim], other.coords[dim]) for dim in self.dims
+        ):
+            return False
+        if not _object_equal(self.attrs, other.attrs):
+            return False
+        if not _object_equal(
+            getattr(self, "spinlab_attrs", {}), getattr(other, "spinlab_attrs", {})
+        ):
+            return False
+        if not _object_equal(
+            getattr(self, "proc_attrs", []), getattr(other, "proc_attrs", [])
+        ):
+            return False
+        if self.error is None or other.error is None:
+            return self.error is other.error
+        return _np.array_equal(self.error, other.error)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def cumulative_sum(self, dim):
         """Calculate Cumulative sum of sldata object

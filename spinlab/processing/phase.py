@@ -3,6 +3,7 @@ from warnings import warn
 import numpy as _np
 from ..constants import constants as _const
 import scipy.optimize as _scoptimize
+from .._utils import evenly_spaced_coord_spacing, get_default_dim, reshape_along_dim
 
 # nonsymetric stencils and nonuniform stencils would be possible but might only come at a later point
 # https://en.wikipedia.org/wiki/Finite_difference_coefficient
@@ -28,18 +29,69 @@ for key, value in _fStencil.items():
         _bStencil[key] = -1 * _np.array(list(reversed(value)))
 
 
+def _phase_array(value, name):
+    value = _np.asarray(value, dtype=float)
+    if value.ndim == 0:
+        value = value.reshape(1)
+    elif value.ndim != 1:
+        raise ValueError(f"{name} must be a scalar or 1D array-like")
+    return value
+
+
+def _phase_axis(coord, pivot=None):
+    coord = _np.asarray(coord, dtype=float)
+    if coord.ndim != 1:
+        raise ValueError("phase coordinate must be one-dimensional")
+    if coord.size == 0:
+        raise ValueError("phase coordinate must contain at least one value")
+    if coord.size == 1:
+        return _np.zeros(1)
+
+    span = coord[-1] - coord[0]
+    if span == 0:
+        raise ValueError("phase coordinate cannot have zero span")
+
+    if pivot is None:
+        pivot = coord[0]
+    return (coord - pivot) / span
+
+
+def _validate_autophase_inputs(data, coords, deriv):
+    data = _np.asarray(data)
+    if data.ndim != 1:
+        raise ValueError("autophase data must be one-dimensional")
+    coords = _np.asarray(coords, dtype=float)
+    if coords.size != data.size:
+        raise ValueError("autophase coordinates must match data length")
+    if deriv not in _cStencil:
+        raise NotImplementedError(
+            "only the following derivatives orders are implemented: {0}, but {1} was selected".format(
+                _cStencil.keys(), deriv
+            )
+        )
+
+    min_size = max(len(_cStencil[deriv]), len(_fStencil[deriv]), len(_bStencil[deriv]))
+    if data.size < min_size:
+        raise ValueError("autophase data is too short for the selected derivative")
+
+    dx = evenly_spaced_coord_spacing(coords, "autophase coordinates", "autophase")
+    return data, coords, dx
+
+
 def autophase(
-    inputData, dim="f2", reference_slice=False, deriv=1, gamma=5e-3, full_proc_attr=True
+    inputData, dim=None, reference_slice=False, deriv=1, gamma=5e-3, full_proc_attr=True
 ):
     """Autophase function to phase spectral data
 
     The autophase function is based on: Chen et al., "An efficient algorithm for automatic phase correction of NMR spectra based on entropy minimization", JMR 158 (2002) 164-168
 
-    By default, the autophase function will phase all spectra independently along dim (default dimension is 'f2'). This can be changed by providing a specific dataset as a reference slice.
+    By default, the autophase function will phase all spectra independently
+    along the first dimension. This can be changed by providing a specific
+    dataset as a reference slice.
 
     Args:
-        data (SpinData):                 SpinData object containing NMR spectra
-        dim (str):                      Dimension to autophase, default = 'f2'
+        inputData (SpinData):            SpinData object containing NMR spectra
+        dim (str or None):             Dimension to autophase. If None, the first dimension is used.
         reference_slice (bool,tuple):   Tuple of (dimension, index) to select reference slice. The default value is 'False'
         deriv (int):                    Integer for derivative value (1-4, default=1)
         gamma (float):                  Scaling factor for phase optimization (default=5e-3)
@@ -48,8 +100,13 @@ def autophase(
     Returns:
         data (SpinData):                 Phased data. The function will add the attribute "autophase" = {pivot,deriv,dim,(phasetuples)}. phasetuples is only included if reference_slice is True
 
+    Examples:
+        >>> data = sl.load("path/to/data")
+        >>> phased = sl.autophase(data)
+
     """
     data = inputData.copy()
+    dim = get_default_dim(data, dim, "phase")
 
     if full_proc_attr:
         data.add_proc_attrs(
@@ -76,17 +133,16 @@ def autophase(
     if reference_slice == False:
         data.unfold(dim)
         n_spectra = data.shape[1]
+        phasetuples = []
         for k in range(n_spectra):
             spectrum = data.values[:, k].flatten()
             coords = data.coords[dim]
             ph0, ph1 = _autophase(spectrum, coords, dim, deriv, gamma)
+            phasetpl = (ph0 / _const.pi * 180, ph1 / _const.pi * 180)
+            phasetuples.append(phasetpl)
             if full_proc_attr:
-                data.proc_attrs[-1][1]["phasetuples"].append(
-                    (ph0 / _const.pi * 180, ph1 / _const.pi * 180)
-                )
-        for phasetpl, indx in zip(
-            data.proc_attrs[-1][1]["phasetuples"], range(n_spectra)
-        ):
+                data.proc_attrs[-1][1]["phasetuples"].append(phasetpl)
+        for phasetpl, indx in zip(phasetuples, range(n_spectra)):
             # make phasing here
             buff = data["fold_index", indx]
             p0, p1 = phasetpl
@@ -109,17 +165,17 @@ def autophase(
             reference_slice, dim, deriv=deriv, gamma=gamma, full_proc_attr=True
         )
         ph0, ph1 = reference_slice.proc_attrs[-1][1]["phasetuples"][0]
-        data = phase(
-            data,
-            dim=dim,
-            p0=ph0 / 2 / _const.pi * 360,
-            p1=ph1 / 2 / _const.pi * 360,
-        )
+        data = phase(data, dim=dim, p0=ph0, p1=ph1)
 
     return data
 
 
 def _deriveF(f, dx, deriv=4):
+    f = _np.asarray(f)
+    if f.ndim != 1:
+        raise ValueError("f must be one-dimensional")
+    if f.size == 0:
+        raise ValueError("f must contain at least one value")
     df = _np.zeros(f.size)  # f is 1d!
 
     global _cStencil
@@ -133,11 +189,13 @@ def _deriveF(f, dx, deriv=4):
     except KeyError:
         raise NotImplementedError(
             "only the following derivatives orders are implemented: {0}, but {1} was selected".format(
-                cStencil.keys(), deriv
+                _cStencil.keys(), deriv
             )
         )
 
     n = len(cStencil_loc)
+    if f.size < max(n, len(fStencil_loc), len(bStencil_loc)):
+        raise ValueError("f is too short for the selected derivative stencil")
 
     startInd = n // 2
     stopInd = -(n // 2)
@@ -169,20 +227,23 @@ def _deriveF(f, dx, deriv=4):
 
 def _optimfun(phaseList, data, deriv, gamma, dx, *args):
     ph0, ph1 = phaseList
-    phasingFaktor = _np.exp(
-        1.0j * (ph0 + (ph1 * _np.arange(data.size) / data.size))
-    ).astype(data.dtype)
+    phase_axis = _phase_axis(_np.arange(data.size))
+    phasingFaktor = _np.exp(1.0j * (ph0 + (ph1 * phase_axis)))
 
     # phase and take real part
     R = _np.real(data * phasingFaktor)
     dR = _deriveF(R, dx, deriv=deriv)
 
-    h = _np.abs(dR) / _np.sum(_np.abs(dR))
+    dR_abs = _np.abs(dR)
+    dR_sum = _np.sum(dR_abs)
+    P = gamma * _np.sum((R - _np.abs(R)) ** 2 / 4)
+    if dR_sum == 0:
+        return P
+
+    h = dR_abs / dR_sum
     h = h + _np.max(h) * 1e-12  # ensure positivity
 
-    P = gamma * _np.sum((R - _np.abs(R)) ** 2 / 4)
-
-    E = _np.sum(-_np.log(h) * h + P)
+    E = _np.sum(-_np.log(h) * h) + P
 
     return E
 
@@ -193,8 +254,7 @@ def _autophase(data, coords, dim, deriv, gamma):
     # "simplex" method: https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method
     # https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fmin.html#scipy.optimize.fmin
 
-    raw_data = data
-    dx = _np.diff(coords)[0]
+    raw_data, coords, dx = _validate_autophase_inputs(data, coords, deriv)
 
     # fopt, iterations, funcalls, warnflag, allvecs
     xopt, fopt, iter, funcalls, warnflags = _scoptimize.fmin(
@@ -215,36 +275,46 @@ def _autophase(data, coords, dim, deriv, gamma):
     return ph0, ph1
 
 
-def phase_cycle(data, dim, receiver_phase):
+def phase_cycle(data, dim=None, receiver_phase=None):
     """Apply phase cycle to data
 
     Args:
-        all_data (sldata_collection, sldata): data to process
-        dim (str): dimension to perform phase cycle
+        data (SpinData): data to process
+        dim (str or None): dimension to perform phase cycle. If None, the first dimension is used.
         receiver_phase (numpy.array, list): Receiver Phase 0 (x), 1 (y), 2 (-x), 3 (-y)
 
     Returns:
         sldata: data object after phase cycle applied
+
+    Examples:
+        >>> data = sl.load("path/to/data")
+        >>> cycled = sl.phase_cycle(data, receiver_phase=[0, 1, 2, 3])
     """
 
     out = data.copy()
+    dim = get_default_dim(out, dim, "phase")
 
     if dim not in out.dims:
         raise ValueError("dim not in dims")
+    if receiver_phase is None:
+        raise ValueError("receiver_phase must be provided")
 
     coord = out.coords[dim]
     receiver_phase = _np.array(receiver_phase).ravel()
+    if receiver_phase.size == 0:
+        raise ValueError("receiver_phase must contain at least one value")
+    if coord.size % receiver_phase.size != 0:
+        raise ValueError(
+            "receiver_phase length must divide the selected dimension length"
+        )
 
     proc_parameters = {"dim": dim, "receiver_phase": receiver_phase}
 
     receiver_phase = _np.tile(receiver_phase, int(coord.size / receiver_phase.size))
 
-    index = out.dims.index(dim)
-
-    reshape_size = [1 for k in out.dims]
-    reshape_size[index] = len(out.coords[dim])
-
-    out *= _np.exp(-1j * (_const.pi / 2.0) * receiver_phase.reshape(reshape_size))
+    out *= _np.exp(
+        -1j * (_const.pi / 2.0) * reshape_along_dim(receiver_phase, out, dim)
+    )
 
     proc_attr_name = "phasecycle"
     out.add_proc_attrs(proc_attr_name, proc_parameters)
@@ -252,12 +322,12 @@ def phase_cycle(data, dim, receiver_phase):
     return out
 
 
-def phase(data, dim="f2", p0=0.0, p1=0.0, pivot=None):
+def phase(data, dim=None, p0=0.0, p1=0.0, pivot=None):
     """Apply phase correction to SpinData object
 
     Args:
         data (SpinData): Data object to phase
-        dim (str): Dimension to phase, default is "f2"
+        dim (str or None): Dimension to phase. If None, the first dimension is used.
         p0 (float, array): Zero order phase correction (degree, 0 - 360)
         p1 (float, array): First order phase correction (degree, 0 - 360)
         pivot (float): Pivot point for first order phase correction
@@ -269,23 +339,23 @@ def phase(data, dim="f2", p0=0.0, p1=0.0, pivot=None):
 
         0th-order phase correction of 1D or 2D SpinData object. If the SpinData object has multiple 1D spectra the same phase p0 is applied to all spectra.
 
-        >>> data = sl.phase(data,p0)
+        >>> data = sl.load("path/to/data")
+        >>> data = sl.phase(data, p0=15)
 
         0th-order phase correction of all spectra of a 2D SpinData object using a (numpy) array p0 of phases:
 
         >>> p0 = np.array([15, 15, 5, -5, 0])
-        >>> data = sl.phase(data, p0)
+        >>> data = sl.phase(data, p0=p0)
 
     .. Note::
         A 2D SpinData object can either be phase using a single p0 (p1) value, or using an array of phases. When using an array, the size of the phase array has to be equal to the number of spectra to be phased.
 
     """
     # get rid of discontuity of mod @0
-    if not isinstance(p0, _np.ndarray):
-        p0 = _np.array([p0])
+    dim = get_default_dim(data, dim, "phase")
 
-    if not isinstance(p1, _np.ndarray):
-        p1 = _np.array([p1])
+    p0 = _phase_array(p0, "p0")
+    p1 = _phase_array(p1, "p1")
 
     p0_neg = [x for x in range(len(p0)) if p0[x] < 0]
     p1_neg = [x for x in range(len(p1)) if p1[x] < 0]
@@ -293,7 +363,7 @@ def phase(data, dim="f2", p0=0.0, p1=0.0, pivot=None):
     p0 = _np.asarray(_np.mod(_np.abs(p0), 360))
     p1 = _np.asarray(_np.mod(_np.abs(p1), 360))
     p0[p0_neg] = p0[p0_neg] * -1
-    p0[p1_neg] = p0[p1_neg] * -1
+    p1[p1_neg] = p1[p1_neg] * -1
 
     p0 = _np.array(p0 * _const.pi / 180.0)  # p0 in radians
     p1 = _np.array(p1 * _const.pi / 180.0)  # p1 in radians
@@ -301,6 +371,11 @@ def phase(data, dim="f2", p0=0.0, p1=0.0, pivot=None):
     out = data.copy()
     out.unfold(dim)
     coord = out.coords[dim]
+    n_spectra = out.values.shape[1]
+    if p0.size not in (1, n_spectra):
+        raise ValueError("p0 must be a scalar or match the number of spectra")
+    if p1.size not in (1, n_spectra):
+        raise ValueError("p1 must be a scalar or match the number of spectra")
 
     # print(p1,(p1.reshape(1, -1) * _np.arange(coord.size).reshape(-1, 1) / coord.size)[-1] )
 
@@ -308,7 +383,7 @@ def phase(data, dim="f2", p0=0.0, p1=0.0, pivot=None):
         1.0j
         * (
             p0.reshape(1, -1)
-            + (p1.reshape(1, -1) * _np.arange(coord.size).reshape(-1, 1) / coord.size)
+            + (p1.reshape(1, -1) * _phase_axis(coord, pivot).reshape(-1, 1))
         )
     )
 
@@ -346,7 +421,7 @@ def autophase_dep(
     reference_slice=None,
     force_positive=False,
 ):
-    """Automatically phase correct data, or apply manual phase correction
+    r"""Automatically phase correct data, or apply manual phase correction
 
     This function is deprecated and will be removed from SpinLab on 10/01/2023
 
@@ -463,7 +538,7 @@ def autophase_dep(
                                 for indx in range(ind_shape)
                             ]
                         ).reshape(pts_lim, ind_shape)
-            phases_0 = _np.linspace(-pi / 2, pi / 2, 180).reshape(-1)
+            phases_0 = _np.linspace(-_const.pi / 2, _const.pi / 2, 180).reshape(-1)
             rotated_data = (temp_data.reshape(-1, 1)) * _np.exp(-1j * phases_0)
             real_imag_ratio = (_np.real(rotated_data) ** 2).sum(axis=0) / (
                 (_np.imag(rotated_data) ** 2).sum(axis=0)
@@ -476,15 +551,18 @@ def autophase_dep(
         out.values *= _np.exp(-1j * out.attrs["phase0"])
     elif order == "first":
         if method == "manual":
-            out.attrs["phase1"] = phase
+            out.attrs["phase1"] = _np.asarray(phase)
         else:
-            pivot_ratio = pivot / len(out.values)
+            dim_length = shape_data[index]
+            pivot_ratio = pivot / dim_length
             out.attrs["phase1"] = _np.linspace(
                 out.attrs["phase0"] - delta * pivot_ratio,
                 out.attrs["phase0"] + delta * (1 - pivot_ratio),
-                len(out.values),
+                dim_length,
             )
-        out.values.T.dot(_np.exp(-1j * out.attrs["phase1"]))
+        reshape_size = [1 for k in out.dims]
+        reshape_size[index] = shape_data[index]
+        out.values *= _np.exp(-1j * out.attrs["phase1"].reshape(reshape_size))
 
     else:
         raise TypeError("Invalid order or order & phase pair")

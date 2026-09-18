@@ -2,12 +2,11 @@ import numpy as _np
 
 from ..constants import constants as _const
 
-
 _UNIT_CONVERSIONS = {
-    "rad/s": 1.0,
-    "Hz": 1.0 / (2 * _const.pi),
-    "MHz": 1.0 / (2 * _const.pi * 1e6),
-    "GHz": 1.0 / (2 * _const.pi * 1e9),
+    "Hz": 1.0,
+    "MHz": 1.0e-6,
+    "GHz": 1.0e-9,
+    "rad/s": 2 * _const.pi,
 }
 
 
@@ -25,19 +24,31 @@ def distance_to_dipolar_coupling(r, g1=_const.ge, g2=_const.ge, unit="Hz"):
 
     .. math::
 
-        \omega_{dd} = \frac{\mu_0}{4\pi} \frac{g_1 g_2 \mu_B^2}{\hbar r^3}
+        \nu_{dd} = \frac{\mu_0}{4\pi} \frac{g_1 g_2 \mu_B^2}{h r^3}
+
+    Example:
+        Calculate the dipolar coupling for two electrons separated by 2 nm:
+
+        >>> import spinlab as sl
+        >>> nu = sl.distance_to_dipolar_coupling(2e-9, unit="MHz")
+        >>> round(nu, 2)
+        6.51
 
     """
     r_m = _np.asarray(r, dtype=float)
 
-    omega_dd = (_const.mu_0 / (4 * _const.pi)) * (g1 * g2 * _const.mub**2) / (_const.hbar * r_m**3)
+    nu_dd = (
+        (_const.mu_0 / (4 * _const.pi))
+        * (g1 * g2 * _const.mub**2)
+        / (_const.h * r_m**3)
+    )
 
     if unit not in _UNIT_CONVERSIONS:
         raise ValueError(
             f"Unknown unit '{unit}'. Choose from {list(_UNIT_CONVERSIONS.keys())}."
         )
 
-    return omega_dd * _UNIT_CONVERSIONS[unit]
+    return nu_dd * _UNIT_CONVERSIONS[unit]
 
 
 def sphere_orientations(n):
@@ -50,6 +61,16 @@ def sphere_orientations(n):
     Returns:
         tuple: (theta, phi) arrays of polar and azimuthal angles in radians.
             Theta ranges over [0, pi], phi over [0, 2*pi].
+
+    Example:
+        Generate orientations and verify they lie on the unit sphere:
+
+        >>> import spinlab as sl
+        >>> import numpy as np
+        >>> theta, phi = sl.sphere_orientations(10)
+        >>> r = np.sqrt(np.sin(theta)**2 + np.cos(theta)**2)
+        >>> np.allclose(r, 1.0)
+        True
 
     """
     n = int(n)
@@ -89,6 +110,14 @@ def sphere_quadrature(n_theta, n_phi):
             weights incorporate the solid angle element and are normalized
             to sum to one.
 
+    Example:
+        Generate quadrature nodes and verify the weights sum to one:
+
+        >>> import spinlab as sl
+        >>> theta, phi, weights = sl.sphere_quadrature(50, 1)
+        >>> round(weights.sum(), 10)
+        1.0
+
     """
     cos_theta, w_theta = _np.polynomial.legendre.leggauss(n_theta)
     theta_nodes = _np.arccos(cos_theta)
@@ -103,14 +132,13 @@ def sphere_quadrature(n_theta, n_phi):
     return theta, phi, weights
 
 
-def pake_pattern(freq, theta, phi, coupling, linewidth, weights=None):
+def pake_pattern(freq, theta, coupling, linewidth, weights=None):
     r"""Calculate the Pake pattern for a dipolar-coupled spin pair.
 
     Args:
         freq (array_like): Frequency axis in Hz.
         theta (array_like): Polar angles in radians from
             :func:`sphere_quadrature` or :func:`sphere_orientations`.
-        phi (array_like): Azimuthal angles in radians.
         coupling (float): Dipolar coupling constant in Hz from
             :func:`distance_to_dipolar_coupling`.
         linewidth (float): Lorentzian line broadening in Hz.
@@ -125,10 +153,22 @@ def pake_pattern(freq, theta, phi, coupling, linewidth, weights=None):
 
     .. math::
 
-        \nu(\theta) = \nu_{dd} \frac{3 \cos^2\theta - 1}{2}
+        \nu(\theta) = \nu_{dd} (3 \cos^2\theta - 1)
 
     Broadening is applied as a convolution via multiplication with an
     exponential decay in the time domain.
+
+    Example:
+        Simulate a Pake pattern for two electrons at 2 nm:
+
+        >>> import spinlab as sl
+        >>> import numpy as np
+        >>> freq = np.linspace(-20e6, 20e6, 2049)
+        >>> theta, phi, weights = sl.sphere_quadrature(200, 1)
+        >>> nu_dd = sl.distance_to_dipolar_coupling(2e-9)
+        >>> spectrum = sl.pake_pattern(freq, theta, nu_dd, 0.5e6, weights)
+        >>> spectrum.shape
+        (2049,)
 
     """
     freq = _np.asarray(freq, dtype=float)
@@ -145,7 +185,7 @@ def pake_pattern(freq, theta, phi, coupling, linewidth, weights=None):
     t = _np.arange(n_points) * dt
 
     cos2 = _np.cos(theta) ** 2
-    freqs_pos = coupling * (3 * cos2 - 1) / 2
+    freqs_pos = coupling * (3 * cos2 - 1)
     freqs_neg = -freqs_pos
 
     fid = _np.sum(

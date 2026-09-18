@@ -14,7 +14,7 @@ from . import vna
 from . import tnmr
 from . import random
 from . import load_csv
+from . import speclog
 from . import rs2d
 from . import mat
 from . import logs
-from . import ciqtek

@@ -15,6 +15,13 @@ def decay2Ce(decay_time, gA, gB, FB):
         gA, gB:                 (isotropic) g-values of spin A and B
         FB:                     Fraction of B spins excited by pump pulse
                                 (DEER modulation depth)
+
+    Returns:
+        float: Effective concentration.
+
+    Examples:
+
+        >>> Ce = sl.decay2Ce(decay_time=1.5e-6, gA=2.0, gB=2.1, FB=0.3)
     """
 
     # Eq. 13.3.5 (p. 415)
@@ -26,22 +33,33 @@ def decay2Ce(decay_time, gA, gB, FB):
 
 
 def convert_power(data, mode="dBm2W"):
-    """Convert power in dBm to power in W and vice versa
+    """Convert power between dBm and W.
 
-    Convert power in dBm to power in W and vice versa
+    For SpinData input, the coordinate whose dimension is named "Power" or
+    "powers" is converted. If ``spinlab_attrs["power_unit"]`` is present, it
+    determines the conversion direction regardless of ``mode``. Otherwise,
+    ``mode`` determines the conversion direction.
 
-    If power_unit exists in the SpinData object, the function will automatically convert the power, regardless the mode.
-
-    If power_unit doesn't exist, the function will be performed in the default mode.
-
-    If data is not SpinLab object, the function will be performed based on the mode.
+    Non-SpinData input is converted directly according to ``mode``.
 
     Args:
-        data (SpinData, array, list, float or int)
-        mode (str): By default, the function convert power in dBm to power in W
+        data (SpinData, array, list, float or int): Power values or SpinData
+            with a power coordinate.
+        mode (str): "dBm2W" or "W2dBm". Defaults to "dBm2W".
 
     Returns:
         out (SpinData, array, list, float or int)
+
+    Raises:
+        ValueError: If no power dimension is found, power_unit is invalid, or
+            mode is invalid.
+
+    Examples:
+
+        >>> data = sl.load("path/to/data")
+        >>> data = sl.convert_power(data)
+        >>> powers_w = sl.convert_power([0, 10, 20], mode="dBm2W")
+        >>> powers_dbm = sl.convert_power([0.001, 0.01, 0.1], mode="W2dBm")
 
     """
     if isinstance(data, SpinData):
@@ -51,7 +69,7 @@ def convert_power(data, mode="dBm2W"):
             if dim.lower() == "power" or dim.lower() == "powers":
                 break
             elif dim == dims[-1]:
-                raise Warning("Power is not in dim")
+                raise ValueError("Power is not in dim")
             else:
                 continue
 
@@ -61,7 +79,7 @@ def convert_power(data, mode="dBm2W"):
             elif out.spinlab_attrs["power_unit"] == "W":
                 mode = "W2dBm"
             else:
-                raise Warning("Power unit in spinlab_attrs is invalid")
+                raise ValueError("Power unit in spinlab_attrs is invalid")
 
         if mode.lower() == "dbm2w":
             power_unit = "W"
@@ -70,7 +88,7 @@ def convert_power(data, mode="dBm2W"):
             power_unit = "dBm"
             f = w2dBm
         else:
-            raise Warning("Mode is not acceptable")
+            raise ValueError("Mode is not acceptable")
 
         out.coords[dim] = f(out.coords[dim])
         proc_parameters = {
@@ -88,7 +106,7 @@ def convert_power(data, mode="dBm2W"):
         elif mode.lower() == "w2dbm":
             f = w2dBm
         else:
-            raise Warning("Mode is not acceptable")
+            raise ValueError("Mode is not acceptable")
         return f(data)
 
 
@@ -101,11 +119,27 @@ def dBm2w(power_in_dBm):
         power_in_dBm (array, list, float or int): Power in (dBm)
 
     Returns:
-        float (array, list, float or int): Power in (W)
+        float (array, list, float or int): Power in (W). Numpy array outputs are
+            floating-point arrays.
+
+    Examples:
+
+        >>> sl.dBm2w(0)
+        0.001
+        >>> sl.dBm2w([0, 10, 20])
+        [0.001, 0.01, 0.1]
+        >>> sl.dBm2w(np.array([0, 10, 20]))
+        array([0.001, 0.01 , 0.1  ])
 
     """
 
-    if isinstance(power_in_dBm, (_np.ndarray, list)):
+    if isinstance(power_in_dBm, _np.ndarray):
+        power_in_W = power_in_dBm.astype(float, copy=True)
+        for index in range(len(power_in_dBm)):
+            power_in_W[index] = dBm2w(power_in_dBm[index])
+        return power_in_W
+
+    elif isinstance(power_in_dBm, list):
         power_in_W = power_in_dBm.copy()
         for index in range(len(power_in_dBm)):
             power_in_W[index] = dBm2w(power_in_dBm[index])
@@ -120,7 +154,7 @@ def dBm2w(power_in_dBm):
 
 
 def w2dBm(power_in_W):
-    """Convert power in W to power in dbM
+    """Convert power in W to power in dBm
 
     Convert a microwave power given in W to dBm
 
@@ -128,10 +162,26 @@ def w2dBm(power_in_W):
         power_in_W (array, list, float or int):   Power in (W)
 
     Returns:
-        float (array, list, float or int): Power in (dBm)
+        float (array, list, float or int): Power in (dBm). Numpy array outputs
+            are floating-point arrays.
+
+    Examples:
+
+        >>> sl.w2dBm(0.001)
+        0.0
+        >>> sl.w2dBm([0.001, 0.01, 0.1])
+        [0.0, 10.0, 20.0]
+        >>> sl.w2dBm(np.array([0.001, 0.01, 0.1]))
+        array([ 0., 10., 20.])
 
     """
-    if isinstance(power_in_W, (_np.ndarray, list)):
+    if isinstance(power_in_W, _np.ndarray):
+        power_in_dBm = power_in_W.astype(float, copy=True)
+        for index in range(len(power_in_W)):
+            power_in_dBm[index] = w2dBm(power_in_W[index])
+        return power_in_dBm
+
+    elif isinstance(power_in_W, list):
         power_in_dBm = power_in_W.copy()
         for index in range(len(power_in_W)):
             power_in_dBm[index] = w2dBm(power_in_W[index])
@@ -146,13 +196,16 @@ def w2dBm(power_in_W):
 def tp90_B1(tp90):
     """Calculate B1 field strength from 90 degree pulse length.
 
-    Calculate B1 field strength from 90 degree pulse length.
-
     Args:
         tp90 (float):       Pulse length of the 90 degree pulse (s)
 
     Returns:
         B1 (float):         B1 field strength (Hz)
+
+    Examples:
+
+        >>> sl.tp90_B1(10e-9)
+        25000000.0
     """
 
     B1_Hz = 1 / tp90 / 4
@@ -161,9 +214,12 @@ def tp90_B1(tp90):
 
 
 def calc_tp90(c, P, Q=1, alpha=0, verbose=False):
-    """Calculate 90 degree pulse length
+    r"""Calculate 90 degree pulse length
 
-    Calculate 90 degree pulse length (tp90) from probe conversion factor, and applied RF power. Optionally, the quality factor and attenuation can be given as input arguments. The function returns the pulse length in (ns). A formatted output can be generated when setting the verbose flag to True.
+    Calculate 90 degree pulse length (tp90) from probe conversion factor and
+    applied RF power. Optionally, the quality factor and attenuation can be
+    given as input arguments. A formatted output can be generated when setting
+    the verbose flag to True.
 
     Args:
         c (float):          Probe conversion factor (G/sqrt(W))
@@ -173,9 +229,20 @@ def calc_tp90(c, P, Q=1, alpha=0, verbose=False):
         verbose (boolean):  Optionally, return results in formatted output
 
     Returns:
-        tp90 (float):       90 degree pulse length (ns)
+        tp90 (float):       90 degree pulse length
+
+    Examples:
+
+        >>> tp90 = sl.calc_tp90(c=120.0, P=0.5, Q=2.0, alpha=3.0)
+        >>> tp90 > 0
+        True
 
     .. math::
+
+        P_\mathrm{probe} &= \frac{P}{10^{\alpha / 10}} \\
+        B_1(\mathrm{G}) &= c \sqrt{P_\mathrm{probe} Q} \\
+        B_1(\mathrm{MHz}) &= 2.804 \times 10^{-6} B_1(\mathrm{G}) \\
+        t_{90} &= \frac{1}{4 B_1(\mathrm{MHz})} \times 10^{-12}
 
     """
 
@@ -203,9 +270,12 @@ def calc_tp90(c, P, Q=1, alpha=0, verbose=False):
 
 
 def calc_conversion_factor(tp90, P, Q=1, alpha=0, verbose=False):
-    """Calculate probe conversion factor
+    r"""Calculate probe conversion factor
 
-    Calculate the probe microwave conversion factor from the 90 degree pulse length (tp90), and applied RF power. Optionally, the quality factor and attenuation can be given as input arguments. The function returns the conversion factor in (G/sqrt(W)). A formatted output can be generated when setting the verbose flag to True.
+    Calculate the probe microwave conversion factor from the 90 degree pulse
+    length (tp90) and applied RF power. Optionally, the quality factor and
+    attenuation can be given as input arguments. A formatted output can be
+    generated when setting the verbose flag to True.
 
     Args:
         tp90 (float):       90 degree pulse length (ns)
@@ -217,16 +287,25 @@ def calc_conversion_factor(tp90, P, Q=1, alpha=0, verbose=False):
     Returns:
         c (float):          Probe conversion factor (G/sqrt(W))
 
+    Examples:
+
+        >>> tp90 = sl.calc_tp90(c=120.0, P=0.5, Q=2.0, alpha=3.0)
+        >>> c = sl.calc_conversion_factor(tp90, P=0.5, Q=2.0, alpha=3.0)
+        >>> round(c)
+        120
+
     .. math::
+
+        P_\mathrm{probe} &= \frac{P}{10^{\alpha / 10}} \\
+        B_1(\mathrm{MHz}) &= \frac{1}{4 t_{90}} \times 10^{-12} \\
+        B_1(\mathrm{G}) &= \frac{B_1(\mathrm{MHz})}{2.804 \times 10^{-6}} \\
+        c &= \frac{B_1(\mathrm{G})}{\sqrt{P_\mathrm{probe} Q}}
 
     """
 
     power_at_probe = P / (10 ** (alpha / 10))
 
     b1_mhz = 1 / tp90 / 4 * 1e-12
-
-    b1_Hz = 1 / tp90 / 4
-    print(b1_Hz * 1e-6)
 
     b1_g = b1_mhz / 2.804e-6
 
@@ -245,3 +324,5 @@ def calc_conversion_factor(tp90, P, Q=1, alpha=0, verbose=False):
         print("B1 Field Strength (G):           ", b1_g)
         print("B1 Field Strength (MHz):         ", b1_mhz * 1e6)
         print("Conversion Factor c (G/sqrt(W)): ", c)
+
+    return c
