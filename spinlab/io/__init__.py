@@ -18,3 +18,4 @@ from . import speclog
 from . import rs2d
 from . import mat
 from . import logs
+from . import esr5000

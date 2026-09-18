@@ -1,6 +1,8 @@
 import unittest
 import spinlab as sl
 import os
+import warnings
+import numpy as _np
 from numpy.testing import assert_array_equal
 import logging
 
@@ -218,6 +220,236 @@ class bes3t_import_tester(unittest.TestCase):
         self.assertEqual(data.attrs["frequency"], 9.834281)
         self.assertEqual(data.coords["t1"][0], 1499.95)
         self.assertEqual(data.coords["t1"][-1], 1500.0500000000002)
+
+
+class esr5000_import_tester(unittest.TestCase):
+    def setUp(self):
+        self.test_data_coffee = os.path.join(".", "data", "esr5000", "Coffee.xml")
+        self.test_data_bitumen = os.path.join(".", "data", "esr5000", "Bitumen.xml")
+
+    def test_import_esr5000_coffee(self):
+        data = sl.load(self.test_data_coffee, data_format="esr5000")
+        self.assertEqual(data.dims, ["B0"])
+        self.assertEqual(data.values.shape, (3107,))
+        self.assertEqual(data.attrs["frequency"], 9.45816496965447)
+        self.assertEqual(data.attrs["q_value"], 2051.4248046875)
+        self.assertEqual(data.attrs["nscans"], 1)
+        self.assertAlmostEqual(data.coords["B0"][0], 331.53399658203125)
+        self.assertAlmostEqual(data.coords["B0"][-1], 342.0386657714844)
+        # default signal is "absorption" -- the real-valued channel
+        # matching ESRStudio's own .DSC/.DTA exports
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertAlmostEqual(data.values[365], 3.7853982239281443)
+
+    def test_import_esr5000_bitumen(self):
+        data = sl.load(self.test_data_bitumen, data_format="esr5000")
+        self.assertEqual(data.dims, ["B0"])
+        self.assertEqual(data.values.shape, (5892,))
+        self.assertEqual(data.attrs["frequency"], 9.47938556968456)
+        self.assertEqual(data.attrs["q_value"], -1.0)
+        self.assertEqual(data.attrs["nscans"], 10)
+        self.assertAlmostEqual(data.coords["B0"][0], 86.6401850382487)
+        self.assertAlmostEqual(data.coords["B0"][-1], 590.5849609375)
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertAlmostEqual(data.values[365], -6.636497485025046)
+
+    def test_import_esr5000_complex(self):
+        # real part is the sinus channel, imaginary part is the cosinus
+        # channel -- see the "complex" note in import_esr5000's docstring
+        for path, expected in [
+            (self.test_data_coffee, -75.49862990973563 - 11.63869396713729j),
+            (self.test_data_bitumen, -95.66189177853802 - 13.73977131689887j),
+        ]:
+            data = sl.load(path, data_format="esr5000", signal="complex")
+            self.assertTrue(_np.iscomplexobj(data.values))
+            self.assertAlmostEqual(data.values[365], expected)
+
+    def test_import_esr5000_signal_flag(self):
+        for path, idx, sinus, cosinus, absorption in [
+            (
+                self.test_data_coffee,
+                365,
+                -75.49862990973563,
+                -11.63869396713729,
+                3.7853982239281443,
+            ),
+            (
+                self.test_data_bitumen,
+                365,
+                -95.66189177853802,
+                -13.73977131689887,
+                -6.636497485025046,
+            ),
+        ]:
+            data_sinus = sl.load(path, data_format="esr5000", signal="sinus")
+            data_cosinus = sl.load(path, data_format="esr5000", signal="cosinus")
+            data_absorption = sl.load(path, data_format="esr5000", signal="absorption")
+            self.assertTrue(_np.isrealobj(data_sinus.values))
+            self.assertTrue(_np.isrealobj(data_cosinus.values))
+            self.assertTrue(_np.isrealobj(data_absorption.values))
+            self.assertAlmostEqual(data_sinus.values[idx], sinus)
+            self.assertAlmostEqual(data_cosinus.values[idx], cosinus)
+            self.assertAlmostEqual(data_absorption.values[idx], absorption)
+
+        with self.assertRaises(ValueError):
+            sl.load(self.test_data_coffee, data_format="esr5000", signal="bogus")
+
+    def test_import_esr5000_raw(self):
+        data = sl.load(self.test_data_coffee, data_format="esr5000", raw=True)
+        self.assertEqual(data.dims, ["t2"])
+        self.assertEqual(data.values.shape, (15529,))
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertAlmostEqual(data.coords["t2"][0], 0.045)
+        self.assertAlmostEqual(data.coords["t2"][1], 0.047)
+        self.assertAlmostEqual(data.values[0], 0.0)
+        self.assertAlmostEqual(data.values[-1], -4.705190860668182)
+        # BField, reconstructed onto the same native time axis, is not the
+        # untouched raw signal -- it is provided separately in attrs.
+        self.assertEqual(len(data.attrs["field_raw"]), 3107)
+        self.assertAlmostEqual(data.attrs["field_raw"][0], 331.53399658203125)
+        self.assertAlmostEqual(data.attrs["field_raw"][-1], 342.0386657714844)
+        self.assertEqual(len(data.attrs["field_raw_time"]), 3107)
+
+        data_complex = sl.load(
+            self.test_data_coffee, data_format="esr5000", signal="complex", raw=True
+        )
+        self.assertEqual(data_complex.dims, ["t2"])
+        self.assertEqual(data_complex.values.shape, (31148,))
+        self.assertTrue(_np.iscomplexobj(data_complex.values))
+
+        with self.assertRaises(ValueError):
+            sl.load(
+                self.test_data_coffee,
+                data_format="esr5000",
+                raw=True,
+                resolution=100,
+            )
+
+    def test_import_esr5000_resolution(self):
+        # downsampling below the native 31148-point sinus/cosinus curves
+        # should not warn
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            data = sl.load(
+                self.test_data_coffee, data_format="esr5000", resolution=1000
+            )
+            self.assertEqual(data.values.shape, (1000,))
+            self.assertEqual(len(w), 0)
+
+        # requesting more points than the native raw samples should warn
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            data = sl.load(
+                self.test_data_coffee, data_format="esr5000", resolution=60000
+            )
+            self.assertEqual(data.values.shape, (60000,))
+            self.assertEqual(len(w), 1)
+            self.assertIn("exceeds", str(w[0].message))
+
+    def test_import_esr5000_resolution_matches_nominal_sweep(self):
+        # An explicit `resolution` spans the nominal sweep_start/sweep_stop
+        # (Bfrom/Bto), not the literal BField curve endpoints (which
+        # overshoot slightly) -- this is the field window vendor-exported
+        # files at a given point count use, e.g. ESRStudio's own .DSC
+        # export of the same measurement at 2000 points uses exactly
+        # 331.7-341.7, not the XML's literal 331.534-342.039.
+        data = sl.load(self.test_data_coffee, data_format="esr5000", resolution=2000)
+        self.assertAlmostEqual(data.coords["B0"][0], data.attrs["sweep_start"])
+        self.assertAlmostEqual(data.coords["B0"][-1], data.attrs["sweep_stop"])
+        self.assertAlmostEqual(data.attrs["sweep_start"], 331.7)
+        self.assertAlmostEqual(data.attrs["sweep_stop"], 341.7)
+
+        # the default (no resolution given) output is unchanged: it keeps
+        # the literal BField curve, overshoot and all
+        default_data = sl.load(self.test_data_coffee, data_format="esr5000")
+        self.assertAlmostEqual(default_data.coords["B0"][0], 331.53399658203125)
+        self.assertAlmostEqual(default_data.coords["B0"][-1], 342.0386657714844)
+
+    def test_import_esr5000_proc_attrs(self):
+        for kwargs, expected in [
+            (
+                {},
+                {
+                    "signal": "absorption",
+                    "raw": False,
+                    "resolution": None,
+                    "native_samples": 15529,
+                    "output_samples": 3107,
+                },
+            ),
+            (
+                {"resolution": 2000},
+                {
+                    "signal": "absorption",
+                    "raw": False,
+                    "resolution": 2000,
+                    "native_samples": 15529,
+                    "output_samples": 2000,
+                },
+            ),
+            (
+                {"raw": True},
+                {
+                    "signal": "absorption",
+                    "raw": True,
+                    "resolution": None,
+                    "native_samples": 15529,
+                    "output_samples": 15529,
+                },
+            ),
+        ]:
+            data = sl.load(self.test_data_coffee, data_format="esr5000", **kwargs)
+            self.assertEqual(len(data.proc_attrs), 1)
+            name, proc_dict = data.proc_attrs[0]
+            self.assertEqual(name, "esr5000_import")
+            self.assertEqual(proc_dict, expected)
+
+
+class esr5000_dipsweep_import_tester(unittest.TestCase):
+    def setUp(self):
+        self.test_data = os.path.join(".", "data", "esr5000", "DipSweep.xml")
+
+    def test_import_esr5000_dipsweep(self):
+        # A cavity tuning dip: XDatasource="Frequency", YDatasource=
+        # "ADC_24bit". Both curves are already sample-aligned (no field
+        # curve, no time-based registration needed), unlike field-sweep
+        # spectra.
+        data = sl.load(self.test_data, data_format="esr5000")
+        self.assertEqual(data.dims, ["f"])
+        self.assertEqual(data.values.shape, (1001,))
+        self.assertTrue(_np.isrealobj(data.values))
+        self.assertEqual(data.attrs["experiment_type"], "cavity_dip_sweep")
+        self.assertAlmostEqual(data.coords["f"][0], 9.412607)
+        self.assertAlmostEqual(data.coords["f"][-1], 9.432606999999999)
+        self.assertAlmostEqual(data.values[0], 4242094.5)
+        self.assertAlmostEqual(data.values[-1], 4135889.0)
+        self.assertAlmostEqual(data.values.min(), 37383.9609375)
+
+        self.assertEqual(len(data.proc_attrs), 1)
+        name, proc_dict = data.proc_attrs[0]
+        self.assertEqual(name, "esr5000_import")
+        self.assertEqual(
+            proc_dict,
+            {
+                "signal": None,
+                "raw": False,
+                "resolution": None,
+                "native_samples": 1001,
+                "output_samples": 1001,
+            },
+        )
+
+    def test_import_esr5000_dipsweep_rejects_field_sweep_options(self):
+        # signal/raw/resolution are field-sweep-only options and must be
+        # rejected (not silently ignored) on a non-field-sweep file.
+        for kwargs in [
+            {"signal": "complex"},
+            {"signal": "absorption"},
+            {"raw": True},
+            {"resolution": 500},
+        ]:
+            with self.assertRaises(ValueError):
+                sl.load(self.test_data, data_format="esr5000", **kwargs)
 
 
 class winepr_import_tester(unittest.TestCase):

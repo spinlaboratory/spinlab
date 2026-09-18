@@ -2,9 +2,20 @@ import os
 from . import *
 import re
 import warnings
+import xml.etree.ElementTree as _ET
 
 from ..core.util import concat
 from ..config.config import SpinLAB_CONFIG
+
+
+def _is_esr5000_xml(path):
+    """Check if an XML file is an ESR5000 file by inspecting the root tag."""
+    try:
+        for _, el in _ET.iterparse(path, events=["start"]):
+            return el.tag == "ESRXmlFile"
+    except Exception:
+        return False
+    return False
 
 
 def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwargs):
@@ -12,12 +23,14 @@ def load(path, data_format=None, dim=None, coord=[], verbose=False, *args, **kwa
 
     Args:
         path (str, list): Path to data directory or list of directories
-        data_format (str): format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d"
+        data_format (str): format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d", "esr5000"
         dim (str): If giving directories as list, name of dimension to concatenate data along
         coord (numpy.ndarray): If giving directories as list, coordinates of new dimension
         verbose (bool): If true, print debugging output
         *args: Additional positional arguments passed to the format-specific import function.
-        **kwargs: Additional keyword arguments passed to the format-specific import function.
+        **kwargs: Additional keyword arguments passed to the format-specific import function. For
+            data_format="esr5000", see `spinlab.io.esr5000.import_esr5000` for the available
+            "signal", "raw", and "resolution" options.
 
     Returns:
         data (slData): Data object
@@ -72,10 +85,12 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
 
     Args:
         path (str): Path to data directory or file
-        data_format (str): Format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers"
+        data_format (str): Format of spectrometer data to import (optional). Allowed values: "prospa", "topspin", "delta", "vnmrj", "tnmr", "specman", "xenon", "xepr", "winepr", "esp", "h5", "power", "vna", "cnsi_powers", "rs2d", "esr5000"
         verbose (bool): If true, print additional debug outputs
         *args: Additional positional arguments passed to the format-specific import function.
-        **kwargs: Additional keyword arguments passed to the format-specific import function.
+        **kwargs: Additional keyword arguments passed to the format-specific import function. For
+            data_format="esr5000", see `spinlab.io.esr5000.import_esr5000` for the available
+            "signal", "raw", and "resolution" options.
 
     Returns:
         data (slData): Data object
@@ -131,6 +146,9 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
     elif data_format == "rs2d":
         data = rs2d.import_rs2d(path, *args, **kwargs)
 
+    elif data_format == "esr5000":
+        data = esr5000.import_esr5000(path, *args, **kwargs)
+
     # elif data_format == "mat":
     #     data = mat.import_mat(path, *args, **kwargs)
 
@@ -151,6 +169,7 @@ def load_file(path, data_format=None, verbose=False, *args, **kwargs):
         "mat",
         "csv",
         "speclog",
+        "esr5000",
     ]:
         data = _assign_spinlab_attrs(data, data_format)
 
@@ -220,6 +239,8 @@ def autodetect(test_path, verbose=False):
         data_format = "prospa"
     elif path_exten == ".h5":
         data_format = "h5"
+    elif path_exten == ".xml" and _is_esr5000_xml(test_path):
+        data_format = "esr5000"
     elif path_exten in [".xml", ".dat"]:
         data_format = "rs2d"
     elif path_exten in [".mat"]:
