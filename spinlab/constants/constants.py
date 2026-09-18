@@ -7,7 +7,7 @@ e_gyro = pc["electron gyromag. ratio in MHz/T"][0]
 p_gyro = pc["proton gyromag. ratio in MHz/T"][0]
 mub = pc["Bohr magneton"][0]
 mub_Hz = pc["Bohr magneton in Hz/T"][0]
-
+ge = pc["electron g factor"][0]
 
 __all__ = [
     "mu_0",
@@ -24,4 +24,5 @@ __all__ = [
     "eV",
     "mub",
     "mub_Hz",
+    "ge",
 ]

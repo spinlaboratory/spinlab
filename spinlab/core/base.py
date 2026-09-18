@@ -282,6 +282,12 @@ class ABCData(object):
 
             data['x', 4.5] # return data indexing down "x" dim with "x" coords nearest to 4.5
 
+            data['time', '2025-01-16T00:00:06'] # nearest value on a datetime coordinate
+
+            data['channel', 'signal'] # exact value on a string coordinate
+
+            data['channel', ['signal', 'reference']] # multiple named coordinates
+
             data['x', 2:5] # return data indexing down "x" dim with index from 2 to 5
 
             data['x', (100., 150.)] # return data indexing down "x" dim where coords are range from 100 to 150
@@ -297,10 +303,57 @@ class ABCData(object):
 
         index_slice = args[1::2]
 
+        # Convert ISO timestamp strings when indexing datetime coordinates.
+        converted_index_slice = []
+        for dim, slice_ in zip(index_dims, index_slice):
+            coord = a.get_coord(dim)
+            if _np.issubdtype(coord.dtype, _np.datetime64):
+                if isinstance(slice_, str):
+                    try:
+                        slice_ = _np.datetime64(slice_)
+                    except ValueError as exc:
+                        raise ValueError(
+                            f"Invalid datetime selector for dimension {dim!r}: {slice_!r}"
+                        ) from exc
+                elif isinstance(slice_, tuple):
+                    try:
+                        slice_ = tuple(
+                            _np.datetime64(value) if isinstance(value, str) else value
+                            for value in slice_
+                        )
+                    except ValueError as exc:
+                        raise ValueError(
+                            f"Invalid datetime selector for dimension {dim!r}: {slice_!r}"
+                        ) from exc
+            elif isinstance(slice_, str):
+                matches = _np.flatnonzero(coord == slice_)
+                if matches.size == 0:
+                    raise KeyError(
+                        f"Coordinate {slice_!r} not found in dimension {dim!r}"
+                    )
+                slice_ = int(matches[0])
+            elif isinstance(slice_, (list, _np.ndarray)) and all(
+                isinstance(value, str) for value in slice_
+            ):
+                indices = []
+                for value in slice_:
+                    matches = _np.flatnonzero(coord == value)
+                    if matches.size == 0:
+                        raise KeyError(
+                            f"Coordinate {value!r} not found in dimension {dim!r}"
+                        )
+                    indices.append(int(matches[0]))
+                slice_ = _np.asarray(indices, dtype=int)
+            converted_index_slice.append(slice_)
+        index_slice = converted_index_slice
+
         # check slices
         for slice_ in index_slice:
             # type must be slice or tuple
-            if not isinstance(slice_, (slice, tuple, float, int)):
+            if not isinstance(
+                slice_,
+                (slice, tuple, list, _np.ndarray, float, int, _np.datetime64),
+            ):
                 raise ValueError("Invalid slice type")
 
             # if tuple, length must be two: (start, stop)
@@ -332,7 +385,7 @@ class ABCData(object):
                     updated_index_slice.append(slice(start, start + 1))
                 else:
                     updated_index_slice.append(slice(slice_, None))
-            elif isinstance(slice_, float):
+            elif isinstance(slice_, (float, _np.datetime64)):
                 start = _np.argmin(_np.abs(slice_ - a.get_coord(dim)))
                 updated_index_slice.append(slice(start, start + 1))
             else:
