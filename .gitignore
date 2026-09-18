@@ -69,6 +69,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 _build/
+doc/_local_build/
 .doctrees
 .DS_Store
 
@@ -82,3 +83,6 @@ desktop.ini
 
 # Environment
 .venv
+
+# Claude Code
+.claude/
