@@ -42,4 +42,9 @@ Processing
 
 .. automodule:: spinlab.processing.interpolation
    :members:
+
+Filters
+-------
+.. automodule:: spinlab.processing.filters
+   :members:
    :show-inheritance:
