@@ -3,7 +3,21 @@ import os
 from ..core.util import concat
 from ._attrs import _assign_spinlab_attrs
 from .auxiliary import cnsi, power
-from .formats import bes3t, delta, h5, mat, prospa, rs2d, specman, tnmr, topspin, vna, speclog, vnmrj, winepr
+from .formats import (
+    bes3t,
+    delta,
+    h5,
+    mat,
+    prospa,
+    rs2d,
+    specman,
+    tnmr,
+    topspin,
+    vna,
+    speclog,
+    vnmrj,
+    winepr,
+)
 
 _LOADERS = {
     "speclog": speclog.load_speclog,
