@@ -57,12 +57,13 @@ def imshow(data, *args, **kwargs):  # TODO: drop unused args and kwargs
 
     if "extent" in kwargs:
         extent = kwargs["extent"]
-        kwargs.pop(extent)
+        kwargs.pop("extent")
     else:
         extent = [x_min, x_max, y_max, y_min]
 
-    _plt.imshow(
+    image = _plt.imshow(
         data.values, *args, aspect=aspect, extent=extent, origin=origin, **kwargs
     )
     _plt.xlabel(dims[1])
     _plt.ylabel(dims[0])
+    return image

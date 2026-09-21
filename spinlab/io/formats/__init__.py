@@ -7,6 +7,7 @@ from . import load_csv
 from . import mat
 from . import prospa
 from . import rs2d
+from . import speclog
 from . import specman
 from . import tnmr
 from . import topspin

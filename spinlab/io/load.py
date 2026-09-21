@@ -3,10 +3,10 @@ import os
 from ..core.util import concat
 from ._attrs import _assign_spinlab_attrs
 from .auxiliary import cnsi, power
-from .formats import bes3t, delta, h5, mat, prospa, rs2d, specman, tnmr, topspin, vna
-from .formats import vnmrj, winepr
+from .formats import bes3t, delta, h5, mat, prospa, rs2d, specman, tnmr, topspin, vna, speclog, vnmrj, winepr
 
 _LOADERS = {
+    "speclog": speclog.load_speclog,
     "prospa": prospa.import_prospa,
     "topspin": topspin.import_topspin,
     "topspin pdata": topspin.load_pdata,
@@ -26,7 +26,7 @@ _LOADERS = {
     "rs2d": rs2d.import_rs2d,
 }
 
-_SKIP_SPINLAB_ATTRS = {"h5", "mat", "power", "vna", "cnsi_powers"}
+_SKIP_SPINLAB_ATTRS = {"h5", "mat", "power", "vna", "cnsi_powers", "speclog"}
 
 
 def _format_names():
@@ -55,7 +55,7 @@ def load(path, data_format=None, dim=None, coord=None, verbose=False, *args, **k
             from the path. Allowed values include ``prospa``, ``topspin``,
             ``delta``, ``vnmrj``, ``tnmr``, ``specman``, ``xenon``, ``xepr``,
             ``winepr``, ``esp``, ``h5``, ``mat``, ``power``, ``vna``,
-            ``cnsi_powers``, and ``rs2d``.
+            ``cnsi_powers``, ``speclog``, and ``rs2d``.
         dim (str): Name of the concatenation dimension when ``path`` is a list.
         coord (array-like): Coordinates for the concatenation dimension.
         verbose (bool): If True, print debugging output.
@@ -76,6 +76,15 @@ def load(path, data_format=None, dim=None, coord=None, verbose=False, *args, **k
         ... )
     """
     if isinstance(path, (list, tuple)):
+        if dim is None and coord is None:
+            formats = [
+                _normalize_data_format(data_format)
+                or _detect_load_format(filename, verbose=verbose)
+                for filename in path
+            ]
+            if formats and all(fmt == "speclog" for fmt in formats):
+                return speclog.load_speclog(path, *args, verbose=verbose, **kwargs)
+
         if coord is not None and len(coord) == 0:
             coord = None
         if coord is not None and len(coord) != len(path):
@@ -198,6 +207,11 @@ def _detect_load_format(test_path, verbose=False):
         data_format = "rs2d"
     elif path_exten == ".mat":
         data_format = "mat"
+    elif path_exten.lower() == ".csv":
+        if os.path.basename(test_path).lower().startswith("log_"):
+            data_format = "speclog"
+        else:
+            data_format = "csv"
     else:
         raise TypeError(
             "No data format given and autodetect failed to detect format, please specify a format"
