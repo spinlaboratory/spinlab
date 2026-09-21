@@ -14,6 +14,6 @@ from .phase import *
 from .conversion import *
 from .average import *
 from .interpolation import *
-from .smoothing import *
+from .filters import *
 from .snr import *
 from .helpers import *
