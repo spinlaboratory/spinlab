@@ -18,7 +18,7 @@ class slTools_tester(unittest.TestCase):
         self.data = sl.SpinData(y, ["t2"], [x])
         self.testdata = os.path.join(".", "data", "csv")
         p = pathlib.Path(self.testdata)
-        self.data = sl.io.load_csv.load_csv(
+        self.data = sl.io.formats.load_csv.load_csv(
             p.joinpath("csv_example.csv"),
             skiprows=1,
             maxrows=1000,

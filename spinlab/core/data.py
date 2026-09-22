@@ -35,10 +35,10 @@ class SpinData(ABCData):
     def __init__(
         self,
         values=_np.r_[[]],
-        dims=[],
-        coords=[],
-        attrs={},
-        spinlab_attrs={},
+        dims=None,
+        coords=None,
+        attrs=None,
+        spinlab_attrs=None,
         proc_attrs=None,
         **kwargs,
     ):
@@ -54,6 +54,14 @@ class SpinData(ABCData):
             spinlab_attrs (dict): dictionary of parameters used in spinlab
             pro_attrs (list): list of processing steps and arguments
         """
+        if dims is None:
+            dims = []
+        if coords is None:
+            coords = []
+        if attrs is None:
+            attrs = {}
+        if spinlab_attrs is None:
+            spinlab_attrs = {}
 
         if len(dims) > 0 and isinstance(dims[0], list):
             dims = dims[0]

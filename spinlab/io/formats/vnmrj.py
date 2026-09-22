@@ -1,7 +1,8 @@
 import numpy as _np
 import os
 
-from .. import SpinData
+from ... import SpinData
+from .._verbose import verbose_data_summary, verbose_print
 
 from struct import unpack
 
@@ -194,7 +195,7 @@ def import_procpar(path, filename="procpar"):
                 paramDict[name] = value
 
 
-def import_vnmrj(path, fidFilename="fid", paramFilename="procpar"):
+def import_vnmrj(path, fidFilename="fid", paramFilename="procpar", verbose=False):
     """Import VnmrJ Data
 
     Args:
@@ -206,6 +207,9 @@ def import_vnmrj(path, fidFilename="fid", paramFilename="procpar"):
         sldata: data in sldata object
     """
 
+    verbose_print(verbose, "VNMRJ path:", path)
+    verbose_print(verbose, "VNMRJ FID file:", fidFilename)
+    verbose_print(verbose, "VNMRJ procpar file:", paramFilename)
     attrs = import_procpar(path, paramFilename)
 
     nmr_frequency = attrs["H1reffrq"] * 1.0e6
@@ -233,4 +237,6 @@ def import_vnmrj(path, fidFilename="fid", paramFilename="procpar"):
     # Assign data/spectrum type
     attrs["experiment_type"] = "nmr_spectrum"
 
-    return SpinData(data, dims, coords, attrs)
+    out = SpinData(data, dims, coords, attrs)
+    verbose_data_summary(verbose, "VNMRJ", out)
+    return out

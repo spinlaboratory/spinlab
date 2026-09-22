@@ -6,10 +6,10 @@ from datetime import datetime
 
 import numpy as _np
 
-from ..core.data import SpinData
+from ...core.data import SpinData
 
 
-def load_speclog(filename, delimiter=",", encoding="utf-8-sig"):
+def load_speclog(filename, delimiter=",", encoding="utf-8-sig", verbose=False):
     """Load a SpecLog CSV file as a two-dimensional :class:`SpinData`.
 
     SpecLog files contain ``Date`` and ``Time`` columns followed by one or
@@ -24,6 +24,7 @@ def load_speclog(filename, delimiter=",", encoding="utf-8-sig"):
         delimiter (str): CSV field delimiter. Defaults to ``,``.
         encoding (str): Text encoding. Defaults to ``utf-8-sig`` so files
             with or without a UTF-8 byte-order mark are accepted.
+        verbose (bool): Accepted for compatibility with the common loader.
 
     Returns:
         SpinData: Numeric log values with shape ``(n_times, n_channels)``.

@@ -2,8 +2,9 @@ import os
 import re
 import numpy as _np
 from matplotlib.pylab import *
-from ..core.util import concat
-from .. import SpinData
+from ...core.util import concat
+from ... import SpinData
+from .._verbose import verbose_data_summary, verbose_print
 
 try:
     import skrf as _rf
@@ -12,10 +13,12 @@ except:
     pass
 
 
-def import_vna(path, *args, **kwargs):
+def import_vna(path, *args, verbose=False, **kwargs):
     """Import VNA data and return sldata object"""
+    verbose_print(verbose, "VNA file:", path)
     x, values, attrs, dim = import_snp(path, *args, **kwargs)
     slDataObject = get_sldata(values, x, attrs, dim)
+    verbose_data_summary(verbose, "VNA", slDataObject)
     return slDataObject
 
 

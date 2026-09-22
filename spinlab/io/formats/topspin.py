@@ -2,7 +2,8 @@ import numpy as _np
 import re
 from warnings import warn
 
-from .. import SpinData
+from ... import SpinData
+from .._verbose import verbose_data_summary
 
 import os
 
@@ -343,6 +344,7 @@ def import_topspin(
                 + "not found, ppm value conversion will happen with nmr_frequency"
             )
 
+    verbose_data_summary(verbose, "TopSpin", topspin_data)
     return topspin_data
 
 
@@ -398,6 +400,7 @@ def load_pdata(path, verbose=False):
     data.attrs["phase_0"] = phase_0
     data.attrs["phase_1"] = phase_1
 
+    verbose_data_summary(verbose, "TopSpin pdata", data)
     return data
 
 
@@ -545,7 +548,7 @@ def load_topspin_jcamp_dx(path, verbose=False):
 
                 # Test for array
                 if value[0] == "(":
-                    x = re.findall("\\([0-9]+\.\.[0-9]+\)", value)
+                    x = re.findall(r"\([0-9]+\.\.[0-9]+\)", value)
 
                     start, end = tuple(x[0][1:-1].split("..", 1))
 

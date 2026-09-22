@@ -1,8 +1,9 @@
 import numpy as _np
 from scipy.io import loadmat
+from .._verbose import verbose_print
 
 
-def import_power(path, filename=""):
+def import_power(path, filename="", verbose=False):
     """import powers file
 
     Args:
@@ -14,6 +15,7 @@ def import_power(path, filename=""):
         p (numpy.ndarray): Array of powers
     """
     fullPath = path + filename
+    verbose_print(verbose, "Power file:", fullPath)
 
     if fullPath[-4:] == ".mat":
         rawDict = loadmat(fullPath)
@@ -26,9 +28,10 @@ def import_power(path, filename=""):
         p = raw[:, 1].reshape(-1)
 
     else:
-        print("Could not identify power data type")
+        verbose_print(verbose, "Could not identify power data type")
         return
 
+    verbose_print(verbose, "Power points:", len(t))
     return t, p
 
 

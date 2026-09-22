@@ -1,7 +1,8 @@
 import numpy as _np
 import os
-from .. import SpinData
+from ... import SpinData
 import warnings
+from .._verbose import verbose_data_summary, verbose_print
 
 __all__ = ["import_winepr", "load_par", "load_spc"]
 
@@ -54,7 +55,7 @@ int_params = [
 ]
 
 
-def import_winepr(path):
+def import_winepr(path, verbose=False):
     """Import Bruker par/spc data and return SpinData object
 
     Args:
@@ -64,7 +65,7 @@ def import_winepr(path):
         parspc_data (object) : SpinData object containing Bruker par/spc data
     """
 
-    pathexten = os.path.splitext(path)[1]
+    pathexten = os.path.splitext(path)[1].lower()
     path = os.path.splitext(path)[0]
     if pathexten == ".par" or pathexten == ".spc":
         path_par = path + ".par"
@@ -73,6 +74,8 @@ def import_winepr(path):
     else:
         raise TypeError("data file must be .spc or .par")
 
+    verbose_print(verbose, "WinePR PAR file:", path_par)
+    verbose_print(verbose, "WinePR SPC file:", path_spc)
     attrs = load_par(path_par)
     values, dims, coords, attrs = load_spc(path_spc, attrs)
 
@@ -80,6 +83,7 @@ def import_winepr(path):
     attrs["experiment_type"] = "epr_spectrum"
 
     parspc_data = SpinData(values, dims, coords, attrs)
+    verbose_data_summary(verbose, "WinePR", parspc_data)
 
     return parspc_data
 

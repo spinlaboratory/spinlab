@@ -2,11 +2,12 @@
 
 import numpy as _np
 import os
-from .. import SpinData
+from ... import SpinData
 import warnings
+from .._verbose import verbose_data_summary, verbose_print
 
 
-def import_bes3t(path):
+def import_bes3t(path, verbose=False):
     """
     Import Bruker BES3T data and return sldata object
 
@@ -17,12 +18,12 @@ def import_bes3t(path):
         bes3t_data (object) : SpinData object containing Bruker BES3T data
     """
 
-    pathexten = os.path.splitext(path)[1]
+    pathexten = os.path.splitext(path)[1].lower()
     path = os.path.splitext(path)[0]
     path_xgf = "none"
     path_ygf = "none"
     path_zgf = "none"
-    if pathexten == ".DSC" or pathexten == ".DTA":
+    if pathexten == ".dsc" or pathexten == ".dta":
         path_dsc = path + ".DSC"
         path_dta = path + ".DTA"
         if os.path.isfile(path + ".XGF"):
@@ -32,7 +33,7 @@ def import_bes3t(path):
         if os.path.isfile(path + ".ZGF"):
             path_zgf = path + ".ZGF"
 
-    elif pathexten == ".XGF":
+    elif pathexten == ".xgf":
         path_xgf = path + ".XGF"
         path_dsc = path + ".DSC"
         path_dta = path + ".DTA"
@@ -41,7 +42,7 @@ def import_bes3t(path):
         if os.path.isfile(path + ".ZGF"):
             path_zgf = path + ".ZGF"
 
-    elif pathexten == ".YGF":
+    elif pathexten == ".ygf":
         path_ygf = path + ".YGF"
         path_dsc = path + ".DSC"
         path_dta = path + ".DTA"
@@ -50,7 +51,7 @@ def import_bes3t(path):
         if os.path.isfile(path + ".ZGF"):
             path_zgf = path + ".ZGF"
 
-    elif pathexten == ".ZGF":
+    elif pathexten == ".zgf":
         path_zgf = path + ".ZGF"
         path_dsc = path + ".DSC"
         path_dta = path + ".DTA"
@@ -62,6 +63,12 @@ def import_bes3t(path):
     else:
         raise TypeError("data file must be .DTA, .DSC, .YGF, or .ZGF")
 
+    verbose_print(verbose, "BES3T DSC file:", path_dsc)
+    verbose_print(verbose, "BES3T DTA file:", path_dta)
+    for axis_file in [path_xgf, path_ygf, path_zgf]:
+        if axis_file != "none":
+            verbose_print(verbose, "BES3T axis file:", axis_file)
+
     attrs = load_dsc(path_dsc)
 
     values, dims, coords, attrs = load_dta(
@@ -72,6 +79,7 @@ def import_bes3t(path):
     attrs["nrScans"] = attrs["nscans"] if "nscans" in attrs.keys() else 1
 
     bes3t_data = SpinData(values, dims, coords, attrs)
+    verbose_data_summary(verbose, "BES3T", bes3t_data)
 
     return bes3t_data
 

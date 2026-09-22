@@ -94,14 +94,22 @@ class ABCData(object):
     def __init__(
         self,
         values=_np.r_[[]],
-        dims=[],
-        coords=[],
-        attrs={},
-        sl_attrs={},
+        dims=None,
+        coords=None,
+        attrs=None,
+        sl_attrs=None,
         error=None,
         **kwargs,
     ):
         self.version = version
+        if dims is None:
+            dims = []
+        if coords is None:
+            coords = []
+        if attrs is None:
+            attrs = {}
+        if sl_attrs is None:
+            sl_attrs = {}
 
         # if values is list, convert to numpy array
         if isinstance(values, list):
@@ -122,9 +130,7 @@ class ABCData(object):
         else:
             raise TypeError('attrs must be type "dict" not %s' % str(type(attrs)))
 
-        if isinstance(sl_attrs, dict):
-            self._attrs = attrs
-        else:
+        if not isinstance(sl_attrs, dict):
             raise TypeError('sl_attrs must be type "dict" not %s' % str(type(sl_attrs)))
 
         if isinstance(error, _np.ndarray) or (error == None):

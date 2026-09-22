@@ -24,7 +24,7 @@ class SpecLogImportTester(unittest.TestCase):
             "2025-01-17, 00:00:42, +03.224, \n"
         )
 
-        data = sl.io.speclog.load_speclog(path)
+        data = sl.io.formats.speclog.load_speclog(path)
 
         self.assertEqual(data.dims, ["time", "channel"])
         self.assertEqual(data.values.shape, (2, 2))
@@ -242,7 +242,7 @@ class SpecLogImportTester(unittest.TestCase):
         path = self._write("Date, Time, temperature\n2025-01-17, 00:00:12\n")
 
         with self.assertRaisesRegex(ValueError, "row 2 has 2 columns; expected 3"):
-            sl.io.speclog.load_speclog(path)
+            sl.io.formats.speclog.load_speclog(path)
 
 
 if __name__ == "__main__":
