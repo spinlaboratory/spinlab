@@ -11,7 +11,7 @@ from .complex_data import _create_complexEXT, _create_complexINT, create_complex
 from .enhancement import calculate_enhancement
 from .modulation import pseudo_modulation
 from .normalization import normalize
-from .smoothing import smooth
+from .filters import smooth
 from .snr import signal_to_noise
 from .._utils import (
     as_1d_array,

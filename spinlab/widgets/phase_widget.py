@@ -18,6 +18,9 @@ def phase_widget(data, dim="f2"):
 
     """
 
+    if dim not in data.dims:
+        raise ValueError(f"dim {dim} not in data.dims ({data.dims})")
+
     fig, ax = plt.subplots()
 
     plt.title("Manual Phase")
@@ -30,8 +33,8 @@ def phase_widget(data, dim="f2"):
     values = values.reshape(size, -1)
     values = values[:, 0].reshape(-1, 1)
 
-    l0 = plt.plot(coord, values, alpha=0.5)
-    l = plt.plot(coord, values)
+    l0 = plt.plot(coord, values.real, alpha=0.5)
+    l = plt.plot(coord, values.real)
     ax.margins(x=0)
 
     axcolor = "lightgoldenrodyellow"
@@ -103,11 +106,25 @@ def phase_widget(data, dim="f2"):
     minus_90_button.on_clicked(minus_90_phase)
     rescale_yaxis_button.on_clicked(rescale)
 
+    fig._widgets = {
+        "phase": sphase,
+        "phase1": sphase1,
+        "reset": reset_button,
+        "plus_90": plus_90_button,
+        "minus_90": minus_90_button,
+        "rescale": rescale_yaxis_button,
+    }
+
     plt.show()
     manual_phase = sphase.val
     manual_phase1 = sphase1.val
 
-    data *= _np.exp(-1j * _const.pi * manual_phase / 180.0)
+    phase_axis = _np.exp(-1j * _const.pi * manual_phase1 * coord / 180.0)
+    phase_shape = [1 for _ in data.shape]
+    phase_shape[data.index(dim)] = coord.size
+    data *= _np.exp(-1j * _const.pi * manual_phase / 180.0) * phase_axis.reshape(
+        phase_shape
+    )
 
     proc_attr_name = "manualphase"
     proc_parameters = {"phase": manual_phase, "phase1": manual_phase1}
