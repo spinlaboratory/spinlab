@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IO &mdash; SpinLab 1.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=20b96e13"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Math" href="math.html" />
+    <link rel="prev" title="Fitting" href="fitting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sl_examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fitting.html">Fitting</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-spinlab.io.load">Load &amp; Save</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.load.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spinlab.io.save.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bruker">Bruker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jeol">JEOL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#varian-agilent">Varian / Agilent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#magritek">Magritek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#femi">FeMi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tecmag">Tecmag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rs2d">RS2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="math.html">Math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html">Processing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">IO</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/io.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="io">
+<span id="api-io"></span><h1>IO<a class="headerlink" href="#io" title="Link to this heading"></a></h1>
+<section id="module-spinlab.io.load">
+<span id="load-save"></span><h2>Load &amp; Save<a class="headerlink" href="#module-spinlab.io.load" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="spinlab.io.load.load">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.load.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.load.load" title="Link to this definition"></a></dt>
+<dd><p>Import data from a file, directory, or list of paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>PathLike</em><em>, </em><em>list</em>) -- Path to data or list of paths to concatenate.</p></li>
+<li><p><strong>data_format</strong> (<em>str</em>) -- Format to import. If omitted, the format is detected
+from the path. Allowed values include <code class="docutils literal notranslate"><span class="pre">prospa</span></code>, <code class="docutils literal notranslate"><span class="pre">topspin</span></code>,
+<code class="docutils literal notranslate"><span class="pre">delta</span></code>, <code class="docutils literal notranslate"><span class="pre">vnmrj</span></code>, <code class="docutils literal notranslate"><span class="pre">tnmr</span></code>, <code class="docutils literal notranslate"><span class="pre">specman</span></code>, <code class="docutils literal notranslate"><span class="pre">xenon</span></code>, <code class="docutils literal notranslate"><span class="pre">xepr</span></code>,
+<code class="docutils literal notranslate"><span class="pre">winepr</span></code>, <code class="docutils literal notranslate"><span class="pre">esp</span></code>, <code class="docutils literal notranslate"><span class="pre">h5</span></code>, <code class="docutils literal notranslate"><span class="pre">mat</span></code>, <code class="docutils literal notranslate"><span class="pre">power</span></code>, <code class="docutils literal notranslate"><span class="pre">vna</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cnsi_powers</span></code>, <code class="docutils literal notranslate"><span class="pre">speclog</span></code>, and <code class="docutils literal notranslate"><span class="pre">rs2d</span></code>.</p></li>
+<li><p><strong>dim</strong> (<em>str</em>) -- Name of the concatenation dimension when <code class="docutils literal notranslate"><span class="pre">path</span></code> is a list.</p></li>
+<li><p><strong>coord</strong> (<em>array-like</em>) -- Coordinates for the concatenation dimension.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- If True, print debugging output.</p></li>
+<li><p><strong>*args</strong> -- Additional positional arguments passed to the format-specific
+import function.</p></li>
+<li><p><strong>**kwargs</strong> -- Additional keyword arguments passed to the format-specific
+import function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded data object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData">SpinData</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"path/to/file"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s2">"1/data.1d"</span><span class="p">,</span> <span class="s2">"2/data.1d"</span><span class="p">,</span> <span class="s2">"3/data.1d"</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">dim</span><span class="o">=</span><span class="s2">"t1"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">coord</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-spinlab.io.save">
+<dt class="sig sig-object py" id="spinlab.io.save.save">
+<span class="sig-prename descclassname"><span class="pre">spinlab.io.save.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spinlab.io.save.save" title="Link to this definition"></a></dt>
+<dd><p>Save SpinLab data to a supported file format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_object</strong> (<a class="reference internal" href="core.html#spinlab.core.data.SpinData" title="spinlab.core.data.SpinData"><em>SpinData</em></a><em> or </em><em>dict</em>) -- Data object or workspace dictionary to save.</p></li>
+<li><p><strong>filename</strong> (<em>str</em><em>, </em><em>PathLike</em>) -- Output path.</p></li>
+<li><p><strong>save_type</strong> (<em>str</em>) -- Save format. If omitted, the format is detected from
+the filename extension. Allowed values are <code class="docutils literal notranslate"><span class="pre">h5</span></code> and <code class="docutils literal notranslate"><span class="pre">mat</span></code>.</p></li>
+<li><p><strong>*args</strong> -- Additional positional arguments passed to the format-specific
+save function.</p></li>
+<li><p><strong>**kwargs</strong> -- Additional keyword arguments passed to the format-specific
+save function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"data.h5"</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"data.mat"</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="bruker">
+<h2>Bruker<a class="headerlink" href="#bruker" title="Link to this heading"></a></h2>
+</section>
+<section id="jeol">
+<h2>JEOL<a class="headerlink" href="#jeol" title="Link to this heading"></a></h2>
+</section>
+<section id="varian-agilent">
+<h2>Varian / Agilent<a class="headerlink" href="#varian-agilent" title="Link to this heading"></a></h2>
+</section>
+<section id="magritek">
+<h2>Magritek<a class="headerlink" href="#magritek" title="Link to this heading"></a></h2>
+</section>
+<section id="femi">
+<h2>FeMi<a class="headerlink" href="#femi" title="Link to this heading"></a></h2>
+</section>
+<section id="tecmag">
+<h2>Tecmag<a class="headerlink" href="#tecmag" title="Link to this heading"></a></h2>
+</section>
+<section id="rs2d">
+<h2>RS2D<a class="headerlink" href="#rs2d" title="Link to this heading"></a></h2>
+</section>
+<section id="other">
+<h2>Other<a class="headerlink" href="#other" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fitting.html" class="btn btn-neutral float-left" title="Fitting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="math.html" class="btn btn-neutral float-right" title="Math" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

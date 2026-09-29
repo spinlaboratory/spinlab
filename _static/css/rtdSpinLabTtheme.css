@@ -1,0 +1,74 @@
+/* Bruker Color Scheme */
+:root {
+    --primary1:              #0071BC;       /* Bruker Ice */
+    --primary2:              #054169;       /* Bruker Pacific */
+    --primary3:              #0071BC;       /* Bruker Ocean */
+    --primary4:              #E5F1F8;       /* Bruker Glacier */
+
+    --secondary1:            #A0A0A0;       /* Bruker Dolomite */
+    --secondary2:            #313331;       /* Bruker Obsidian */
+    --secondary3:            #737373;       /* Bruker Granite */
+    --secondary4:            #DCDCDC;       /* Bruker Limestone */
+
+    --accent:                #FF9300;       /* Bruker Orange */
+
+    --red:                   #FF0011;       /* Red */
+    --green:                 #AFC800;       /* Green */
+}
+
+
+/* General Settings */
+a{color: var(--primary2); font-weight: bold;}
+a:visited{color: var(--primary1);}
+a:hover{color: var(--accent);}
+a:active{color: var(--accent);}
+
+
+/* Side Panel  */
+.wy-side-nav-search{background-color: var(--secondary1);}
+.wy-side-nav-search a{color: white;}
+
+.wy-nav-top{background: var(--primary2);}
+.wy-nav-side{background:var(--secondary1);}
+
+.wy-menu-vertical p.caption {
+    color:          var(--secondary2);
+    font-weight:    bold;
+    /* font-size:      1.1em; */
+}
+.wy-menu-vertical a{color: white;}
+.wy-menu-vertical  a:active{background: var(--accent);}
+
+
+/* Note and warning top and backround */
+.rst-content .note .admonition-title{background: var(--primary2);}
+.rst-content .note {background: var(--secondary4);}
+.rst-content .warning .admonition-title{background: var(--accent);}
+.rst-content .warning{background: var(--secondary4);}
+
+
+/* Background for code snippets */
+.highlight{background: var(--secondary4);}
+
+
+/* Border and background for functions */
+.rst-content dl:not(.docutils) dt{
+    /* border-top-color: var(--accent); */
+    background-color: var(--primary4);
+    color: var(--primary2);
+}
+
+
+/* override table width restrictions */
+@media screen and (min-width: 767px) {
+
+    .wy-table-responsive table td {
+       /* !important prevents the common CSS stylesheets from overriding
+          this as on RTD they are loaded after this stylesheet */
+       white-space: normal !important;
+    }
+ 
+    .wy-table-responsive {
+       overflow: visible !important;
+    }
+ }

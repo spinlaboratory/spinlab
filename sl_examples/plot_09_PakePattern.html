@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pake Pattern Simulation (#9) &mdash; SpinLab 1.1.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtdSpinLabTtheme.css?v=e05decb3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=20b96e13"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js/external_links.js?v=8b5f9ded"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Lineshapes (#10)" href="plot_10_Lineshapes.html" />
+    <link rel="prev" title="Three-Pulse ESEEM (#8)" href="plot_08_3PE.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SpinLab
+              <img src="../_static/SpinLabLogo_300x224.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/gettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/spindata_object.html">The SpinData Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/loading_data.html">Loading Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/processing.html">Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/attributes.html">Attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/indexing.html">Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/plotting.html">Plotting Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials and Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_01_EDFS.html">EDFS Spectrum (#1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_06_ETPC.html">Echo Transient with Phase Cycle(#6)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_07_2PE.html">Two-Pulse ESEEM (#7)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_08_3PE.html">Three-Pulse ESEEM (#8)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pake Pattern Simulation (#9)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#distance-dependence">Distance dependence</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plot_10_Lineshapes.html">Lineshapes (#10)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Sample Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../sampleData.html">Sample Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../people.html">People</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SpinLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Examples</a></li>
+      <li class="breadcrumb-item active">Pake Pattern Simulation (#9)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sl_examples/plot_09_PakePattern.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-sl-examples-plot-09-pakepattern-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="pake-pattern-simulation-9">
+<span id="pakepattern-example"></span><span id="sphx-glr-sl-examples-plot-09-pakepattern-py"></span><h1>Pake Pattern Simulation (#9)<a class="headerlink" href="#pake-pattern-simulation-9" title="Link to this heading"></a></h1>
+<p>This example demonstrates how to simulate a Pake pattern for a dipolar-coupled
+electron spin pair using the SpinLab theory module.
+The Pake pattern is the powder-averaged dipolar spectrum observed in DEER/PELDOR
+experiments. The two characteristic features are the horns at <span class="math notranslate nohighlight">\(\pm\nu_{dd}\)</span>
+and the shoulders at <span class="math notranslate nohighlight">\(\pm 2\nu_{dd}\)</span>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spinlab</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spinlab.plotting.colors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BrukerPacific</span><span class="p">,</span>
+    <span class="n">BrukerOcean</span><span class="p">,</span>
+    <span class="n">BrukerIce</span><span class="p">,</span>
+    <span class="n">BrukerOrange</span><span class="p">,</span>
+    <span class="n">BrukerDolomite</span><span class="p">,</span>
+    <span class="n">BrukerGranite</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Define the inter-spin distance and calculate the dipolar coupling frequency.
+The function uses the DEER convention:</p>
+<div class="math notranslate nohighlight">
+\[\nu_{dd} = \frac{\mu_0}{4\pi} \frac{g_1 g_2 \mu_B^2}{h r^3}\]</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="mf">2e-9</span>  <span class="c1"># inter-spin distance in meters (2 nm)</span>
+<span class="n">nu_dd</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">distance_to_dipolar_coupling</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"MHz"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dipolar coupling: </span><span class="si">{</span><span class="n">nu_dd</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> MHz"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Dipolar coupling: 6.505 MHz
+</pre></div>
+</div>
+<p>Set up the frequency axis and the powder-averaging orientations using
+Gauss-Legendre quadrature on the unit sphere.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">40e6</span><span class="p">,</span> <span class="mf">40e6</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>  <span class="c1"># frequency axis in Hz — wide enough for all distances</span>
+<span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">sphere_quadrature</span><span class="p">(</span><span class="n">n_theta</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">n_phi</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simulate the Pake pattern. A Lorentzian linewidth of 0.8 MHz is applied
+via an exponential decay in the time domain before Fourier transformation.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">linewidth</span> <span class="o">=</span> <span class="mf">0.8e6</span>  <span class="c1"># Hz</span>
+<span class="n">spectrum</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">pake_pattern</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">nu_dd</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">linewidth</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot the result. The horns of the Pake pattern appear at
+<span class="math notranslate nohighlight">\(\pm\nu_{dd}\)</span> and the shoulders at <span class="math notranslate nohighlight">\(\pm 2\nu_{dd}\)</span>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">freq_MHz</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">/</span> <span class="mf">1e6</span>
+<span class="n">spectrum</span> <span class="o">=</span> <span class="n">spectrum</span> <span class="o">-</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>  <span class="c1"># baseline to zero</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq_MHz</span><span class="p">,</span> <span class="n">spectrum</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BrukerPacific</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">nu_dd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BrukerOrange</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">"$\pm\nu_</span><span class="si">{dd}</span><span class="s2">$"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="n">nu_dd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BrukerOrange</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nu_dd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BrukerDolomite</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">"$\pm 2\nu_</span><span class="si">{dd}</span><span class="s2">$"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nu_dd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BrukerDolomite</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Frequency (MHz)"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Intensity (arb. u.)"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pake Pattern, r = </span><span class="si">{</span><span class="n">r</span><span class="o">*</span><span class="mf">1e9</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> nm, $</span><span class="se">\\</span><span class="s2">nu_</span><span class="se">{{</span><span class="s2">dd</span><span class="se">}}</span><span class="s2">$ = </span><span class="si">{</span><span class="n">nu_dd</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MHz"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_plot_09_PakePattern_001.png" srcset="../_images/sphx_glr_plot_09_PakePattern_001.png" alt="Pake Pattern, r = 2 nm, $\nu_{dd}$ = 6.51 MHz" class = "sphx-glr-single-img"/><section id="distance-dependence">
+<h2>Distance dependence<a class="headerlink" href="#distance-dependence" title="Link to this heading"></a></h2>
+<p>The dipolar coupling scales as <span class="math notranslate nohighlight">\(r^{-3}\)</span>. The following plot shows
+Pake patterns for a range of inter-spin distances.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">distances_nm</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">BrukerPacific</span><span class="p">,</span> <span class="n">BrukerOcean</span><span class="p">,</span> <span class="n">BrukerIce</span><span class="p">,</span> <span class="n">BrukerOrange</span><span class="p">]</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">r_nm</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">distances_nm</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="n">nu</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">distance_to_dipolar_coupling</span><span class="p">(</span><span class="n">r_nm</span> <span class="o">*</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"MHz"</span><span class="p">)</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">sl</span><span class="o">.</span><span class="n">pake_pattern</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">nu</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">linewidth</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span> <span class="o">-</span> <span class="n">spec</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>  <span class="c1"># baseline to zero</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span> <span class="o">/</span> <span class="n">spec</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>  <span class="c1"># normalize peak to 1</span>
+    <span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq_MHz</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"r = </span><span class="si">{</span><span class="n">r_nm</span><span class="si">}</span><span class="s2"> nm"</span><span class="p">)</span>
+
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Frequency (MHz)"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Normalized Intensity"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Pake Patterns for Different Inter-Spin Distances"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">)</span>
+<span class="n">sl</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_plot_09_PakePattern_002.png" srcset="../_images/sphx_glr_plot_09_PakePattern_002.png" alt="Pake Patterns for Different Inter-Spin Distances" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.656 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-sl-examples-plot-09-pakepattern-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/b76b67eccbf03cc2f7d0a01c6c97d472/plot_09_PakePattern.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_09_PakePattern.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/635f88165a55ff0df113b75389e0f969/plot_09_PakePattern.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_09_PakePattern.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/30d2435448397c3f3f8b7c2acb22fb66/plot_09_PakePattern.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_09_PakePattern.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="plot_08_3PE.html" class="btn btn-neutral float-left" title="Three-Pulse ESEEM (#8)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plot_10_Lineshapes.html" class="btn btn-neutral float-right" title="Lineshapes (#10)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SpinLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
