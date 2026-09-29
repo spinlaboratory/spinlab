@@ -2,6 +2,7 @@ import pytest
 import operator
 import unittest
 from numpy.testing import assert_array_equal
+import spinlab as sl
 from spinlab.core.base import ABCData
 from spinlab.core.coord import Coords
 import numpy as np
@@ -76,6 +77,17 @@ def test_ABCData_core_math_div_by_zero():
         ABCData(
             values=np.array([1, 2, 3]), coords=[np.array([3, 2, 1])], dims=["x"]
         ) / 0
+
+
+def test_SpinData_default_attrs_are_independent():
+    first = sl.SpinData(np.arange(3))
+    second = sl.SpinData(np.arange(3))
+
+    first.attrs["source"] = "first"
+    first.spinlab_attrs["data_type"] = "NMR"
+
+    assert second.attrs == {}
+    assert second.spinlab_attrs == {}
 
 
 class spinlab_ABCData_core_tester(unittest.TestCase):
