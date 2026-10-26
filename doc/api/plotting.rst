@@ -19,3 +19,7 @@ Plotting
 .. automodule:: spinlab.plotting.colors
    :members:
    :show-inheritance:
+
+.. automodule:: spinlab.plotting.slice_viewer
+   :members:
+   :show-inheritance:
