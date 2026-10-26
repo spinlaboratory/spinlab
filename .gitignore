@@ -72,6 +72,10 @@ _build/
 .doctrees
 .DS_Store
 
+# Sphinx-Gallery generated output (rebuilt by CI on every push)
+doc/sl_examples/
+doc/sg_execution_times.rst
+
 # OSX and Windows related
 .DS_Store
 Icon?
