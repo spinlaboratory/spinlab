@@ -112,3 +112,34 @@ If no experiment type is specified, SpinLab has a generic plotting function to p
     >>> data = sl.load("Path to my data set")
     >>> sl.plot(data)
 
+
+Interactive Slice Viewer
+========================
+
+``sl.slice_viewer()`` is an interactive matplotlib widget for browsing 2D datasets
+one slice at a time. A slider at the bottom of the figure lets you scroll through
+all slices along one dimension while the other dimension is shown on the x-axis.
+
+.. code-block:: python
+
+    import spinlab as sl
+
+    data = sl.load("path/to/2d_data")
+
+    # Scroll through the first dimension (default)
+    sl.slice_viewer(data)
+
+    # Scroll through a specific dimension
+    sl.slice_viewer(data, scroll_dim="Power")
+
+For complex data, the real part is shown in blue and the imaginary part in grey.
+The figure title updates to show the coordinate value of the currently displayed
+slice.
+
+.. note::
+   ``slice_viewer`` requires a 2D ``SpinData`` object. It calls ``plt.show()``
+   internally, so it is best used in an interactive Python session or Jupyter
+   notebook.
+
+See also :ref:`api-plotting` for the full API reference.
+

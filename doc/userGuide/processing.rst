@@ -203,28 +203,161 @@ SpinLab provides unit conversion utilities in the ``sl.processing.conversion`` m
     power_W = sl.dBm2w(power_dBm)
 
 
-Helpers
-=======
+Axis Manipulation
+=================
 
-Several utility functions assist with common data preparation tasks.
-
-Create a complex dataset from separate real and imaginary arrays:
+``sl.left_shift()`` removes points from the beginning of a time-domain signal.
+This is used to discard dead-time artefacts at the start of a pulse EPR or NMR
+acquisition.
 
 .. code-block:: python
 
-    data_complex = sl.create_complex(data, real=real_data, imag=imag_data)
+    # Remove the first 8 points from the t2 dimension
+    data = sl.left_shift(data, dim="t2", shift_points=8)
 
-    # Or from two slices along a dimension (e.g. "channel")
+``sl.reference()`` shifts the frequency axis of an NMR spectrum so that a known
+peak lands at the correct chemical shift value (e.g. TMS at 0 ppm, or CDCl₃ at
+7.26 ppm).
+
+.. code-block:: python
+
+    # Move the CHCl3 solvent peak from its measured position to 7.26 ppm
+    data = sl.reference(data, dim="f2", old_ref=7.31, new_ref=7.26)
+
+    # Reference TMS to 0 ppm
+    data = sl.reference(data, dim="f2", old_ref=0.05, new_ref=0.0)
+
+
+Normalization
+=============
+
+``sl.normalize()`` scales a spectrum so that its maximum absolute amplitude (or
+area) equals 1, while preserving the sign of the original data.
+
+.. code-block:: python
+
+    # Normalize to the global maximum
+    data = sl.normalize(data)
+
+    # Normalize to the maximum within a specific spectral region
+    data = sl.normalize(data, dim="f2", regions=(-5, 5))
+
+    # Normalize to area instead of amplitude
+    data = sl.normalize(data, amplitude=False)
+
+
+Smoothing
+=========
+
+``sl.smooth()`` applies a Savitzky-Golay filter to reduce noise while preserving
+peak shapes. The filter fits a low-order polynomial through a sliding window of
+data points.
+
+.. code-block:: python
+
+    # Default: window of 11 points, 3rd-order polynomial
+    data = sl.smooth(data)
+
+    # Stronger smoothing
+    data = sl.smooth(data, dim="B0", window_length=21, polyorder=3)
+
+.. note::
+   ``window_length`` must be odd and greater than ``polyorder``.
+
+
+Pseudo-Modulation
+=================
+
+``sl.pseudo_modulation()`` numerically converts a continuous-wave (CW) EPR
+absorption spectrum into its field-modulated derivative, based on the convolution
+method described by Hyde et al. (*Applied Magnetic Resonance*, 1, 1990).
+
+This avoids re-measuring with physical modulation and allows flexible
+post-acquisition harmonic selection.
+
+.. code-block:: python
+
+    # 1st derivative (standard CW EPR presentation), field axis in Tesla
+    data_mod = sl.pseudo_modulation(data, modulation_amplitude=0.001)
+
+    # 2nd harmonic derivative
+    data_mod = sl.pseudo_modulation(data, modulation_amplitude=0.001, order=2)
+
+    # Specify the field dimension explicitly
+    data_mod = sl.pseudo_modulation(data, modulation_amplitude=0.001, dim="B0")
+
+.. note::
+   The unit of ``modulation_amplitude`` must match the unit of the field axis
+   (e.g. T if the axis is in Tesla, mT if in millitesla).
+
+
+Enhancement Calculation
+=======================
+
+``sl.calculate_enhancement()`` computes signal enhancements from a power series.
+It expects a ``SpinData`` object whose ``experiment_type`` attribute is
+``"integrals"`` (i.e. the output of ``sl.integrate()`` applied to an Overhauser
+DNP or ELDOR dataset).
+
+.. code-block:: python
+
+    # Full DNP enhancement workflow
+    data     = sl.load("path/to/dnp_data")
+    spectrum = sl.fourier_transform(data)
+    integrals = sl.integrate(spectrum, dim="f2", regions=[(-5, 5)])
+    enhancements = sl.calculate_enhancement(integrals)
+
+    sl.fancy_plot(enhancements)
+
+
+Complex Data
+============
+
+``sl.create_complex()`` combines separate real and imaginary arrays into a single
+complex ``SpinData`` object. Two calling styles are supported.
+
+**From explicit arrays** — pass the real and imaginary numpy arrays directly:
+
+.. code-block:: python
+
+    data_complex = sl.create_complex(data,
+                                     real=data.values[..., 0],
+                                     imag=data.values[..., 1])
+
+**From a dimension** — when a dataset stores real and imaginary parts as two
+slices along a named dimension (e.g. ``"channel"``), pass the dimension name:
+
+.. code-block:: python
+
+    # Combine channel index 0 (real) and index 1 (imag) into a complex dataset
     data_complex = sl.create_complex(data, real="channel",
                                      real_index=0, imag_index=1)
 
-Signal-to-noise ratio calculation:
+The source dimension is collapsed and removed from the output object.
+
+
+Signal-to-Noise Ratio
+=====================
+
+``sl.signal_to_noise()`` estimates the SNR of a spectrum by comparing the peak
+amplitude in a signal region to the standard deviation of the noise in one or more
+baseline regions.
 
 .. code-block:: python
 
+    # Signal near 0 ppm, noise in the wings
     snr = sl.signal_to_noise(data,
                               signal_region=(-1.0, 1.0),
                               noise_region=[(-400, -200), (200, 400)])
+
+    # With automatic background removal before noise estimation
+    snr = sl.signal_to_noise(data,
+                              signal_region=(-1.0, 1.0),
+                              noise_region=[(200, 400)],
+                              remove_background=[(200, 400)])
+
+The return value is a ``SpinData`` object whose ``"signal_region"`` dimension
+holds one SNR value per input spectrum (useful for 2D datasets).
 
 
 Inspecting the Processing Log

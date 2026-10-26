@@ -48,3 +48,31 @@ Filters
 .. automodule:: spinlab.processing.filters
    :members:
    :show-inheritance:
+
+.. automodule:: spinlab.processing.axis
+   :members:
+   :show-inheritance:
+
+.. automodule:: spinlab.processing.complex_data
+   :members:
+   :show-inheritance:
+
+.. automodule:: spinlab.processing.enhancement
+   :members:
+   :show-inheritance:
+
+.. automodule:: spinlab.processing.modulation
+   :members:
+   :show-inheritance:
+
+.. automodule:: spinlab.processing.normalization
+   :members:
+   :show-inheritance:
+
+.. automodule:: spinlab.processing.smoothing
+   :members:
+   :show-inheritance:
+
+.. automodule:: spinlab.processing.snr
+   :members:
+   :show-inheritance:
