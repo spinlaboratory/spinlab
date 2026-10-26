@@ -1,0 +1,145 @@
+{
+ "data": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData"
+  }
+ ],
+ "data.dims": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.dims"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.dims"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.dims"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.dims"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.dims"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.dims"
+  }
+ ],
+ "data.shape": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.data",
+   "module_short": "spinlab",
+   "name": "SpinData.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab",
+   "name": "SpinData.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "SpinData.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core.base",
+   "module_short": "spinlab.core.base",
+   "name": "ABCData.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab.core",
+   "module_short": "spinlab.core",
+   "name": "ABCData.shape"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "ABCData.shape"
+  }
+ ],
+ "sl.load": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "load"
+  }
+ ],
+ "sl.slice_viewer": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "spinlab",
+   "module_short": "spinlab",
+   "name": "slice_viewer"
+  }
+ ]
+}
